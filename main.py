@@ -38,9 +38,9 @@ def create_enemies(num_enemies, player_x, player_y):
                               hp=random.randint(30, 60),
                               mp=random.randint(5, 20),
                               atk=random.randint(10, 20),
-                              defense=random.randint(5, 15),
+                              dfn=random.randint(5, 15),
                               spd=random.randint(5, 15),
-                              inventory=[],
+                              inventory={},
                               sprite_paths={
                                   "Walk": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Walk.png",
                                   "Idle": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Idle.png",
@@ -69,9 +69,9 @@ player = Character(name="Hero",
                    hp=100,
                    mp=50,
                    atk=30,
-                   defense=20,
+                   dfn=20,
                    spd=30,
-                   inventory=[], 
+                   inventory={"Potion": 2, "Mana Crystal": 3}, 
                    sprite_paths={
     "Walk": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Walk.png",
     "Idle": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Idle.png",
@@ -113,7 +113,7 @@ while running:
             running = False
     
     if battle_screen and current_enemy:
-        battle = Battle(screen, player, current_enemy["character"])
+        battle = Battle(screen, player, current_enemy["character"], background_image=".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png")
         result = battle.run()
 
         if result == "win":
@@ -129,9 +129,10 @@ while running:
             player_x += 60  # Move player away to prevent instant re-entry
 
         elif result == "escape":
-            player.sprite.set_animation('Walk')
-            current_enemy.sprite.set_animation('Idle')
+            #player.sprite.set_animation('Walk')
+            #current_enemy["character"].sprite.set_animation('Idle')
             battle_screen = False  # Exit battle screen
+            player_x += 60  # Move player away to prevent instant re-entry
 
 
     # Movement
@@ -156,7 +157,7 @@ while running:
             player.sprite.is_flipped = False  # Reset the flip when moving right
         last_direction = 'RIGHT'
 
-    
+    print(player.sprite.animations)
     # Check for collisions with enemies
     for enemy in enemies:
         if check_collision(player_x, player_y, enemy["x"], enemy["y"]):

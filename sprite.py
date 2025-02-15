@@ -36,6 +36,7 @@ class Sprite:
 
     def update_frame(self):
         """Update the animation frame for movement."""
+        self.num_frames = self.num_frames_dict[self.current_animation]
         self.current_frame = (self.current_frame + 1) % (self.num_frames * self.animation_speed)
 
     def draw(self, screen, x, y):
