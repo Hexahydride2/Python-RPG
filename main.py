@@ -173,19 +173,35 @@ while running:
             player.sprite.is_flipped = False  # Reset the flip when moving right
         last_direction = 'RIGHT'
 
+    # Calculate check_x and check_y
     check_x = int(player_x)
     check_y = int(player_y)
-    obstacle_color = (0, 0, 0)
-    target_color = (0, 65, 120)
 
-    # Check if the pixel at the player's position is an obstacle.
-    if combined_map_surface.get_at((check_x, check_y))[:3] == obstacle_color:
-        player_x, player_y = prev_x, prev_y
+    # Bounds check to prevent errors:
+    surface_width = combined_map_surface.get_width()
+    surface_height = combined_map_surface.get_height()
+    if 0 <= check_x < surface_width and 0 <= check_y < surface_height:
+        obstacle_color = (0, 0, 0)
+        town_color = (0, 65, 120)
+        Dungeon_color = (0, 0, 99)
 
-    if combined_map_surface.get_at((check_x, check_y))[:3] == target_color:
-        screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
-        CELL_WIDTH, CELL_HEIGHT, "TownMap.png"
-    ) 
+        # Check if the pixel at the player's position is an obstacle.
+        if combined_map_surface.get_at((check_x, check_y))[:3] == obstacle_color:
+            player_x, player_y = prev_x, prev_y
+
+        # Transition to town area.
+        elif combined_map_surface.get_at((check_x, check_y))[:3] == town_color:
+            from Draw import initialize_town  # Ensure proper import if needed
+            screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
+                CELL_WIDTH, CELL_HEIGHT, "TownMap.png"
+            )
+
+        # Transition back to dungeon.
+        elif combined_map_surface.get_at((check_x, check_y))[:3] == Dungeon_color:
+            screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_screen_and_map(
+                CELL_WIDTH, CELL_HEIGHT, MAP_ROWS, MAP_COLS, "Map-L.png", "Map-R.png"
+            )
+
     # Check for collisions with enemies
     for enemy in enemies:
         if check_collision(player_x, player_y, enemy["x"], enemy["y"]):
