@@ -2,9 +2,11 @@ import pygame
 
 def update_camera_and_draw(player, player_x, player_y, screen, combined_map_surface,
                            combined_map_width, combined_map_height, cell_width, cell_height):
-  
-    camera_x = int(player_x) - cell_width // 2
-    camera_y = int(player_y) - cell_height // 2
+    # Calculate camera position to center the player:
+    camera_x = player_x - cell_width // 2
+    camera_y = player_y - cell_height // 2
+
+    # Clamp the camera to the bounds of the combined map:
     camera_x = max(0, min(camera_x, combined_map_width - cell_width))
     camera_y = max(0, min(camera_y, combined_map_height - cell_height))
     camera_rect = pygame.Rect(camera_x, camera_y, cell_width, cell_height)
@@ -12,12 +14,12 @@ def update_camera_and_draw(player, player_x, player_y, screen, combined_map_surf
     # Draw the visible portion of the combined map.
     screen.blit(combined_map_surface, (0, 0), camera_rect)
 
-    # Draw the player with the camera offset.
+    # Draw the player with the correct offset relative to the camera.
     player_draw_x = player_x - camera_rect.x - (player.sprite.sprite_width * player.sprite.scale_factor) // 2
     player_draw_y = player_y - camera_rect.y - (player.sprite.sprite_height * player.sprite.scale_factor) // 2
     player.sprite.update_frame()
     player.sprite.draw(screen, player_draw_x, player_draw_y)
-    
+
     return camera_rect
 
 
@@ -62,15 +64,19 @@ def initialize_town(cell_width, cell_height, town_map_path):
     screen = pygame.display.set_mode((cell_width, cell_height))
     pygame.display.set_caption("Town Area")
 
-    # Load and scale the town map
-    town_map_surface = pygame.image.load("TownMap.png")
-    town_map_surface = pygame.transform.scale(town_map_surface, (cell_width, cell_height))
+    # Load the town map.
+    town_map_surface = pygame.image.load(town_map_path).convert_alpha()
 
-    # For a simple town, the map dimensions are the same as the screen
-    town_map_width, town_map_height = cell_width, cell_height
+    # Zoom factor: increase the size of the town map to "zoom in"
+    zoom_factor = 2  # Adjust for desired zoom
+    original_width, original_height = town_map_surface.get_size()
+    zoomed_width = int(original_width * zoom_factor)
+    zoomed_height = int(original_height * zoom_factor)
+    zoomed_map = pygame.transform.scale(town_map_surface, (zoomed_width, zoomed_height))
+    
+    # Do not crop – allow the map to be larger than the screen so the camera can pan.
+    # Set the player's starting position (e.g., near the center of the zoomed map)
+    player_x = zoomed_width // 2
+    player_y = zoomed_height - cell_height // 2
 
-    # Set the player's starting position in town — e.g., center-bottom
-    player_x = cell_width // 2
-    player_y = cell_height - (cell_height // 4)
-
-    return screen, town_map_surface, town_map_width, town_map_height, player_x, player_y
+    return screen, zoomed_map, zoomed_width, zoomed_height, player_x, player_y
