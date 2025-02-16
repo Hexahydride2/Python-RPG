@@ -22,3 +22,26 @@ def items_list():
         }
     }
     return All_Item_List
+
+def attack_list():
+    Attack_List = {
+        "Strike": {
+            "description": "A swift melee attack.",
+            "mp": 0,
+            "effect": 1,
+            "state": "atk1"
+        },
+        "Power Slash": {
+            "description": "A heavy attack that deals increased damage.",
+            "mp": 20,
+            "effect": 1.5,
+            "state": "atk2"
+        },
+        "Piercing Shot": {
+            "description": "Fires an arrow at an enemy.",
+            "mp": 10,
+            "effect": 1.2,
+            "state": "bow"
+        },
+    }
+    return Attack_List

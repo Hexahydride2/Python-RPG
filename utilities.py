@@ -11,6 +11,6 @@ def split_animation_name(name):
     return name, "1"  # Return original name if no match
 
 # Function to check if player collides with NPC
-def check_collision(player_x, player_y, npc_x, npc_y, threshold=50):
+def check_collision(player_x, player_y, npc_x, npc_y, threshold=60):
     distance = math.sqrt((player_x - npc_x) ** 2 + (player_y - npc_y) ** 2)
     return distance < threshold

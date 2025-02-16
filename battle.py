@@ -1,8 +1,9 @@
 import pygame
 import math
+import random
 import pygame
 import sys
-from items import items_list
+from items import items_list, attack_list
 
 class Battle:
     def __init__(self, screen, player, enemy, background_image=None):
@@ -27,18 +28,24 @@ class Battle:
 
         # Items List
         self.All_Item_List = items_list()
+        self.Attack_List = attack_list()
     
-        # Item button settings
+        # Item menu settings
         self.items_open = False  # Track if the item menu is open
         self.selected_item = None  # Store selected item
         self.item_window_rect = pygame.Rect(180, 180, 240, 200)  # Item window position
         self.item_close_button_rect = pygame.Rect(710, 350, 40, 30)  # Close button position
 
-        # Status button settings
+        # Status menu settings
         self.status_open = False  # Track if the status window is open
         self.status_window_rect = pygame.Rect(180, 100, 300, 250)  # Position and size
         self.status_close_button_rect = pygame.Rect(450, 100, 30, 30)  # Close button
         
+        # Attack menu variables
+        self.attack_menu_open = False  # Track if attack menu is open
+        self.attack_close_button_rect = pygame.Rect(710, 350, 40, 30)  # Close button
+        self.attack_selected = None  # Track selected attack
+
         # Tracks whose turn it is
         if self.player.spd >= self.enemy.spd:
            self.turn = "player"
@@ -49,7 +56,7 @@ class Battle:
 
         # Character positions
         self.player_x, self.player_y = 150, 250
-        self.enemy_x, self.enemy_y = 500, 250
+        self.enemy_x, self.enemy_y = 480, 250
         self.player_hp_x, self.player_hp_y = 100, 70
         self.enemy_hp_x, self.enemy_hp_y = 500, 70
 
@@ -59,8 +66,8 @@ class Battle:
 
         # Scale sprites larger in battle
         self.original_scale = self.player.sprite.scale_factor
-        # self.player.sprite.rescale(3)
-        # self.enemy.sprite.rescale(3)
+        self.player.sprite.rescale(4)
+        self.enemy.sprite.rescale(4)
 
         # Attack Animation Timers
         self.attack_timer = 0
@@ -77,7 +84,7 @@ class Battle:
         self.battle_result = None
 
         # Attack and Knockback movement when attacking
-        self.forward_distance = 230  # How much the character moves forward
+        self.forward_distance = 270  # How much the character moves forward
         self.backward_distance = 20  # How much the character moves backward
         self.original_positions = {
             "player": (self.player_x, self.player_y),
@@ -86,6 +93,7 @@ class Battle:
 
         self.font = pygame.font.Font(None, 27)  # Default font size for HP and MP
         self.item_font = pygame.font.Font(None, 25)
+        self.attack_menu_font = pygame.font.Font(None, 25)
         self.level_font = pygame.font.Font(None, 27)  # Smaller font size for level display
     
     def use_item(self, item):
@@ -148,12 +156,29 @@ class Battle:
             self.screen.blit(label, (200, y_offset))
             y_offset += 30
 
+    def draw_attack_menu(self):
+        """Draws the attack menu when the Attack button is clicked."""
+        pygame.draw.rect(self.screen, (50, 50, 50), (50, 350, 700, 200), border_radius=10)
+        y_offset = 360
+
+        # Draw close button
+        pygame.draw.rect(self.screen, (200, 0, 0), self.attack_close_button_rect, border_radius=5)
+        close_label = self.font.render("X", True, (255, 255, 255))
+        self.screen.blit(close_label, (self.attack_close_button_rect.x + 10, self.attack_close_button_rect.y + 5))
+
+        # Display attack list
+        for attack, details in self.Attack_List.items():
+            attack_text = f"{attack} (MP: {details['mp']}) - {details['description']}"
+            label = self.attack_menu_font.render(attack_text, True, (255, 255, 255))
+            self.screen.blit(label, (100, y_offset))
+            y_offset += 40
+
     def draw_battle_message(self):
         """Display battle message on the screen."""
         if self.message_timer > 0:
-            self.draw_rectangle(x=150, y=445, width=450, height=30, alpha=200, border_radius=10)
+            self.draw_rectangle(x=100, y=445, width=600, height=30, alpha=200, border_radius=10)
             message_text = self.font.render(self.battle_message, True, (255, 255, 255))
-            self.screen.blit(message_text, (220, 450))  # Display the message at the bottom
+            self.screen.blit(message_text, (200, 450))  # Display the message at the bottom
             self.message_timer -= 1  # Countdown timer
 
     def draw_buttons(self):
@@ -161,6 +186,10 @@ class Battle:
             pygame.draw.rect(self.screen, (0, 0, 0), rect, border_radius=10)
             label = self.font.render(text, True, (255, 255, 255))
             self.screen.blit(label, (rect.x + 20, rect.y + 10))
+
+        # Draw attack menu if open
+        if self.attack_menu_open:
+            self.draw_attack_menu()
 
         # Draw item window if open
         if self.items_open:
@@ -242,14 +271,25 @@ class Battle:
         self.draw_battle_message()
 
     def attack(self):
+        attack_data = self.Attack_List[self.attack_selected]
+        
         if self.is_attacking:
             return  # Prevent multiple attacks at once
+        
+        # Check if player has enough MP
+        if self.player.mp < attack_data["mp"]:
+            self.battle_message = f"Not enough MP to use {self.attack_selected}!"
+            self.message_timer = self.MESSAGE_DURATION
+            return
+
+        # Deduct MP
+        self.player.mp -= attack_data["mp"]
 
         self.is_attacking = True
         self.attack_timer = 0  # Reset the timer
         
         if self.turn == "player":
-            self.player.sprite.set_animation('atk1')
+            self.player.sprite.set_animation(self.Attack_List[self.attack_selected]["state"])
             self.enemy.sprite.set_animation('hit')
             self.player_x += self.forward_distance  # Player moves forward when attack
             self.enemy_x += self.backward_distance  # Enemy moves slightly backward when hit
@@ -264,7 +304,7 @@ class Battle:
             self.hurt_timer += 1
 
             # Check if attack animation is completed
-            attack_duration = self.player.sprite.num_frames_dict['atk1'] * self.player.sprite.animation_speed
+            attack_duration = self.player.sprite.num_frames_dict[self.Attack_List[self.attack_selected]["state"]] * self.player.sprite.animation_speed
             hurt_duration = self.enemy.sprite.num_frames_dict['hit'] * self.enemy.sprite.animation_speed
 
 
@@ -276,13 +316,13 @@ class Battle:
                         self.hurt_timer = 0
                         # Deal damage and switch turns
                         if self.turn == "player":      
-                            self.enemy.hp -= self.player.attack(self.enemy) 
+                            self.enemy.hp -= self.player.attack(self.enemy, self.attack_selected)
                             if self.enemy.hp <= 0:
                                 self.enemy.hp = 0
                             
                             # Set the battle message to display who attacked and the damage
-                            damage = self.player.attack(self.enemy, take_damage_on=False)
-                            self.battle_message = f"{self.player.name} attacked! {self.enemy.name} took {damage} damage."
+                            damage = self.player.attack(self.enemy, self.attack_selected, take_damage_on=False)
+                            self.battle_message =  f"{self.player.name} used {self.attack_selected}! {self.enemy.name} took {damage} damage."
                             self.message_timer = self.MESSAGE_DURATION  # Show the message for a limited time
                             
                             
@@ -317,7 +357,20 @@ class Battle:
         self.attack_timer = 0  # Reset the timer for attack animation
 
         # Enemy automatically moves forward when attacking
-        self.enemy.sprite.set_animation('atk1')
+
+        # Pick up an attack name randomly       
+        while True:
+            # Pick a random key
+            self.attack_selected = random.choice(list(self.Attack_List.keys()))
+            if self.enemy.mp >= self.Attack_List[self.attack_selected]["mp"]:
+                break
+
+        attack_data = self.Attack_List[self.attack_selected]
+        
+        # Deduct MP
+        self.enemy.mp -= attack_data["mp"]
+        
+        self.enemy.sprite.set_animation(self.Attack_List[self.attack_selected]["state"])
         self.player.sprite.set_animation('hit')
         self.enemy_x -= self.forward_distance  # Move the enemy towards the player
         self.player_x -= self.backward_distance  # Move the player backward as they are hit
@@ -333,17 +386,20 @@ class Battle:
         if self.turn=="enemy" and self.is_attacking:
             self.attack_timer += 1
             self.hurt_timer += 1
-            if self.attack_timer >= self.enemy.sprite.num_frames_dict['atk1'] * self.enemy.sprite.animation_speed:
+            if self.attack_timer >= self.enemy.sprite.num_frames_dict[self.Attack_List[self.attack_selected]["state"]] * self.enemy.sprite.animation_speed:
                 if self.is_hurt:
                     if self.hurt_timer >= self.player.sprite.num_frames_dict['hit'] * self.player.sprite.animation_speed:
                         self.is_hurt = False  # Reset hurt state
                         self.hurt_timer = 0  # Reset hurt timer
+
                         # Deal damage and switch turns
-                        self.player.hp -= self.enemy.attack(self.player)
+                        self.player.hp -= self.enemy.attack(self.player, self.attack_selected)
+                        if self.player.hp <= 0:
+                                self.player.hp = 0
         
                         # Set the battle message to display who attacked and the damage
-                        damage = self.enemy.attack(self.player, take_damage_on=False)
-                        self.battle_message = f"{self.enemy.name} attacked! {self.player.name} took {damage} damage."
+                        damage = self.enemy.attack(self.player, self.attack_selected, take_damage_on=False)
+                        self.battle_message =  f"{self.enemy.name} used {self.attack_selected}! {self.player.name} took {damage} damage."
                         self.message_timer = self.MESSAGE_DURATION  # Show the message for a limited time
 
                         self.enemy.sprite.set_animation('idle1')
@@ -354,7 +410,7 @@ class Battle:
                        
                             # Keep the player idle1
                             self.enemy.sprite.set_animation('idle1')
-                            self.player_x, self.player_y = self.original_positions["player"]
+                            self.enemy_x, self.enemy_y = self.original_positions["enemy"]
                             return None
                         
                         elif self.enemy.hp <= 0:
@@ -417,6 +473,21 @@ class Battle:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
 
+            # If attack menu is open, handle attack selection
+            if self.attack_menu_open:
+                if self.attack_close_button_rect.collidepoint(mouse_pos):
+                    self.attack_menu_open = False  # Close attack menu
+                    return
+
+                y_offset = 360
+                for attack, details in attack_list().items():
+                    attack_rect = pygame.Rect(50, y_offset, 700, 30)
+                    if attack_rect.collidepoint(mouse_pos):
+                        self.attack_selected = attack
+                        self.attack()  # Perform attack
+                        self.attack_menu_open = False  # Close menu
+                    y_offset += 40
+
             if self.status_open:
                 # Close button functionality
                 if self.status_close_button_rect.collidepoint(mouse_pos):
@@ -431,7 +502,7 @@ class Battle:
                 
                 y_offset = 360
                 for item, count in self.player.inventory.items():
-                    item_rect = pygame.Rect(170, y_offset, 300, 30)
+                    item_rect = pygame.Rect(50, y_offset, 700, 30)
                     if item_rect.collidepoint(mouse_pos) and count > 0:
                         self.use_item(item)
                         self.items_open = False  # Close menu
@@ -440,7 +511,7 @@ class Battle:
                 self.player.inventory = {key: value for key, value in self.player.inventory.items() if value > 0}
 
             if self.buttons["Attack"].collidepoint(mouse_pos):
-                self.attack()
+                self.attack_menu_open = True
 
             elif self.buttons["Items"].collidepoint(mouse_pos):
                 self.items_open = True  

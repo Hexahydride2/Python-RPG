@@ -1,6 +1,6 @@
 import random
 from sprite import Sprite
-from items import items_list
+from items import items_list, attack_list
 
 class Character:
     def __init__(self, name, level, hp, mp, atk, dfn, spd, inventory, folder_paths, scale_factor=3, num_frames_dict=None, animation_speed=5):
@@ -34,9 +34,9 @@ class Character:
         self.hp -= damage_taken
         return damage_taken
 
-    def attack(self, target, take_damage_on=True):
+    def attack(self, target, attack_name, take_damage_on=False):
         """Attack another character, dealing damage."""
-        damage = max(1, self.atk - target.dfn)
+        damage = max(1, int((self.atk - target.dfn)*attack_list()[attack_name]["effect"]))
         if take_damage_on:
             target.take_damage(damage)
         return damage

@@ -36,8 +36,8 @@ def create_enemies(num_enemies, player_x, player_y, x_id, y_id, WIDTH, HEIGHT):
         new_enemy = Character(name="Orc",
                               level=random.randint(3, 7),
                               hp=random.randint(30, 60),
-                              mp=random.randint(5, 20),
-                              atk=random.randint(10, 20),
+                              mp=random.randint(50, 100),
+                              atk=random.randint(30, 50),
                               dfn=random.randint(5, 15),
                               spd=random.randint(5, 15),
                               inventory={},
@@ -90,9 +90,9 @@ player = Character(
 
 
 # Create enemies in the random location
-enemies = create_enemies(num_enemies=3, player_x=player_x, player_y=player_y, x_id=3, y_id=5, WIDTH=WIDTH, HEIGHT=HEIGHT)
+enemies = create_enemies(num_enemies=3, player_x=player_x, player_y=player_y, x_id=5, y_id=8, WIDTH=WIDTH, HEIGHT=HEIGHT)
 for enemy in enemies:
-    enemy["character"].sprite.set_animation("bown_stand")
+    enemy["character"].sprite.set_animation("down_stand")
 
 running = True
 while running:
@@ -165,15 +165,17 @@ while running:
     else:
         player.sprite.set_animation(f"{current_direction}_stand")
 
-    # Display the current frame
-    player.sprite.is_flipped = False
-    player.sprite.update_frame()
-    player.sprite.draw(screen, player_x, player_y)
 
     # Draw enemies
     for enemy in enemies:
         enemy["character"].sprite.update_frame()
         enemy["character"].sprite.draw(screen, enemy["x"], enemy["y"])
+
+    # Display the current frame
+    player.sprite.is_flipped = False
+    player.sprite.update_frame()
+    player.sprite.draw(screen, player_x, player_y)
+
 
 
 
