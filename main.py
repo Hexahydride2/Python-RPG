@@ -8,50 +8,59 @@ from Draw import update_camera_and_draw, initialize_screen_and_map
 
 
 # Function to create multiple enemies
-def create_enemies(num_enemies, player_x, player_y):
+def create_enemies(num_enemies, player_x, player_y, combined_map_surface, combined_map_width, combined_map_height):
     enemies = []
-    min_distance_from_player = 60  # Minimum distance between player and enemy
-    min_distance_between_enemies = 80  # Minimum distance between enemies
+    min_distance_from_player = 60  # Minimum distance from the player
+    min_distance_between_enemies = 10  # Minimum distance between enemies
+    obstacle_color = (0, 0, 12)
 
     while len(enemies) < num_enemies:
-        enemy_x = random.randint(50, WIDTH - 50)
-        enemy_y = random.randint(50, HEIGHT - 50)
+        enemy_x = random.randint(50, combined_map_width - 50)
+        enemy_y = random.randint(50, combined_map_height - 50)
         
-        # Ensure enemy is at least 60 pixels away from the player
+        # Skip positions where the map pixel is black.
+        if combined_map_surface.get_at((enemy_x, enemy_y))[:3] == obstacle_color:
+            continue
+        
+        # Ensure enemy is at least 'min_distance_from_player' away from the player.
         distance_to_player = math.sqrt((enemy_x - player_x) ** 2 + (enemy_y - player_y) ** 2)
         if distance_to_player < min_distance_from_player:
-            continue  # Skip this position and try again
+            continue
         
-        # Ensure enemy does not overlap with other enemies
+        # Ensure enemy does not overlap with other enemies.
         too_close = False
         for enemy in enemies:
             distance_to_enemy = math.sqrt((enemy_x - enemy["x"]) ** 2 + (enemy_y - enemy["y"]) ** 2)
             if distance_to_enemy < min_distance_between_enemies:
                 too_close = True
-                break  # No need to check further
+                break
 
         if too_close:
-            continue  # Skip this position and try again
+            continue
 
-        # Create new enemy if all conditions are met
-        new_enemy = Character(name="Orc",
-                              level=random.randint(3, 7),
-                              hp=random.randint(30, 60),
-                              mp=random.randint(5, 20),
-                              atk=random.randint(10, 20),
-                              dfn=random.randint(5, 15),
-                              spd=random.randint(5, 15),
-                              inventory={},
-                              sprite_paths={
-                                  "Walk": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Walk.png",
-                                  "Idle": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Idle.png",
-                                  "Attack01": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Attack01.png",
-                                  "Attack02": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Attack02.png",
-                                  "Hurt": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Hurt.png",
-                                  "Death": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Death.png"
-                              }, num_frames_dict=num_frames_dict)
+        # Create new enemy if all conditions are met.
+        new_enemy = Character(
+            name="Orc",
+            level=random.randint(3, 7),
+            hp=random.randint(30, 60),
+            mp=random.randint(5, 20),
+            atk=random.randint(10, 20),
+            dfn=random.randint(5, 15),
+            spd=random.randint(5, 15),
+            inventory={},
+            sprite_paths={
+                "Walk": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Walk.png",
+                "Idle": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Idle.png",
+                "Attack01": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Attack01.png",
+                "Attack02": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Attack02.png",
+                "Hurt": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Hurt.png",
+                "Death": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Death.png"
+            },
+            num_frames_dict=num_frames_dict
+        )
         new_enemy.sprite.set_animation(state='Idle')
         enemies.append({"character": new_enemy, "x": enemy_x, "y": enemy_y})
+
     return enemies
 
 
@@ -89,14 +98,14 @@ player = Character(name="Hero",
 
 
 # Player settings
-player_x, player_y = WIDTH // 2, HEIGHT // 2
+# player_x, player_y = WIDTH // 2, HEIGHT // 2
 player_speed = 5
 current_frame = 0
 is_flipped = False  # Variable to track if sprite is flipped
 
 
 # Generate enemies
-enemies = create_enemies(5, player_x, player_y)  # Set the number of enemies
+enemies = create_enemies(25, player_x, player_y, combined_map_surface, combined_map_width, combined_map_height)  # Set the number of enemies
 
 # Battle window settings
 battle_screen = False  # Track whether battle is in progress
@@ -170,7 +179,7 @@ while running:
     # Check if the pixel at the player's position is an obstacle.
     if combined_map_surface.get_at((check_x, check_y))[:3] == obstacle_color:
         player_x, player_y = prev_x, prev_y
-    print(player.sprite.animations)
+        
     # Check for collisions with enemies
     for enemy in enemies:
         if check_collision(player_x, player_y, enemy["x"], enemy["y"]):

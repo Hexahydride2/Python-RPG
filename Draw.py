@@ -44,9 +44,9 @@ def initialize_screen_and_map(cell_width, cell_height, map_rows, map_cols, map_l
     combined_map_surface.blit(map_surface_L, (0, 0))
     combined_map_surface.blit(map_surface_R, (map_cols * cell_width, 0))
     
-    # Start at the center cell of Map-L
-    player_x = (map_cols // 2) * cell_width
-    player_y = (map_rows // 2) * cell_height
+    # Start at the center of the bottom left cell of Map-L
+    player_x = cell_width // 2
+    player_y = (map_rows - 1) * cell_height + cell_height // 2
 
     #Returns:
         #screen: the pygame display surface,
@@ -57,4 +57,3 @@ def initialize_screen_and_map(cell_width, cell_height, map_rows, map_cols, map_l
         #player_y: starting y position
     
     return screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y
-   
