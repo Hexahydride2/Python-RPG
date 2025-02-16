@@ -94,14 +94,14 @@ class Battle:
             if self.player.hp == self.player.max_hp:
                 self.battle_message = f"{self.player.name}'s HP is already full!"
             else:
-                self.battle_message = f"{self.player.name} used a {item}! +{self.All_Item_List[item]["effect"]} HP"
+                self.battle_message = f'{self.player.name} used a {item}! +{self.All_Item_List[item]["effect"]} HP'
                 self.player.use_item(item)
                 self.manage_turn_change() # Change to the enemy turn after using an item
         elif self.All_Item_List[item]["type"] == "mp":
             if self.player.mp == self.player.max_mp:
                 self.battle_message = f"{self.player.name}'s MP is already full!"
             else:
-                self.battle_message = f"{self.player.name} used a {item}! +{self.All_Item_List[item]["effect"]} MP"
+                self.battle_message = f'{self.player.name} used a {item}! +{self.All_Item_List[item]["effect"]} MP'
                 self.player.use_item(item)
                 self.manage_turn_change() # Change to the enemy turn after using an item
         self.message_timer = self.MESSAGE_DURATION
@@ -117,7 +117,7 @@ class Battle:
         self.screen.blit(close_label, (self.item_close_button_rect.x + 10, self.item_close_button_rect.y + 5))
 
         for item, count in self.player.inventory.items():
-            item_text = f"{item} x{count} - {self.All_Item_List[item]["description"]}"
+            item_text = f'{item} x{count} - {self.All_Item_List[item]["description"]}'
             label = self.item_font.render(item_text, True, (255, 255, 255))
             self.screen.blit(label, (100, y_offset))
             y_offset += 40
@@ -233,7 +233,7 @@ class Battle:
         self.screen.blit(enemy_level, (self.enemy_hp_x, self.enemy_hp_y + 100))  # Position below MP
 
         # Display turn info
-        turn_text = f"Turn {self.turn_number}: {self.player.name if self.turn=="player" else self.enemy.name}"
+        turn_text = f'Turn {self.turn_number}: {self.player.name if self.turn=="player" else self.enemy.name}'
         turn_label = self.font.render(turn_text, True, (255, 255, 255))
 
         # Position: Bottom-left corner

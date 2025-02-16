@@ -4,6 +4,7 @@ import random
 import math
 from character import Character
 from battle import check_collision, Battle
+from Draw import update_camera_and_draw, initialize_screen_and_map
 
 
 # Function to create multiple enemies
@@ -59,8 +60,12 @@ pygame.init()
 
 # Screen settings
 WIDTH, HEIGHT = 800, 600
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Dragon Quest-like RPG")
+CELL_WIDTH, CELL_HEIGHT = 800, 600
+MAP_ROWS, MAP_COLS = 5, 6
+
+screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_screen_and_map(
+    CELL_WIDTH, CELL_HEIGHT, MAP_ROWS, MAP_COLS, "Map-L.png", "Map-R.png")
+
 num_frames_dict = {'Attack01': 6, 'Attack02': 6, 'Attack03': 9, 'Death': 4, 'Hurt': 4, 'Idle': 6, 'Walk': 8}
 
 # Load Player and NPC with Multiple Animations
@@ -137,6 +142,7 @@ while running:
 
     # Movement
     keys = pygame.key.get_pressed()
+    prev_x, prev_y = player_x, player_y
     if keys[pygame.K_UP]:
         player_y -= player_speed
         last_direction = 'UP'
@@ -157,6 +163,13 @@ while running:
             player.sprite.is_flipped = False  # Reset the flip when moving right
         last_direction = 'RIGHT'
 
+    check_x = int(player_x)
+    check_y = int(player_y)
+    obstacle_color = (0, 0, 12)
+
+    # Check if the pixel at the player's position is an obstacle.
+    if combined_map_surface.get_at((check_x, check_y))[:3] == obstacle_color:
+        player_x, player_y = prev_x, prev_y
     print(player.sprite.animations)
     # Check for collisions with enemies
     for enemy in enemies:
@@ -168,13 +181,15 @@ while running:
     
 
     # Draw player
-    player.sprite.update_frame()
-    player.sprite.draw(screen, player_x, player_y)
+    camera_rect = update_camera_and_draw(player, player_x, player_y, screen, combined_map_surface,
+                                       combined_map_width, combined_map_height, CELL_WIDTH, CELL_HEIGHT)
     
     # Draw enemies
     for enemy in enemies:
         enemy["character"].sprite.update_frame()
-        enemy["character"].sprite.draw(screen, enemy["x"], enemy["y"])
+        enemy_draw_x = enemy["x"] - camera_rect.x - (enemy["character"].sprite.sprite_width * enemy["character"].sprite.scale_factor) // 2
+        enemy_draw_y = enemy["y"] - camera_rect.y - (enemy["character"].sprite.sprite_height * enemy["character"].sprite.scale_factor) // 2
+        enemy["character"].sprite.draw(screen, enemy_draw_x, enemy_draw_y)
     
     pygame.display.update()
     clock.tick(30)  # Set FPS
