@@ -57,3 +57,20 @@ def initialize_screen_and_map(cell_width, cell_height, map_rows, map_cols, map_l
         #player_y: starting y position
     
     return screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y
+
+def initialize_town(cell_width, cell_height, town_map_path):
+    screen = pygame.display.set_mode((cell_width, cell_height))
+    pygame.display.set_caption("Town Area")
+
+    # Load and scale the town map
+    town_map_surface = pygame.image.load("TownMap.png")
+    town_map_surface = pygame.transform.scale(town_map_surface, (cell_width, cell_height))
+
+    # For a simple town, the map dimensions are the same as the screen
+    town_map_width, town_map_height = cell_width, cell_height
+
+    # Set the player's starting position in town — e.g., center-bottom
+    player_x = cell_width // 2
+    player_y = cell_height - (cell_height // 4)
+
+    return screen, town_map_surface, town_map_width, town_map_height, player_x, player_y

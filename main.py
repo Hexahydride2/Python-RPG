@@ -4,7 +4,8 @@ import random
 import math
 from character import Character
 from battle import check_collision, Battle
-from Draw import update_camera_and_draw, initialize_screen_and_map
+from Draw import update_camera_and_draw, initialize_screen_and_map, initialize_town
+
 
 
 # Function to create multiple enemies
@@ -174,12 +175,17 @@ while running:
 
     check_x = int(player_x)
     check_y = int(player_y)
-    obstacle_color = (0, 0, 12)
+    obstacle_color = (0, 0, 0)
+    target_color = (0, 65, 120)
 
     # Check if the pixel at the player's position is an obstacle.
     if combined_map_surface.get_at((check_x, check_y))[:3] == obstacle_color:
         player_x, player_y = prev_x, prev_y
-        
+
+    if combined_map_surface.get_at((check_x, check_y))[:3] == target_color:
+        screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
+        CELL_WIDTH, CELL_HEIGHT, "TownMap.png"
+    ) 
     # Check for collisions with enemies
     for enemy in enemies:
         if check_collision(player_x, player_y, enemy["x"], enemy["y"]):
