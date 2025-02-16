@@ -1,41 +1,69 @@
 import pygame
+import glob
+import os
+from utilities import split_animation_name
 
 class Sprite:
-    def __init__(self, sprite_paths, sprite_width, sprite_height, scale_factor, num_frames_dict, animation_speed):
+    def __init__(self, folder_paths, scale_factor, animation_speed):
         """
         sprite_paths: A dictionary of animation states (e.g., {"walk": "path1", "attack": "path2"}).
         """
-        self.sprite_width = sprite_width
-        self.sprite_height = sprite_height
+        self.sprite_shape = {}
         self.scale_factor = scale_factor
-        self.num_frames_dict = num_frames_dict
+        self.num_frames_dict = {}
         self.animation_speed = animation_speed
         self.current_frame = 0
         self.is_flipped = False
         self.animations = {}  # Store different animation frames
-        self.current_animation = "Walk"  # Default animation state
+        self.current_animation = "down_stand"  # Default animation state
+        self.num_frames_dict = {}
+        self.frames = {}
 
-        # Load all animations
-        for state, path in sprite_paths.items():
-            animation_type = path.split("/")[-1].replace(".png", "").split("-")[-1]
-            sprite_sheet = pygame.image.load(path)
-            self.num_frames = self.num_frames_dict[animation_type]
-            frames = []
-            for i in range(self.num_frames):
-                frame = pygame.Surface((sprite_width, sprite_height), pygame.SRCALPHA)
-                frame.blit(sprite_sheet, (0, 0), (i * sprite_width, 0, sprite_width, sprite_height))
-                frame = pygame.transform.scale(frame, (sprite_width * scale_factor, sprite_height * scale_factor))
-                frames.append(frame)
-            self.animations[state] = frames  # Store frames for each animation state
+        self.load_animations(folder_paths, scale_factor)
+            
+    def load_animations(self, folder_paths, scale_factor):
+        """
+        Loads all animations from the specified folder.
         
+        :param folder_path: Folder containing animation images.
+        :param sprite_width: Width of each frame.
+        :param sprite_height: Height of each frame.
+        :param scale_factor: Factor to scale the images.
+        """
+        for folder_path in folder_paths:
+            sprite_paths = glob.glob(os.path.join(folder_path, "*.png"))  # Load all images
+            for path in sprite_paths:
+                filename = os.path.basename(path).replace(".png", "")  # Extract filename
+                state, num = split_animation_name(filename)
+
+                if state not in self.frames:
+                    self.frames[state] = [path]
+                else:
+                    self.frames[state].append(path)
+
+                # Update the number of frames in each motion
+                self.num_frames_dict[state] = max(1, int(num))
+
+            for state, paths in self.frames.items():
+                frames = []
+                for path in sorted(paths):
+                    image = pygame.image.load(path)
+                    frame = pygame.transform.scale(image, (image.get_width() * scale_factor, image.get_height() * scale_factor))
+                    frames.append(frame)
+                    self.sprite_shape[state] = {"width": image.get_width(), "height": image.get_height()}
+                self.animations[state] = frames
+        
+
     def set_animation(self, state):
         """Change animation state (e.g., 'walk', 'attack')."""
         if state in self.animations:
             self.current_animation = state
-            self.current_frame = 0  # Reset animation frame
+            if "walk" not in state:
+                self.current_frame = 0  # Reset animation frame except for walk motion
 
     def update_frame(self):
         """Update the animation frame for movement."""
+        self.num_frames = self.num_frames_dict[self.current_animation]
         self.current_frame = (self.current_frame + 1) % (self.num_frames * self.animation_speed)
 
     def draw(self, screen, x, y):
@@ -54,9 +82,10 @@ class Sprite:
         for state in self.animations:
             resized_frames = []
             for frame in self.animations[state]:
-                new_size = (self.sprite_width * self.scale_factor, self.sprite_height * self.scale_factor)
+                new_size = (self.sprite_shape[state]["width"] * self.scale_factor, self.sprite_shape[state]["height"] * self.scale_factor)
                 resized_frames.append(pygame.transform.scale(frame, new_size))
             self.animations[state] = resized_frames
+        print(self.animations)
 
     def force_last_frame(self):
         """Freeze the animation at the last frame."""

@@ -1,13 +1,13 @@
 import pygame
-import sys
 import random
 import math
 from character import Character
-from battle import check_collision, Battle
+from utilities import check_collision
+from battle import Battle
 
 
 # Function to create multiple enemies
-def create_enemies(num_enemies, player_x, player_y):
+def create_enemies(num_enemies, player_x, player_y, x_id, y_id, WIDTH, HEIGHT):
     enemies = []
     min_distance_from_player = 60  # Minimum distance between player and enemy
     min_distance_between_enemies = 80  # Minimum distance between enemies
@@ -38,17 +38,11 @@ def create_enemies(num_enemies, player_x, player_y):
                               hp=random.randint(30, 60),
                               mp=random.randint(5, 20),
                               atk=random.randint(10, 20),
-                              defense=random.randint(5, 15),
+                              dfn=random.randint(5, 15),
                               spd=random.randint(5, 15),
-                              inventory=[],
-                              sprite_paths={
-                                  "Walk": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Walk.png",
-                                  "Idle": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Idle.png",
-                                  "Attack01": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Attack01.png",
-                                  "Attack02": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Attack02.png",
-                                  "Hurt": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Hurt.png",
-                                  "Death": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Death.png"
-                              }, num_frames_dict=num_frames_dict)
+                              inventory={},
+                              folder_paths=[fR".\timefantasy_characters\timefantasy_characters\frames\chara\chara{x_id}_{y_id}", fR".\tf_svbattle\singleframes\set{x_id}\{y_id}"]
+                              )
         new_enemy.sprite.set_animation(state='Idle')
         enemies.append({"character": new_enemy, "x": enemy_x, "y": enemy_y})
     return enemies
@@ -60,124 +54,130 @@ pygame.init()
 # Screen settings
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Dragon Quest-like RPG")
-num_frames_dict = {'Attack01': 6, 'Attack02': 6, 'Attack03': 9, 'Death': 4, 'Hurt': 4, 'Idle': 6, 'Walk': 8}
+pygame.display.set_caption("Character Animation")
 
-# Load Player and NPC with Multiple Animations
-player = Character(name="Hero",
-                   level=10,
-                   hp=100,
-                   mp=50,
-                   atk=30,
-                   defense=20,
-                   spd=30,
-                   inventory=[], 
-                   sprite_paths={
-    "Walk": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Walk.png",
-    "Idle": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Idle.png",
-    "Attack01": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack01.png",
-    "Attack02": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack02.png",
-    "Attack03": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack03.png",
-    "Hurt": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Hurt.png",
-    "Death": "./Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Death.png"
-}, num_frames_dict=num_frames_dict)
+# Scale images (adjust the size as needed)
+SCALE_FACTOR = 2  # Change this to make the character bigger or smaller
 
-
-# Player settings
-player_x, player_y = WIDTH // 2, HEIGHT // 2
-player_speed = 5
-current_frame = 0
-is_flipped = False  # Variable to track if sprite is flipped
-
-
-# Generate enemies
-enemies = create_enemies(5, player_x, player_y)  # Set the number of enemies
+# Animation variables
+clock = pygame.time.Clock()
+frame = 0
+frame_delay = 8  # Adjust this to make animation slower
+frame_counter = 0  # Controls when to switch frames
+player_x, player_y = 100, 300  # Position of the character
+speed = 5
+moving = False  # Track movement state
+current_direction = "down"  # Default direction
 
 # Battle window settings
 battle_screen = False  # Track whether battle is in progress
 current_enemy = None
 
-clock = pygame.time.Clock()
+playerID_x, playerID_y = 2, 1
+
+player = Character(
+                   name="Hero",
+                   level=10,
+                   hp=100,
+                   mp=50,
+                   atk=30,
+                   dfn=20,
+                   spd=30,
+                   inventory={"Potion": 2, "Mana Crystal": 3}, 
+                   folder_paths=[fR".\timefantasy_characters\timefantasy_characters\frames\chara\chara{playerID_x}_{playerID_y}", fR".\tf_svbattle\singleframes\set{playerID_x}\{playerID_y}"]
+                   )
 
 
 
-# Main game loop
+# Create enemies in the random location
+enemies = create_enemies(num_enemies=3, player_x=player_x, player_y=player_y, x_id=3, y_id=5, WIDTH=WIDTH, HEIGHT=HEIGHT)
+for enemy in enemies:
+    enemy["character"].sprite.set_animation("bown_stand")
+
 running = True
-last_direction = None  # Track the last direction the player moved in
 while running:
-    screen.fill((255, 255, 255))
-    
+    screen.fill((255, 255, 255))  # Clear screen
+
     # Event handling
+    keys = pygame.key.get_pressed()  # Get currently pressed keys
+
+    if keys[pygame.K_LEFT]:  
+        player_x -= speed
+        moving = True
+        current_direction = "left"
+       
+    elif keys[pygame.K_RIGHT]:  
+        player_x += speed
+        moving = True
+        current_direction = "right"
+        
+    elif keys[pygame.K_UP]:  
+        player_y -= speed
+        moving = True
+        current_direction = "up"
+        
+    elif keys[pygame.K_DOWN]:  
+        player_y += speed
+        moving = True
+        current_direction = "down"
+       
+    else:
+        moving = False  # Stop animation if no key is pressed
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    
+
+
+    # Go to battle window
     if battle_screen and current_enemy:
-        battle = Battle(screen, player, current_enemy["character"])
+        battle = Battle(screen, player, current_enemy["character"], background_image=".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png")
         result = battle.run()
 
         if result == "win":
-            player.sprite.set_animation('Walk')
             enemies.remove(current_enemy)
             battle_screen = False  # Exit battle screen
             player_x += 60  # Move player away to prevent instant re-entry
 
         elif result == "lose":
-            player.sprite.set_animation('Walk')
-            current_enemy.sprite.set_animation('Idle')
             battle_screen = False  # Exit battle screen
             player_x += 60  # Move player away to prevent instant re-entry
 
         elif result == "escape":
-            player.sprite.set_animation('Walk')
-            current_enemy.sprite.set_animation('Idle')
             battle_screen = False  # Exit battle screen
+            player_x += 60  # Move player away to prevent instant re-entry
 
+    # Event handling
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-    # Movement
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_UP]:
-        player_y -= player_speed
-        last_direction = 'UP'
-
-    if keys[pygame.K_DOWN]:
-        player_y += player_speed
-        last_direction = 'DOWN'
-
-    if keys[pygame.K_LEFT]:
-        player_x -= player_speed
-        if last_direction != 'LEFT':  # Only flip when changing direction
-            player.sprite.is_flipped = True  # Flip the sprite when moving left
-        last_direction = 'LEFT'
-
-    if keys[pygame.K_RIGHT]:
-        player_x += player_speed
-        if last_direction != 'RIGHT':  # Only flip when changing direction
-            player.sprite.is_flipped = False  # Reset the flip when moving right
-        last_direction = 'RIGHT'
-
-    
     # Check for collisions with enemies
     for enemy in enemies:
         if check_collision(player_x, player_y, enemy["x"], enemy["y"]):
             battle_screen = True
             current_enemy = enemy  # Store current enemy for battle
-            
             break  # Only trigger one battle at a time
     
+    # Display Walk motion only moving
+    if moving == True:
+        player.sprite.set_animation(f"{current_direction}_walk")
+    else:
+        player.sprite.set_animation(f"{current_direction}_stand")
 
-    # Draw player
+    # Display the current frame
+    player.sprite.is_flipped = False
     player.sprite.update_frame()
     player.sprite.draw(screen, player_x, player_y)
-    
+
     # Draw enemies
     for enemy in enemies:
         enemy["character"].sprite.update_frame()
         enemy["character"].sprite.draw(screen, enemy["x"], enemy["y"])
-    
-    pygame.display.update()
-    clock.tick(30)  # Set FPS
 
-# Quit Pygame
+
+
+    pygame.display.update()
+    clock.tick(30)  # Control animation speed (10 FPS)
+
 pygame.quit()
-sys.exit()
