@@ -33,8 +33,8 @@ def initialize_screen_and_map(cell_width, cell_height, map_rows, map_cols, map_l
     pygame.display.set_caption("Dragon Quest-like RPG")
     
     # Load and scale the map files directly.
-    map_surface_L = pygame.image.load(map_left_path)
-    map_surface_R = pygame.image.load(map_right_path)
+    map_surface_L = pygame.image.load("Map-L.png")
+    map_surface_R = pygame.image.load("Map-R.png")
     scaled_map_size = (map_cols * cell_width, map_rows * cell_height)
     map_surface_L = pygame.transform.scale(map_surface_L, scaled_map_size)
     map_surface_R = pygame.transform.scale(map_surface_R, scaled_map_size)
