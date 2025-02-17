@@ -85,7 +85,6 @@ class Sprite:
                 new_size = (self.sprite_shape[state]["width"] * self.scale_factor, self.sprite_shape[state]["height"] * self.scale_factor)
                 resized_frames.append(pygame.transform.scale(frame, new_size))
             self.animations[state] = resized_frames
-        print(self.animations)
 
     def force_last_frame(self):
         """Freeze the animation at the last frame."""

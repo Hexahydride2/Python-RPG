@@ -4,9 +4,10 @@ from sprite import Sprite
 from items import items_list, attack_list
 
 class Character:
-    def __init__(self, name, level, hp, mp, atk, dfn, spd, inventory, folder_paths, scale_factor=3, num_frames_dict=None, animation_speed=5):
+    def __init__(self, name, x, y, level, hp, mp, atk, dfn, spd, inventory, folder_paths, scale_factor=3, animation_speed=5):
         # Character Stats
         self.name = name
+        self.x, self.y = x, y
         self.level = level
         self.hp = hp
         self.max_hp = hp
@@ -16,6 +17,10 @@ class Character:
         self.dfn = dfn
         self.spd = spd
         self.inventory = inventory
+        self.can_move = True
+        self.moving = False  # Track movement state
+        self.current_direction = "down"  # Default direction
+        self.walkspeed = 5
 
         # Sprite system (supports multiple animations)
         self.sprite = Sprite(folder_paths, scale_factor, animation_speed)
@@ -67,6 +72,37 @@ class Character:
     def update(self):
         """Update the character sprite animation."""
         self.sprite.update_frame()
+    
+    def move(self, keys):
+        # Display Walk motion only moving
+        if self.moving == True:
+            self.sprite.set_animation(f"{self.current_direction}_walk")
+        else:
+            self.sprite.set_animation(f"{self.current_direction}_stand")
+        if not self.can_move:
+            return
+        if keys[pygame.K_LEFT]:  
+            self.x -= self.walkspeed
+            self.moving = True
+            self.current_direction = "left"
+
+        elif keys[pygame.K_RIGHT]:  
+            self.x += self.walkspeed
+            self.moving = True
+            self.current_direction = "right"
+
+        elif keys[pygame.K_UP]:  
+            self.y -= self.walkspeed
+            self.moving = True
+            self.current_direction = "up"
+
+        elif keys[pygame.K_DOWN]:  
+            self.y += self.walkspeed
+            self.moving = True
+            self.current_direction = "down"
+
+        else:
+            self.moving = False  # Stop animation if no key is pressed
 
     
 
@@ -74,7 +110,7 @@ class Character:
 class NPC(Character):
     def __init__(self, name, dialogues, x, y, folder_paths, scale_factor=3):
         """NPC class that extends Character and supports conversations."""
-        super().__init__(name, level=1, hp=50, mp=0, atk=1, dfn=1, spd=1, inventory={}, folder_paths=folder_paths, scale_factor=scale_factor)
+        super().__init__(name, x, y, level=1, hp=50, mp=0, atk=1, dfn=1, spd=1, inventory={}, folder_paths=folder_paths, scale_factor=scale_factor)
         
         self.dialogues = dialogues  # List of dialogue strings
         self.current_dialogue = 0
@@ -93,13 +129,11 @@ class NPC(Character):
 
     def talk(self, text_manager):
         """Triggers NPC dialogue through `TextManager`."""
-        print("current_dialog", self.current_dialogue)
-        print("dialogues", self.dialogues)
         if self.current_dialogue < len(self.dialogues):
-            print("#########3",self.dialogues)
             for dialogue in self.dialogues:
                 text_manager.add_message(dialogue, self.name)
                 self.current_dialogue += 1  # Move to the next dialogue line
         else:
             self.current_dialogue = 0  # Reset when finished
             self.talking = False  # Stop conversation
+        
