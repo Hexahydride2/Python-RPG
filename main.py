@@ -4,9 +4,19 @@ import random
 import math
 from character import Character
 from battle import check_collision, Battle
-from Draw import update_camera_and_draw, initialize_screen_and_map, initialize_town
+from Draw import update_camera_and_draw, initialize_dungeon, initialize_town, initialize_screen, initialize_main_menu
 
+pygame.init()
+clock = pygame.time.Clock()
 
+# Set up screen dimensions
+CELL_WIDTH, CELL_HEIGHT = 800, 600
+MAP_ROWS, MAP_COLS = 5, 6
+
+# Initialize the screen (for menus or as a base)
+screen = initialize_screen(CELL_WIDTH, CELL_HEIGHT, "Main Menu")
+
+initialize_main_menu()
 
 # Function to create multiple enemies
 def create_enemies(num_enemies, player_x, player_y, combined_map_surface, combined_map_width, combined_map_height):
@@ -73,8 +83,11 @@ WIDTH, HEIGHT = 800, 600
 CELL_WIDTH, CELL_HEIGHT = 800, 600
 MAP_ROWS, MAP_COLS = 5, 6
 
-screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_screen_and_map(
-    CELL_WIDTH, CELL_HEIGHT, MAP_ROWS, MAP_COLS, "Map-L.png", "Map-R.png")
+screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
+    CELL_WIDTH, CELL_HEIGHT, "TownMap.png"
+)
+# screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
+#     CELL_WIDTH, CELL_HEIGHT, MAP_ROWS, MAP_COLS, "Map-L.png", "Map-R.png")
 
 num_frames_dict = {'Attack01': 6, 'Attack02': 6, 'Attack03': 9, 'Death': 4, 'Hurt': 4, 'Idle': 6, 'Walk': 8}
 
@@ -114,6 +127,7 @@ current_enemy = None
 
 clock = pygame.time.Clock()
 
+# Start in the town area:
 
 
 # Main game loop
@@ -191,14 +205,13 @@ while running:
 
         # Transition to town area.
         elif combined_map_surface.get_at((check_x, check_y))[:3] == town_color:
-            from Draw import initialize_town  # Ensure proper import if needed
             screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
                 CELL_WIDTH, CELL_HEIGHT, "TownMap.png"
             )
 
         # Transition back to dungeon.
         elif combined_map_surface.get_at((check_x, check_y))[:3] == Dungeon_color:
-            screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_screen_and_map(
+            screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_dungeon(
                 CELL_WIDTH, CELL_HEIGHT, MAP_ROWS, MAP_COLS, "Map-L.png", "Map-R.png"
             )
 
