@@ -7,11 +7,12 @@ from battle import Battle
 from text_manager import TextManager
 from Draw import initialize_town, initialize_screen, initialize_main_menu, update_camera_and_draw, check_map_transition, change_theme
 import sys
+from items import items_list
 
 
 # Initialize Pygame
 pygame.init()
-initialize_main_menu()
+# initialize_main_menu()
 
 # Now spawn in the town.
 CELL_WIDTH, CELL_HEIGHT = 800, 600
@@ -47,20 +48,24 @@ for enemy in enemies:
 # Create NPCs.
 npc1 = NPC("Old Man", ["Hello, traveler!", "The village is to the north.", "Be careful on your journey."], 1024, 1900,
            [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_1"])
-npc2 = NPC("Merchant", ["Welcome to my shop. I sell potions and weapons."], 1024, 1700,
-           [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"])
+npc2 = NPC("Shopkeeper", ["Welcome to my shop!  I sell potions and weapons."], 1024, 1700,
+           [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"], items_list())
+
 npcs = [npc1, npc2]
 
 # Player movement settings.
 player_speed = 5
 battle_screen = False  # Track battle state.
+shop_active = False # Track shop state
 current_enemy = None
+current_npc = None
 
 # Main game loop.
 running = True
 while running:
     
     screen.fill((255, 255, 255))  # Clear screen.
+
      # Go to battle window
     if battle_screen and current_enemy:
         enemies, battle_screen = move_to_battle(screen, player, enemies, current_enemy, battle_screen)
@@ -91,14 +96,17 @@ while running:
             battle_screen = True
             current_enemy = enemy
             break
+
+
 # After updating the camera_rect:
     for npc in npcs:
         npc.sprite.update_frame()
         # Draw NPC sprite relative to the camera.
         npc_draw_x = npc.x - camera_rect.x - (npc.sprite.sprite_shape[npc.sprite.current_animation]["width"] * npc.sprite.scale_factor) // 2
         npc_draw_y = npc.y - camera_rect.y - (npc.sprite.sprite_shape[npc.sprite.current_animation]["height"] * npc.sprite.scale_factor) // 2
-        print(npc.x, npc.y)
+
         npc.sprite.draw(screen, npc_draw_x, npc_draw_y)
+
         # Calculate distance between player and NPC to check interaction range.
         distance = math.sqrt((player.x - npc.x) ** 2 + (player.y - npc.y) ** 2)
         if distance < 60:  # Interaction range
@@ -112,7 +120,7 @@ while running:
             
             # Draw the interaction icon.
             screen.blit(npc.interaction_symbol, (icon_x, icon_y))
-            print("Interaction symbol drawn for NPC", npc.name)
+         
 
     
     player_draw_x = player.x - camera_rect.x - (player.sprite.sprite_shape[player.sprite.current_animation]["width"] * player.sprite.scale_factor) // 2
@@ -120,7 +128,8 @@ while running:
     player.sprite.update_frame()
     player.sprite.draw(screen, player_draw_x, player_draw_y)
     
-    handle_npc_interaction(player, npcs, text_manager, screen)
+    shop_active, current_npc = handle_npc_interaction(player, npcs, text_manager, screen, shop_active, current_npc)
+
     for npc in npcs:
         npc.draw(screen)
     for event in pygame.event.get():
@@ -130,7 +139,7 @@ while running:
     # Update and draw text overlays.
     text_manager.update()
     text_manager.draw()
-    player.sprite.is_flipped = False
+    
     pygame.display.update()
     clock.tick(30)
 

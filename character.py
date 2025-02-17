@@ -2,9 +2,10 @@ import random
 import pygame
 from sprite import Sprite
 from items import items_list, attack_list
+from shop import Shop
 
 class Character:
-    def __init__(self, name, x, y, level, hp, mp, atk, dfn, spd, inventory, folder_paths, scale_factor=3, animation_speed=5):
+    def __init__(self, name, x, y, level, hp, mp, atk, dfn, spd, inventory, folder_paths, gold=100, scale_factor=3, animation_speed=5):
         # Character Stats
         self.name = name
         self.x, self.y = x, y
@@ -18,6 +19,7 @@ class Character:
         self.dfn = dfn
         self.spd = spd
         self.inventory = inventory
+        self.gold = gold
         self.can_move = True
         self.moving = False  # Track movement state
         self.current_direction = "down"  # Default direction
@@ -56,10 +58,6 @@ class Character:
             self.inventory[item] += 1
         else:
             self.inventory[item] = 1
-        if item in self.inventory:
-            self.inventory[item] += 1
-        else:
-            self.inventory[item] = 1
 
     def use_item(self, item):
         """Use an item if available in inventory."""
@@ -94,6 +92,7 @@ class Character:
     
     def move(self, keys):
         # Display Walk motion only moving
+        self.sprite.is_flipped = False
         if self.moving == True:
             self.sprite.set_animation(f"{self.current_direction}_walk")
         else:
@@ -127,7 +126,7 @@ class Character:
 
 
 class NPC(Character):
-    def __init__(self, name, dialogues, x, y, folder_paths, scale_factor=3):
+    def __init__(self, name, dialogues, x, y, folder_paths, shop_items=None, scale_factor=3):
         """NPC class that extends Character and supports conversations."""
         super().__init__(name, x, y, level=1, hp=50, mp=0, atk=1, dfn=1, spd=1, inventory={}, folder_paths=folder_paths, scale_factor=scale_factor)
         
@@ -137,6 +136,8 @@ class NPC(Character):
         self.y = y
         self.talking = False  # Is the NPC talking?
         self.interaction_symbol = pygame.image.load(R".\Icons\dialog.png")  # Load interaction icon
+        self.shop_items = shop_items # Shop inventory (None if NPC isn't a shopkeeper)
+        self.shop = None
 
     def draw(self, screen):
         """Draw NPC sprite and interaction symbol if the player is near."""
@@ -145,14 +146,18 @@ class NPC(Character):
     def draw_interaction_symbol(self, screen):
         """Draw a floating symbol above the NPC when the player is near."""
         screen.blit(self.interaction_symbol, (self.x + self.sprite.sprite_shape[self.sprite.current_animation]["width"] // 2 + 10, self.y - 30))
-        print("drawn")
-    def talk(self, text_manager):
+
+    def talk(self, text_manager, player, screen):
         """Triggers NPC dialogue through `TextManager`."""
         if self.current_dialogue < len(self.dialogues):
-            for dialogue in self.dialogues:
-                text_manager.add_message(dialogue, self.name)
-                self.current_dialogue += 1  # Move to the next dialogue line
+            #for dialogue in self.dialogues:
+            text_manager.add_message(self.dialogues[self.current_dialogue], self.name)
+            self.current_dialogue += 1  # Move to the next dialogue line
+            
+            # if npc hace shop_items, make a shop instance
+            if self.shop_items:
+                self.shop = Shop(screen, player, self.shop_items)
+    
         else:
             self.current_dialogue = 0  # Reset when finished
             self.talking = False  # Stop conversation
-        

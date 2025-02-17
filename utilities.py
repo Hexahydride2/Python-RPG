@@ -4,6 +4,7 @@ import random
 import pygame
 from battle import Battle
 from Draw import change_theme, revert_theme
+from shop import Shop
 
 
 # To separate "walk1" into "walk" and "1",for example, 
@@ -19,10 +20,24 @@ def check_collision(player_x, player_y, npc_x, npc_y, threshold=60):
     distance = math.sqrt((player_x - npc_x) ** 2 + (player_y - npc_y) ** 2)
     return distance < threshold
 
-def handle_npc_interaction(player, npcs, text_manager, screen):
+def handle_npc_interaction(player, npcs, text_manager, screen, shop_active, current_npc):
     """Checks if the player is near an NPC and starts a conversation."""
     keys = pygame.key.get_pressed()
 
+    # Open the shop is shop_active is True
+    if shop_active:  
+        # While shop is open, only allow shop interactions
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:  # Close shop on ESC
+                    shop_active = False
+                    player.can_move = True
+                else:
+                    current_npc.shop.handle_event(event)  # Process shop input
+        current_npc.shop.draw()  # Redraw shop screen
+        return shop_active, current_npc # Prevent other interactions while in shop mode
+
+    # Deal with the interaction with NPCs
     for npc in npcs:
         distance = ((player.x - npc.x) ** 2 + (player.y - npc.y) ** 2) ** 0.5  # Distance formula
         if distance < 60:  # Interaction range
@@ -38,15 +53,27 @@ def handle_npc_interaction(player, npcs, text_manager, screen):
                             npc.talking = False
                             player.can_move = True
                             
-                return  # Avoid multiple NPCs getting activated
+                            # Check if NPC is a shopkeeper and open the shop
+                            if npc.shop_items:
+                                player.can_move = False
+                                shop_active = True
+                                current_npc = npc
+                                npc.shop = Shop(screen, player, npc.shop_items)
+                                return shop_active, current_npc # Exit to prevent further interactions
+
+                return shop_active, current_npc # Avoid multiple NPCs getting activated
 
             # Press 'E' to start the conversation
             if keys[pygame.K_e]:  
                 player.can_move = False
                 if not npc.talking:
                     npc.talking = True
-                    npc.talk(text_manager)
+                    npc.talk(text_manager, player, screen)
+                    return shop_active, current_npc  # Exit to prevent multiple interactions
+
                 break  # Stop checking other NPCs after talking to one
+    return shop_active, current_npc
+
 
 def move_to_battle(screen, player, enemies, current_enemy, battle_screen = False):
     if battle_screen and current_enemy:

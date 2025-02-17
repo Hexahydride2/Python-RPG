@@ -32,7 +32,6 @@ class TextManager:
         """Add a new message to display."""
         message_sentences = message.split('. ')
         for message in message_sentences:
-            message = message + ". "
             wrapped_lines = self.wrap_text(message)
             self.messages.append((wrapped_lines, speaker))
             self.current_message = []
