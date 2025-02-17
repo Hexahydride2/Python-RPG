@@ -7,6 +7,7 @@ from items import items_list, attack_list
 
 class Battle:
     def __init__(self, screen, player, enemy, background_image=None):
+    def __init__(self, screen, player, enemy, background_image=None):
         self.screen = screen
         self.player = player
         self.enemy = enemy
@@ -15,11 +16,21 @@ class Battle:
             self.background_image = pygame.transform.scale(self.background_image, (self.screen.get_width(), self.screen.get_height()))
         else:
             self.background_image = background_image
+        if background_image != None:
+            self.background_image = pygame.image.load(background_image)  # Adjust the path as needed
+            self.background_image = pygame.transform.scale(self.background_image, (self.screen.get_width(), self.screen.get_height()))
+        else:
+            self.background_image = background_image
         self.font = pygame.font.Font(None, 36)
         self.clock = pygame.time.Clock()
         self.turn_number = 1
+        self.turn_number = 1
         
         self.buttons = {  # Button positions and labels
+            "Attack": pygame.Rect(50, 500, 100, 50),
+            "Items": pygame.Rect(200, 500, 100, 50),
+            "Status": pygame.Rect(350, 500, 100, 50),
+            "Escape": pygame.Rect(500, 500, 100, 50),
             "Attack": pygame.Rect(50, 500, 100, 50),
             "Items": pygame.Rect(200, 500, 100, 50),
             "Status": pygame.Rect(350, 500, 100, 50),
@@ -75,11 +86,14 @@ class Battle:
         self.is_attacking = False
         self.is_hurt = False
         self.is_death = False
+        self.is_death = False
 
         # Battle message variables
         self.battle_message = ""    # Battle message (e.g., who attacked and damage)
         self.message_timer = 0
         self.MESSAGE_DURATION = 60  # Display message for 60 frames
+        self.show_result = False
+        self.battle_result = None
         self.show_result = False
         self.battle_result = None
 
@@ -181,6 +195,7 @@ class Battle:
             self.screen.blit(message_text, (200, 450))  # Display the message at the bottom
             self.message_timer -= 1  # Countdown timer
 
+
     def draw_buttons(self):
         for text, rect in self.buttons.items():
             pygame.draw.rect(self.screen, (0, 0, 0), rect, border_radius=10)
@@ -222,7 +237,18 @@ class Battle:
         # Draws a semi-transparent black rectangle for the turn number.
         self.draw_rectangle(x=5, y=565, width=120, height=30, alpha=200, border_radius=10)
 
+        # Draws a semi-transparent black rectangle for player window.
+        self.draw_rectangle(x=75, y=50, width=250, height=150, alpha=200, border_radius=10)
+
+        # Draws a semi-transparent black rectangle for enemy window.
+        self.draw_rectangle(x=475, y=50, width=250, height=150, alpha=200, border_radius=10)
+
+        # Draws a semi-transparent black rectangle for the turn number.
+        self.draw_rectangle(x=5, y=565, width=120, height=30, alpha=200, border_radius=10)
+
         # Display Player and Enemy HP as text
+        player_hp = self.font.render(f"HP: {self.player.hp}", True, (255, 255, 255))
+        enemy_hp = self.font.render(f"HP: {self.enemy.hp}", True, (255, 255, 255))
         player_hp = self.font.render(f"HP: {self.player.hp}", True, (255, 255, 255))
         enemy_hp = self.font.render(f"HP: {self.enemy.hp}", True, (255, 255, 255))
         self.screen.blit(player_hp, (self.player_hp_x, self.player_hp_y))
@@ -239,6 +265,8 @@ class Battle:
         pygame.draw.rect(self.screen, (170, 255, 0), pygame.Rect(self.enemy_hp_x, self.enemy_hp_y + 20, enemy_hp_bar_width * enemy_hp_ratio, 20))
 
         # Display Player and Enemy MP as text
+        player_mp = self.font.render(f"MP: {self.player.mp}", True, (255, 255, 255))
+        enemy_mp = self.font.render(f"MP: {self.enemy.mp}", True, (255, 255, 255))
         player_mp = self.font.render(f"MP: {self.player.mp}", True, (255, 255, 255))
         enemy_mp = self.font.render(f"MP: {self.enemy.mp}", True, (255, 255, 255))
         self.screen.blit(player_mp, (self.player_hp_x, self.player_hp_y + 50))  # Position below HP
@@ -338,6 +366,8 @@ class Battle:
                                 
                                 return None
                             self.manage_turn_change()
+                                return None
+                            self.manage_turn_change()
                         
                         # Reset positions after attack animation
                         self.player_x, self.player_y = self.original_positions["player"]
@@ -421,6 +451,7 @@ class Battle:
                             self.player_x, self.player_y = self.original_positions["player"]    
                             return None
                         
+                        self.manage_turn_change()  # Switch turn to player
                         self.manage_turn_change()  # Switch turn to player
                         self.enemy_x, self.enemy_y = self.original_positions["enemy"]  # Reset enemy position after attack
                         self.player_x, self.player_y = self.original_positions["player"]  # Reset player position after attack
@@ -521,6 +552,7 @@ class Battle:
             elif self.buttons["Escape"].collidepoint(mouse_pos):
                 return "escape"
             return None
+            return None
     
     def run(self):
         turn_delay = 1500
@@ -528,6 +560,11 @@ class Battle:
 
         running = True
         while running:
+            if self.background_image == None:
+                self.screen.fill((200, 200, 200))  # Background color
+            else:
+                self.screen.blit(self.background_image, (0, 0))  # Draw background first
+
             if self.background_image == None:
                 self.screen.fill((200, 200, 200))  # Background color
             else:
@@ -562,6 +599,24 @@ class Battle:
             else:
                 self.player.update()
                 self.enemy.update()
+
+            if self.show_result:
+                self.display_result_message()
+                pygame.display.update()
+
+                # Wait for user click to continue
+                waiting = True
+                while waiting:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                            sys.exit()
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            self.player.sprite.rescale(self.original_scale)
+                            self.enemy.sprite.rescale(self.original_scale)
+                            waiting = False  # Exit wait loop on click
+                            return self.battle_result
+                self.show_result = False  # Reset the flag for the next battle
 
             if self.show_result:
                 self.display_result_message()

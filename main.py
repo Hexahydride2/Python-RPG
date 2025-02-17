@@ -44,6 +44,7 @@ player = Character(
                    mp=50,
                    atk=30,
                    dfn=20,
+                   dfn=20,
                    spd=30,
                    inventory={"Potion": 2, "Mana Crystal": 3}, 
                    folder_paths=[fR".\timefantasy_characters\timefantasy_characters\frames\chara\chara{playerID_x}_{playerID_y}", fR".\tf_svbattle\singleframes\set{playerID_x}\{playerID_y}"]

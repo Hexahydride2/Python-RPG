@@ -15,6 +15,7 @@ class Character:
         self.max_mp = mp
         self.atk = atk
         self.dfn = dfn
+        self.dfn = dfn
         self.spd = spd
         self.inventory = inventory
         self.can_move = True
@@ -32,10 +33,12 @@ class Character:
         self.mp += 5
         self.atk += 3
         self.dfn += 2
+        self.dfn += 2
         self.spd += 2
 
     def take_damage(self, damage):
         """Reduce HP based on damage calculation."""
+        damage_taken = max(1, damage - self.dfn)
         damage_taken = max(1, damage - self.dfn)
         self.hp -= damage_taken
         return damage_taken
@@ -53,9 +56,26 @@ class Character:
             self.inventory[item] += 1
         else:
             self.inventory[item] = 1
+        if item in self.inventory:
+            self.inventory[item] += 1
+        else:
+            self.inventory[item] = 1
 
     def use_item(self, item):
+    def use_item(self, item):
         """Use an item if available in inventory."""
+        All_Item_List = items_list()
+        if item in self.inventory and self.inventory[item] > 0:
+            if All_Item_List[item]["type"] == "hp":
+                self.hp = min(self.hp + All_Item_List[item]["effect"], self.max_hp)
+                
+            elif All_Item_List[item]["type"] == "mp":
+                self.mp = min(self.mp + All_Item_List[item]["effect"], self.max_mp)
+
+            # Exclude the item if the count get 0
+            self.inventory[item] -= 1
+        else:
+            return f"{item} not available!"
         All_Item_List = items_list()
         if item in self.inventory and self.inventory[item] > 0:
             if All_Item_List[item]["type"] == "hp":
