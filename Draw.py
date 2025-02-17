@@ -1,12 +1,18 @@
 import pygame
+import sys
+
 
 def initialize_screen(cell_width, cell_height, title="Dragon Quest-like RPG"):
 
     screen = pygame.display.set_mode((cell_width, cell_height))
     pygame.display.set_caption(title)
+
     return screen
 
 def initialize_dungeon(cell_width, cell_height, map_rows, map_cols, map_left_path, map_right_path):
+
+    pygame.mixer.init()
+    change_theme("DungeonTheme.mp3")
   
     COMBINED_COLS = map_cols * 2  # two maps side-by-side
     combined_map_width = COMBINED_COLS * cell_width
@@ -32,13 +38,17 @@ def initialize_dungeon(cell_width, cell_height, map_rows, map_cols, map_left_pat
 
 def initialize_town(cell_width, cell_height, town_map_path):
 
+    pygame.mixer.init()
+    change_theme("TownTheme.mp3")
+    
+
     screen = pygame.display.set_mode((cell_width, cell_height))
     pygame.display.set_caption("Town Area")
 
     # Load the town map.
     town_map_surface = pygame.image.load(town_map_path).convert_alpha()
 
-    # Zoom factor: increase the size of the town map to "zoom in"
+    
     zoom_factor = 2  # Adjust for desired zoom
     original_width, original_height = town_map_surface.get_size()
     zoomed_width = int(original_width * zoom_factor)
@@ -75,17 +85,25 @@ def update_camera_and_draw(player, player_x, player_y, screen, combined_map_surf
 
 
 def initialize_main_menu():
-    import sys
-    # Create the screen using your initialize_screen function
-    screen = initialize_screen(800, 600, "Main Menu")
-    clock = pygame.time.Clock()  # Create a local clock
     
-    menu_running = True
-    # Create a simple font
-    font = pygame.font.SysFont("Arial", 40)
-    # Define button dimensions
-    button_rect = pygame.Rect(300, 250, 200, 80)  # Adjust position/size as needed
+    pygame.mixer.init()
+    change_theme("MainMenuTheme.mp3")
 
+    
+    screen = initialize_screen(1600, 800, "Main Menu")
+    
+    # Load and scale the background image.
+    background = pygame.image.load("MainMenu.png").convert() 
+    background = pygame.transform.scale(background, (1600, 800))
+    
+    clock = pygame.time.Clock()  # Create a local clock
+    menu_running = True
+    
+    
+    font = pygame.font.SysFont("Arial", 40)
+    # Define button dimensions 
+    button_rect = pygame.Rect(700, 550, 200, 80)
+    
     while menu_running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -97,10 +115,10 @@ def initialize_main_menu():
                 if button_rect.collidepoint(mouse_pos):
                     menu_running = False  # Exit the menu
 
-        # Draw main menu
-        screen.fill((50, 50, 50))  # Gray background
+        # Draw main menu background image
+        screen.blit(background, (0, 0))
         # Draw start button
-        pygame.draw.rect(screen, (0, 200, 0), button_rect)  # Green button
+        pygame.draw.rect(screen, (0, 200, 0), button_rect)
         # Render text
         text_surface = font.render("Start Game", True, (255, 255, 255))
         # Center text on button
@@ -111,3 +129,26 @@ def initialize_main_menu():
     
     return screen
 
+class MusicManager:
+    def __init__(self):
+        self.current_theme = None
+        self.previous_theme = None
+
+    def change_theme(self, theme_file):
+        self.previous_theme = self.current_theme
+        self.current_theme = theme_file
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load(theme_file)
+        pygame.mixer.music.play(-1)
+
+    def revert_theme(self):
+        if self.previous_theme:
+            self.change_theme(self.previous_theme)
+
+music_manager = MusicManager()
+
+def change_theme(theme_file):
+    music_manager.change_theme(theme_file)
+
+def revert_theme():
+    music_manager.revert_theme()

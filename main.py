@@ -4,7 +4,7 @@ import random
 import math
 from character import Character
 from battle import check_collision, Battle
-from Draw import update_camera_and_draw, initialize_dungeon, initialize_town, initialize_screen, initialize_main_menu
+from Draw import update_camera_and_draw, initialize_dungeon, initialize_town, initialize_screen, initialize_main_menu, change_theme, revert_theme
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -143,6 +143,8 @@ while running:
     
     if battle_screen and current_enemy:
         battle = Battle(screen, player, current_enemy["character"], background_image=".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png")
+        pygame.mixer.init()
+        change_theme("BattleTheme.mp3")
         result = battle.run()
 
         if result == "win":
@@ -150,19 +152,19 @@ while running:
             enemies.remove(current_enemy)
             battle_screen = False  # Exit battle screen
             player_x += 60  # Move player away to prevent instant re-entry
+            revert_theme()  # Revert to previous theme
 
         elif result == "lose":
             player.sprite.set_animation('Walk')
             current_enemy.sprite.set_animation('Idle')
             battle_screen = False  # Exit battle screen
             player_x += 60  # Move player away to prevent instant re-entry
+            revert_theme()  # Revert to previous theme
 
         elif result == "escape":
-            #player.sprite.set_animation('Walk')
-            #current_enemy["character"].sprite.set_animation('Idle')
             battle_screen = False  # Exit battle screen
             player_x += 60  # Move player away to prevent instant re-entry
-
+            revert_theme()  # Revert to previous theme
 
     # Movement
     keys = pygame.key.get_pressed()
