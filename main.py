@@ -6,6 +6,7 @@ from utilities import check_collision, handle_npc_interaction, move_to_battle, c
 from battle import Battle
 from text_manager import TextManager
 from Draw import initialize_town, initialize_screen, initialize_main_menu, update_camera_and_draw, check_map_transition
+import sys
 
 
 # Initialize Pygame
@@ -109,4 +110,4 @@ while running:
     clock.tick(30)
 
 pygame.quit()
-sys.exit()
+

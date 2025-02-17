@@ -140,6 +140,7 @@ class MusicManager:
         self.current_theme = theme_file
         pygame.mixer.music.stop()
         pygame.mixer.music.load(theme_file)
+        pygame.mixer.music.set_volume(0.2)
         pygame.mixer.music.play(-1)
 
     def revert_theme(self):
