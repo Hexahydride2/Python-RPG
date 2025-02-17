@@ -62,7 +62,6 @@ class Character:
             self.inventory[item] = 1
 
     def use_item(self, item):
-    def use_item(self, item):
         """Use an item if available in inventory."""
         All_Item_List = items_list()
         if item in self.inventory and self.inventory[item] > 0:
