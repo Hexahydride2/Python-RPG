@@ -17,6 +17,10 @@ class Shop:
         # Load background image if provided       
         self.background = pygame.image.load(background_image_path)
         self.background = pygame.transform.scale(self.background, (800, 600))  # Resize to match the screen size
+
+        # Load purchase sound effect
+        self.purchase_sound = pygame.mixer.Sound(".\Sound_Effects\coins.wav")
+        self.purchase_sound.set_volume(0.7)  # Adjust the volume
         
     
     def wrap_text(self, text, max_width):
@@ -143,10 +147,24 @@ class Shop:
         if self.player.gold >= item_price:
             self.player.gold -= item_price
             self.player.add_item(item_name)
+            # Play the purchase sound effect
+            self.purchase_sound.play()
             self.text_manager.add_message(f"Thank you for your purchase! May your journey be prosperous!")
        
         else:
             self.text_manager.add_message("I'm sorry, you don't have enough gold, Come back when you're ready!")
           
     
-    
+
+############
+## Create NPCs.
+# npc = NPC("Shopkeeper", ["Welcome to my shop!  I sell potions and weapons."], 1024, 1700,
+#            [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"], items_list())
+# npcs = [npc]
+
+# shop_active = False # Track shop state
+# current_npc = None
+
+###### In main loop ######
+
+#shop_active, current_npc = handle_npc_interaction(player, npcs, text_manager, screen, shop_active, current_npc)

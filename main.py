@@ -70,10 +70,10 @@ while running:
     if battle_screen and current_enemy:
         enemies, battle_screen = move_to_battle(screen, player, enemies, current_enemy, battle_screen)
 
-    # print(player.x, player.y)
     prev_x, prev_y = player.x, player.y
     keys = pygame.key.get_pressed()
     player.move(keys)  # Assumes your Character class has a move() method.
+
     # Draw NPCs
     prev_pos = (player.x, player.y)
     transition = check_map_transition(player, combined_map_surface, combined_map_width, combined_map_height, CELL_WIDTH, CELL_HEIGHT, prev_pos)

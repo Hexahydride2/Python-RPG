@@ -1,7 +1,7 @@
 import pygame
 
 class TextManager:
-    def __init__(self, screen, font_size=24, box_width=700, box_height=100, sound_file=R".\Sounds_tracks\Retro_03\Retro_Single_v5_wav.wav"):
+    def __init__(self, screen, font_size=24, box_width=700, box_height=100, sound_file=R".\Sound_Effects\Retro_03\Retro_Single_v5_wav.wav"):
         self.screen = screen
         self.font = pygame.font.Font(None, font_size)
         self.messages = []  # List of messages to display
