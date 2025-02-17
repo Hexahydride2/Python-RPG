@@ -12,7 +12,7 @@ def initialize_screen(cell_width, cell_height, title="Dragon Quest-like RPG"):
 def initialize_dungeon(cell_width, cell_height, map_rows, map_cols, map_left_path, map_right_path):
 
     pygame.mixer.init()
-    change_theme("DungeonTheme.mp3")
+    change_theme("Music\DungeonTheme.mp3")
   
     COMBINED_COLS = map_cols * 2  # two maps side-by-side
     combined_map_width = COMBINED_COLS * cell_width
@@ -39,7 +39,7 @@ def initialize_dungeon(cell_width, cell_height, map_rows, map_cols, map_left_pat
 def initialize_town(cell_width, cell_height, town_map_path):
 
     pygame.mixer.init()
-    change_theme("TownTheme.mp3")
+    change_theme("Music\TownTheme.mp3")
     
 
     screen = pygame.display.set_mode((cell_width, cell_height))
@@ -87,13 +87,13 @@ def update_camera_and_draw(player, player_x, player_y, screen, combined_map_surf
 def initialize_main_menu():
     
     pygame.mixer.init()
-    change_theme("MainMenuTheme.mp3")
+    change_theme("Music\MainMenuTheme.mp3")
 
     
     screen = initialize_screen(1600, 800, "Main Menu")
     
     # Load and scale the background image.
-    background = pygame.image.load("MainMenu.png").convert() 
+    background = pygame.image.load("Backgrounds\MainMenu.png").convert() 
     background = pygame.transform.scale(background, (1600, 800))
     
     clock = pygame.time.Clock()  # Create a local clock

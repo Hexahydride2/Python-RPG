@@ -84,7 +84,7 @@ CELL_WIDTH, CELL_HEIGHT = 800, 600
 MAP_ROWS, MAP_COLS = 5, 6
 
 screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
-    CELL_WIDTH, CELL_HEIGHT, "TownMap.png"
+    CELL_WIDTH, CELL_HEIGHT, "Backgrounds\TownMap.png"
 )
 # screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
 #     CELL_WIDTH, CELL_HEIGHT, MAP_ROWS, MAP_COLS, "Map-L.png", "Map-R.png")
@@ -144,7 +144,7 @@ while running:
     if battle_screen and current_enemy:
         battle = Battle(screen, player, current_enemy["character"], background_image=".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png")
         pygame.mixer.init()
-        change_theme("BattleTheme.mp3")
+        change_theme("Music\BattleTheme.mp3")
         result = battle.run()
 
         if result == "win":
@@ -208,13 +208,13 @@ while running:
         # Transition to town area.
         elif combined_map_surface.get_at((check_x, check_y))[:3] == town_color:
             screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
-                CELL_WIDTH, CELL_HEIGHT, "TownMap.png"
+                CELL_WIDTH, CELL_HEIGHT, "Backgrounds\TownMap.png"
             )
 
         # Transition back to dungeon.
         elif combined_map_surface.get_at((check_x, check_y))[:3] == Dungeon_color:
             screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_dungeon(
-                CELL_WIDTH, CELL_HEIGHT, MAP_ROWS, MAP_COLS, "Map-L.png", "Map-R.png"
+                CELL_WIDTH, CELL_HEIGHT, MAP_ROWS, MAP_COLS, "Backgrounds\Map-L.png", "Backgrounds\Map-R.png"
             )
 
     # Check for collisions with enemies
