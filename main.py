@@ -149,15 +149,28 @@ while running:
         if result == "win":
             enemies.remove(current_enemy)
             battle_screen = False  # Exit battle screen
-            player_x += 60  # Move player away to prevent instant re-entry
 
         elif result == "lose":
             battle_screen = False  # Exit battle screen
-            player_x += 60  # Move player away to prevent instant re-entry
+            if current_direction == "right":
+                player_x -= 60  # Move player away to prevent instant re-entry
+            elif current_direction == "left":
+                player_x += 60  # Move player away to prevent instant re-entry
+            elif current_direction == "up":
+                player_y += 60  # Move player away to prevent instant re-entry
+            elif current_direction == "down":
+                player_y -= 60  # Move player away to prevent instant re-entry
 
         elif result == "escape":
             battle_screen = False  # Exit battle screen
-            player_x += 60  # Move player away to prevent instant re-entry
+            if current_direction == "right":
+                player_x -= 60  # Move player away to prevent instant re-entry
+            elif current_direction == "left":
+                player_x += 60  # Move player away to prevent instant re-entry
+            elif current_direction == "up":
+                player_y += 60  # Move player away to prevent instant re-entry
+            elif current_direction == "down":
+                player_y -= 60  # Move player away to prevent instant re-entry
 
     # Handle NPC interaction
     handle_npc_interaction(player_x, player_y, npcs, text_manager, screen)
