@@ -5,6 +5,7 @@ from character import Character, NPC
 from utilities import check_collision, handle_npc_interaction, move_to_battle, create_enemies
 from battle import Battle
 from text_manager import TextManager
+from Draw import initialize_town, initialize_screen
 
 
 # Initialize Pygame
@@ -15,9 +16,9 @@ WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Character Animation")
 
-screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
-    CELL_WIDTH, CELL_HEIGHT, "Backgrounds\TownMap.png"
-)
+# screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
+#     CELL_WIDTH, CELL_HEIGHT, "Backgrounds\TownMap.png"
+# )
 # screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
 #     CELL_WIDTH, CELL_HEIGHT, MAP_ROWS, MAP_COLS, "Map-L.png", "Map-R.png")
 
@@ -72,7 +73,7 @@ is_flipped = False  # Variable to track if sprite is flipped
 
 
 # Generate enemies
-enemies = create_enemies(25, player_x, player_y, combined_map_surface, combined_map_width, combined_map_height)  # Set the number of enemies
+# enemies = create_enemies(25, player_x, player_y, combined_map_surface, combined_map_width, combined_map_height)  # Set the number of enemies
 
 # Battle window settings
 battle_screen = False  # Track whether battle is in progress
