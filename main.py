@@ -5,134 +5,108 @@ from character import Character, NPC
 from utilities import check_collision, handle_npc_interaction, move_to_battle, create_enemies
 from battle import Battle
 from text_manager import TextManager
-from Draw import initialize_town, initialize_screen
+from Draw import initialize_town, initialize_screen, initialize_main_menu, update_camera_and_draw, check_map_transition
 
 
 # Initialize Pygame
 pygame.init()
+initialize_main_menu()
 
-# Screen settings
-WIDTH, HEIGHT = 800, 600
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Character Animation")
+# Now spawn in the town.
+CELL_WIDTH, CELL_HEIGHT = 800, 600
+screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
+    CELL_WIDTH, CELL_HEIGHT, "Backgrounds/TownMap.png"
+)
 
-# screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
-#     CELL_WIDTH, CELL_HEIGHT, "Backgrounds\TownMap.png"
-# )
-# screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
-#     CELL_WIDTH, CELL_HEIGHT, MAP_ROWS, MAP_COLS, "Map-L.png", "Map-R.png")
-
-
-# Animation variables
+# Animation and game variables.
 clock = pygame.time.Clock()
-frame = 0
-player_x, player_y = 100, 300  # Position of the character
-
-
-# Battle window settings
-battle_screen = False  # Track whether battle is in progress
-current_enemy = None
-
-# Initialize TextManager
 text_manager = TextManager(screen)
-
-
-playerID_x, playerID_y = 2, 1
+playerID_x, playerID_y = 5, 1
 
 player = Character(
-                   name="Hero",
-                   x=player_x,
-                   y=player_y,
-                   level=10,
-                   hp=100,
-                   mp=50,
-                   atk=30,
-                   dfn=20,
-                   spd=30,
-                   inventory={"Potion": 2, "Mana Crystal": 3}, 
-                   folder_paths=[fR".\timefantasy_characters\timefantasy_characters\frames\chara\chara{playerID_x}_{playerID_y}", fR".\tf_svbattle\singleframes\set{playerID_x}\{playerID_y}"]
-                   )
+    name="Hero",
+    x=player_x,
+    y=player_y,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=30,
+    dfn=20,
+    spd=30,
+    inventory={"Potion": 2, "Mana Crystal": 3},
+    folder_paths=[fR".\timefantasy_characters\timefantasy_characters\frames\chara\chara{playerID_x}_{playerID_y}",
+                  fR".\tf_svbattle\singleframes\set{playerID_x}\{playerID_y}"]
+)
 
-# Create enemies in the random location
-enemies = create_enemies(num_enemies=2, player_x=player.x, player_y=player.y, x_id=5, y_id=8, WIDTH=WIDTH, HEIGHT=HEIGHT)
+# Create enemies in a random location (utilizing your create_enemies function).
+enemies = create_enemies(num_enemies=2, player_x=player.x, player_y=player.y, x_id=5, y_id=8, WIDTH=CELL_WIDTH, HEIGHT=CELL_HEIGHT)
 for enemy in enemies:
     enemy["character"].sprite.set_animation("down_stand")
 
-# Create NPCs
-npc1 = NPC("Old Man", ["Hello, traveler!", "The village is to the north.", "Be careful on your journey."], 400, 300, [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_1"])
-npc2 = NPC("Merchant", ["Welcome to my shop. I sell potions and weapons."], 200, 350, [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"])
-
+# Create NPCs.
+npc1 = NPC("Old Man", ["Hello, traveler!", "The village is to the north.", "Be careful on your journey."], 1024, 1900,
+           [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_1"])
+npc2 = NPC("Merchant", ["Welcome to my shop. I sell potions and weapons."], 1024, 1700,
+           [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"])
 npcs = [npc1, npc2]
 
-
-# Player settings
-# player_x, player_y = WIDTH // 2, HEIGHT // 2
+# Player movement settings.
 player_speed = 5
-current_frame = 0
-is_flipped = False  # Variable to track if sprite is flipped
-
-
-# Generate enemies
-# enemies = create_enemies(25, player_x, player_y, combined_map_surface, combined_map_width, combined_map_height)  # Set the number of enemies
-
-# Battle window settings
-battle_screen = False  # Track whether battle is in progress
+battle_screen = False  # Track battle state.
 current_enemy = None
 
-clock = pygame.time.Clock()
-
-# Start in the town area:
-
-
-# Main game loop
+# Main game loop.
 running = True
 while running:
-    screen.fill((255, 255, 255))  # Clear screen
+    
+    screen.fill((255, 255, 255))  # Clear screen.
+    camera_rect = update_camera_and_draw(player, player.x, player.y, screen, combined_map_surface,
+                                           combined_map_width, combined_map_height, CELL_WIDTH, CELL_HEIGHT)
+    print(player.x, player.y)
+    prev_x, prev_y = player.x, player.y
+    keys = pygame.key.get_pressed()
+    player.move(keys)  # Assumes your Character class has a move() method.
+    # Draw NPCs
+    prev_pos = (player.x, player.y)
+    transition = check_map_transition(player, combined_map_surface, combined_map_width, combined_map_height, CELL_WIDTH, CELL_HEIGHT, prev_pos)
+    if transition:
+        screen, combined_map_surface, combined_map_width, combined_map_height, player.x, player.y = transition
 
-    # Event handling
-    keys = pygame.key.get_pressed()  # Get currently pressed keys
-
-    # Walking movement
-    player.move(keys)
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-
-    # Go to battle window
-    if battle_screen and current_enemy:
-        enemies, battle_screen = move_to_battle(screen, player, enemies, current_enemy, battle_screen)
-
-    # Handle NPC interaction
-    handle_npc_interaction(player, npcs, text_manager, screen)
-
-    # Check for collisions with enemies
+    # Optional: Add additional game logic here (e.g., collision checking and battle triggers).
     for enemy in enemies:
         if check_collision(player.x, player.y, enemy["x"], enemy["y"]):
             battle_screen = True
-            current_enemy = enemy  # Store current enemy for battle
-            break  # Only trigger one battle at a time
+            current_enemy = enemy
+            break
 
-    # Draw NPCs
+    # Handle interactions with NPCs.
+    handle_npc_interaction(player, npcs, text_manager, screen)
     for npc in npcs:
         npc.draw(screen)
-
-    # Draw enemies
-    for enemy in enemies:
-        enemy["character"].sprite.update_frame()
-        enemy["character"].sprite.draw(screen, enemy["x"], enemy["y"])
-
-    # Display player
-    player.sprite.is_flipped = False
-    player.sprite.update_frame()
-    player.sprite.draw(screen, player.x, player.y)
-
-    # Update and draw text
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    # Draw enemies.
+    # for enemy in enemies:
+    #     enemy["character"].sprite.update_frame()
+    #     enemy_draw_x = enemy["x"] - camera_rect.x - (enemy["character"].sprite.sprite_width * enemy["character"].sprite.scale_factor) // 2
+    #     enemy_draw_y = enemy["y"] - camera_rect.y - (enemy["character"].sprite.sprite_height * enemy["character"].sprite.scale_factor) // 2
+    #     enemy["character"].sprite.draw(screen, enemy_draw_x, enemy_draw_y)
+    
+# After updating the camera_rect:
+    for npc in npcs:
+        npc.sprite.update_frame()
+        # Draw NPC relative to the camera.
+        npc_draw_x = npc.x - camera_rect.x - (npc.sprite.sprite_shape[npc.sprite.current_animation]["width"] * npc.sprite.scale_factor) // 2
+        npc_draw_y = npc.y - camera_rect.y - (npc.sprite.sprite_shape[npc.sprite.current_animation]["height"] * npc.sprite.scale_factor) // 2
+        npc.sprite.draw(screen, npc_draw_x, npc_draw_y)
+    
+    # Update and draw text overlays.
     text_manager.update()
     text_manager.draw()
-
+    
     pygame.display.update()
-    clock.tick(30)  # Control animation speed (10 FPS)
+    clock.tick(30)
 
 pygame.quit()
+sys.exit()

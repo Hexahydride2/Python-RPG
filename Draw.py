@@ -10,31 +10,32 @@ def initialize_screen(cell_width, cell_height, title="Dragon Quest-like RPG"):
     return screen
 
 def initialize_dungeon(cell_width, cell_height, map_rows, map_cols, map_left_path, map_right_path):
-
     pygame.mixer.init()
-    change_theme("Music\DungeonTheme.mp3")
-  
-    COMBINED_COLS = map_cols * 2  # two maps side-by-side
-    combined_map_width = COMBINED_COLS * cell_width
-    combined_map_height = map_rows * cell_height
-
-    # Load and scale the map files.
+    change_theme("Music\\DungeonTheme.mp3")
+    screen = pygame.display.set_mode((cell_width, cell_height))
+    pygame.display.set_caption("Dungeon Area")
+    
+    # Load the left and right maps.
     map_surface_L = pygame.image.load(map_left_path)
     map_surface_R = pygame.image.load(map_right_path)
+    
+    # Scale maps.
     scaled_map_size = (map_cols * cell_width, map_rows * cell_height)
     map_surface_L = pygame.transform.scale(map_surface_L, scaled_map_size)
     map_surface_R = pygame.transform.scale(map_surface_R, scaled_map_size)
-
-    # Combine the two maps side-by-side into one surface.
+    
+    # Combine maps side-by-side.
+    combined_map_width = map_cols * cell_width * 2
+    combined_map_height = map_rows * cell_height
     combined_map_surface = pygame.Surface((combined_map_width, combined_map_height))
     combined_map_surface.blit(map_surface_L, (0, 0))
     combined_map_surface.blit(map_surface_R, (map_cols * cell_width, 0))
     
-    # Start at the center of the bottom left cell of Map-L.
+    # Set player's starting position.
     player_x = cell_width // 2
     player_y = (map_rows - 1) * cell_height + cell_height // 2
 
-    return combined_map_surface, combined_map_width, combined_map_height, player_x, player_y
+    return screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y
 
 def initialize_town(cell_width, cell_height, town_map_path):
 
@@ -64,8 +65,8 @@ def initialize_town(cell_width, cell_height, town_map_path):
 def update_camera_and_draw(player, player_x, player_y, screen, combined_map_surface,
                            combined_map_width, combined_map_height, cell_width, cell_height):
     # Calculate camera position to center the player:
-    camera_x = player_x - cell_width // 2
-    camera_y = player_y - cell_height // 2
+    camera_x = player.x - cell_width // 2
+    camera_y = player.y - cell_height // 2
 
     # Clamp the camera to the bounds of the combined map:
     camera_x = max(0, min(camera_x, combined_map_width - cell_width))
@@ -76,8 +77,8 @@ def update_camera_and_draw(player, player_x, player_y, screen, combined_map_surf
     screen.blit(combined_map_surface, (0, 0), camera_rect)
 
     # Draw the player with the correct offset relative to the camera.
-    player_draw_x = player_x - camera_rect.x - (player.sprite.sprite_width * player.sprite.scale_factor) // 2
-    player_draw_y = player_y - camera_rect.y - (player.sprite.sprite_height * player.sprite.scale_factor) // 2
+    player_draw_x = player.x - camera_rect.x - (player.sprite.sprite_shape[player.sprite.current_animation]["width"] * player.sprite.scale_factor) // 2
+    player_draw_y = player.y - camera_rect.y - (player.sprite.sprite_shape[player.sprite.current_animation]["height"] * player.sprite.scale_factor) // 2
     player.sprite.update_frame()
     player.sprite.draw(screen, player_draw_x, player_draw_y)
 
@@ -152,3 +153,30 @@ def change_theme(theme_file):
 
 def revert_theme():
     music_manager.revert_theme()
+
+def check_map_transition(player, combined_map_surface, combined_map_width, combined_map_height, cell_width, cell_height, prev_pos):
+
+    # Define the target colors. Adjust these as necessary.
+    obstacle_color = (0, 0, 0)
+    town_color = (0, 65, 120)
+    dungeon_color = (0, 9, 36)
+
+    check_x = int(player.x)
+    check_y = int(player.y)
+    
+    # Ensure we are within bounds.
+    if 0 <= check_x < combined_map_width and 0 <= check_y < combined_map_height:
+        current_color = combined_map_surface.get_at((check_x, check_y))[:3]
+        
+        if current_color == obstacle_color:
+            # Revert player's position.
+            player.x, player.y = prev_pos
+            return None
+        elif current_color == town_color:
+            # Transition into the town area.
+            return initialize_town(cell_width, cell_height, "Backgrounds/TownMap.png")
+        elif current_color == dungeon_color:
+            # Transition into the dungeon area.
+            from Draw import initialize_dungeon  # Ensure dungeon initializer is imported
+            return initialize_dungeon(cell_width, cell_height, 5, 6, "Backgrounds/Map-L.png", "Backgrounds/Map-R.png")
+    return None
