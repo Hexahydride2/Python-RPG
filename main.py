@@ -1,9 +1,11 @@
 import pygame
 import random
 import math
-from character import Character
-from utilities import check_collision
+from character import Character, NPC
+from utilities import check_collision, handle_npc_interaction
 from battle import Battle
+from text_manager import TextManager
+
 
 
 # Function to create multiple enemies
@@ -59,6 +61,7 @@ pygame.display.set_caption("Character Animation")
 # Scale images (adjust the size as needed)
 SCALE_FACTOR = 2  # Change this to make the character bigger or smaller
 
+
 # Animation variables
 clock = pygame.time.Clock()
 frame = 0
@@ -72,6 +75,10 @@ current_direction = "down"  # Default direction
 # Battle window settings
 battle_screen = False  # Track whether battle is in progress
 current_enemy = None
+
+# Initialize TextManager
+text_manager = TextManager(screen)
+
 
 playerID_x, playerID_y = 2, 1
 
@@ -87,12 +94,17 @@ player = Character(
                    folder_paths=[fR".\timefantasy_characters\timefantasy_characters\frames\chara\chara{playerID_x}_{playerID_y}", fR".\tf_svbattle\singleframes\set{playerID_x}\{playerID_y}"]
                    )
 
-
-
 # Create enemies in the random location
-enemies = create_enemies(num_enemies=3, player_x=player_x, player_y=player_y, x_id=5, y_id=8, WIDTH=WIDTH, HEIGHT=HEIGHT)
+enemies = create_enemies(num_enemies=2, player_x=player_x, player_y=player_y, x_id=5, y_id=8, WIDTH=WIDTH, HEIGHT=HEIGHT)
 for enemy in enemies:
     enemy["character"].sprite.set_animation("down_stand")
+
+# Create NPCs
+npc1 = NPC("Old Man", ["Hello, traveler!", "The village is to the north.", "Be careful on your journey."], 400, 300, [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_1"])
+npc2 = NPC("Merchant", ["Welcome to my shop. I sell potions and weapons."], 200, 350, [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"])
+
+npcs = [npc1, npc2]
+
 
 running = True
 while running:
@@ -147,10 +159,8 @@ while running:
             battle_screen = False  # Exit battle screen
             player_x += 60  # Move player away to prevent instant re-entry
 
-    # Event handling
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    # Handle NPC interaction
+    handle_npc_interaction(player_x, player_y, npcs, text_manager, screen)
 
     # Check for collisions with enemies
     for enemy in enemies:
@@ -166,18 +176,23 @@ while running:
         player.sprite.set_animation(f"{current_direction}_stand")
 
 
+    # Draw NPCs
+    for npc in npcs:
+        npc.draw(screen)
+
     # Draw enemies
     for enemy in enemies:
         enemy["character"].sprite.update_frame()
         enemy["character"].sprite.draw(screen, enemy["x"], enemy["y"])
 
-    # Display the current frame
+    # Display player
     player.sprite.is_flipped = False
     player.sprite.update_frame()
     player.sprite.draw(screen, player_x, player_y)
 
-
-
+    # Update and draw text
+    text_manager.update()
+    text_manager.draw()
 
     pygame.display.update()
     clock.tick(30)  # Control animation speed (10 FPS)

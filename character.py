@@ -1,4 +1,5 @@
 import random
+import pygame
 from sprite import Sprite
 from items import items_list, attack_list
 
@@ -68,3 +69,37 @@ class Character:
         self.sprite.update_frame()
 
     
+
+
+class NPC(Character):
+    def __init__(self, name, dialogues, x, y, folder_paths, scale_factor=3):
+        """NPC class that extends Character and supports conversations."""
+        super().__init__(name, level=1, hp=50, mp=0, atk=1, dfn=1, spd=1, inventory={}, folder_paths=folder_paths, scale_factor=scale_factor)
+        
+        self.dialogues = dialogues  # List of dialogue strings
+        self.current_dialogue = 0
+        self.x = x
+        self.y = y
+        self.talking = False  # Is the NPC talking?
+        self.interaction_symbol = pygame.image.load(R".\Icons\dialog.png")  # Load interaction icon
+
+    def draw(self, screen):
+        """Draw NPC sprite and interaction symbol if the player is near."""
+        self.sprite.draw(screen, self.x, self.y)
+
+    def draw_interaction_symbol(self, screen):
+        """Draw a floating symbol above the NPC when the player is near."""
+        screen.blit(self.interaction_symbol, (self.x + self.sprite.sprite_shape[self.sprite.current_animation]["width"] // 2 + 10, self.y - 30))
+
+    def talk(self, text_manager):
+        """Triggers NPC dialogue through `TextManager`."""
+        print("current_dialog", self.current_dialogue)
+        print("dialogues", self.dialogues)
+        if self.current_dialogue < len(self.dialogues):
+            print("#########3",self.dialogues)
+            for dialogue in self.dialogues:
+                text_manager.add_message(dialogue, self.name)
+                self.current_dialogue += 1  # Move to the next dialogue line
+        else:
+            self.current_dialogue = 0  # Reset when finished
+            self.talking = False  # Stop conversation

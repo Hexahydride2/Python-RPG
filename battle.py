@@ -201,7 +201,6 @@ class Battle:
 
     def draw_rectangle(self, x, y, width, height, alpha, border_radius):
         rect_surface = pygame.Surface((width, height), pygame.SRCALPHA)
-        #rect_surface.fill((0, 0, 0, 200))  # Black with transparency
         pygame.draw.rect(rect_surface, (0, 0, 0, alpha), (0, 0, width, height), border_radius=border_radius)
         self.screen.blit(rect_surface, (x, y))
 
