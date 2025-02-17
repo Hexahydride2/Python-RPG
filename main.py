@@ -5,7 +5,7 @@ from character import Character, NPC
 from utilities import check_collision, handle_npc_interaction, move_to_battle, create_enemies
 from battle import Battle
 from text_manager import TextManager
-from Draw import initialize_town, initialize_screen, initialize_main_menu, update_camera_and_draw, check_map_transition
+from Draw import initialize_town, initialize_screen, initialize_main_menu, update_camera_and_draw, check_map_transition, change_theme
 import sys
 
 
@@ -40,7 +40,7 @@ player = Character(
 )
 
 # Create enemies in a random location (utilizing your create_enemies function).
-enemies = create_enemies(num_enemies=2, player_x=player.x, player_y=player.y, x_id=5, y_id=8, WIDTH=CELL_WIDTH, HEIGHT=CELL_HEIGHT)
+enemies = create_enemies(num_enemies=10, player_x=player.x, player_y=player.y, x_id=5, y_id=8, WIDTH=CELL_WIDTH, HEIGHT=CELL_HEIGHT)
 for enemy in enemies:
     enemy["character"].sprite.set_animation("down_stand")
 
@@ -61,9 +61,11 @@ running = True
 while running:
     
     screen.fill((255, 255, 255))  # Clear screen.
-    camera_rect = update_camera_and_draw(player, player.x, player.y, screen, combined_map_surface,
-                                           combined_map_width, combined_map_height, CELL_WIDTH, CELL_HEIGHT)
-    print(player.x, player.y)
+     # Go to battle window
+    if battle_screen and current_enemy:
+        enemies, battle_screen = move_to_battle(screen, player, enemies, current_enemy, battle_screen)
+
+    # print(player.x, player.y)
     prev_x, prev_y = player.x, player.y
     keys = pygame.key.get_pressed()
     player.move(keys)  # Assumes your Character class has a move() method.
@@ -73,34 +75,57 @@ while running:
     if transition:
         screen, combined_map_surface, combined_map_width, combined_map_height, player.x, player.y = transition
 
-    # Optional: Add additional game logic here (e.g., collision checking and battle triggers).
+    # Handle interactions with NPCs.
+    camera_rect = update_camera_and_draw(player, player.x, player.y, screen, combined_map_surface,
+                                           combined_map_width, combined_map_height, CELL_WIDTH, CELL_HEIGHT)
+    # Draw enemies.
+    for enemy in enemies:
+        enemy["character"].sprite.update_frame()
+        enemy_draw_x = enemy["x"] - camera_rect.x - (enemy["character"].sprite.sprite_shape[enemy["character"].sprite.current_animation]["width"] * enemy["character"].sprite.scale_factor) // 2
+        enemy_draw_y = enemy["y"] - camera_rect.y - (enemy["character"].sprite.sprite_shape[enemy["character"].sprite.current_animation]["height"] * enemy["character"].sprite.scale_factor) // 2
+        enemy["character"].sprite.draw(screen, enemy_draw_x, enemy_draw_y)
+    
     for enemy in enemies:
         if check_collision(player.x, player.y, enemy["x"], enemy["y"]):
+            print("Collision with enemy!")
             battle_screen = True
             current_enemy = enemy
             break
+# After updating the camera_rect:
+    for npc in npcs:
+        npc.sprite.update_frame()
+        # Draw NPC sprite relative to the camera.
+        npc_draw_x = npc.x - camera_rect.x - (npc.sprite.sprite_shape[npc.sprite.current_animation]["width"] * npc.sprite.scale_factor) // 2
+        npc_draw_y = npc.y - camera_rect.y - (npc.sprite.sprite_shape[npc.sprite.current_animation]["height"] * npc.sprite.scale_factor) // 2
+        print(npc.x, npc.y)
+        npc.sprite.draw(screen, npc_draw_x, npc_draw_y)
+        # Calculate distance between player and NPC to check interaction range.
+        distance = math.sqrt((player.x - npc.x) ** 2 + (player.y - npc.y) ** 2)
+        if distance < 60:  # Interaction range
+            # Calculate the NPC's on-screen position relative to the camera.
+            relative_npc_x = npc.x - camera_rect.x
+            relative_npc_y = npc.y - camera_rect.y
+            
+            # Adjust position for the icon (using NPC's sprite width if needed).
+            icon_x = relative_npc_x + npc.sprite.sprite_shape[npc.sprite.current_animation]["width"] // 2 + 10
+            icon_y = relative_npc_y - 50
+            
+            # Draw the interaction icon.
+            screen.blit(npc.interaction_symbol, (icon_x, icon_y))
+            print("Interaction symbol drawn for NPC", npc.name)
 
-    # Handle interactions with NPCs.
+    
+    player_draw_x = player.x - camera_rect.x - (player.sprite.sprite_shape[player.sprite.current_animation]["width"] * player.sprite.scale_factor) // 2
+    player_draw_y = player.y - camera_rect.y - (player.sprite.sprite_shape[player.sprite.current_animation]["height"] * player.sprite.scale_factor) // 2
+    player.sprite.update_frame()
+    player.sprite.draw(screen, player_draw_x, player_draw_y)
+    
     handle_npc_interaction(player, npcs, text_manager, screen)
     for npc in npcs:
         npc.draw(screen)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    # Draw enemies.
-    # for enemy in enemies:
-    #     enemy["character"].sprite.update_frame()
-    #     enemy_draw_x = enemy["x"] - camera_rect.x - (enemy["character"].sprite.sprite_width * enemy["character"].sprite.scale_factor) // 2
-    #     enemy_draw_y = enemy["y"] - camera_rect.y - (enemy["character"].sprite.sprite_height * enemy["character"].sprite.scale_factor) // 2
-    #     enemy["character"].sprite.draw(screen, enemy_draw_x, enemy_draw_y)
-    
-# After updating the camera_rect:
-    for npc in npcs:
-        npc.sprite.update_frame()
-        # Draw NPC relative to the camera.
-        npc_draw_x = npc.x - camera_rect.x - (npc.sprite.sprite_shape[npc.sprite.current_animation]["width"] * npc.sprite.scale_factor) // 2
-        npc_draw_y = npc.y - camera_rect.y - (npc.sprite.sprite_shape[npc.sprite.current_animation]["height"] * npc.sprite.scale_factor) // 2
-        npc.sprite.draw(screen, npc_draw_x, npc_draw_y)
     
     # Update and draw text overlays.
     text_manager.update()

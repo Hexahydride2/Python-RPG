@@ -145,7 +145,7 @@ class NPC(Character):
     def draw_interaction_symbol(self, screen):
         """Draw a floating symbol above the NPC when the player is near."""
         screen.blit(self.interaction_symbol, (self.x + self.sprite.sprite_shape[self.sprite.current_animation]["width"] // 2 + 10, self.y - 30))
-
+        print("drawn")
     def talk(self, text_manager):
         """Triggers NPC dialogue through `TextManager`."""
         if self.current_dialogue < len(self.dialogues):

@@ -3,6 +3,7 @@ import math
 import random
 import pygame
 from battle import Battle
+from Draw import change_theme, revert_theme
 
 
 # To separate "walk1" into "walk" and "1",for example, 
@@ -50,10 +51,12 @@ def handle_npc_interaction(player, npcs, text_manager, screen):
 def move_to_battle(screen, player, enemies, current_enemy, battle_screen = False):
     if battle_screen and current_enemy:
         battle = Battle(screen, player, current_enemy["character"], background_image=".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png")
+        change_theme("Music\BattleTheme.mp3")
         result = battle.run()
         if result == "win":
             enemies.remove(current_enemy)
             battle_screen = False  # Exit battle screen
+            revert_theme()
         elif result == "lose":
             battle_screen = False  # Exit battle screen
             if player.current_direction == "right":
@@ -64,6 +67,7 @@ def move_to_battle(screen, player, enemies, current_enemy, battle_screen = False
                 player.y += 60  # Move player away to prevent instant re-entry
             elif player.current_direction == "down":
                 player.y -= 60  # Move player away to prevent instant re-entry
+            revert_theme()
         elif result == "escape":
             battle_screen = False  # Exit battle screen
             if player.current_direction == "right":
@@ -74,6 +78,7 @@ def move_to_battle(screen, player, enemies, current_enemy, battle_screen = False
                 player.y += 60  # Move player away to prevent instant re-entry
             elif player.current_direction == "down":
                 player.y -= 60  # Move player away to prevent instant re-entry
+            revert_theme()
     
     return enemies, battle_screen
 

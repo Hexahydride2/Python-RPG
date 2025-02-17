@@ -77,10 +77,10 @@ def update_camera_and_draw(player, player_x, player_y, screen, combined_map_surf
     screen.blit(combined_map_surface, (0, 0), camera_rect)
 
     # Draw the player with the correct offset relative to the camera.
-    player_draw_x = player.x - camera_rect.x - (player.sprite.sprite_shape[player.sprite.current_animation]["width"] * player.sprite.scale_factor) // 2
-    player_draw_y = player.y - camera_rect.y - (player.sprite.sprite_shape[player.sprite.current_animation]["height"] * player.sprite.scale_factor) // 2
-    player.sprite.update_frame()
-    player.sprite.draw(screen, player_draw_x, player_draw_y)
+    # player_draw_x = player.x - camera_rect.x - (player.sprite.sprite_shape[player.sprite.current_animation]["width"] * player.sprite.scale_factor) // 2
+    # player_draw_y = player.y - camera_rect.y - (player.sprite.sprite_shape[player.sprite.current_animation]["height"] * player.sprite.scale_factor) // 2
+    # player.sprite.update_frame()
+    # player.sprite.draw(screen, player_draw_x, player_draw_y)
 
     return camera_rect
 
@@ -178,6 +178,5 @@ def check_map_transition(player, combined_map_surface, combined_map_width, combi
             return initialize_town(cell_width, cell_height, "Backgrounds/TownMap.png")
         elif current_color == dungeon_color:
             # Transition into the dungeon area.
-            from Draw import initialize_dungeon  # Ensure dungeon initializer is imported
             return initialize_dungeon(cell_width, cell_height, 5, 6, "Backgrounds/Map-L.png", "Backgrounds/Map-R.png")
     return None
