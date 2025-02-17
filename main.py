@@ -15,8 +15,11 @@ WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Character Animation")
 
-# Scale images (adjust the size as needed)
-SCALE_FACTOR = 2  # Change this to make the character bigger or smaller
+screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
+    CELL_WIDTH, CELL_HEIGHT, "Backgrounds\TownMap.png"
+)
+# screen, combined_map_surface, combined_map_width, combined_map_height, player_x, player_y = initialize_town(
+#     CELL_WIDTH, CELL_HEIGHT, MAP_ROWS, MAP_COLS, "Map-L.png", "Map-R.png")
 
 
 # Animation variables
@@ -61,6 +64,26 @@ npc2 = NPC("Merchant", ["Welcome to my shop. I sell potions and weapons."], 200,
 npcs = [npc1, npc2]
 
 
+# Player settings
+# player_x, player_y = WIDTH // 2, HEIGHT // 2
+player_speed = 5
+current_frame = 0
+is_flipped = False  # Variable to track if sprite is flipped
+
+
+# Generate enemies
+enemies = create_enemies(25, player_x, player_y, combined_map_surface, combined_map_width, combined_map_height)  # Set the number of enemies
+
+# Battle window settings
+battle_screen = False  # Track whether battle is in progress
+current_enemy = None
+
+clock = pygame.time.Clock()
+
+# Start in the town area:
+
+
+# Main game loop
 running = True
 while running:
     screen.fill((255, 255, 255))  # Clear screen
