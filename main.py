@@ -130,7 +130,7 @@ while running:
     # Update and draw text overlays.
     text_manager.update()
     text_manager.draw()
-    
+    player.sprite.is_flipped = False
     pygame.display.update()
     clock.tick(30)
 
