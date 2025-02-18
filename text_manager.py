@@ -115,6 +115,8 @@ class TextManager:
             pygame.draw.rect(rect_surface, (10, 10, 10, 200), (0, 0, self.box_width, self.box_height), border_radius=10)
             self.screen.blit(rect_surface, (x - 10, y - 10))
 
+            pygame.draw.rect(self.screen, (255, 255, 255), (x - 10, y - 10, self.box_width, self.box_height), width=2, border_radius=10) # Border
+
             # Draw speaker name if exists
             if speaker:
                 # Speaker box
@@ -122,6 +124,8 @@ class TextManager:
                 rect_surface = pygame.Surface((self.box_width, self.box_height), pygame.SRCALPHA)
                 pygame.draw.rect(rect_surface, (10, 10, 10, 200), (0, 0, self.box_width // 4, self.box_height // 3), border_radius=10)
                 self.screen.blit(rect_surface, (x - 10, y - 50))
+
+                pygame.draw.rect(self.screen, (255, 255, 255), (x - 10, y - 50, self.box_width // 4, self.box_height //3), width=2, border_radius=10)
 
                 name_surface = self.font.render(speaker, True, (255, 255, 100))  # Yellow color
                 self.screen.blit(name_surface, (x + 10, y - 40))  # Place above the text box

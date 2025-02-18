@@ -40,7 +40,7 @@ def initialize_dungeon(cell_width, cell_height, map_rows, map_cols, map_left_pat
 def initialize_town(cell_width, cell_height, town_map_path):
 
     pygame.mixer.init()
-    change_theme("Music\TownTheme.mp3")
+    #change_theme("Music\TownTheme.mp3")
     
 
     screen = pygame.display.set_mode((cell_width, cell_height))

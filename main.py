@@ -2,12 +2,11 @@ import pygame
 import random
 import math
 from character import Character, NPC
-from utilities import check_collision, handle_npc_interaction, move_to_battle, create_enemies
-from battle import Battle
+from utilities import check_collision, handle_npc_interaction, move_to_battle, create_enemies, add_menu
 from text_manager import TextManager
 from Draw import initialize_town, initialize_screen, initialize_main_menu, update_camera_and_draw, check_map_transition, change_theme
-import sys
 from items import items_list
+from menu import Menu
 
 
 # Initialize Pygame
@@ -25,6 +24,12 @@ clock = pygame.time.Clock()
 text_manager = TextManager(screen)
 playerID_x, playerID_y = 5, 1
 
+
+inventory={"Potion": 2, "Mana Crystal": 3}
+inventory = {}
+for key in items_list().keys():
+    inventory[key] = 2
+
 player = Character(
     name="Hero",
     x=player_x,
@@ -35,7 +40,7 @@ player = Character(
     atk=30,
     dfn=20,
     spd=30,
-    inventory={"Potion": 2, "Mana Crystal": 3},
+    inventory=inventory,
     folder_paths=[fR".\timefantasy_characters\timefantasy_characters\frames\chara\chara{playerID_x}_{playerID_y}",
                   fR".\tf_svbattle\singleframes\set{playerID_x}\{playerID_y}"]
 )
@@ -60,10 +65,13 @@ shop_active = False # Track shop state
 current_enemy = None
 current_npc = None
 
+menu = Menu(screen, player)
+
+
+
 # Main game loop.
 running = True
 while running:
-    
     screen.fill((255, 255, 255))  # Clear screen.
 
      # Go to battle window
@@ -92,7 +100,6 @@ while running:
     
     for enemy in enemies:
         if check_collision(player.x, player.y, enemy["x"], enemy["y"]):
-            print("Collision with enemy!")
             battle_screen = True
             current_enemy = enemy
             break
@@ -121,8 +128,6 @@ while running:
             # Draw the interaction icon.
             screen.blit(npc.interaction_symbol, (icon_x, icon_y))
          
-
-    
     player_draw_x = player.x - camera_rect.x - (player.sprite.sprite_shape[player.sprite.current_animation]["width"] * player.sprite.scale_factor) // 2
     player_draw_y = player.y - camera_rect.y - (player.sprite.sprite_shape[player.sprite.current_animation]["height"] * player.sprite.scale_factor) // 2
     player.sprite.update_frame()
@@ -132,9 +137,14 @@ while running:
 
     for npc in npcs:
         npc.draw(screen)
-    for event in pygame.event.get():
+
+    events = pygame.event.get()
+
+    for event in events:
         if event.type == pygame.QUIT:
             running = False
+            
+    menu_active = add_menu(menu, events)
     
     # Update and draw text overlays.
     text_manager.update()

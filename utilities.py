@@ -5,6 +5,7 @@ import pygame
 from battle import Battle
 from Draw import change_theme, revert_theme
 from shop import Shop
+from menu import Menu
 
 
 # To separate "walk1" into "walk" and "1",for example, 
@@ -152,3 +153,15 @@ def create_enemies(num_enemies, player_x, player_y, x_id, y_id, WIDTH, HEIGHT):
         new_enemy.sprite.set_animation(state='Idle')
         enemies.append({"character": new_enemy, "x": enemy_x, "y": enemy_y})
     return enemies
+
+
+def add_menu(menu, events):
+    """Create and manage the Menu instance within a single function."""
+    for event in events:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_m:  # Open/close menu with "M"
+                menu.toggle()
+            else:
+                menu.handle_input(event)
+
+    menu.draw()  # Draw the menu if active

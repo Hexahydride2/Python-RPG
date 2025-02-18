@@ -48,6 +48,7 @@ class Shop:
     def draw(self):
         """Draw the shop interface with three sections."""
         # Draw background if available
+        self.screen.fill((0, 0, 0))
         if self.background:
             self.screen.blit(self.background, (0, 0))
         else:
@@ -106,14 +107,28 @@ class Shop:
             inst_text = instruction_font.render(instruction, True, (255, 255, 255))
             self.screen.blit(inst_text, (500, 420 + i * 25))
 
-        # Draw scroll-down indicator (if applicable)
-        scroll_indicator = pygame.Surface((10, 20))
-        scroll_indicator.fill((255, 255, 255))  # White color
-        self.screen.blit(scroll_indicator, (self.item_list_width + 30, (self.item_list_height - self.item_list_height/1.6) + self.selected_index*((self.item_list_height-30)/len(self.items_for_sale)), ))  # Position it at the bottom-right corner of the item list
+        # Draw scrollbar if necessary
+        total_items = len(items)
+        inventory_x, inventory_y = 50, 100
+        inventory_height = self.item_list_height
+        inventory_width = self.item_list_width
+        scrollbar_width = 10
+        self.max_scroll = max(0, total_items - self.visible_items)
+        
+        scrollbar_x = inventory_x + inventory_width - 15  # Right edge for the scrollbar
+        if total_items > self.visible_items:
+            # Scroll indicator height
+            scroll_indicator_height = max(30, (self.visible_items / total_items) * inventory_height)
 
+            # Scroll indicator position (proportional to scroll offset)
+            scroll_indicator_y = inventory_y + (self.scroll_offset / self.max_scroll) * (inventory_height - scroll_indicator_height)
+
+            # Draw scroll indicator
+            pygame.draw.rect(self.screen, (255, 255, 255), (scrollbar_x, scroll_indicator_y, scrollbar_width, scroll_indicator_height), border_radius=5)
         if self.text_manager.messages != []:
             self.text_manager.update()
             self.text_manager.draw()
+        
         pygame.display.flip()
     
     def handle_event(self, event):
@@ -149,7 +164,7 @@ class Shop:
             self.player.add_item(item_name)
             # Play the purchase sound effect
             self.purchase_sound.play()
-            self.text_manager.add_message(f"Thank you for your purchase! May your journey be prosperous!")
+            self.text_manager.add_message("Thank you for your purchase! May your journey be prosperous!")
        
         else:
             self.text_manager.add_message("I'm sorry, you don't have enough gold, Come back when you're ready!")
