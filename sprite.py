@@ -3,6 +3,7 @@ import glob
 import os
 from utilities import split_animation_name
 
+
 class Sprite:
     def __init__(self, folder_paths, scale_factor, animation_speed):
         """

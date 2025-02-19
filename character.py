@@ -25,6 +25,11 @@ class Character:
         self.current_direction = "down"  # Default direction
         self.walkspeed = 5
 
+        # Used to diplay the camera based location
+        self.draw_x = 0
+        self.draw_y = 0
+
+
         # Sprite system (supports multiple animations)
         self.sprite = Sprite(folder_paths, scale_factor, animation_speed)
 
@@ -90,7 +95,7 @@ class Character:
         """Update the character sprite animation."""
         self.sprite.update_frame()
     
-    def move(self, keys):
+    def move(self, keys, map_obj):
         # Display Walk motion only moving
         self.sprite.is_flipped = False
         if self.moving == True:
@@ -99,6 +104,7 @@ class Character:
             self.sprite.set_animation(f"{self.current_direction}_stand")
         if not self.can_move:
             return
+    
         if keys[pygame.K_LEFT]:  
             self.x -= self.walkspeed
             self.moving = True
@@ -121,8 +127,12 @@ class Character:
 
         else:
             self.moving = False  # Stop animation if no key is pressed
+        
+        # Clamp player position to map boundaries
+        map_obj.clamp_player_position(self)
 
-    
+        # Update the camera to follow the player
+        map_obj.update_camera(self)
 
 
 class NPC(Character):
@@ -145,7 +155,7 @@ class NPC(Character):
 
     def draw_interaction_symbol(self, screen):
         """Draw a floating symbol above the NPC when the player is near."""
-        screen.blit(self.interaction_symbol, (self.x + self.sprite.sprite_shape[self.sprite.current_animation]["width"] // 2 + 10, self.y - 30))
+        screen.blit(self.interaction_symbol, (self.draw_x + self.sprite.sprite_shape[self.sprite.current_animation]["width"] // 2 + 10, self.draw_y - 30))
 
     def talk(self, text_manager, player, screen):
         """Triggers NPC dialogue through `TextManager`."""
@@ -161,3 +171,13 @@ class NPC(Character):
         else:
             self.current_dialogue = 0  # Reset when finished
             self.talking = False  # Stop conversation
+
+
+class Enemy(Character):
+    def __init__(self, name, x, y, level, hp, mp, atk, dfn, spd, inventory, exp_reward, loot, folder_paths, scale_factor=3):
+        """Enemy inherits from Character and adds EXP & loot system."""
+        super().__init__(name, x, y, level, hp, mp, atk, dfn, spd, inventory, folder_paths, scale_factor=scale_factor)
+        
+        self.exp_reward = exp_reward  # EXP gained by player on defeat
+        self.loot = loot  # Dictionary of possible loot {"Potion": 50% chance, "Gold": 100% chance}
+        self.is_alive = True  # Enemy state
