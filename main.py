@@ -60,17 +60,17 @@ enemy1 = Enemy(name="Orc", x=1515, y=1585, level=8, hp=80, mp=40, atk=20, dfn=20
 enemies = [enemy1]
 
 # Initialize each map
-town_map = Map(screen, ".\Backgrounds\TownMap.png", npcs=npcs, map_scale_factor=2)
-dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", npcs=npcs1, enemies=enemies, map_scale_factor=0.3)
-shop_map = Map(screen, ".\Backgrounds\shopmap.png", npcs=npcs, map_scale_factor=2)
+town_map = Map(screen, ".\Backgrounds\TownMap.png", npcs=npcs, map_scale_factor=2, theme = "music\\NewTownTheme.mp3")
+dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", npcs=npcs1, enemies=enemies, map_scale_factor=0.3, theme = "music\CaveTheme.mp3")
+shop_map = Map(screen, ".\Backgrounds\shopmap.png", npcs=npcs, map_scale_factor=2, theme = "music\TownTheme.mp3")
 
 # Current map
 current_map = town_map
 
 ## Define transition zones
-town_map.add_transition_zone(265, 505, 505, 645, dungeon_map, 965, 1585, theme = "music\CaveTheme.mp3")
-town_map.add_transition_zone(1360, 785, 1414, 830, shop_map, 280, 405, theme = "music\TownTheme.mp3")
-shop_map.add_transition_zone(230, 445, 335, 447, town_map, 1385, 830, theme = R"music\NewTownTheme.mp3")
+town_map.add_transition_zone(265, 505, 505, 645, dungeon_map, 965, 1585)
+town_map.add_transition_zone(1360, 785, 1414, 830, shop_map, 280, 405)
+shop_map.add_transition_zone(230, 445, 335, 447, town_map, 1385, 830)
 
 running = True
 while running:
@@ -91,7 +91,7 @@ while running:
     # Check if the player is in a transition zone
     if transition_data:
         # Switch to the new map
-        change_theme(transition_data["theme"])
+        change_theme(transition_data["map"].theme)
         current_map = transition_data["map"]
         # Update player's position to the new entry point
         player.x = transition_data["player_x"]

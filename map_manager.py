@@ -7,7 +7,7 @@ from menu import Menu
 
 
 class Map:
-    def __init__(self, screen, map_image_path, npcs=None, enemies=None, map_scale_factor=None):
+    def __init__(self, screen, map_image_path, npcs=None, enemies=None, map_scale_factor=None, theme=None):
         # Screen dimensions
         self.screen = screen
         self.screen_width, self.screen_height = screen.get_size()
@@ -28,7 +28,7 @@ class Map:
         # Camera position (top-left corner of the visible area)
         self.camera_x = 0
         self.camera_y = 0
-
+        self.theme = theme
         # Dictionary to store transition areas and target maps
         self.transitions = {}  # Format: {(x1, y1, x2, y2): {"map": target_map, "player_x": new_x, "player_y": new_y}}
 
@@ -128,11 +128,11 @@ class Map:
         player.y = max(0, min(player.y, self.map_height - player.sprite.sprite_shape[player.sprite.current_animation]["height"]))         
 
 
-    def add_transition_zone(self, x1, y1, x2, y2, target_map, new_x, new_y, theme):
+    def add_transition_zone(self, x1, y1, x2, y2, target_map, new_x, new_y):
         """
         Define a transition zone where the player moves to a new map.
         """
-        self.transitions[(x1, y1, x2, y2)] = {"map": target_map, "player_x": new_x, "player_y": new_y, "theme": theme}
+        self.transitions[(x1, y1, x2, y2)] = {"map": target_map, "player_x": new_x, "player_y": new_y}
 
     def check_transition(self, player):
         """
