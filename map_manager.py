@@ -128,11 +128,11 @@ class Map:
         player.y = max(0, min(player.y, self.map_height - player.sprite.sprite_shape[player.sprite.current_animation]["height"]))         
 
 
-    def add_transition_zone(self, x1, y1, x2, y2, target_map, new_x, new_y):
+    def add_transition_zone(self, x1, y1, x2, y2, target_map, new_x, new_y, theme):
         """
         Define a transition zone where the player moves to a new map.
         """
-        self.transitions[(x1, y1, x2, y2)] = {"map": target_map, "player_x": new_x, "player_y": new_y}
+        self.transitions[(x1, y1, x2, y2)] = {"map": target_map, "player_x": new_x, "player_y": new_y, "theme": theme}
 
     def check_transition(self, player):
         """

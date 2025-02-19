@@ -2,6 +2,7 @@ import pygame
 from character import Character, NPC, Enemy
 from items import items_list
 from map_manager import Map
+from Draw import initialize_main_menu, change_theme
 
 
 
@@ -11,11 +12,14 @@ screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 
-
+initialize_main_menu()
 inventory = {}
 for key in items_list().keys():
     inventory[key] = 2
-
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
+change_theme(R"music\NewTownTheme.mp3")
 
 # Create a player
 player = Character(
@@ -58,13 +62,15 @@ enemies = [enemy1]
 # Initialize each map
 town_map = Map(screen, ".\Backgrounds\TownMap.png", npcs=npcs, map_scale_factor=2)
 dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", npcs=npcs1, enemies=enemies, map_scale_factor=0.3)
+shop_map = Map(screen, ".\Backgrounds\shopmap.png", npcs=npcs, map_scale_factor=2)
 
 # Current map
 current_map = town_map
 
 ## Define transition zones
-town_map.add_transition_zone(265, 505, 505, 645, dungeon_map, 965, 1585)
-
+town_map.add_transition_zone(265, 505, 505, 645, dungeon_map, 965, 1585, theme = "music\CaveTheme.mp3")
+town_map.add_transition_zone(1360, 785, 1414, 830, shop_map, 280, 405, theme = "music\TownTheme.mp3")
+shop_map.add_transition_zone(230, 445, 335, 447, town_map, 1385, 830, theme = R"music\NewTownTheme.mp3")
 
 running = True
 while running:
@@ -85,6 +91,7 @@ while running:
     # Check if the player is in a transition zone
     if transition_data:
         # Switch to the new map
+        change_theme(transition_data["theme"])
         current_map = transition_data["map"]
         # Update player's position to the new entry point
         player.x = transition_data["player_x"]
@@ -93,7 +100,7 @@ while running:
 
     # Draw the background map
     current_map.draw(screen, player, events)
-    #print(player.x, player.y)
+    print(player.x, player.y)
 
     pygame.display.flip()
     clock.tick(30)
