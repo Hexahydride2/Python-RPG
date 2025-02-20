@@ -99,7 +99,7 @@ class Character:
         """Update the character sprite animation."""
         self.sprite.update_frame()
     
-    def move(self, keys, map_obj, npcs, enemies):
+    def move(self, keys, map_obj):
         # Display Walk motion only moving
         self.sprite.is_flipped = False
         if self.moving == True:
@@ -142,10 +142,12 @@ class Character:
         # Simulate new position
         new_hitbox  = pygame.Rect(new_x, new_y + self.hitbox_height, self.hitbox_width, self.hitbox_height)
        
-       # Check if new position collides with NPCs
-        if not any(new_hitbox.colliderect(char.hitbox) for char in npcs+enemies):
-            self.x, self.y = new_x, new_y  # Update position
-            self.hitbox.topleft = (self.x, self.y + self.hitbox_height)
+       # Check if new position collides with Buildings
+        if map_obj.positions[new_x][new_y + self.hitbox_height] == 0:
+            # Check if new position collides with NPCs
+            if not any(new_hitbox.colliderect(char.hitbox) for char in map_obj.npcs+map_obj.enemies):
+                self.x, self.y = new_x, new_y  # Update position
+                self.hitbox.topleft = (self.x, self.y + self.hitbox_height)
         
 
 

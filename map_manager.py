@@ -5,10 +5,11 @@ from battle import Battle
 from Draw import change_theme, revert_theme
 from menu import Menu
 from utilities import add_menu
-
+import numpy as np
+import json
 
 class Map:
-    def __init__(self, screen, map_image_path, player, npcs=[], enemies=[], map_scale_factor=None, bgm=None):
+    def __init__(self, screen, map_image_path, player, npcs=[], enemies=[], map_scale_factor=None, bgm=None, layer_json_path=False):
         # Screen dimensions
         self.screen = screen
         self.screen_width, self.screen_height = screen.get_size()
@@ -26,6 +27,7 @@ class Map:
 
         self.map_width = self.map_image.get_width()
         self.map_height = self.map_image.get_height()
+        print("mapsize", self.map_width, self.map_height)
 
         # Camera position (top-left corner of the visible area)
         self.camera_x = 0
@@ -46,8 +48,32 @@ class Map:
         self.text_manager = TextManager(screen)
         self.menu = Menu(self.screen, self.player)
 
-        #
+        if layer_json_path:
+            self.positions = self.parse_json_data(layer_json_path, map_scale_factor)
+        else:
+            self.positions = np.zeros((self.map_width, self.map_height))
+        
+  
 
+    def parse_json_data(self, layer_json_path, map_scale_factor):
+        with open(layer_json_path, 'r') as file:
+            data = json.load(file)
+        Positions = []
+        total_x = data["map_width"]
+        total_y = data["map_height"]
+        Positions = np.zeros((total_x, total_y))
+
+        for layer in data["layers"]:
+            if layer["name"] == "Top":
+                for pos in layer["positions"]:
+                    x = pos["x"]
+                    y = pos["y"]
+                    Positions[x][y] = 1
+
+        scale =  self.map_width // total_x
+        Positions = np.repeat(np.repeat(Positions, scale, axis=1), scale, axis=0)
+        return Positions
+    
 
     def draw(self, screen, events):
         """
@@ -89,7 +115,6 @@ class Map:
                     self.battle_screen = True
                     self.current_enemy = enemy
 
-  
         # Update the player coordinate
         self.player.draw_x = self.player.x - self.camera_x - (self.player.sprite.sprite_shape[self.player.sprite.current_animation]["width"] * self.player.sprite.scale_factor) // 2
         self.player.draw_y = self.player.y - self.camera_y - (self.player.sprite.sprite_shape[self.player.sprite.current_animation]["height"] * self.player.sprite.scale_factor) // 2
