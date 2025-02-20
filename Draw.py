@@ -156,28 +156,28 @@ def change_theme(theme_file):
 def revert_theme():
     music_manager.revert_theme()
 
-def check_map_transition(player, combined_map_surface, combined_map_width, combined_map_height, cell_width, cell_height, prev_pos):
+# def check_map_transition(player, combined_map_surface, combined_map_width, combined_map_height, cell_width, cell_height, prev_pos):
 
-    # Define the target colors. Adjust these as necessary.
-    obstacle_color = (0, 0, 0)
-    town_color = (0, 65, 120)
-    dungeon_color = (0, 9, 36)
+#     # Define the target colors. Adjust these as necessary.
+#     obstacle_color = (0, 0, 0)
+#     town_color = (0, 65, 120)
+#     dungeon_color = (0, 9, 36)
 
-    check_x = int(player.x)
-    check_y = int(player.y)
+#     check_x = int(player.x)
+#     check_y = int(player.y)
     
-    # Ensure we are within bounds.
-    if 0 <= check_x < combined_map_width and 0 <= check_y < combined_map_height:
-        current_color = combined_map_surface.get_at((check_x, check_y))[:3]
+    # # Ensure we are within bounds.
+    # if 0 <= check_x < combined_map_width and 0 <= check_y < combined_map_height:
+    #     current_color = combined_map_surface.get_at((check_x, check_y))[:3]
         
-        if current_color == obstacle_color:
-            # Revert player's position.
-            player.x, player.y = prev_pos
-            return None
-        elif current_color == town_color:
-            # Transition into the town area.
-            return initialize_town(cell_width, cell_height, "Backgrounds/TownMap.png")
-        elif current_color == dungeon_color:
-            # Transition into the dungeon area.
-            return initialize_dungeon(cell_width, cell_height, 5, 6, "Backgrounds/Map-L.png", "Backgrounds/Map-R.png")
-    return None
+    #     if current_color == obstacle_color:
+    #         # Revert player's position.
+    #         player.x, player.y = prev_pos
+    #         return None
+    #     elif current_color == town_color:
+    #         # Transition into the town area.
+    #         return initialize_town(cell_width, cell_height, "Backgrounds/TownMap.png")
+    #     elif current_color == dungeon_color:
+    #         # Transition into the dungeon area.
+    #         return initialize_dungeon(cell_width, cell_height, 5, 6, "Backgrounds/Map-L.png", "Backgrounds/Map-R.png")
+    # return None

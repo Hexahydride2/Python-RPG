@@ -15,7 +15,10 @@ clock = pygame.time.Clock()
 inventory = {}
 for key in items_list().keys():
     inventory[key] = 2
-
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
+change_theme(R"music\NewTownTheme.mp3")
 
 # Create a player
 player = Character(
@@ -91,6 +94,7 @@ while running:
     # Check if the player is in a transition zone
     if transition_data:
         # Switch to the new map
+        change_theme(transition_data["map"].theme)
         current_map = transition_data["map"]
         # Update player's position to the new entry point
         player.x = transition_data["player_x"]
