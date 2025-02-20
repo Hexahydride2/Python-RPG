@@ -8,7 +8,7 @@ from utilities import add_menu
 
 
 class Map:
-    def __init__(self, screen, map_image_path, player=None, npcs=None, enemies=None, map_scale_factor=None, bgm=None):
+    def __init__(self, screen, map_image_path, player, npcs=[], enemies=[], map_scale_factor=None, bgm=None):
         # Screen dimensions
         self.screen = screen
         self.screen_width, self.screen_height = screen.get_size()
@@ -46,6 +46,8 @@ class Map:
         self.text_manager = TextManager(screen)
         self.menu = Menu(self.screen, self.player)
 
+        #
+
 
     def draw(self, screen, events):
         """
@@ -58,6 +60,7 @@ class Map:
         
         self.handle_npc_interaction(events)
         self.move_to_battle()
+    
         
         if not self.shop_active:
             # Draw the map
@@ -65,44 +68,48 @@ class Map:
             self.draw_characters()
             add_menu(self.menu, events)
             
-
-
         self.text_manager.update()
         self.text_manager.draw()
 
 
     def draw_characters(self):
-        # Draw the npcs on the screen
-            if self.npcs:
-                for npc in self.npcs:
-                    npc.draw_x = npc.x - self.camera_x
-                    npc.draw_y = npc.y - self.camera_y
-                    npc.sprite.update_frame()
-                    npc.sprite.draw(self.screen, npc.draw_x, npc.draw_y)
+        # Sort characters by Y-coordinate (for proper layering)
+        characters = [self.player] + self.npcs + self.enemies
+        characters.sort(key=lambda char: char.draw_y)
 
-                    # Calculate the distance between player and a npc for the interaction symbol display
-                    distance = ((self.player.draw_x - npc.draw_x) ** 2 + (self.player.draw_y - npc.draw_y) ** 2) ** 0.5  # Distance formula
-                    if distance < 60:  # Interaction range
-                        npc.draw_interaction_symbol(self.screen)  # Show interaction symbol        
-            
-            if self.enemies:
-                for enemy in self.enemies:
-                    enemy.draw_x = enemy.x - self.camera_x
-                    enemy.draw_y = enemy.y - self.camera_y
-                    enemy.sprite.update_frame()
-                    enemy.sprite.draw(self.screen, enemy.draw_x, enemy.draw_y)
+        # Update Enemies coordinate
+        if self.enemies != []:
+            for enemy in self.enemies:
+                enemy.draw_x = enemy.x - self.camera_x - (enemy.sprite.sprite_shape[enemy.sprite.current_animation]["width"] * enemy.sprite.scale_factor) // 2
+                enemy.draw_y = enemy.y - self.camera_y - (enemy.sprite.sprite_shape[enemy.sprite.current_animation]["height"] * enemy.sprite.scale_factor) // 2
+                
+                # Calculate the distance between player and a Enemy for battle screen transition
+                distance = ((self.player.draw_x - enemy.draw_x) ** 2 + (self.player.draw_y - enemy.draw_y) ** 2) ** 0.5  # Distance formula
+                if distance < 60:  # Interaction range
+                    self.battle_screen = True
+                    self.current_enemy = enemy
 
-                    # Calculate the distance between player and a Enemy for battle screen transition
-                    distance = ((self.player.draw_x - enemy.draw_x) ** 2 + (self.player.draw_y - enemy.draw_y) ** 2) ** 0.5  # Distance formula
-                    if distance < 60:  # Interaction range
-                        self.battle_screen = True
-                        self.current_enemy = enemy
+  
+        # Update the player coordinate
+        self.player.draw_x = self.player.x - self.camera_x - (self.player.sprite.sprite_shape[self.player.sprite.current_animation]["width"] * self.player.sprite.scale_factor) // 2
+        self.player.draw_y = self.player.y - self.camera_y - (self.player.sprite.sprite_shape[self.player.sprite.current_animation]["height"] * self.player.sprite.scale_factor) // 2
 
-            # Draw the player at the center of the screen
-            self.player.draw_x = self.player.x - self.camera_x - (self.player.sprite.sprite_shape[self.player.sprite.current_animation]["width"] * self.player.sprite.scale_factor) // 2
-            self.player.draw_y = self.player.y - self.camera_y - (self.player.sprite.sprite_shape[self.player.sprite.current_animation]["height"] * self.player.sprite.scale_factor) // 2
-            self.player.sprite.update_frame()
-            self.player.sprite.draw(self.screen, self.player.draw_x, self.player.draw_y)
+        # Update NPCs coordinates
+        if self.npcs != []:
+            for npc in self.npcs:
+                npc.draw_x = npc.x - self.camera_x - (npc.sprite.sprite_shape[npc.sprite.current_animation]["width"] * npc.sprite.scale_factor) // 2
+                npc.draw_y = npc.y - self.camera_y - (npc.sprite.sprite_shape[npc.sprite.current_animation]["height"] * npc.sprite.scale_factor) // 2
+             
+                # Calculate the distance between player and a npc for the interaction symbol display
+                distance = ((self.player.draw_x - npc.draw_x) ** 2 + (self.player.draw_y - npc.draw_y) ** 2) ** 0.5  # Distance formula
+                if distance < 60:  # Interaction range
+                    npc.draw_interaction_symbol(self.screen)  # Show interaction symbol
+
+        # Draw all the characters in order
+        for char in characters:
+            char.sprite.update_frame()
+            char.sprite.draw(self.screen, char.draw_x, char.draw_y)
+        
 
     def update_camera(self):
         """

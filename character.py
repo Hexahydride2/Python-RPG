@@ -16,7 +16,6 @@ class Character:
         self.max_mp = mp
         self.atk = atk
         self.dfn = dfn
-        self.dfn = dfn
         self.spd = spd
         self.inventory = inventory
         self.gold = gold
@@ -29,9 +28,14 @@ class Character:
         self.draw_x = 0
         self.draw_y = 0
 
-
         # Sprite system (supports multiple animations)
         self.sprite = Sprite(folder_paths, scale_factor, animation_speed)
+
+        # Define hitbox based on sprite dimenstions
+        self.hitbox_width = (self.sprite.sprite_shape[self.sprite.current_animation]["width"]) * scale_factor
+        self.hitbox_height = (self.sprite.sprite_shape[self.sprite.current_animation]["height"]//2) * scale_factor
+        self.hitbox = pygame.Rect(self.x, self.y + self.hitbox_height, self.hitbox_width, self.hitbox_height)
+
 
     def level_up(self):
         """Increase stats when leveling up."""
@@ -90,12 +94,12 @@ class Character:
             self.inventory[item] -= 1
         else:
             return f"{item} not available!"
-    
+
     def update(self):
         """Update the character sprite animation."""
         self.sprite.update_frame()
     
-    def move(self, keys, map_obj):
+    def move(self, keys, map_obj, npcs, enemies):
         # Display Walk motion only moving
         self.sprite.is_flipped = False
         if self.moving == True:
@@ -104,35 +108,45 @@ class Character:
             self.sprite.set_animation(f"{self.current_direction}_stand")
         if not self.can_move:
             return
-    
+        
+        new_x, new_y = self.x, self.y
         if keys[pygame.K_LEFT]:  
-            self.x -= self.walkspeed
+            new_x -= self.walkspeed
             self.moving = True
             self.current_direction = "left"
 
         elif keys[pygame.K_RIGHT]:  
-            self.x += self.walkspeed
+            new_x += self.walkspeed
             self.moving = True
             self.current_direction = "right"
 
         elif keys[pygame.K_UP]:  
-            self.y -= self.walkspeed
+            new_y -= self.walkspeed
             self.moving = True
             self.current_direction = "up"
 
         elif keys[pygame.K_DOWN]:  
-            self.y += self.walkspeed
+            new_y += self.walkspeed
             self.moving = True
             self.current_direction = "down"
 
         else:
             self.moving = False  # Stop animation if no key is pressed
-        
+
         # Clamp player position to map boundaries
         map_obj.clamp_player_position()
 
         # Update the camera to follow the player
         map_obj.update_camera()
+
+        # Simulate new position
+        new_hitbox  = pygame.Rect(new_x, new_y + self.hitbox_height, self.hitbox_width, self.hitbox_height)
+       
+       # Check if new position collides with NPCs
+        if not any(new_hitbox.colliderect(char.hitbox) for char in npcs+enemies):
+            self.x, self.y = new_x, new_y  # Update position
+            self.hitbox.topleft = (self.x, self.y + self.hitbox_height)
+        
 
 
 class NPC(Character):

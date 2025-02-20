@@ -18,7 +18,6 @@ for key in items_list().keys():
 screen_width = 800
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
-change_theme(R"music\NewTownTheme.mp3")
 
 # Create a player
 player = Character(
@@ -69,7 +68,7 @@ shop_map = Map(screen, ".\Backgrounds\shopmap.png", player=player, npcs=npcs2, m
 
 # Current map
 current_map = town_map
-change_theme(R"music\NewTownTheme.mp3")
+#change_theme(R"music\NewTownTheme.mp3")
 
 ## Define transition zones
 town_map.add_transition_zone(265, 505, 505, 645, dungeon_map, 965, 1585)
@@ -89,7 +88,7 @@ while running:
             running = False
 
     # Player walk function
-    player.move(keys, current_map)
+    player.move(keys, current_map, current_map.npcs, current_map.enemies)
 
 ##########################################################
     # Update map position based on player movement
@@ -97,19 +96,18 @@ while running:
     # Check if the player is in a transition zone
     if transition_data:
         # Switch to the new map
-        change_theme(transition_data["map"].bgm)
         current_map = transition_data["map"]
         # Update player's position to the new entry point
         player.x = transition_data["player_x"]
         player.y = transition_data["player_y"]
         # Switch BGM
-        print(current_map.bgm)
-        change_theme(current_map.bgm)
+        #change_theme(current_map.bgm)
 ###########################################################
 
     # Draw the background map
     current_map.draw(screen, events)
-    print(player.x, player.y)
+    #print(player.x, player.y)
+
     pygame.display.flip()
     clock.tick(30)
 pygame.quit()
