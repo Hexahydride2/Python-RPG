@@ -130,6 +130,7 @@ def initialize_main_menu():
     
     return screen
 
+
 class MusicManager:
     def __init__(self):
         self.current_theme = None

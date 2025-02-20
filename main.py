@@ -2,6 +2,7 @@ import pygame
 from character import Character, NPC, Enemy
 from items import items_list
 from map_manager import Map
+from Draw import change_theme
 
 
 
@@ -10,7 +11,6 @@ screen_width = 800
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
-
 
 inventory = {}
 for key in items_list().keys():
@@ -56,14 +56,20 @@ enemy1 = Enemy(name="Orc", x=1515, y=1585, level=8, hp=80, mp=40, atk=20, dfn=20
 enemies = [enemy1]
 
 # Initialize each map
-town_map = Map(screen, ".\Backgrounds\TownMap.png", npcs=npcs, map_scale_factor=2)
-dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", npcs=npcs1, enemies=enemies, map_scale_factor=0.3)
+town_map = Map(screen, ".\Backgrounds\TownMap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3")
+dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", player=player, npcs=npcs1, enemies=enemies, map_scale_factor=0.3, bgm= "music\CaveTheme.mp3")
+shop_map = Map(screen, ".\Backgrounds\shopmap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\TownTheme.mp3")
+
 
 # Current map
 current_map = town_map
+change_theme(R"music\NewTownTheme.mp3")
 
 ## Define transition zones
 town_map.add_transition_zone(265, 505, 505, 645, dungeon_map, 965, 1585)
+town_map.add_transition_zone(1360, 785, 1414, 830, shop_map, 280, 405)
+shop_map.add_transition_zone(230, 445, 335, 447, town_map, 1385, 830)
+
 
 
 running = True
@@ -81,7 +87,7 @@ while running:
 
 ##########################################################
     # Update map position based on player movement
-    transition_data = current_map.update_camera(player)
+    transition_data = current_map.update_camera()
     # Check if the player is in a transition zone
     if transition_data:
         # Switch to the new map
@@ -89,10 +95,13 @@ while running:
         # Update player's position to the new entry point
         player.x = transition_data["player_x"]
         player.y = transition_data["player_y"]
+        # Switch BGM
+        print(current_map.bgm)
+        change_theme(current_map.bgm)
 ###########################################################
 
     # Draw the background map
-    current_map.draw(screen, player, events)
+    current_map.draw(screen, events)
     #print(player.x, player.y)
 
     pygame.display.flip()

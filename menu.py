@@ -8,7 +8,7 @@ class Menu:
         self.options = ["Status", "Items", "Quests", "Exit"]
         self.selected_index = 0 # Track which option is selected
         self.font = pygame.font.Font(None, 27)
-        #self.player = player
+        self.player = player
 
         self.menu_width, self.menu_height = 300, 200
         self.menu_x, self.menu_y = (self.screen.get_width() - self.menu_width) // 2, (self.screen.get_height() - self.menu_height) // 2

@@ -4,8 +4,6 @@ import random
 import pygame
 from battle import Battle
 from Draw import change_theme, revert_theme
-from shop import Shop
-from menu import Menu
 
 
 # To separate "walk1" into "walk" and "1",for example, 
@@ -20,42 +18,6 @@ def split_animation_name(name):
 def check_collision(player_x, player_y, npc_x, npc_y, threshold=60):
     distance = math.sqrt((player_x - npc_x) ** 2 + (player_y - npc_y) ** 2)
     return distance < threshold
-
-
-def move_to_battle(screen, player, enemies, current_enemy, battle_screen = False):
-    if battle_screen and current_enemy:
-        battle = Battle(screen, player, current_enemy["character"], background_image=".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png")
-        change_theme("Music\BattleTheme.mp3")
-        result = battle.run()
-        if result == "win":
-            enemies.remove(current_enemy)
-            battle_screen = False  # Exit battle screen
-            revert_theme()
-        elif result == "lose":
-            battle_screen = False  # Exit battle screen
-            if player.current_direction == "right":
-                player.x -= 60  # Move player away to prevent instant re-entry
-            elif player.current_direction == "left":
-                player.x += 60  # Move player away to prevent instant re-entry
-            elif player.current_direction == "up":
-                player.y += 60  # Move player away to prevent instant re-entry
-            elif player.current_direction == "down":
-                player.y -= 60  # Move player away to prevent instant re-entry
-            revert_theme()
-        elif result == "escape":
-            battle_screen = False  # Exit battle screen
-            if player.current_direction == "right":
-                player.x -= 60  # Move player away to prevent instant re-entry
-            elif player.current_direction == "left":
-                player.x += 60  # Move player away to prevent instant re-entry
-            elif player.current_direction == "up":
-                player.y += 60  # Move player away to prevent instant re-entry
-            elif player.current_direction == "down":
-                player.y -= 60  # Move player away to prevent instant re-entry
-            revert_theme()
-    
-    return enemies, battle_screen
-
 
 def create_enemies(num_enemies, player_x, player_y, x_id, y_id, WIDTH, HEIGHT):
     from character import Character
@@ -111,3 +73,4 @@ def add_menu(menu, events):
                 menu.handle_input(event)
 
     menu.draw()  # Draw the menu if active
+

@@ -129,10 +129,10 @@ class Character:
             self.moving = False  # Stop animation if no key is pressed
         
         # Clamp player position to map boundaries
-        map_obj.clamp_player_position(self)
+        map_obj.clamp_player_position()
 
         # Update the camera to follow the player
-        map_obj.update_camera(self)
+        map_obj.update_camera()
 
 
 class NPC(Character):
