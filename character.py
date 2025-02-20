@@ -139,6 +139,10 @@ class Character:
         # Update the camera to follow the player
         map_obj.update_camera()
 
+        # Check for random encounter 
+        if self.moving == True:
+            map_obj.handle_random_encounter(self)
+
         # Simulate new position
         new_hitbox  = pygame.Rect(new_x, new_y + self.hitbox_height, self.hitbox_width, self.hitbox_height)
        

@@ -16,7 +16,7 @@ class Shop:
 
         # Load background image if provided       
         self.background = pygame.image.load(background_image_path)
-        self.background = pygame.transform.scale(self.background, (800, 600))  # Resize to match the screen size
+        self.background = pygame.transform.scale(self.background, (self.screen.get_width(), self.screen.get_height()))  # Resize to match the screen size
 
         # Load purchase sound effect
         self.purchase_sound = pygame.mixer.Sound(".\Sound_Effects\coins.wav")

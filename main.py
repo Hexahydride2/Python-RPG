@@ -15,15 +15,18 @@ clock = pygame.time.Clock()
 inventory = {}
 for key in items_list().keys():
     inventory[key] = 2
-screen_width = 800
-screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 
+
+military_paths = [R".\timefantasy_characters\timefantasy_characters\frames\military\military1_8",
+                  R".\tf_svbattle\singleframes\military1\8"]
+normal_chara_paths = [fR".\timefantasy_characters\timefantasy_characters\frames\chara\chara2_1",
+                  fR".\tf_svbattle\singleframes\set2\1"]
 # Create a player
 player = Character(
     name="Hero",
-    x=500,
-    y=500,
+    x=700,
+    y=700,
     level=10,
     hp=100,
     mp=50,
@@ -31,8 +34,7 @@ player = Character(
     dfn=20,
     spd=30,
     inventory=inventory,
-    folder_paths=[fR".\timefantasy_characters\timefantasy_characters\frames\chara\chara2_1",
-                  fR".\tf_svbattle\singleframes\set2\1"]
+    folder_paths=military_paths
 )
 
 # # Create NPCs.
@@ -61,21 +63,21 @@ enemy1 = Enemy(name="Orc", x=1515, y=1585, level=8, hp=80, mp=40, atk=20, dfn=20
 enemies = [enemy1]
 
 # Initialize each map
-# town_map = Map(screen, ".\Backgrounds\TownMap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3")
-# dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", player=player, npcs=npcs1, enemies=enemies, map_scale_factor=0.3, bgm= "music\CaveTheme.mp3")
-# shop_map = Map(screen, ".\Backgrounds\shopmap.png", player=player, npcs=npcs2, map_scale_factor=2, bgm= "music\TownTheme.mp3")
+town_map = Map(screen, ".\Backgrounds\TownMap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3", allow_encounters=True, encounter_rate=0.01)
+dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", player=player, npcs=npcs1, enemies=enemies, map_scale_factor=0.3, bgm= "music\CaveTheme.mp3")
+shop_map = Map(screen, ".\Backgrounds\shopmap.png", player=player, npcs=npcs2, map_scale_factor=2, bgm= "music\TownTheme.mp3")
 
 townTest_map = Map(screen, ".\Backgrounds\TownMapTest.png", player=player, map_scale_factor=3, layer_json_path=".\Backgrounds\TownMapTest.json")
 
 
 # Current map
-current_map = townTest_map
+current_map = town_map
 #change_theme(R"music\NewTownTheme.mp3")
 
 ## Define transition zones
-# town_map.add_transition_zone(265, 505, 505, 645, dungeon_map, 965, 1585)
-# town_map.add_transition_zone(1360, 785, 1414, 830, shop_map, 280, 405)
-# shop_map.add_transition_zone(230, 445, 335, 447, town_map, 1385, 830)
+town_map.add_transition_zone(265, 505, 505, 645, dungeon_map, 965, 1585)
+town_map.add_transition_zone(1360, 785, 1414, 830, shop_map, 280, 405)
+shop_map.add_transition_zone(230, 445, 335, 447, town_map, 1385, 830)
 
 
 

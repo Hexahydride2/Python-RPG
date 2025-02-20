@@ -7,9 +7,12 @@ from menu import Menu
 from utilities import add_menu
 import numpy as np
 import json
+from character import Enemy
+import random
+
 
 class Map:
-    def __init__(self, screen, map_image_path, player, npcs=[], enemies=[], map_scale_factor=None, bgm=None, layer_json_path=False):
+    def __init__(self, screen, map_image_path, player, npcs=[], enemies=[], map_scale_factor=None, bgm=None, layer_json_path=False, allow_encounters=False, encounter_rate=0.01):
         # Screen dimensions
         self.screen = screen
         self.screen_width, self.screen_height = screen.get_size()
@@ -21,6 +24,10 @@ class Map:
         self.player = player
         self.npcs = npcs
         self.enemies = enemies
+
+        self.allow_encounters = allow_encounters # Toggle encounters
+        self.encounter_rate = encounter_rate  # Probability per step (e.g., 0.05 = 5%)
+        self.random_encounter_battle = False
 
         if map_scale_factor:
             self.map_image = pygame.transform.scale(self.map_image, (self.map_image.get_width()*map_scale_factor, self.map_image.get_height()*map_scale_factor))
@@ -49,13 +56,39 @@ class Map:
         self.menu = Menu(self.screen, self.player)
 
         if layer_json_path:
-            self.positions = self.parse_json_data(layer_json_path, map_scale_factor)
+            self.positions = self.parse_json_data(layer_json_path)
         else:
             self.positions = np.zeros((self.map_width, self.map_height))
         
-  
+        
+    def handle_random_encounter(self, player):
+        """Triggers a random enemy encounter based on player's movement."""
+        print(random.random())
+        if self.allow_encounters and random.random() < self.encounter_rate:
+            # Create a random enemy
+            self.current_enemy = Enemy(
+                name="Goblin",
+                x = player.x,
+                y = player.y,
+                level=random.randint(1, 5),
+                hp=random.randint(20, 50),
+                mp=50,
+                atk=random.randint(5, 10),
+                dfn=random.randint(2, 5),
+                spd=random.randint(3, 6),
+                exp_reward=random.randint(10, 20),
+                inventory={},
+                loot=None,
+                folder_paths=[
+                    R".\timefantasy_characters\timefantasy_characters\frames\chara\chara4_5",
+                    R".\tf_svbattle\singleframes\set4\5"
+                ]
+            )
+            self.battle_screen = True
+            self.random_encounter_battle = True
+            
 
-    def parse_json_data(self, layer_json_path, map_scale_factor):
+    def parse_json_data(self, layer_json_path):
         with open(layer_json_path, 'r') as file:
             data = json.load(file)
         Positions = []
@@ -84,6 +117,7 @@ class Map:
         offset_x = -self.camera_x
         offset_y = -self.camera_y
         
+        self.current_enemy
         self.handle_npc_interaction(events)
         self.move_to_battle()
     
@@ -111,7 +145,7 @@ class Map:
                 
                 # Calculate the distance between player and a Enemy for battle screen transition
                 distance = ((self.player.draw_x - enemy.draw_x) ** 2 + (self.player.draw_y - enemy.draw_y) ** 2) ** 0.5  # Distance formula
-                if distance < 60:  # Interaction range
+                if distance < 70:  # Interaction range
                     self.battle_screen = True
                     self.current_enemy = enemy
 
@@ -200,7 +234,7 @@ class Map:
         # Deal with the interaction with NPCs
         for npc in self.npcs:
             distance = ((self.player.draw_x - npc.draw_x) ** 2 + (self.player.draw_y - npc.draw_y) ** 2) ** 0.5  # Distance formula
-            if distance < 60:  # Interaction range
+            if distance < 70:  # Interaction range
                 # This line is not working and I dont know why so I added this in the map.py
                 npc.draw_interaction_symbol(self.screen)  # Show interaction symbol
 
@@ -246,8 +280,15 @@ class Map:
             battle = Battle(self.screen, self.player, self.current_enemy, background_image=".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png")
             #change_theme("Music\BattleTheme.mp3")
             result = battle.run()
+
+            # When the battle was the random encounter
+            if self.random_encounter_battle:
+                    self.random_encounter_battle = False
+                    self.current_enemy = None
+
             if result == "win":
-                self.enemies.remove(self.current_enemy)
+                if self.current_enemy:
+                    self.enemies.remove(self.current_enemy)
                 self.battle_screen = False  # Exit battle screen
                 #revert_theme()
             elif result == "lose":
@@ -262,6 +303,7 @@ class Map:
                     self.player.y -= 60  # Move player away to prevent instant re-entry
                 #revert_theme()
             elif result == "escape":
+
                 self.battle_screen = False  # Exit battle screen
                 if self.player.current_direction == "right":
                     self.player.x -= 60  # Move player away to prevent instant re-entry

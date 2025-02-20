@@ -1,19 +1,17 @@
 import pygame
 
 class TextManager:
-    def __init__(self, screen, font_size=24, box_width=700, box_height=100, sound_file=R".\Sound_Effects\Retro_03\Retro_Single_v5_wav.wav"):
+    def __init__(self, screen, font_size=26, sound_file=R".\Sound_Effects\Retro_03\Retro_Single_v5_wav.wav"):
         self.screen = screen
         self.font = pygame.font.Font(None, font_size)
         self.messages = []  # List of messages to display
         self.current_message = ""  # Text being displayed
-        #self.message_timer = 0  # Timer for message duration
-        #self.MESSAGE_DURATION = 60  # Frames before message disappears
         self.typing_index = 0  # For typewriter effect
         self.typing_speed = 0.5  # Number of frames per character
 
         # Text box size
-        self.box_width = box_width
-        self.box_height = box_height
+        self.box_width = self.screen.get_width() * 0.9
+        self.box_height = self.screen.get_height() * 0.15
 
         # Text control
         self.message_finished = False
@@ -105,8 +103,9 @@ class TextManager:
             if self.blink_timer > 15:  # Change every 30 frames
                 self.blink_timer = 0
 
-    def draw(self, x=50, y=500):
+    def draw(self):
         """Draw the current message on screen."""
+        x, y = self.screen.get_width() * 0.05, self.screen.get_height() * 0.85
         if self.messages:
             message_text, speaker = self.messages[0]
 
