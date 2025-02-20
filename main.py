@@ -97,13 +97,11 @@ while running:
     # Check if the player is in a transition zone
     if transition_data:
         # Switch to the new map
-        change_theme(transition_data["map"].bgm)
         current_map = transition_data["map"]
         # Update player's position to the new entry point
         player.x = transition_data["player_x"]
         player.y = transition_data["player_y"]
         # Switch BGM
-        print(current_map.bgm)
         change_theme(current_map.bgm)
 ###########################################################
 
