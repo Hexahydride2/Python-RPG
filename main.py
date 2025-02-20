@@ -51,6 +51,9 @@ npc4 = NPC("LOOOOOL", ["Welcome to my shop!  I sell potions and weapons."], 1335
            [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc3_2"], items_list())
 npcs1 = [npc3, npc4]
 
+npcs2 = [NPC("Shopkeeper", ["Welcome to my shop!  I sell potions and weapons."], 260, 190,
+           [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"], items_list())]
+
 ## Create Enemies
 enemy1 = Enemy(name="Orc", x=1515, y=1585, level=8, hp=80, mp=40, atk=20, dfn=20, spd=30, inventory={}, exp_reward=5, loot=None, folder_paths=[
     R".\timefantasy_characters\timefantasy_characters\frames\chara\chara5_8",
@@ -61,7 +64,7 @@ enemies = [enemy1]
 # Initialize each map
 town_map = Map(screen, ".\Backgrounds\TownMap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3")
 dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", player=player, npcs=npcs1, enemies=enemies, map_scale_factor=0.3, bgm= "music\CaveTheme.mp3")
-shop_map = Map(screen, ".\Backgrounds\shopmap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\TownTheme.mp3")
+shop_map = Map(screen, ".\Backgrounds\shopmap.png", player=player, npcs=npcs2, map_scale_factor=2, bgm= "music\TownTheme.mp3")
 
 
 # Current map
@@ -94,7 +97,7 @@ while running:
     # Check if the player is in a transition zone
     if transition_data:
         # Switch to the new map
-        change_theme(transition_data["map"].theme)
+        change_theme(transition_data["map"].bgm)
         current_map = transition_data["map"]
         # Update player's position to the new entry point
         player.x = transition_data["player_x"]
@@ -106,8 +109,7 @@ while running:
 
     # Draw the background map
     current_map.draw(screen, events)
-    #print(player.x, player.y)
-
+    print(player.x, player.y)
     pygame.display.flip()
     clock.tick(30)
 pygame.quit()
