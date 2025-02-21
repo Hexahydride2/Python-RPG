@@ -30,7 +30,11 @@ class TextManager:
         """Add a new message to display."""
         message_sentences = message.split('. ')
         for message in message_sentences:
-            wrapped_lines = self.wrap_text(message)
+            # Handle the multiple period problem
+            if message == message_sentences[-1]:
+                wrapped_lines = self.wrap_text(message)
+            else:
+                wrapped_lines = self.wrap_text(message+".")
             self.messages.append((wrapped_lines, speaker))
             self.current_message = []
             self.typing_index = 0  # Reset typing effect

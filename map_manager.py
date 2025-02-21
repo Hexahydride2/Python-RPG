@@ -60,10 +60,9 @@ class Map:
         else:
             self.positions = np.zeros((self.map_width, self.map_height))
         
-        
+
     def handle_random_encounter(self, player):
         """Triggers a random enemy encounter based on player's movement."""
-        print(random.random())
         if self.allow_encounters and random.random() < self.encounter_rate:
             # Create a random enemy
             self.current_enemy = Enemy(

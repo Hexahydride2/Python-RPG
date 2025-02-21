@@ -19,6 +19,7 @@ class Sprite:
         self.current_animation = "down_stand"  # Default animation state
         self.num_frames_dict = {}
         self.frames = {}
+        
 
         self.load_animations(folder_paths, scale_factor)
             

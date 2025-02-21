@@ -39,7 +39,7 @@ player = Character(
 
 # # Create NPCs.
 # for town map
-npc1 = NPC("Old Man", ["Hello, traveler!", "The village is to the north.", "Be careful on your journey."], 1000, 1000,
+npc1 = NPC("Old Man", ["Hello, traveler! How's going. I hope you're fine.", "The village is to the north.", "Be careful on your journey."], 1000, 1000,
            [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_1"])
 npc2 = NPC("Shopkeeper", ["Welcome to my shop!  I sell potions and weapons."], 1200, 1200,
            [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"], items_list())
@@ -63,15 +63,16 @@ enemy1 = Enemy(name="Orc", x=1515, y=1585, level=8, hp=80, mp=40, atk=20, dfn=20
 enemies = [enemy1]
 
 # Initialize each map
-town_map = Map(screen, ".\Backgrounds\TownMap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3", allow_encounters=True, encounter_rate=0.01)
+town_map = Map(screen, ".\Backgrounds\TownMap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3", allow_encounters=True, encounter_rate=0.005)
 dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", player=player, npcs=npcs1, enemies=enemies, map_scale_factor=0.3, bgm= "music\CaveTheme.mp3")
 shop_map = Map(screen, ".\Backgrounds\shopmap.png", player=player, npcs=npcs2, map_scale_factor=2, bgm= "music\TownTheme.mp3")
 
 townTest_map = Map(screen, ".\Backgrounds\TownMapTest.png", player=player, map_scale_factor=3, layer_json_path=".\Backgrounds\TownMapTest.json")
+initial_village_map = Map(screen, ".\Backgrounds\map.png", player=player, map_scale_factor=3, layer_json_path=None)
 
 
 # Current map
-current_map = town_map
+current_map = initial_village_map
 #change_theme(R"music\NewTownTheme.mp3")
 
 ## Define transition zones
@@ -92,7 +93,7 @@ while running:
             running = False
 
     # Player walk function
-    player.move(keys, current_map)
+    player.walk(keys, current_map)
 
 ##########################################################
     # Update map position based on player movement

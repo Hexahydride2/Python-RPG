@@ -36,6 +36,9 @@ class Character:
         self.hitbox_height = (self.sprite.sprite_shape[self.sprite.current_animation]["height"]//2) * scale_factor
         self.hitbox = pygame.Rect(self.x, self.y + self.hitbox_height, self.hitbox_width, self.hitbox_height)
 
+        self.initial_x = x
+        self.initial_y = y
+
 
     def level_up(self):
         """Increase stats when leveling up."""
@@ -99,7 +102,7 @@ class Character:
         """Update the character sprite animation."""
         self.sprite.update_frame()
     
-    def move(self, keys, map_obj):
+    def walk(self, keys, map_obj):
         # Display Walk motion only moving
         self.sprite.is_flipped = False
         if self.moving == True:
@@ -153,7 +156,24 @@ class Character:
                 self.x, self.y = new_x, new_y  # Update position
                 self.hitbox.topleft = (self.x, self.y + self.hitbox_height)
         
-
+    def move(self, direction):
+        self.moving = True
+        if direction == "left":
+            self.x -= self.walkspeed
+            self.current_direction = "left"
+            self.sprite.set_animation("left_walk")
+        elif direction == "right":
+            self.x += self.walkspeed
+            self.current_direction = "right"
+            self.sprite.set_animation("right_walk")
+        elif direction == "up":
+            self.y -= self.walkspeed
+            self.current_direction = "up"
+            self.sprite.set_animation("up_walk")
+        elif direction == "down":
+            self.y += self.walkspeed
+            self.current_direction = "down"
+            self.sprite.set_animation("down_walk")
 
 class NPC(Character):
     def __init__(self, name, dialogues, x, y, folder_paths, shop_items=None, scale_factor=3):
