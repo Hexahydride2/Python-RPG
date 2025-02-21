@@ -7,7 +7,7 @@ from pygame.locals import *
 pygame.font.init()
 pygame.mixer.init()
 
-screen = pygame.display.set_mode((800, 480))
+screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 
 ###### SYSTEM FUNCTIONS BEGIN #######
@@ -50,28 +50,23 @@ def mainGame(player):
     """ Function that contains all the game logic. """
     
     def gameOver():
-        """ Displays a game over screen in its own little loop. It is called when it has been determined that the player's funds have
-        run out. All the player can do from this screen is exit the game."""
-        
+        """ Displays a game over screen in its own little loop. """
         while 1:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     player.gold = funds
                     return
                 if event.type == KEYDOWN and event.key == K_ESCAPE:
-                    sys.exit()
-
-            # Fill the screen with black
+                    player.gold = funds
+                    return
             screen.fill((0,0,0))
-            
-            # Render "Game Over" sentence on the screen
+            # Center the Game Over text for a 1280x720 screen
             oFont = pygame.font.Font(None, 50)
-            displayFont = pygame.font.Font.render(oFont, "Game over! You're outta cash!", 1, (255,255,255), (0,0,0)) 
-            screen.blit(displayFont, (125, 220))
-            
-            # Update the display
+            displayFont = pygame.font.Font.render(oFont, "You're outta cash!", True, (255,255,255), (0,0,0)) 
+            # Position at roughly the center
+            screen.blit(displayFont, (1280//2 - displayFont.get_width()//2, 720//2 - displayFont.get_height()//2))
             pygame.display.flip()
-            
+    
     ######## DECK FUNCTIONS BEGIN ########
     def shuffle(deck):
         """ Shuffles the deck using an implementation of the Fisher-Yates shuffling algorithm. n is equal to the length of the
@@ -313,13 +308,14 @@ def mainGame(player):
             self.rect.center = self.position
             
     class hitButton(pygame.sprite.Sprite):
-        """ Button that allows player to hit (take another card from the deck). """
-        
+        """Button that allows the player to hit (take another card)."""
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
             self.image, self.rect = imageLoad("hit-grey.png", 0)
+            # New position for 1280x720 layout
             self.position = (735, 400)
-            
+            self.rect.center = self.position
+
         def update(self, mX, mY, deck, deadDeck, playerHand, cards, pCardPos, roundEnd, cardSprite, click):
             """ If the button is clicked and the round is NOT over, Hits the player with a new card from the deck. It then creates a sprite
             for the card and displays it. """
@@ -345,13 +341,14 @@ def mainGame(player):
             return deck, deadDeck, playerHand, pCardPos, click
             
     class standButton(pygame.sprite.Sprite):
-        """ Button that allows the player to stand (not take any more cards). """
-        
+        """Button that allows the player to stand (stop taking cards)."""
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
             self.image, self.rect = imageLoad("stand-grey.png", 0)
+            # New position for 1280x720 layout
             self.position = (735, 365)
-            
+            self.rect.center = self.position
+
         def update(self, mX, mY, deck, deadDeck, playerHand, dealerHand, cards, pCardPos, roundEnd, cardSprite, funds, bet, displayFont):
             """ If the button is clicked and the round is NOT over, let the player stand (take no more cards). """
             
@@ -369,13 +366,14 @@ def mainGame(player):
             return deck, deadDeck, roundEnd, funds, playerHand, deadDeck, pCardPos, displayFont 
             
     class doubleButton(pygame.sprite.Sprite):
-        """ Button that allows player to double (double the bet, take one more card, then stand)."""
-        
+        """Button that allows the player to double (double bet, get one card, then stand)."""
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
             self.image, self.rect = imageLoad("double-grey.png", 0)
+            # New position for 1280x720 layout
             self.position = (735, 330)
-            
+            self.rect.center = self.position
+
         def update(self, mX, mY,   deck, deadDeck, playerHand, dealerHand, playerCards, cards, pCardPos, roundEnd, cardSprite, funds, bet, displayFont):
             """ If the button is clicked and the round is NOT over, let the player stand (take no more cards). """
             
@@ -404,13 +402,13 @@ def mainGame(player):
             return deck, deadDeck, roundEnd, funds, playerHand, deadDeck, pCardPos, displayFont, bet
 
     class dealButton(pygame.sprite.Sprite):
-        """ A button on the right hand side of the screen that can be clicked at the end of a round to deal a
-        new hand of cards and continue the game. """
-        
+        """Button to deal a new hand after a round finishes."""
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
             self.image, self.rect = imageLoad("deal.png", 0)
+            # New position for 1280x720 layout
             self.position = (735, 450)
+            self.rect.center = self.position
 
         def update(self, mX, mY, deck, deadDeck, roundEnd, cardSprite, cards, playerHand, dealerHand, dCardPos, pCardPos, displayFont, playerCards, click, handsPlayed):
             """ If the mouse position collides with the button, and the mouse is clicking, and roundEnd does not = 0,
@@ -463,13 +461,14 @@ def mainGame(player):
             
             
     class betButtonUp(pygame.sprite.Sprite):
-        """ Button that allows player to increase his bet (in between hands only). """
-        
+        """Button to increase the player's bet."""
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
             self.image, self.rect = imageLoad("up.png", 0)
+            # New position for bet increase (1280x720)
             self.position = (710, 255)
-            
+            self.rect.center = self.position
+
         def update(self, mX, mY, bet, funds, click, roundEnd):
             if roundEnd == 1: self.image, self.rect = imageLoad("up.png", 0)
             else: self.image, self.rect = imageLoad("up-grey.png", 0)
@@ -495,13 +494,14 @@ def mainGame(player):
             return bet, click
             
     class betButtonDown(pygame.sprite.Sprite):
-        """ Button that allows player to decrease his bet (in between hands only). """
-        
+        """Button to decrease the player's bet."""
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
             self.image, self.rect = imageLoad("down.png", 0)
-            self.position = (710, 255)
-            
+            # New position for bet decrease (1280x720)
+            self.position = (760, 255)
+            self.rect.center = self.position
+
         def update(self, mX, mY, bet, click, roundEnd):  
             if roundEnd == 1: self.image, self.rect = imageLoad("down.png", 0)
             else: self.image, self.rect = imageLoad("down-grey.png", 0)
@@ -529,6 +529,8 @@ def mainGame(player):
 
     # This sets up the background image, and its container rect
     background, backgroundRect = imageLoad("bjs.png", 0)
+    background = pygame.transform.scale(background, (1280, 720))
+    backgroundRect = background.get_rect()
     
     # cards is the sprite group that will contain sprites for the dealer's cards
     cards = pygame.sprite.Group()
@@ -538,13 +540,13 @@ def mainGame(player):
     # This creates instances of all the button sprites
     bbU = betButtonUp()
     bbD = betButtonDown()
-    standButton = standButton()
-    dealButton = dealButton()
-    hitButton = hitButton()
-    doubleButton = doubleButton()
+    standButtonInst = standButton()
+    dealButtonInst = dealButton()
+    hitButtonInst = hitButton()
+    doubleButtonInst = doubleButton()
     
     # This group containts the button sprites
-    buttons = pygame.sprite.Group(bbU, bbD, hitButton, standButton, dealButton, doubleButton)
+    buttons = pygame.sprite.Group(bbU, bbD, hitButtonInst, standButtonInst, dealButtonInst, doubleButtonInst)
 
     # The 52 card deck is created
     deck = createDeck()
@@ -573,8 +575,18 @@ def mainGame(player):
     firstTime = 1
 
     # Define the quit button rectangle at the top right corner (adjust size/position as needed)
-    quit_button = pygame.Rect(700, 10, 80, 30)
+    quit_button = pygame.Rect(1280 - 10 - 80, 10, 80, 30)
     quit_font = pygame.font.Font(None, 28)
+
+    # New positions for text display:
+    displayTextPos = (10, 680)  # Bottom left message
+    fundsTextPos = (1050, 50)
+    betTextPos = (1050, 85)
+    roundTextPos = (1050, 120)
+
+    # New positions for card sprites:
+    dCardPos = (50, 70)         # Dealer's cards remain at top-left
+    pCardPos = (640, 500)       # Player's cards centered at bottom
     ###### INITILIZATION ENDS ########
     
     ###### MAIN GAME LOOP BEGINS #######
@@ -596,13 +608,13 @@ def mainGame(player):
             firstTime = 0
             
         # Show the blurb at the bottom of the screen, how much money left, and current bet    
-        screen.blit(displayFont, (10,444))
+        screen.blit(displayFont, displayTextPos)
         fundsFont = pygame.font.Font.render(textFont, "Funds: $%.2f" %(funds), 1, (255,255,255), (0,0,0))
-        screen.blit(fundsFont, (663,205))
+        screen.blit(fundsFont, fundsTextPos)
         betFont = pygame.font.Font.render(textFont, "Bet: $%.2f" %(bet), 1, (255,255,255), (0,0,0))
-        screen.blit(betFont, (680,285))
+        screen.blit(betFont, betTextPos)
         hpFont = pygame.font.Font.render(textFont, "Round: %i " %(handsPlayed), 1, (255,255,255), (0,0,0))
-        screen.blit(hpFont, (663, 180))
+        screen.blit(hpFont, roundTextPos)
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -644,13 +656,13 @@ def mainGame(player):
          
         # Update the buttons 
         # deal 
-        deck, deadDeck, playerHand, dealerHand, dCardPos, pCardPos, roundEnd, displayFont, click, handsPlayed = dealButton.update(mX, mY, deck, deadDeck, roundEnd, cardSprite, cards, playerHand, dealerHand, dCardPos, pCardPos, displayFont, playerCards, click, handsPlayed)   
+        deck, deadDeck, playerHand, dealerHand, dCardPos, pCardPos, roundEnd, displayFont, click, handsPlayed = dealButtonInst.update(mX, mY, deck, deadDeck, roundEnd, cardSprite, cards, playerHand, dealerHand, dCardPos, pCardPos, displayFont, playerCards, click, handsPlayed)   
         # hit    
-        deck, deadDeck, playerHand, pCardPos, click = hitButton.update(mX, mY, deck, deadDeck, playerHand, playerCards, pCardPos, roundEnd, cardSprite, click)
+        deck, deadDeck, playerHand, pCardPos, click = hitButtonInst.update(mX, mY, deck, deadDeck, playerHand, playerCards, pCardPos, roundEnd, cardSprite, click)
         # stand    
-        deck, deadDeck, roundEnd, funds, playerHand, deadDeck, pCardPos,  displayFont  = standButton.update(mX, mY,   deck, deadDeck, playerHand, dealerHand, cards, pCardPos, roundEnd, cardSprite, funds, bet, displayFont)
+        deck, deadDeck, roundEnd, funds, playerHand, deadDeck, pCardPos,  displayFont  = standButtonInst.update(mX, mY,   deck, deadDeck, playerHand, dealerHand, cards, pCardPos, roundEnd, cardSprite, funds, bet, displayFont)
         # double
-        deck, deadDeck, roundEnd, funds, playerHand, deadDeck, pCardPos, displayFont, bet  = doubleButton.update(mX, mY,   deck, deadDeck, playerHand, dealerHand, playerCards, cards, pCardPos, roundEnd, cardSprite, funds, bet, displayFont)
+        deck, deadDeck, roundEnd, funds, playerHand, deadDeck, pCardPos, displayFont, bet  = doubleButtonInst.update(mX, mY,   deck, deadDeck, playerHand, dealerHand, playerCards, cards, pCardPos, roundEnd, cardSprite, funds, bet, displayFont)
         # Bet buttons
         bet, click = bbU.update(mX, mY, bet, funds, click, roundEnd)
         bet, click = bbD.update(mX, mY, bet, click, roundEnd)
@@ -667,4 +679,3 @@ def mainGame(player):
         # Updates the contents of the display
         pygame.display.flip()
         clock.tick(30)
-        
