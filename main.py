@@ -3,8 +3,7 @@ from character import Character, NPC, Enemy
 from items import items_list
 from map_manager import Map
 from Draw import change_theme
-
-
+import Blackjack  
 
 pygame.init()
 screen_width = 800
@@ -63,12 +62,15 @@ enemy1 = Enemy(name="Orc", x=1515, y=1585, level=8, hp=80, mp=40, atk=20, dfn=20
 enemies = [enemy1]
 
 # Initialize each map
-town_map = Map(screen, ".\Backgrounds\TownMap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3", allow_encounters=True, encounter_rate=0.005)
+town_map = Map(screen, ".\Backgrounds\TownMap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3", allow_encounters=True, encounter_rate=0)
 dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", player=player, npcs=npcs1, enemies=enemies, map_scale_factor=0.3, bgm= "music\CaveTheme.mp3")
 shop_map = Map(screen, ".\Backgrounds\shopmap.png", player=player, npcs=npcs2, map_scale_factor=2, bgm= "music\TownTheme.mp3")
 
 townTest_map = Map(screen, ".\Backgrounds\TownMapTest.png", player=player, map_scale_factor=3, layer_json_path=".\Backgrounds\TownMapTest.json")
 initial_village_map = Map(screen, ".\Backgrounds\map.png", player=player, map_scale_factor=3, layer_json_path=None)
+
+casino_map = Map(screen, ".\\Backgrounds\\casino.png", player=player, map_scale_factor=3, bgm="music\\TownTheme.mp3")
+
 
 
 # Current map
@@ -79,7 +81,7 @@ current_map = town_map
 town_map.add_transition_zone(265, 505, 505, 645, dungeon_map, 965, 1585)
 town_map.add_transition_zone(1360, 785, 1414, 830, shop_map, 280, 405)
 shop_map.add_transition_zone(230, 445, 335, 447, town_map, 1385, 830)
-
+town_map.add_transition_zone(425, 1070, 490, 1145, casino_map, 100, 100)
 
 
 running = True
@@ -109,9 +111,13 @@ while running:
         #change_theme(current_map.bgm)
 ###########################################################
 
+    # NEW: If the casino map is active and player presses "B", launch blackjack
+    if current_map == casino_map and keys[pygame.K_b]:
+        Blackjack.mainGame(player)  # Launch blackjack game
+
     # Draw the background map
     current_map.draw(screen, events)
-    #print(player.x, player.y)
+    print(player.x, player.y)
 
     pygame.display.flip()
     clock.tick(30)
