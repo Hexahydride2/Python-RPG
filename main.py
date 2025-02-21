@@ -72,7 +72,7 @@ initial_village_map = Map(screen, ".\Backgrounds\map.png", player=player, map_sc
 
 
 # Current map
-current_map = initial_village_map
+current_map = town_map
 #change_theme(R"music\NewTownTheme.mp3")
 
 ## Define transition zones

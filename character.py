@@ -5,7 +5,7 @@ from items import items_list, attack_list
 from shop import Shop
 
 class Character:
-    def __init__(self, name, x, y, level, hp, mp, atk, dfn, spd, inventory, folder_paths, gold=100, scale_factor=3, animation_speed=5):
+    def __init__(self, name, x, y, folder_paths, level=1, hp=1, mp=1, atk=1, dfn=1, spd=1, inventory={}, gold=100, scale_factor=3, animation_speed=5):
         # Character Stats
         self.name = name
         self.x, self.y = x, y
@@ -157,6 +157,7 @@ class Character:
                 self.hitbox.topleft = (self.x, self.y + self.hitbox_height)
         
     def move(self, direction):
+        self.sprite.is_flipped = False
         self.moving = True
         if direction == "left":
             self.x -= self.walkspeed
@@ -214,9 +215,9 @@ class NPC(Character):
 
 
 class Enemy(Character):
-    def __init__(self, name, x, y, level, hp, mp, atk, dfn, spd, inventory, exp_reward, loot, folder_paths, scale_factor=3):
+    def __init__(self, name, x, y, folder_paths, level, hp, mp, atk, dfn, spd, inventory, exp_reward, loot,  scale_factor=3):
         """Enemy inherits from Character and adds EXP & loot system."""
-        super().__init__(name, x, y, level, hp, mp, atk, dfn, spd, inventory, folder_paths, scale_factor=scale_factor)
+        super().__init__(name, x, y, folder_paths, level, hp, mp, atk, dfn, spd, inventory, scale_factor=scale_factor)
         
         self.exp_reward = exp_reward  # EXP gained by player on defeat
         self.loot = loot  # Dictionary of possible loot {"Potion": 50% chance, "Gold": 100% chance}
