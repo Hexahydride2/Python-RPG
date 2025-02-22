@@ -138,5 +138,11 @@ def attack_list():
             "effect": 1.2,
             "state": "bow"
         },
+        "Fireball": {
+            "description": "Launches a fireball at a target.",
+            "mp": 15,
+            "effect": 1.3,
+            "state": "magic"
+        },        
     }
     return Attack_List

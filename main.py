@@ -65,8 +65,8 @@ enemies = [enemy1]
 town_map = Map(screen, ".\Backgrounds\TownMap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3", allow_encounters=True, encounter_rate=0)
 dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", player=player, npcs=npcs1, enemies=enemies, map_scale_factor=0.3, bgm= "music\CaveTheme.mp3")
 shop_map = Map(screen, ".\Backgrounds\shopmap.png", player=player, npcs=npcs2, map_scale_factor=2, bgm= "music\TownTheme.mp3")
-
-townTest_map = Map(screen, ".\Backgrounds\TownMapTest.png", player=player, map_scale_factor=3, layer_json_path=".\Backgrounds\TownMapTest.json")
+Town_mapv1 = Map(screen, ".\Backgrounds\TownMapv1.png", player=player, map_scale_factor=3, layer_json_path="Backgrounds\TownMapV1\TownMapV1.json", bgm= "music\TownTheme.mp3")
+townTest_map = Map(screen, ".\Backgrounds\TownMapTest.png", player=player, map_scale_factor=3, layer_json_path=None)
 initial_village_map = Map(screen, ".\Backgrounds\map.png", player=player, map_scale_factor=3, layer_json_path=None)
 
 casino_map = Map(screen, ".\\Backgrounds\\casino.png", player=player, map_scale_factor=3, bgm="music\\TownTheme.mp3")
@@ -74,7 +74,7 @@ casino_map = Map(screen, ".\\Backgrounds\\casino.png", player=player, map_scale_
 
 
 # Current map
-current_map = town_map
+current_map = Town_mapv1
 #change_theme(R"music\NewTownTheme.mp3")
 
 ## Define transition zones
