@@ -54,8 +54,7 @@ class Scene:
         if action_type == "move":
             self.handle_move(action)
         elif action_type == "talk":
-            if event != None:
-                self.handle_talk(action, event)
+            self.handle_talk(action, event)
         elif action_type == "wait":
             self.handle_wait(action)
         elif action_type == "battle":
@@ -90,29 +89,33 @@ class Scene:
                 self.text_manager.add_message(message, speaker=character.name)
             else:
                 self.text_manager.add_message(message)
-            
-        self.text_manager.update()
-        self.text_manager.draw()
+        
+        print("3",self.text_manager.messages, self.text_manager.message_finished)
 
-
-        # If message is complete and waiting for Enter, we proceed
-        if self.text_manager.message_finished:
-            self.waiting_for_enter = True
+        if event != None:
+            # If message is complete and waiting for Enter, we proceed
+            if self.text_manager.message_finished:
+                self.waiting_for_enter = True
 
         # If ENTER is pressed and we're waiting, move to the next action
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-            if self.text_manager.message_finished:
-                if len(self.text_manager.messages) > 1:
-                    # If there are more messages, go to the next one
-                    self.text_manager.next_message()
-                    self.waiting_for_enter = False
-                else:
-                    # If no more messages, move to the next action
-                    self.text_manager.next_message()
-                    self.waiting_for_enter = False
-                    self.current_action_index += 1  # Move to the next action
-            elif self.text_manager.waiting_for_next:
-                self.text_manager.next_message()
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    if not self.text_manager.message_finished:
+                        self.text_manager.skipping = True
+                    elif self.text_manager.waiting_for_next:
+                        if len(self.text_manager.messages) > 1:
+                            # If there are more messages, go to the next one
+                            self.text_manager.next_message()
+                            self.waiting_for_enter = False
+                        else:
+                            # If no more messages, move to the next action
+                            self.text_manager.next_message()
+                            self.waiting_for_enter = False
+                            self.current_action_index += 1  # Move to the next action
+       
+        
 
     def handle_wait(self, action):
         """Handle wait action for a specific duration."""
@@ -164,13 +167,8 @@ class Scene:
         running = True
         while running:
             self.screen.fill((255,255,255))
-            events = pygame.event.get()
-
-            for event in events:
-                if event.type == pygame.QUIT:
-                    pygame.quit()
               
-            self.update(event)
+            self.update(None)
             
             # Draw characters and update the display
             for character in self.characters:
@@ -181,6 +179,9 @@ class Scene:
             # Check if the scene is finished
             if self.current_action_index >= len(self.actions):
                 running = False
+
+            self.text_manager.update()
+            self.text_manager.draw()
             
             pygame.display.flip()
             self.clock.tick(30)
