@@ -6,8 +6,8 @@ from Draw import change_theme
 import Blackjack  
 
 pygame.init()
-screen_width = 800
-screen_height = 600
+screen_width = 1280
+screen_height = 720
 screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 
