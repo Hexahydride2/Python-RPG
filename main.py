@@ -53,7 +53,8 @@ npcs1 = [npc3, npc4]
 
 npcs2 = [NPC("Shopkeeper", ["Welcome to my shop!  I sell potions and weapons."], 260, 190,
            [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"], items_list())]
-
+friend = [NPC("Belle", ["Hello, Gabe!, ", "I'm glad you came to visit me."], 625, 390,
+              [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc4_5"])]
 ## Create Enemies
 enemy1 = Enemy(name="Orc", x=1515, y=1585, level=8, hp=80, mp=40, atk=20, dfn=20, spd=30, inventory={}, exp_reward=5, loot=None, folder_paths=[
     R".\timefantasy_characters\timefantasy_characters\frames\chara\chara5_8",
@@ -68,9 +69,9 @@ shop_map = Map(screen, ".\Backgrounds\shopmap.png", player=player, npcs=npcs2, m
 Town_mapv1 = Map(screen, ".\Backgrounds\TownMapv1.png", player=player, map_scale_factor=3, layer_json_path="Backgrounds\TownMapV1\TownMapV1.json", bgm= "music\TownTheme.mp3")
 townTest_map = Map(screen, ".\Backgrounds\TownMapTest.png", player=player, map_scale_factor=3, layer_json_path=None)
 initial_village_map = Map(screen, ".\Backgrounds\map.png", player=player, map_scale_factor=3, layer_json_path=None)
-
+playerhouse = Map(screen, ".\Backgrounds\playerhouse.png", player=player, map_scale_factor=3, layer_json_path="Backgrounds\PlayerHouse\PlayerHouse.json")
 casino_map = Map(screen, ".\\Backgrounds\\casino.png", player=player, map_scale_factor=3, bgm="music\\TownTheme.mp3")
-
+friendshouse = Map(screen, ".\\Backgrounds\\FriendsHouse.png", player=player, npcs=friend, map_scale_factor=3, layer_json_path="Backgrounds\FriendsHouse\FriendsHouse.json")
 
 
 # Current map
@@ -82,8 +83,10 @@ town_map.add_transition_zone(265, 505, 505, 645, dungeon_map, 965, 1585)
 town_map.add_transition_zone(1360, 785, 1414, 830, shop_map, 280, 405)
 shop_map.add_transition_zone(230, 445, 335, 447, town_map, 1385, 830)
 town_map.add_transition_zone(425, 1070, 490, 1145, casino_map, 100, 100)
-
-
+Town_mapv1.add_transition_zone(2020, 340, 2060, 400, playerhouse, 620, 575)
+playerhouse.add_transition_zone(590, 600, 685, 653, Town_mapv1, 2030, 450)
+friendshouse.add_transition_zone(590, 600, 685, 653, Town_mapv1, 1750, 440)
+Town_mapv1.add_transition_zone(1730, 340, 1775, 380, friendshouse, 620, 575)
 running = True
 while running:
     screen.fill((0,0,0))

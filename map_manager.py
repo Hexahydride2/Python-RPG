@@ -106,7 +106,7 @@ class Map:
                 for pos in layer["positions"]:
                     x = pos["x"]
                     y = pos["y"]
-                    Positions[x][y] = 0
+                    Positions[x][y] = 1
         scale =  self.map_width // total_x
         Positions = np.repeat(np.repeat(Positions, scale, axis=1), scale, axis=0)
         return Positions
