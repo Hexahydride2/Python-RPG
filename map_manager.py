@@ -96,12 +96,17 @@ class Map:
         Positions = np.zeros((total_x, total_y))
 
         for layer in data["layers"]:
-            if layer["name"] == "Top":
+            if layer["name"] == "Layer 2":
                 for pos in layer["positions"]:
                     x = pos["x"]
                     y = pos["y"]
                     Positions[x][y] = 1
-
+        for layer in data["layers"]:
+            if layer["name"] == "Layer 3":
+                for pos in layer["positions"]:
+                    x = pos["x"]
+                    y = pos["y"]
+                    Positions[x][y] = 0
         scale =  self.map_width // total_x
         Positions = np.repeat(np.repeat(Positions, scale, axis=1), scale, axis=0)
         return Positions
