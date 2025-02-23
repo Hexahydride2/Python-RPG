@@ -1,120 +1,104 @@
 def items_list():
     All_Item_List = {
-        "Potion": {
-            "description": "Restores 10 HP. A basic healing drink.",
-            "type": "hp",
-            "effect": 10,
-            "price": 10
-        },
-        "Super Potion": {
-            "description": "Restores 50 HP. A stronger variant of the potion.",
-            "type": "hp",
-            "effect": 50,
-            "price": 50
-        },
-        "Mana Crystal": {
-            "description": "Restores 10 MP. A small glowing crystal filled with energy.",
-            "type": "mp",
-            "effect": 10,
-            "price": 12
-        },
-        "Ether": {
-            "description": "Restores 50 MP. A refined magical liquid that energizes the mind.",
-            "type": "mp",
-            "effect": 50,
-            "price": 40
-        },
-        "Elixir": {
-            "description": "Restores both 30 HP and 30 MP. A magical drink.",
-            "type": "both",
-            "effect": (30, 30),
-            "price": 75
-        },
-        "Antidote": {
-            "description": "Cures poison and other harmful debuffs.",
-            "type": "status",
-            "effect": "cure_poison",
-            "price": 20
-        },
-        "Revive": {
-            "description": "Revives a fallen ally with 25% of their HP.",
-            "type": "revive",
-            "effect": 25,
-            "price": 150
-        },
-        "Healing Herb": {
-            "description": "A basic herb that restores 5 HP.",
-            "type": "hp",
-            "effect": 5,
-            "price": 5
-        },
-        "Big Bomb": {
-            "description": "Deals 100 damage to all enemies in range.",
-            "type": "attack",
-            "effect": 100,
-            "price": 200
-        },
-        "Fire Scroll": {
-            "description": "Deals 50 fire damage to a single target.",
-            "type": "attack",
-            "effect": 50,
-            "price": 80
-        },
-        "Ice Orb": {
-            "description": "Deals 60 ice damage and freezes a target.",
-            "type": "attack",
-            "effect": 60,
-            "price": 90
-        },
-        "Wind Amulet": {
-            "description": "Increases movement speed by 10%.",
-            "type": "buff",
-            "effect": "speed_up",
-            "price": 120
-        },
-        "Strength Potion": {
-            "description": "Temporarily increases attack by 20.",
-            "type": "buff",
-            "effect": "atk_up",
-            "price": 50
-        },
-        "Defense Shield": {
-            "description": "Temporarily boosts defense by 15.",
-            "type": "buff",
-            "effect": "dfn_up",
-            "price": 60
-        },
-        "Cloak of Invisibility": {
-            "description": "Makes you invisible for 5 turns.",
-            "type": "buff",
-            "effect": "invisibility",
-            "price": 150
-        },
-        "Crystal of Wisdom": {
-            "description": "Increases magic power by 10.",
-            "type": "buff",
-            "effect": "mp_up",
-            "price": 70
-        },
-        "Gold Coin": {
-            "description": "A shiny gold coin. Can be used for trading.",
-            "type": "currency",
-            "effect": 1,
-            "price": 0  # Gold coins can be used in trade
-        },
-        "Mithril Ore": {
-            "description": "A rare ore that can be used for crafting.",
-            "type": "material",
-            "effect": "mithril",
-            "price": 250
-        },
-        "Giga Health Potion": {
-            "description": "Restores 100 HP. A very potent healing item.",
-            "type": "hp",
-            "effect": 100,
-            "price": 120
-        }
+    "Potion": {
+        "description": "Restores 15 HP. A basic healing drink.",
+        "type": "hp",
+        "effect": 15,
+        "price": 15
+    },
+    "Super Potion": {
+        "description": "Restores 60 HP. A stronger variant of the potion.",
+        "type": "hp",
+        "effect": 60,
+        "price": 55
+    },
+    "Mega Potion": {
+        "description": "Restores 150 HP. A rare and powerful potion.",
+        "type": "hp",
+        "effect": 150,
+        "price": 200
+    },
+    "Mana Crystal": {
+        "description": "Restores 15 MP. A small glowing crystal filled with energy.",
+        "type": "mp",
+        "effect": 15,
+        "price": 18
+    },
+    "Ether": {
+        "description": "Restores 60 MP. A refined magical liquid that energizes the mind.",
+        "type": "mp",
+        "effect": 60,
+        "price": 50
+    },
+    "Elixir": {
+        "description": "Fully restores both HP and MP.",
+        "type": "hp",
+        "effect": "full",
+        "price": 500
+    },
+    "Revive": {
+        "description": "Revives a fallen ally with 50% of their HP.",
+        "type": "re",
+        "effect": 50,
+        "price": 250
+    },
+    "Phoenix Feather": {
+        "description": "Revives a fallen ally with full HP.",
+        "type": "re",
+        "effect": "full",
+        "price": 500
+    },
+    "Strength Potion": {
+        "description": "Increases attack by 25 for 4 turns.",
+        "type": "atk_buff",
+        "effect": 25,
+        "duration": 4,
+        "price": 65
+    },
+    "Berserker Brew": {
+        "description": "Increases attack by 50 but lowers defense by 15 for 5 turns.",
+        "type": "atk_buff",
+        "effect": 50,
+        "duration": 5,
+        "price": 120
+    },
+    "Warrior's Elixir": {
+        "description": "Boosts attack by 20 for 4 turns.",
+        "type": "atk_buff",
+        "effect": 20,
+        "duration": 4,
+        "price": 160
+    },
+    "Defense Shield": {
+        "description": "Temporarily boosts defense by 20 for 4 turns.",
+        "type": "dfn_buff",
+        "effect": 20,
+        "duration": 4,
+        "price": 75
+    },
+    "Dragon Scale": {
+        "description": "Temporarily increases defense by 40 for 3 turns.",
+        "type": "dfn_buff",
+        "effect": 40,
+        "duration": 3,
+        "price": 150
+    },
+    "Wind Amulet": {
+        "description": "Increases movement speed by 15% for 3 turns.",
+        "type": "spd_buff",
+        "effect": 15,
+        "duration": 3,
+        "price": 140
+    },
+    "Shadow Cloak": {
+        "description": "Increases speed by 30% for 3 turns.",
+        "type": "spd_buff",
+        "effect": 30,
+        "duration": 3,
+        "price": 180
     }
+}
+
     return All_Item_List
 
 
