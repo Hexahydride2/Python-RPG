@@ -5,7 +5,7 @@ from items import items_list, attack_list
 from shop import Shop
 
 class Character:
-    def __init__(self, name, x, y, folder_paths, level=1, hp=1, mp=1, atk=1, dfn=1, spd=1, inventory={}, gold=100, scale_factor=3, animation_speed=5):
+    def __init__(self, name, x, y, folder_paths, level=1, hp=1, mp=1, atk=1, dfn=1, spd=1, inventory={}, gold=100, skills=["Strike"], scale_factor=3, animation_speed=5):
         # Character Stats
         self.name = name
         self.x, self.y = x, y
@@ -19,6 +19,7 @@ class Character:
         self.spd = spd
         self.inventory = inventory
         self.gold = gold
+        self.skills = skills
         self.can_move = True
         self.moving = False  # Track movement state
         self.current_direction = "down"  # Default direction
@@ -50,18 +51,15 @@ class Character:
         self.dfn += 2
         self.spd += 2
 
-    def take_damage(self, damage):
-        """Reduce HP based on damage calculation."""
-        damage_taken = max(1, damage - self.dfn)
-        damage_taken = max(1, damage - self.dfn)
-        self.hp -= damage_taken
-        return damage_taken
 
     def attack(self, target, attack_name, take_damage_on=False):
         """Attack another character, dealing damage."""
         damage = max(1, int((self.atk - target.dfn)*attack_list()[attack_name]["effect"]))
         if take_damage_on:
-            target.take_damage(damage)
+            target.hp -= damage
+            if target.hp <= 0:
+                target.hp = 0
+            self.mp -= attack_list()[attack_name]["mp"]
         return damage
 
     def add_item(self, item):
