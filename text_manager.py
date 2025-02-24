@@ -1,9 +1,9 @@
 import pygame
 
 class TextManager:
-    def __init__(self, screen, font_size=26, sound_file=R".\Sound_Effects\Retro_03\Retro_Single_v5_wav.wav"):
+    def __init__(self, screen, font_size=25, font_file=".\Fonts\RotisSerif.ttf", sound_file=R".\Sound_Effects\Retro_03\Retro_Single_v5_wav.wav"):
         self.screen = screen
-        self.font = pygame.font.Font(None, font_size)
+        self.font = pygame.font.Font(font_file, font_size)
         self.messages = []  # List of messages to display
         self.current_message = ""  # Text being displayed
         self.typing_index = 0  # For typewriter effect

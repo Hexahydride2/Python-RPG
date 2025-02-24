@@ -24,6 +24,7 @@ class Character:
         self.moving = False  # Track movement state
         self.current_direction = "down"  # Default direction
         self.walkspeed = 5
+        self.buffs = []
 
         # Used to diplay the camera based location
         self.draw_x = 0
@@ -40,16 +41,42 @@ class Character:
         self.initial_x = x
         self.initial_y = y
 
+        # EXP system
+        self.exp = 0  # Current EXP
+        self.exp_to_next_level = self.calculate_exp_to_next_level()  # EXP required for next level
+    
+    def calculate_exp_to_next_level(self):
+        """Calculate the EXP required to reach the next level using a DQ-style formula."""
+        base_exp = 30  # Base value for EXP scaling
+        return base_exp * (self.level ** 2)
+    
+    def gain_exp(self, amount):
+        """Gain EXP and check for level up."""
+        self.exp += amount
+        while self.exp >= self.exp_to_next_level:
+            self.level_up()
 
     def level_up(self):
-        """Increase stats when leveling up."""
+        """Increase level and stats when enough EXP is gained."""
         self.level += 1
-        self.hp += 10
-        self.mp += 5
-        self.atk += 3
-        self.dfn += 2
-        self.dfn += 2
-        self.spd += 2
+        self.exp -= self.exp_to_next_level  # Carry over remaining EXP
+        self.exp_to_next_level = self.calculate_exp_to_next_level()  # Update EXP requirement for next level
+
+        # Randomized stat increases
+        hp_increase = random.randint(8, 12)  # HP increases by 8–12
+        mp_increase = random.randint(3, 6)   # MP increases by 3–6
+        atk_increase = random.randint(2, 4)  # Attack increases by 2–4
+        dfn_increase = random.randint(1, 3)  # Defense increases by 1–3
+        spd_increase = random.randint(1, 2)  # Speed increases by 1–2
+
+        # Apply stat increases
+        self.max_hp += hp_increase
+        self.hp = self.max_hp  # Fully heal on level up
+        self.max_mp += mp_increase
+        self.mp = self.max_mp  # Fully restore MP on level up
+        self.atk += atk_increase
+        self.dfn += dfn_increase
+        self.spd += spd_increase
 
 
     def attack(self, target, attack_name, take_damage_on=False):
