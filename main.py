@@ -53,8 +53,8 @@ npcs1 = [npc3, npc4]
 
 npcs2 = [NPC("Shopkeeper", ["Welcome to my shop!  I sell potions and weapons."], 260, 190,
            [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"], items_list())]
-friend = [NPC("Belle", ["Hello, Gabe!, ", "I'm glad you came to visit me."], 625, 390,
-              [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc4_5"])]
+friend = [NPC("Belle", ["Hello, Gabe!, Here is a recap of what has happened!", "I'm glad you came to visit me."], 625, 390,
+              [R".\timefantasy_characters\timefantasy_characters\frames\chara\chara5_3"])]
 ## Create Enemies
 enemy1 = Enemy(name="Orc", x=1515, y=1585, level=8, hp=80, mp=40, atk=20, dfn=20, spd=30, inventory={}, exp_reward=5, loot=None, folder_paths=[
     R".\timefantasy_characters\timefantasy_characters\frames\chara\chara5_8",

@@ -213,6 +213,7 @@ class NPC(Character):
         else:
             self.current_dialogue = 0  # Reset when finished
             self.talking = False  # Stop conversation
+    
 
 
 class Enemy(Character):

@@ -267,9 +267,18 @@ class Map:
                     if not npc.talking:
                         npc.talking = True
                         npc.talk(self.text_manager, self.player, self.screen)
+                        if npc.name == "Belle":
+                            npc.has_talked = True
                         return   # Exit to prevent multiple interactions
 
                     break  # Stop checking other NPCs after talking to one
+
+            if npc.name == "Belle" and not npc.talking and hasattr(npc, "has_talked") and not hasattr(npc, "opening"):
+                import opening
+                opening.opening_scene1.run()
+                opening.opening_scene2.run()
+                npc.opening = True
+                
         return 
         
 
