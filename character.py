@@ -5,7 +5,7 @@ from items import items_list, attack_list
 from shop import Shop
 
 class Character:
-    def __init__(self, name, x, y, folder_paths, level=1, hp=1, mp=1, atk=1, dfn=1, spd=1, inventory={}, gold=100, skills=["Strike"], scale_factor=3, animation_speed=5):
+    def __init__(self, name, x, y, folder_paths, level=1, hp=1, mp=1, atk=1, dfn=1, spd=1, inventory={}, gold=100, skills=["Strike"], scale_factor=3, animation_speed=6):
         # Character Stats
         self.name = name
         self.x, self.y = x, y
@@ -78,10 +78,21 @@ class Character:
         self.dfn += dfn_increase
         self.spd += spd_increase
 
+    def calculate_damage(self, attacker_atk, defender_def, base_damage=1, is_critical=False):
+        """Calculate damage using a DQ-style formula."""
+        if is_critical:
+            # Critical hits ignore DEF and deal double damage
+            damage = attacker_atk * 2 * random.uniform(0.9, 1.1)
+        else:
+            # Normal damage calculation
+            damage = (attacker_atk - (defender_def / 2)) * base_damage * random.uniform(0.9, 1.1)
+
+        # Ensure minimum damage of 1
+        return max(1, int(damage))
 
     def attack(self, target, attack_name, take_damage_on=False):
         """Attack another character, dealing damage."""
-        damage = max(1, int((self.atk - target.dfn)*attack_list()[attack_name]["effect"]))
+        damage = self.calculate_damage(self.atk, target.dfn, attack_list()[attack_name]["effect"])
         if take_damage_on:
             target.hp -= damage
             if target.hp <= 0:
@@ -244,10 +255,10 @@ class NPC(Character):
 
 
 class Enemy(Character):
-    def __init__(self, name, x, y, folder_paths, level, hp, mp, atk, dfn, spd, inventory, exp_reward, loot,  scale_factor=3):
+    def __init__(self, name, x, y, folder_paths, level, hp, mp, atk, dfn, spd, inventory, gold=100, skills=["Strike"], exp_reward=0, loot={},  scale_factor=3):
         """Enemy inherits from Character and adds EXP & loot system."""
-        super().__init__(name, x, y, folder_paths, level, hp, mp, atk, dfn, spd, inventory, scale_factor=scale_factor)
+        super().__init__(name, x, y, folder_paths, level, hp, mp, atk, dfn, spd, inventory, gold=gold, skills=skills, scale_factor=scale_factor)
         
         self.exp_reward = exp_reward  # EXP gained by player on defeat
         self.loot = loot  # Dictionary of possible loot {"Potion": 50% chance, "Gold": 100% chance}
-        self.is_alive = True  # Enemy state
+        self.is_alive = True  # Enemy state 

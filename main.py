@@ -63,7 +63,7 @@ enemy1 = Enemy(name="Orc", x=1515, y=1585, level=8, hp=80, mp=40, atk=20, dfn=20
 enemies = [enemy1]
 
 # Initialize each map
-town_map = Map(screen, ".\Backgrounds\TownMap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3", allow_encounters=True, encounter_rate=0)
+town_map = Map(screen, "Backgrounds\TownMap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3", allow_encounters=True, encounter_rate=0)
 dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", player=player, npcs=npcs1, enemies=enemies, map_scale_factor=0.3, bgm= "music\CaveTheme.mp3")
 shop_map = Map(screen, ".\Backgrounds\shopmap.png", player=player, npcs=npcs2, map_scale_factor=2, bgm= "music\TownTheme.mp3")
 Town_mapv1 = Map(screen, ".\Backgrounds\TownMapv1.png", player=player, map_scale_factor=3, layer_json_path="Backgrounds\TownMapV1\TownMapV1.json", bgm= "music\TownTheme.mp3")

@@ -2,10 +2,10 @@ import pygame
 import random
 from character import Character, NPC, Enemy
 from text_manager import TextManager
-from items import items_list, attack_list
+from items import items_list, attack_list, monster_exp_list, monster_drop_list
 
 class Battle:
-    def __init__(self, screen, player_party, enemies, background_image=None):
+    def __init__(self, screen, player_party, enemies, background_image=None, escape_chance=0.5, boss_x=0, boss_y=0):
         self.running = True
         self.screen = screen
         self.player_party = player_party
@@ -13,13 +13,16 @@ class Battle:
         self.enemies = enemies
         self.enemies_alive = self.enemies.copy()
 
+        # Granual configuration for boss:
+        self.boss_x, self.boss_y = boss_x, boss_y
+
         if background_image != None:
             self.background_image = pygame.image.load(background_image)  # Adjust the path as needed
             self.background_image = pygame.transform.scale(self.background_image, (self.screen.get_width(), self.screen.get_height()))
         else:
             self.background_image = background_image
         self.font = pygame.font.Font(".\Fonts\RotisSerif.ttf", 28)  # Or use SysFont if installed
-
+        self.escape_chance = escape_chance
 
         self.selected_option = 0
         self.options = ["Attack", "Defend", "Items", "Status", "Escape"]
@@ -77,10 +80,28 @@ class Battle:
         pygame.mixer.init()  # Initialize the mixer
         self.attack_sound = pygame.mixer.Sound(".\Sound_Effects\punch.mp3")  
         self.attack_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
-        self.gun_sound = pygame.mixer.Sound(".\Sound_Effects\explosion.mp3")  
+        self.gun_sound = pygame.mixer.Sound(".\Sound_Effects\gunshot.mp3")  
         self.gun_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
         self.magic_sound = pygame.mixer.Sound(".\Sound_Effects\magic_spell.mp3")  
         self.magic_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
+        self.bow_sound = pygame.mixer.Sound(R".\Sound_Effects\bow.mp3")  
+        self.bow_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
+
+        # Key icons
+        self.key_icons = {
+        "up": pygame.image.load(R".\Icons\up_key.png"),
+        "down": pygame.image.load(R".\Icons\down_key.png"),
+        "left": pygame.image.load(R".\Icons\left_key.png"),
+        "right": pygame.image.load(R".\Icons\right_key.png"),
+        "enter": pygame.image.load(R".\Icons\enter_key.png"),
+        "esc": pygame.image.load(R".\Icons\esc_key.png"),
+        }
+        for key in self.key_icons:
+            self.key_icons[key] = pygame.transform.scale(self.key_icons[key], (40, 40))  # Adjust size
+        
+        # Save battle result
+        self.result = None
+
 
     def save_initial_settings(self):
         """Save initial state of each character and decide the location where it will be displayed"""
@@ -109,7 +130,7 @@ class Battle:
                     self.current_position[player] = {"x": player_start_x - 50, "y": player_start_y + i * (self.PLAYER_HEIGHT + 40)}
             count += 1
 
-
+        
         # Decides the start y location depends on the number of enemies
         enemy_start_x = int(self.screen.get_width() * 0.2)  # 10% from the left
         if len(self.enemies) == 1:
@@ -165,7 +186,7 @@ class Battle:
         self.screen.blit(turn_num_text, (self.screen.get_width()*0.05, self.screen.get_height()*0.05))
 
         # Display only the selection phase
-        if not self.executing_actions:
+        if not self.executing_actions and not self.text_manager.messages:
             if self.selecting_attack:
                 self.draw_attack_menu()
             elif self.selecting_item:
@@ -176,6 +197,7 @@ class Battle:
                 self.draw_status_menu()
 
             self.draw_aim_enemy()
+            self.draw_navigation()
 
             # Draw options in the bottom left
             options_start_x = int(self.screen.get_width() * 0.05)  # 5% from the left
@@ -193,6 +215,33 @@ class Battle:
         # Draw battle messages
         self.text_manager.draw()
     
+    def draw_navigation(self):
+        """Draws the navigation guide on the screen."""
+        nav_x = self.screen.get_width()*0.5  # X position
+        nav_y = self.screen.get_height() - 80  # Position near bottom
+        font = pygame.font.Font(".\Fonts\RotisSerif.ttf", 20)
+
+        spacing = 100  # Space between key icons
+
+        nav_items = [
+            ("up", "Scroll"), 
+            ("down", "Scroll"), 
+            ("left", "Aim"), 
+            ("right", "Aim"), 
+            ("enter", "Select"), 
+            ("esc", "Back")
+        ]
+
+        for key, label in nav_items:
+            rect_surface = pygame.Surface((36, 36), pygame.SRCALPHA)
+            pygame.draw.rect(rect_surface, (255, 255, 255, 255), (0, 0, 36, 36), border_radius=5)
+            self.screen.blit(rect_surface, (nav_x + 2, nav_y + 1))
+
+            self.screen.blit(self.key_icons[key], (nav_x, nav_y))  # Draw icon
+            text = font.render(label, True, (255, 255, 255))  # Render text
+            self.screen.blit(text, (nav_x + 40, nav_y + 5))  # Offset text next to icon
+            nav_x += spacing  # Move to the right for next icon
+
     def draw_chara_window(self):
         """Draw HP and MP bars for the player party."""
         bar_width = 200  # Width of the HP/MP bars
@@ -287,7 +336,7 @@ class Battle:
     def draw_characters(self):
         # Draw enemies on the left side
         for enemy in self.enemies:
-            enemy.sprite.draw(self.screen, self.current_position[enemy]["x"], self.current_position[enemy]["y"])
+            enemy.sprite.draw(self.screen, self.current_position[enemy]["x"] + self.boss_x, self.current_position[enemy]["y"] + self.boss_y)
 
         # Draw player party on the right side
         for player in self.player_party:
@@ -318,7 +367,7 @@ class Battle:
         # Draw attack names in the left pane
         for i, attack_name in enumerate(current_player.skills):
             color = (255, 255, 255) if i == self.selected_attack_index else (128, 128, 128)
-            text = attack_menu_font.render(attack_name + f" (MP {self.attack_list[attack_name]["mp"]})", True, color)
+            text = attack_menu_font.render(attack_name + f' (MP {self.attack_list[attack_name]["mp"]})', True, color)
             self.screen.blit(text, (left_pane_x + 10, left_pane_y + 10 + i * 40))
         # Draw attack description in the right pane
         selected_attack = current_player.skills[self.selected_attack_index]
@@ -474,6 +523,12 @@ class Battle:
             num_frames = len(character.sprite.animations[character.sprite.current_animation]) * character.sprite.animation_speed
             return character.sprite.current_frame >= num_frames - 1
         return True
+    
+    def is_animation_finish(self, character):
+        if character.sprite.current_animation != "idle1" and character.sprite.current_animation != "idle2":
+            return character.sprite.current_frame >= character.sprite.num_frames_dict[character.sprite.current_animation] * character.sprite.animation_speed - 1
+        else:
+            return True
 
     def update(self):
         # Update animations for all characters and enemies
@@ -481,7 +536,11 @@ class Battle:
             player.sprite.update_frame()  # Update player animation frame
 
         for enemy in self.enemies:
+            if enemy.sprite.current_animation == "dead" and enemy.sprite.current_frame >= enemy.sprite.num_frames_dict["dead"] * enemy.sprite.animation_speed - 1:
+                enemy.sprite.current_frame -= 1
             enemy.sprite.update_frame()  # Update enemy animation frame
+            # print(enemy.sprite.current_animation, enemy.sprite.current_frame)
+
 
         if self.executing_actions:
             self.execute_actions()
@@ -493,97 +552,105 @@ class Battle:
         if self.battle_over:
             if not self.text_manager.messages:
                 self.running = False
+                return self.result
         else:
             self.check_battle_over()
     
 
     def handle_input(self, event):
         if event.type == pygame.KEYDOWN:
-            if not self.battle_over:
-                if not self.executing_actions:
-
-                    # Attack skill selection input
-                    if self.selecting_attack:
-                        if event.key == pygame.K_DOWN:
-                            self.selected_attack_index = (self.selected_attack_index + 1) % len(self.player_party_alive[self.current_player_index].skills)
-                        elif event.key == pygame.K_UP:
-                            self.selected_attack_index = (self.selected_attack_index - 1) % len(self.player_party_alive[self.current_player_index].skills)
-                        elif event.key == pygame.K_RETURN:
-                            if self.text_manager.messages == []:
-                                self.store_selected_attack_skill()
-                            elif not self.text_manager.message_finished:
-                                self.text_manager.skipping = True  # Skip typewriter effect
-                            elif self.text_manager.waiting_for_next:
-                                self.text_manager.next_message()
-                        elif event.key == pygame.K_ESCAPE:
-                            self.selecting_attack = False
-                    
-                    # Target selection window after choosing item
-                    elif self.selecting_item and self.selecting_item_target:
-                        if event.key == pygame.K_DOWN:
-                            self.selected_item_target_index = (self.selected_item_target_index + 1) % len(self.player_party)
-                        elif event.key == pygame.K_UP:
-                            self.selected_item_target_index = (self.selected_item_target_index - 1) % len(self.player_party)
-                        elif event.key == pygame.K_RETURN:
-                            self.store_selected_item()
-                        elif event.key == pygame.K_ESCAPE:
-                            self.selecting_item_target = False
-
-                    # Item selection input
-                    elif self.selecting_item:
-                        if event.key == pygame.K_DOWN:
-                            if self.selected_item_index < len(self.player_party_alive[self.current_player_index].inventory) - 1:
-                                self.selected_item_index += 1
-                                if self.selected_item_index >= self.items_scroll_offset + self.visible_items:
-                                    self.items_scroll_offset += 1
-                        elif event.key == pygame.K_UP:
-                            if self.selected_item_index > 0:
-                                self.selected_item_index -= 1
-                                if self.selected_item_index < self.items_scroll_offset:
-                                    self.items_scroll_offset -= 1
-                        elif event.key == pygame.K_RETURN:
-                            self.selecting_item_target = True
-                            #self.store_selected_item()
-                        elif event.key == pygame.K_ESCAPE:
-                            self.selecting_item = False
-                            self.selected_item_index = 0
-                            self.items_scroll_offset = 0
-
-                    elif self.showing_status:
-                        if event.key == pygame.K_ESCAPE:
-                            self.showing_status = False
-
-                    # Basic option input (Attack, Defend, Item, Escape)
-                    else:    
-                        if event.key == pygame.K_DOWN:
-                            self.selected_option = (self.selected_option + 1) % len(self.options)
-                        elif event.key == pygame.K_UP:
-                            self.selected_option = (self.selected_option - 1) % len(self.options)
-                        elif event.key == pygame.K_RETURN:
-                            self.select_option()
-                        elif event.key == pygame.K_ESCAPE:
-                            if self.current_player_index > 0:
-                                self.current_player_index -= 1
-
-                    # Aim Enemy (Works in all selection phase)
-                    if event.key == pygame.K_LEFT:
-                        self.selected_enemy_index = (self.selected_enemy_index + 1) % len(self.enemies_alive)
-                    elif event.key == pygame.K_RIGHT:
-                        self.selected_enemy_index = (self.selected_enemy_index - 1) % len(self.enemies_alive)
-                # Action phase (only accept ENTER for text message)
-                else:
-                    if event.key == pygame.K_RETURN:
-                        if not self.text_manager.message_finished:
-                            self.text_manager.skipping = True  # Skip typewriter effect
-                        elif self.text_manager.waiting_for_next:
-                            self.text_manager.next_message()
-            # Result message after battle
-            else:
+            if self.text_manager.messages:
                 if event.key == pygame.K_RETURN:
                         if not self.text_manager.message_finished:
                             self.text_manager.skipping = True  # Skip typewriter effect
                         elif self.text_manager.waiting_for_next:
                             self.text_manager.next_message()
+            else:
+                if not self.battle_over:
+                    if not self.executing_actions:
+
+                        # Attack skill selection input
+                        if self.selecting_attack:
+                            if event.key == pygame.K_DOWN:
+                                self.selected_attack_index = (self.selected_attack_index + 1) % len(self.player_party_alive[self.current_player_index].skills)
+                            elif event.key == pygame.K_UP:
+                                self.selected_attack_index = (self.selected_attack_index - 1) % len(self.player_party_alive[self.current_player_index].skills)
+                            elif event.key == pygame.K_RETURN:
+                                if self.text_manager.messages == []:
+                                    self.store_selected_attack_skill()
+                                elif not self.text_manager.message_finished:
+                                    self.text_manager.skipping = True  # Skip typewriter effect
+                                elif self.text_manager.waiting_for_next:
+                                    self.text_manager.next_message()
+                            elif event.key == pygame.K_ESCAPE:
+                                self.selecting_attack = False
+
+                        # Target selection window after choosing item
+                        elif self.selecting_item and self.selecting_item_target:
+                            if event.key == pygame.K_DOWN:
+                                self.selected_item_target_index = (self.selected_item_target_index + 1) % len(self.player_party)
+                            elif event.key == pygame.K_UP:
+                                self.selected_item_target_index = (self.selected_item_target_index - 1) % len(self.player_party)
+                            elif event.key == pygame.K_RETURN:
+                                self.store_selected_item()
+                            elif event.key == pygame.K_ESCAPE:
+                                self.selecting_item_target = False
+
+                        # Item selection input
+                        elif self.selecting_item:
+                            if event.key == pygame.K_DOWN:
+                                if self.selected_item_index < len(self.player_party_alive[self.current_player_index].inventory) - 1:
+                                    self.selected_item_index += 1
+                                    if self.selected_item_index >= self.items_scroll_offset + self.visible_items:
+                                        self.items_scroll_offset += 1
+                            elif event.key == pygame.K_UP:
+                                if self.selected_item_index > 0:
+                                    self.selected_item_index -= 1
+                                    if self.selected_item_index < self.items_scroll_offset:
+                                        self.items_scroll_offset -= 1
+                            elif event.key == pygame.K_RETURN:
+                                self.selecting_item_target = True
+                                #self.store_selected_item()
+                            elif event.key == pygame.K_ESCAPE:
+                                self.selecting_item = False
+                                self.selected_item_index = 0
+                                self.items_scroll_offset = 0
+
+                        elif self.showing_status:
+                            if event.key == pygame.K_ESCAPE:
+                                self.showing_status = False
+
+                        # Basic option input (Attack, Defend, Item, Escape)
+                        else:    
+                            if event.key == pygame.K_DOWN:
+                                self.selected_option = (self.selected_option + 1) % len(self.options)
+                            elif event.key == pygame.K_UP:
+                                self.selected_option = (self.selected_option - 1) % len(self.options)
+                            elif event.key == pygame.K_RETURN:
+                                self.select_option()
+                            elif event.key == pygame.K_ESCAPE:
+                                if self.current_player_index > 0:
+                                    self.current_player_index -= 1
+
+                        # Aim Enemy (Works in all selection phase)
+                        if event.key == pygame.K_LEFT:
+                            self.selected_enemy_index = (self.selected_enemy_index + 1) % len(self.enemies_alive)
+                        elif event.key == pygame.K_RIGHT:
+                            self.selected_enemy_index = (self.selected_enemy_index - 1) % len(self.enemies_alive)
+                    # Action phase (only accept ENTER for text message)
+                    else:
+                        if event.key == pygame.K_RETURN:
+                            if not self.text_manager.message_finished:
+                                self.text_manager.skipping = True  # Skip typewriter effect
+                            elif self.text_manager.waiting_for_next:
+                                self.text_manager.next_message()
+                # Result message after battle
+                else:
+                    if event.key == pygame.K_RETURN:
+                            if not self.text_manager.message_finished:
+                                self.text_manager.skipping = True  # Skip typewriter effect
+                            elif self.text_manager.waiting_for_next:
+                                self.text_manager.next_message()
 
     def select_option(self):
         """Store the selected action for the current player."""
@@ -600,7 +667,27 @@ class Battle:
             self.showing_status = True
         elif selected_action == "Defend":
             self.select_defense()
+        elif selected_action == "Escape":
+            self.select_escape()
     
+    def select_escape(self):
+        if self.escape_chance == 0:
+            self.text_manager.add_message("The boss's overwhelming presence makes escape impossible!")
+        else:
+            if random.random() <= self.escape_chance:
+                self.battle_over = True
+                self.end_battle(result="Escaped")
+            else:
+                self.text_manager.add_message("The enemies surround you, cutting off your escape!")
+                self.executing_actions = True
+                self.select_enemy_actions()
+                self.current_action_index = 0
+                self.current_player_index = 0
+
+                for player in self.player_party_alive:
+                    self.player_actions[player] = {"action": "Escape"}
+
+
     def select_defense(self):
         """Store the selected defend for the current player."""
         current_player = self.player_party_alive[self.current_player_index]
@@ -618,7 +705,6 @@ class Battle:
     
     def store_selected_item(self):
         """Store the selected item for the current player."""
-        print("Item chhojsdjflasjfda")
         current_player = self.player_party_alive[self.current_player_index]
         selected_item = list(current_player.inventory)[self.selected_item_index]
         target = self.player_party[self.selected_item_target_index]
@@ -650,7 +736,6 @@ class Battle:
             return 
         
         # Sometimes crash happens here
-        print(f'len enemie alive: {len(self.enemies_alive)}, selected_enemy_index: {self.selected_enemy_index}')
         self.player_actions[current_player] = {"action": "Attack", "skill": selected_attack, "target": self.enemies_alive[self.selected_enemy_index]}
 
         self.current_player_index += 1
@@ -670,11 +755,23 @@ class Battle:
         for enemy in self.enemies_alive:
             target = random.choice(self.player_party_alive)
             self.enemy_actions[enemy] = {"action": "Attack", "skill": "Strike", "target": target}
-            print(self.player_party_alive[1].name)
+    
         
     def execute_actions(self):
         # Execute actions if the previous animation is completed
-        if self.current_action_index < len(self.action_order) and self.is_animation_complete(self.action_order[self.current_action_index]):
+        if self.current_action_index < len(self.action_order) and self.is_animation_finish(self.action_order[self.current_action_index-1]):
+            # Remove dead characters from alive list and check if the battle finished
+            for chara in self.action_order:
+                if chara.hp <= 0:
+                    if chara in self.player_party_alive:
+                        self.player_party_alive.remove(chara)
+                    elif chara in self.enemies_alive:
+                        self.enemies_alive.remove(chara)
+                    self.action_order.remove(chara)    
+            self.check_battle_over()
+            if self.battle_over:
+                return
+                
             # Set the action completed charas to idle or dead
             self.dead_or_idle()
 
@@ -699,7 +796,7 @@ class Battle:
                     self.current_action_index += 1
 
         # Check if all charas action has finished
-        if self.current_action_index >= len(self.action_order) and self.is_animation_complete(self.action_order[self.current_action_index-1]):
+        if self.current_action_index >= len(self.action_order) and self.is_animation_finish(self.action_order[self.current_action_index-1]):
             self.dead_or_idle()
 
             # Only after text message finish, go to next action
@@ -824,7 +921,8 @@ class Battle:
         if target not in self.enemies_alive:
             self.selected_enemy_index = 0
             target = self.enemies_alive[0]
-        target.sprite.set_animation("hit")
+        if "hit" in target.sprite.animations:
+            target.sprite.set_animation("hit")
         self.action_changed_charas.append(target)
 
         # Move forward for attack depending on attack type
@@ -836,6 +934,8 @@ class Battle:
             self.magic_sound.play()
         elif attack_info["state"] == "gun":
             self.gun_sound.play()
+        elif attack_info["state"] == "bow":
+            self.bow_sound.play()
 
         # Knock back
         self.current_position[target]["x"] = self.current_position[target]["x"] - 20
@@ -846,15 +946,10 @@ class Battle:
         self.text_manager.add_message(attack_message)
 
         
-
-        # Prevent the dead character perform attack
         if target.hp <= 0:
             if target in self.enemies_alive:
                 self.text_manager.add_message(f'{player.name} defeated {target.name}!')
-                self.enemies_alive.remove(target)
-                self.action_order.remove(target)
-        
-
+               
         player.sprite.current_frame = 0
 
 
@@ -881,6 +976,9 @@ class Battle:
             self.magic_sound.play()
         elif attack_info["state"] == "gun":
             self.gun_sound.play()
+        elif attack_info["state"] == "bow":
+            self.bow_sound.play()
+       
 
         # Knock back
         self.current_position[target]["x"] = self.current_position[target]["x"] + 20
@@ -892,12 +990,9 @@ class Battle:
 
         self.attack_sound.play()
 
-        # Prevent the dead character perform attack
         if target.hp <= 0:
             if target in self.player_party_alive:
                 self.text_manager.add_message(f'{target.name} falls to the ground, defeated by {enemy.name}!')
-                self.player_party_alive.remove(target)
-                self.action_order.remove(target)
 
         enemy.sprite.current_frame = 0
     
@@ -908,11 +1003,11 @@ class Battle:
                 if buff["duration"] == 0:
                     if 0 < buff["effect"] < 1:
                         if buff["type"] == "atk_buff":
-                            chara.atk = chara.atk // buff["effect"]
+                            chara.atk = chara.atk // (1 + buff["effect"])
                         elif buff["type"] == "dfn_buff":
-                            chara.dfn = chara.dfn // buff["effect"]
+                            chara.dfn = chara.dfn // (1 + buff["effect"])
                         elif buff["type"] == "spd_buff":
-                            chara.spd = chara.spd // buff["effect"]
+                            chara.spd = chara.spd // (1 + buff["effect"])
                     else:
                         if buff["type"] == "atk_buff":
                             chara.atk -=  buff["effect"]
@@ -922,7 +1017,6 @@ class Battle:
                         elif buff["type"] == "spd_buff":
                             chara.spd -= buff["effect"]
                     chara.buffs.remove(buff)
-
 
     def dead_or_idle(self):
         """Check if the chara animation change to dead or idle"""
@@ -954,13 +1048,78 @@ class Battle:
 
     def end_battle(self, result):
         """End the battle and display the result."""
+        # Reset all the status change
+        self.clean_up()
         if result == "Victory":
-            self.text_manager.add_message("Victory! All enemies defeated.")
+            self.result = "Victory"
+            total_exp = self.calculate_total_exp()
+            exp_per_member = self.distribute_exp(total_exp=total_exp)
+            drop_items = self.get_drop_item()
+            total_gold = self.calculate_total_gold()
+            self.text_manager.add_message(f"Victory! You gained {exp_per_member} EXP, found {total_gold} gold, and obtained {', '.join(drop_items) if drop_items else "nothing"}!")
+
         elif result == "Defeat":
+            self.result = "Defeat"
             self.text_manager.add_message("Defeat! All party members defeated.")
         elif result == "Escaped":
+            self.result = "Escaped"
             self.text_manager.add_message("Escaped from battle!")
+            
         #self.display_result_window(result)
+
+    def calculate_total_gold(self):
+        """Calculate the total Gold from defeated monsters."""
+        total_gold = 0
+        for enemy in self.enemies:
+            total_gold += enemy.gold
+        return total_gold
+    
+    def calculate_total_exp(self):
+        """Calculate the total EXP from defeated monsters."""
+        total_exp = 0
+        for enemy in self.enemies:
+            total_exp += monster_exp_list()[enemy.name]
+        return total_exp
+    
+    def distribute_exp(self, total_exp):
+        """Distribute EXP equally among party members."""
+        exp_per_member = total_exp // len(self.player_party_alive)
+        for member in self.player_party_alive:
+            member.gain_exp(exp_per_member)
+        return exp_per_member
+    
+    def get_drop_item(self):
+        """Get a random drop item from the enemy's drop table."""
+        drop_table = monster_drop_list()
+        drop_items = []
+
+        # Roll a random number between 1 and 100
+        roll = random.randint(1, 100)
+        item_dropped = False
+        # Check each item in the drop table
+        for enemy in self.enemies:
+            cumulative_chance = 0
+            for item, chance in drop_table[enemy.name].items():
+                cumulative_chance += chance
+                if not item_dropped:
+                    if roll <= cumulative_chance:
+                        drop_items.append(item)
+                        item_dropped = True
+            item_dropped = False
+        return drop_items
+
+    def clean_up(self):
+        for chara in self.player_party:
+            chara.atk = self.initial_player_party_info[chara]["atk"]
+            chara.dfn = self.initial_player_party_info[chara]["dfn"]
+            chara.spd = self.initial_player_party_info[chara]["spd"]
+            chara.buffs = []
+        
+        for chara in self.enemies:
+            chara.atk = self.initial_enemies_info[chara]["atk"]
+            chara.dfn = self.initial_enemies_info[chara]["dfn"]
+            chara.spd = self.initial_enemies_info[chara]["spd"]
+            chara.buffs = []
 
     def run(self):
         while self.running:
@@ -994,12 +1153,12 @@ player1 = Character(
     x=700,
     y=700,
     level=10,
-    hp=100000,
+    hp=10000,
     mp=20,
-    atk=40000,
+    atk=4000,
     dfn=20,
     spd=1000,
-    skills=["Strike", "Power Slash", "Fireball"],
+    skills=["Strike", "Power Slash", "Fireball", "Piercing Shot"],
     inventory=inventory.copy(),
     folder_paths=[fR".\timefantasy_characters\timefantasy_characters\frames\chara\chara2_5",
                   fR".\tf_svbattle\singleframes\set2\5"]
@@ -1128,8 +1287,45 @@ enemy4 = Enemy(
 ]
 )
 
+enemy5 = Enemy(
+    name="Bat",
+    x=1620,
+    y=1585,
+    level=8,
+    hp=100,  # Medium HP
+    mp=40,   # Some MP for abilities
+    atk=30,  # Decent attack
+    dfn=20,  # Medium defense
+    spd=35,  # Fast
+    inventory={},
+    exp_reward=8,
+    loot=None,
+    folder_paths=[
+    R".\Monsters\bat",
+]
+)
+
+enemy6 = Enemy(
+    name="Slime",
+    x=1620,
+    y=1585,
+    level=8,
+    hp=100,  # Medium HP
+    mp=40,   # Some MP for abilities
+    atk=30,  # Decent attack
+    dfn=20,  # Medium defense
+    spd=35,  # Fast
+    inventory={},
+    exp_reward=8,
+    loot=None,
+    folder_paths=[
+    R".\Monsters\slime",
+]
+)
+
 player_party = [player1, player2, player3, player4]
 enemies = [enemy1, enemy2, enemy3, enemy4]
+enemies = [enemy5, enemy6]
 
 
 battle = Battle(screen, player_party, enemies, ".\Backgrounds\game_background_2.png")

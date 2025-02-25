@@ -217,3 +217,63 @@ def attack_list():
     },
 }
     return Attack_List
+
+def monster_drop_list():
+    monster_drop_tables = {
+    # Bat
+    "Bat": {
+        "Bat Wing": 30,  # 30% chance to drop a Bat Wing
+        "Herb": 10,      # 10% chance to drop a Herb
+    },
+
+    # Bee
+    "Bee": {
+        "Honey": 25,     # 25% chance to drop Honey
+        "Stinger": 15,   # 15% chance to drop a Stinger
+    },
+
+    # Mouse
+    "Mouse": {
+        "Cheese": 20,    # 20% chance to drop Cheese
+        "Tail": 10,      # 10% chance to drop a Tail
+    },
+
+    # Spider
+    "Spider": {
+        "Spider Silk": 25,  # 25% chance to drop Spider Silk
+        "Venom Sack": 10,   # 10% chance to drop a Venom Sack
+    },
+
+    # Slime
+    "Slime": {
+        "Herb": 50,      # 50% chance to drop a Herb
+        "Slime Gel": 50, # 20% chance to drop Slime Gel
+    },
+
+    # Green Snake
+    "Snake(Green)": {
+        "Snake Skin": 30,  # 30% chance to drop Snake Skin
+        "Venom Sack": 15,  # 15% chance to drop a Venom Sack
+    },
+
+    # Pink Snake
+    "Snake(Pink)": {
+        "Snake Skin": 40,  # 40% chance to drop Snake Skin
+        "Venom Sack": 20,  # 20% chance to drop a Venom Sack
+        "Rare Flower": 5,  # 5% chance to drop a Rare Flower
+       
+    }
+    }
+    return monster_drop_tables
+
+def monster_exp_list():
+    monster_exp_values = {
+    "Slime": 20,
+    "Bat": 30,
+    "Bee": 50,
+    "Mouse": 40,
+    "Spider": 60,
+    "Snake(Green)": 80,
+    "Snake(Pink)": 100,
+    }
+    return monster_exp_values
