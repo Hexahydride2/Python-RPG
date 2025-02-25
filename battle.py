@@ -103,6 +103,9 @@ class Battle:
         # Save battle result
         self.result = None
 
+        # Attack Effects
+        self.active_effects = []
+
 
     def save_initial_settings(self):
         """Save initial state of each character and decide the location where it will be displayed"""
@@ -115,7 +118,7 @@ class Battle:
             player_start_y = int(self.screen.get_height() // len(self.player_party) // 1.5)  # 20% from the top
         count = 1
         for i, player in enumerate(self.player_party):
-            self.initial_player_party_info[player] ={"state": player.sprite.current_animation, "hp": player.hp, "mp": player.mp, "atk": player.atk, "dfn": player.dfn, "spd": player.spd, "x": None, "y": None} 
+            self.initial_player_party_info[player] ={"state": player.sprite.current_animation, "hp": player.hp, "mp": player.mp, "atk": player.atk, "dfn": player.dfn, "spd": player.spd, "x": None, "y": None, "scale_factor": player.sprite.scale_factor} 
             player.sprite.set_animation("idle1")
             player.sprite.rescale(4)
             self.PLAYER_HEIGHT = player.sprite.sprite_shape[player.sprite.current_animation]["height"] 
@@ -141,7 +144,7 @@ class Battle:
 
         count = 1
         for i, enemy in enumerate(self.enemies):
-            self.initial_enemies_info[enemy] = {"state": enemy.sprite.current_animation, "hp": enemy.hp, "mp": enemy.mp, "atk": enemy.atk, "dfn": enemy.dfn, "spd": enemy.spd, "x": None, "y": None}
+            self.initial_enemies_info[enemy] = {"state": enemy.sprite.current_animation, "hp": enemy.hp, "mp": enemy.mp, "atk": enemy.atk, "dfn": enemy.dfn, "spd": enemy.spd, "x": None, "y": None, "scale_factor": enemy.sprite.scale_factor}
             enemy.sprite.set_animation("idle1")
             enemy.sprite.rescale(4)
             enemy.sprite.is_flipped = True
@@ -173,6 +176,9 @@ class Battle:
 
         self.draw_characters()
         self.draw_chara_window()
+
+        # Draw effects
+        self.draw_attack_effects()
 
         # Diplay the turn number on the top left
         font = pygame.font.Font(".\Fonts\RotisSerif-Bold.ttf", 30)
@@ -518,6 +524,30 @@ class Battle:
             text = self.font.render(enemy.name, True, color)
             self.screen.blit(text, (options_start_x, options_start_y + i * 40))
     
+    def draw_attack_effects(self):
+        """Draw attack effects on the screen."""
+        if hasattr(self, "active_effects"):
+            for effect in self.active_effects:
+                if effect["index"] < len(effect["frames"]):
+                    self.screen.blit(effect["frames"][effect["index"]], effect["position"])
+                    effect["timer"] += 1
+                    if effect["timer"] % 2 == 0:  # Adjust speed of animation
+                        effect["index"] += 1
+                else:
+                    self.active_effects.remove(effect)  # Remove finished effects
+
+    def add_attack_effect(self, target, element):
+        """Trigger an attack effect animation at the target's position."""
+        effect_frames = [pygame.image.load(fR".\SE\Single\{element}\frame({i}).png") for i in range(1, 21)]
+        effect_position = (self.current_position[target]["x"], self.current_position[target]["y"])
+        effect_animation = {"frames": effect_frames, "index":0, "position": effect_position, "timer":0}
+
+        # Store the effect in a list
+        if not hasattr(self, "active_effects"):
+            self.active_effects = []
+        self.active_effects.append(effect_animation)
+    
+    
     def is_animation_complete(self, character):
         """Check if the current animation has finished playing."""
         if character.sprite.current_animation in character.sprite.animations:
@@ -533,11 +563,12 @@ class Battle:
 
     def update(self):
         # Update animations for all characters and enemies
-        for player in self.player_party:
+        for player in self.player_party:     
+            if "idle" not in player.sprite.current_animation and player.sprite.current_frame >= player.sprite.num_frames_dict[player.sprite.current_animation] * player.sprite.animation_speed - 1:
+                player.sprite.current_frame -= 1
             player.sprite.update_frame()  # Update player animation frame
-
         for enemy in self.enemies:
-            if enemy.sprite.current_animation == "dead" and enemy.sprite.current_frame >= enemy.sprite.num_frames_dict["dead"] * enemy.sprite.animation_speed - 1:
+            if "idle" not in enemy.sprite.current_animation and enemy.sprite.current_frame >= enemy.sprite.num_frames_dict[enemy.sprite.current_animation] * enemy.sprite.animation_speed - 1:
                 enemy.sprite.current_frame -= 1
             enemy.sprite.update_frame()  # Update enemy animation frame
             # print(enemy.sprite.current_animation, enemy.sprite.current_frame)
@@ -755,12 +786,18 @@ class Battle:
         # Temporaliy enemy action selection
         for enemy in self.enemies_alive:
             target = random.choice(self.player_party_alive)
-            self.enemy_actions[enemy] = {"action": "Attack", "skill": "Strike", "target": target}
+            
+            while True:
+                attack_skill = random.choice(enemy.skills)
+                print(attack_skill, "#############")
+                if enemy.mp >= self.attack_list[attack_skill]["mp"]:
+                    break
+            self.enemy_actions[enemy] = {"action": "Attack", "skill": attack_skill, "target": target}
     
         
     def execute_actions(self):
         # Execute actions if the previous animation is completed
-        if self.current_action_index < len(self.action_order) and self.is_animation_finish(self.action_order[self.current_action_index-1]):
+        if not self.active_effects and self.current_action_index < len(self.action_order) and self.is_animation_finish(self.action_order[self.current_action_index-1]):
             # Remove dead characters from alive list and check if the battle finished
             for chara in self.action_order:
                 if chara.hp <= 0:
@@ -914,6 +951,7 @@ class Battle:
         skill = action["skill"]
         target = action["target"]
         attack_info = self.attack_list[skill]
+        element = self.attack_list[skill]["element"]
 
         # Set attack, hit animmation
         player.sprite.set_animation(attack_info["state"])
@@ -925,6 +963,10 @@ class Battle:
         if "hit" in target.sprite.animations:
             target.sprite.set_animation("hit")
         self.action_changed_charas.append(target)
+
+        if element:
+            # Add attack effect
+            self.add_attack_effect(target, element)
 
         # Move forward for attack depending on attack type
         if attack_info["state"] == "atk1" or attack_info["state"] == "atk2":
@@ -958,15 +1000,24 @@ class Battle:
         skill = action["skill"]
         target = action["target"]
         attack_info = self.attack_list[skill]
+        element = self.attack_list[skill]["element"]
 
         # Set attack
-        enemy.sprite.set_animation(attack_info["state"])
+        # Some monsters does not have attack motion(only atk1)
+        try:
+            enemy.sprite.set_animation(attack_info["state"])
+        except:
+            enemy.sprite.set_animation(attack_info["atk1"])
         self.action_changed_charas.append(enemy)
         # Check the target is stll alive if not change the target
         if target not in self.player_party_alive:
             target = self.player_party_alive[0]
         target.sprite.set_animation("hit")
         self.action_changed_charas.append(target)
+
+        if element:
+            # Add attack effect
+            self.add_attack_effect(target, element)
 
         # Move forward for attack depending on attack type
         if attack_info["state"] == "atk1" or attack_info["state"] == "atk2":
@@ -1123,7 +1174,6 @@ class Battle:
             chara.buffs = []
 
     def run(self):
-        print("FSF", self.player_party[0].current_direction)
         while self.running:
             self.screen.fill((0, 0, 0))
 
@@ -1137,6 +1187,12 @@ class Battle:
 
             pygame.display.update()
             self.clock.tick(30)
+        
+        # Rescale to original size
+        for player in self.player_party:
+            player.sprite.rescale(self.initial_player_party_info[player]["scale_factor"])
+        for enemy in self.enemies:
+            enemy.sprite.rescale(self.initial_enemies_info[enemy]["scale_factor"])
         return self.result
 
 

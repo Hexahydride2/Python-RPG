@@ -109,39 +109,45 @@ def attack_list():
         "description": "A swift melee attack.",
         "mp": 0,
         "effect": 1,
-        "state": "atk1"
+        "state": "atk1",
+        "element": None  # No elemental affinity
     },
-    "Slash": {
-        "description": "A quick slash with a sword or axe.",
-        "mp": 0,
-        "effect": 1,
-        "state": "atk1"
+    "Earth Smash": {
+        "description": "A powerful strike infused with earth energy.",
+        "mp": 5,
+        "effect": 1.2,
+        "state": "atk1",
+        "element": "earth"  # Earth element
     },
-    "Bash": {
-        "description": "A blunt strike with a weapon.",
-        "mp": 0,
-        "effect": 1,
-        "state": "atk1"
+    "Flame Slash": {
+        "description": "A fiery slash that burns the enemy.",
+        "mp": 10,
+        "effect": 1.3,
+        "state": "atk1",
+        "element": "fire"  # Fire element
     },
 
     # Advanced Melee Attacks (atk2)
-    "Power Slash": {
+    "Power Cleave": {
         "description": "A heavy attack that deals increased damage.",
         "mp": 20,
         "effect": 1.5,
-        "state": "atk2"
+        "state": "atk2",
+        "element": None  # No elemental affinity
     },
-    "Cleave": {
-        "description": "A wide swing that hits multiple enemies.",
+    "Crystal Strike": {
+        "description": "A dazzling attack infused with glass energy.",
         "mp": 25,
         "effect": 1.4,
-        "state": "atk2"
+        "state": "atk2",
+        "element": "glass"  # Glass element
     },
-    "Whirlwind Strike": {
-        "description": "A spinning attack that damages all nearby enemies.",
-        "mp": 30,
-        "effect": 1.6,
-        "state": "atk2"
+    "Frost Blade": {
+        "description": "A freezing slash that chills the enemy.",
+        "mp": 15,
+        "effect": 1.3,
+        "state": "atk2",
+        "element": "ice"  # Ice element
     },
 
     # Bow Attacks (bow)
@@ -149,19 +155,22 @@ def attack_list():
         "description": "Fires an arrow at an enemy.",
         "mp": 10,
         "effect": 1.2,
-        "state": "bow"
+        "state": "bow",
+        "element": None  # No elemental affinity
     },
-    "Multi-Shot": {
-        "description": "Fires multiple arrows at once.",
+    "Explosive Arrow": {
+        "description": "Fires an arrow that explodes on impact.",
         "mp": 15,
-        "effect": 1.3,
-        "state": "bow"
-    },
-    "Snipe": {
-        "description": "A precise shot that deals critical damage.",
-        "mp": 20,
         "effect": 1.5,
-        "state": "bow"
+        "state": "bow",
+        "element": "explosion"  # Explosion element
+    },
+    "Sonic Shot": {
+        "description": "Fires an arrow that creates a deafening sound wave.",
+        "mp": 20,
+        "effect": 1.4,
+        "state": "bow",
+        "element": "sound"  # Sound element
     },
 
     # Gun Attacks (gun)
@@ -169,19 +178,22 @@ def attack_list():
         "description": "A rapid shot from a gun.",
         "mp": 10,
         "effect": 1.2,
-        "state": "gun"
+        "state": "gun",
+        "element": None  # No elemental affinity
     },
-    "Buckshot": {
-        "description": "Fires a spread of bullets at close range.",
+    "Inferno Blast": {
+        "description": "Fires a blazing shot that engulfs the enemy in flames.",
         "mp": 15,
-        "effect": 1.4,
-        "state": "gun"
+        "effect": 1.5,
+        "state": "gun",
+        "element": "fire"  # Fire element
     },
-    "Sniper Shot": {
-        "description": "A high-precision shot that deals massive damage.",
-        "mp": 25,
-        "effect": 1.8,
-        "state": "gun"
+    "Dark Bullet": {
+        "description": "Fires a bullet infused with dark energy.",
+        "mp": 20,
+        "effect": 1.6,
+        "state": "gun",
+        "element": "darkness"  # Darkness element
     },
 
     # Magic Attacks (magic)
@@ -189,33 +201,53 @@ def attack_list():
         "description": "Launches a fireball at a target.",
         "mp": 15,
         "effect": 1.3,
-        "state": "magic"
+        "state": "magic",
+        "element": "fire"  # Fire element
     },
     "Ice Shard": {
         "description": "Summons a shard of ice to pierce the enemy.",
         "mp": 15,
         "effect": 1.3,
-        "state": "magic"
+        "state": "magic",
+        "element": "ice"  # Ice element
     },
-    "Thunderbolt": {
-        "description": "Calls down a bolt of lightning to strike the enemy.",
+    "Earthen Spike": {
+        "description": "Summons a spike of earth to impale the enemy.",
         "mp": 20,
         "effect": 1.5,
-        "state": "magic"
+        "state": "magic",
+        "element": "earth"  # Earth element
     },
-    "Earthquake": {
-        "description": "Shakes the ground to damage all enemies.",
-        "mp": 30,
-        "effect": 1.6,
-        "state": "magic"
-    },
-    "Arcane Blast": {
-        "description": "Unleashes a burst of pure magical energy.",
+    "Dark Pulse": {
+        "description": "Unleashes a wave of dark energy.",
         "mp": 25,
         "effect": 1.7,
-        "state": "magic"
+        "state": "magic",
+        "element": "darkness"  # Darkness element
     },
-}
+    "Sonic Boom": {
+        "description": "Creates a powerful sound wave to damage enemies.",
+        "mp": 20,
+        "effect": 1.6,
+        "state": "magic",
+        "element": "sound"  # Sound element
+    },
+    "Glass Storm": {
+        "description": "Summons a storm of razor-sharp glass shards.",
+        "mp": 30,
+        "effect": 1.8,
+        "state": "magic",
+        "element": "glass"  # Glass element
+    },
+    "Inferno Burst": {
+        "description": "Unleashes a massive explosion of fire.",
+        "mp": 35,
+        "effect": 2.0,
+        "state": "magic",
+        "element": "explosion"  # Explosion element
+    }   
+    }
+
     return Attack_List
 
 def monster_drop_list():

@@ -19,8 +19,8 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 military_paths = [R".\timefantasy_characters\timefantasy_characters\frames\military\military1_8",
                   R".\tf_svbattle\singleframes\military1\8"]
-normal_chara_paths = [fR".\timefantasy_characters\timefantasy_characters\frames\chara\chara2_1",
-                  fR".\tf_svbattle\singleframes\set2\1"]
+normal_chara_paths = [fR".\timefantasy_characters\timefantasy_characters\frames\chara\chara1_5",
+                  fR".\tf_svbattle\singleframes\set1\5"]
 # Create a player
 player = Character(
     name="Hero",
@@ -28,12 +28,14 @@ player = Character(
     y=700,
     level=10,
     hp=100,
-    mp=50,
+    mp=200,
     atk=40,
     dfn=20,
     spd=30,
     inventory=inventory,
-    folder_paths=military_paths
+    skills=["Strike", "Earth Smash", "Flame Slash", "Crystal Strike", "Frost Blade", "Explosive Arrow"],
+    folder_paths=normal_chara_paths,
+    scale_factor=1
 )
 player_party = [player]
 
@@ -57,7 +59,7 @@ npcs2 = [NPC("Shopkeeper", ["Welcome to my shop!  I sell potions and weapons."],
 friend = [NPC("Belle", ["Hello, Gabe!, Here is a recap of what has happened!", "I'm glad you came to visit me."], 625, 390,
               [R".\timefantasy_characters\timefantasy_characters\frames\chara\chara5_3"])]
 ## Create Enemies
-enemy1 = Enemy(name="Phoenix", x=1515, y=1585, level=8, hp=80, mp=40, atk=20, dfn=20, spd=30, inventory={}, exp_reward=5, loot=None, folder_paths=[
+enemy1 = Enemy(name="Phoenix", x=1515, y=1585, level=8, hp=80, mp=100, atk=20, dfn=20, spd=30, inventory={}, skills=["Strike", "Flame Slash", "Earth Smash"] ,exp_reward=5, loot=None, folder_paths=[
     R"Monsters\phoenix"
 ])
 enemy1.sprite.set_animation("down_walk")

@@ -5,7 +5,7 @@ from items import items_list, attack_list
 from shop import Shop
 
 class Character:
-    def __init__(self, name, x, y, folder_paths, level=1, hp=1, mp=1, atk=1, dfn=1, spd=1, inventory={}, gold=100, skills=["Strike"], scale_factor=3, animation_speed=6):
+    def __init__(self, name, x, y, folder_paths, level=1, hp=1, mp=1, atk=1, dfn=1, spd=1, inventory={}, gold=100, skills=["Strike"], scale_factor=3, animation_speed=5):
         # Character Stats
         self.name = name
         self.x, self.y = x, y

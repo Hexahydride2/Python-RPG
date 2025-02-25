@@ -296,7 +296,6 @@ class Map:
             print(self.player.current_direction)
             result = battle.run()
             print(self.player.current_direction)
-            self.player.sprite.rescale(3)
             # When the battle was the random encounter
             if self.random_encounter_battle:
                     self.random_encounter_battle = False
