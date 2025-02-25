@@ -131,7 +131,7 @@ class TextManager:
                 pygame.draw.rect(self.screen, (255, 255, 255), (x - 10, y - 50, self.box_width // 4, self.box_height //3), width=2, border_radius=10)
 
                 name_surface = self.font.render(speaker, True, (255, 255, 100))  # Yellow color
-                self.screen.blit(name_surface, (x + 10, y - 40))  # Place above the text box
+                self.screen.blit(name_surface, (x + 10, y - 50))  # Place above the text box
 
             for i, line in enumerate(self.current_message):
                 text_surface = self.font.render(line, True, (255, 255, 255))

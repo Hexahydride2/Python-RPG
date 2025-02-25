@@ -12,7 +12,7 @@ import random
 
 
 class Map:
-    def __init__(self, screen, map_image_path, player, npcs=[], enemies=[], map_scale_factor=None, bgm=None, layer_json_path=False, allow_encounters=False, encounter_rate=0.01):
+    def __init__(self, screen, map_image_path, player_party, npcs=[], enemies=[], map_scale_factor=None, bgm=None, layer_json_path=False, allow_encounters=False, encounter_rate=0.01):
         # Screen dimensions
         self.screen = screen
         self.screen_width, self.screen_height = screen.get_size()
@@ -21,7 +21,8 @@ class Map:
         self.map_image = pygame.image.load(map_image_path)
 
         # Player and NPCs and Enemies data
-        self.player = player
+        self.player_party = player_party
+        self.player = player_party[0]
         self.npcs = npcs
         self.enemies = enemies
 
@@ -50,7 +51,7 @@ class Map:
         self.current_npc = None
 
         self.battle_screen = False
-        self.current_enemy = None
+        self.current_enemies = []
 
         self.text_manager = TextManager(screen)
         self.menu = Menu(self.screen, self.player)
@@ -65,7 +66,8 @@ class Map:
         """Triggers a random enemy encounter based on player's movement."""
         if self.allow_encounters and random.random() < self.encounter_rate:
             # Create a random enemy
-            self.current_enemy = Enemy(
+
+            enemy = Enemy(
                 name="Goblin",
                 x = player.x,
                 y = player.y,
@@ -106,7 +108,7 @@ class Map:
                 for pos in layer["positions"]:
                     x = pos["x"]
                     y = pos["y"]
-                    Positions[x][y] = 1
+                    Positions[x][y] = 0
         scale =  self.map_width // total_x
         Positions = np.repeat(np.repeat(Positions, scale, axis=1), scale, axis=0)
         return Positions
@@ -121,7 +123,6 @@ class Map:
         offset_x = -self.camera_x
         offset_y = -self.camera_y
         
-        self.current_enemy
         self.handle_npc_interaction(events)
         self.move_to_battle()
     
@@ -151,7 +152,7 @@ class Map:
                 distance = ((self.player.draw_x - enemy.draw_x) ** 2 + (self.player.draw_y - enemy.draw_y) ** 2) ** 0.5  # Distance formula
                 if distance < 70:  # Interaction range
                     self.battle_screen = True
-                    self.current_enemy = enemy
+                    self.current_enemies = [enemy]
 
         # Update the player coordinate
         self.player.draw_x = self.player.x - self.camera_x - (self.player.sprite.sprite_shape[self.player.sprite.current_animation]["width"] * self.player.sprite.scale_factor) // 2
@@ -289,41 +290,44 @@ class Map:
 
 
     def move_to_battle(self):
-        if self.battle_screen and self.current_enemy:
-            battle = Battle(self.screen, self.player, self.current_enemy, background_image=".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png")
+        if self.battle_screen and self.current_enemies:
+            battle = Battle(self.screen, self.player_party, self.current_enemies, background_image=".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png")
             #change_theme("Music\BattleTheme.mp3")
+            print(self.player.current_direction)
             result = battle.run()
-
+            print(self.player.current_direction)
+            self.player.sprite.rescale(3)
             # When the battle was the random encounter
             if self.random_encounter_battle:
                     self.random_encounter_battle = False
-                    self.current_enemy = None
+                    self.current_enemies = []
 
-            if result == "win":
-                if self.current_enemy:
-                    self.enemies.remove(self.current_enemy)
+            if result == "Victory":
+                self.enemies.remove(self.current_enemies[0])
                 self.battle_screen = False  # Exit battle screen
+                
+
                 #revert_theme()
-            elif result == "lose":
+            elif result == "Defeat":
                 self.battle_screen = False  # Exit battle screen
                 if self.player.current_direction == "right":
-                    self.player.x -= 60  # Move player away to prevent instant re-entry
+                    self.player.x -= 90  # Move player away to prevent instant re-entry
                 elif self.player.current_direction == "left":
-                    self.player.x += 60  # Move player away to prevent instant re-entry
+                    self.player.x += 90  # Move player away to prevent instant re-entry
                 elif self.player.current_direction == "up":
-                    self.player.y += 60  # Move player away to prevent instant re-entry
+                    self.player.y += 90  # Move player away to prevent instant re-entry
                 elif self.player.current_direction == "down":
-                    self.player.y -= 60  # Move player away to prevent instant re-entry
+                    self.player.y -= 90  # Move player away to prevent instant re-entry
                 #revert_theme()
-            elif result == "escape":
 
+            elif result == "Escape":
                 self.battle_screen = False  # Exit battle screen
                 if self.player.current_direction == "right":
-                    self.player.x -= 60  # Move player away to prevent instant re-entry
+                    self.player.x -= 90  # Move player away to prevent instant re-entry
                 elif self.player.current_direction == "left":
-                    self.player.x += 60  # Move player away to prevent instant re-entry
+                    self.player.x += 90  # Move player away to prevent instant re-entry
                 elif self.player.current_direction == "up":
-                    self.player.y += 60  # Move player away to prevent instant re-entry
+                    self.player.y += 90  # Move player away to prevent instant re-entry
                 elif self.player.current_direction == "down":
-                    self.player.y -= 60  # Move player away to prevent instant re-entry
+                    self.player.y -= 100  # Move player away to prevent instant re-entry
                 #revert_theme()

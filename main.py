@@ -35,6 +35,7 @@ player = Character(
     inventory=inventory,
     folder_paths=military_paths
 )
+player_party = [player]
 
 # # Create NPCs.
 # for town map
@@ -56,26 +57,30 @@ npcs2 = [NPC("Shopkeeper", ["Welcome to my shop!  I sell potions and weapons."],
 friend = [NPC("Belle", ["Hello, Gabe!, Here is a recap of what has happened!", "I'm glad you came to visit me."], 625, 390,
               [R".\timefantasy_characters\timefantasy_characters\frames\chara\chara5_3"])]
 ## Create Enemies
-enemy1 = Enemy(name="Orc", x=1515, y=1585, level=8, hp=80, mp=40, atk=20, dfn=20, spd=30, inventory={}, exp_reward=5, loot=None, folder_paths=[
-    R".\timefantasy_characters\timefantasy_characters\frames\chara\chara5_8",
-    R".\tf_svbattle\singleframes\set5\8"
+enemy1 = Enemy(name="Phoenix", x=1515, y=1585, level=8, hp=80, mp=40, atk=20, dfn=20, spd=30, inventory={}, exp_reward=5, loot=None, folder_paths=[
+    R"Monsters\phoenix"
 ])
-enemies = [enemy1]
+enemy1.sprite.set_animation("down_walk")
+enemy2 = Enemy(name="Bat", x=1615, y=1885, level=8, hp=80, mp=40, atk=20, dfn=20, spd=30, inventory={}, exp_reward=5, loot=None, folder_paths=[
+    R"Monsters\bat"
+])
+enemy2.sprite.set_animation("down_walk")
+enemies = [enemy1, enemy2]
 
 # Initialize each map
-town_map = Map(screen, "Backgrounds\TownMap.png", player=player, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3", allow_encounters=True, encounter_rate=0)
-dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", player=player, npcs=npcs1, enemies=enemies, map_scale_factor=0.3, bgm= "music\CaveTheme.mp3")
-shop_map = Map(screen, ".\Backgrounds\shopmap.png", player=player, npcs=npcs2, map_scale_factor=2, bgm= "music\TownTheme.mp3")
-Town_mapv1 = Map(screen, ".\Backgrounds\TownMapv1.png", player=player, map_scale_factor=3, layer_json_path="Backgrounds\TownMapV1\TownMapV1.json", bgm= "music\TownTheme.mp3")
-townTest_map = Map(screen, ".\Backgrounds\TownMapTest.png", player=player, map_scale_factor=3, layer_json_path=None)
-initial_village_map = Map(screen, ".\Backgrounds\map.png", player=player, map_scale_factor=3, layer_json_path=None)
-playerhouse = Map(screen, ".\Backgrounds\playerhouse.png", player=player, map_scale_factor=3, layer_json_path="Backgrounds\PlayerHouse\PlayerHouse.json")
-casino_map = Map(screen, ".\\Backgrounds\\casino.png", player=player, map_scale_factor=3, bgm="music\\TownTheme.mp3")
-friendshouse = Map(screen, ".\\Backgrounds\\FriendsHouse.png", player=player, npcs=friend, map_scale_factor=3, layer_json_path="Backgrounds\FriendsHouse\FriendsHouse.json")
+town_map = Map(screen, "Backgrounds\TownMap.png", player_party=player_party, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3", allow_encounters=True, encounter_rate=0)
+dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", player_party=player_party, npcs=npcs1, enemies=enemies, map_scale_factor=0.3, bgm= "music\CaveTheme.mp3")
+shop_map = Map(screen, ".\Backgrounds\shopmap.png", player_party=player_party, npcs=npcs2, map_scale_factor=2, bgm= "music\TownTheme.mp3")
+Town_mapv1 = Map(screen, ".\Backgrounds\TownMapv1.png", player_party=player_party, map_scale_factor=3, layer_json_path="Backgrounds\TownMapV1\TownMapV1.json", bgm= "music\TownTheme.mp3")
+townTest_map = Map(screen, ".\Backgrounds\TownMapTest.png", player_party=player_party, map_scale_factor=3, layer_json_path=None)
+initial_village_map = Map(screen, ".\Backgrounds\map.png", player_party=player_party, map_scale_factor=3, layer_json_path=None)
+playerhouse = Map(screen, ".\Backgrounds\playerhouse.png", player_party=player_party, map_scale_factor=3, layer_json_path="Backgrounds\PlayerHouse\PlayerHouse.json")
+casino_map = Map(screen, ".\\Backgrounds\\casino.png", player_party=player_party, map_scale_factor=3, bgm="music\\TownTheme.mp3")
+friendshouse = Map(screen, ".\\Backgrounds\\FriendsHouse.png", player_party=player_party, npcs=friend, map_scale_factor=3, layer_json_path="Backgrounds\FriendsHouse\FriendsHouse.json")
 
 
 # Current map
-current_map = Town_mapv1
+current_map = town_map
 #change_theme(R"music\NewTownTheme.mp3")
 
 ## Define transition zones
@@ -120,7 +125,7 @@ while running:
 
     # Draw the background map
     current_map.draw(screen, events)
-    print(player.x, player.y)
+    #print(player.x, player.y)
 
     pygame.display.flip()
     clock.tick(30)

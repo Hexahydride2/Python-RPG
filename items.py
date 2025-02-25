@@ -247,7 +247,7 @@ def monster_drop_list():
     # Slime
     "Slime": {
         "Herb": 50,      # 50% chance to drop a Herb
-        "Slime Gel": 50, # 20% chance to drop Slime Gel
+        "Slime Gel": 20, # 20% chance to drop Slime Gel
     },
 
     # Green Snake
@@ -261,9 +261,30 @@ def monster_drop_list():
         "Snake Skin": 40,  # 40% chance to drop Snake Skin
         "Venom Sack": 20,  # 20% chance to drop a Venom Sack
         "Rare Flower": 5,  # 5% chance to drop a Rare Flower
-       
+    },
+
+    # Phoenix (Fire-based rare enemy)
+    "Phoenix": {
+        "Phoenix Feather": 50,   # 50% chance to drop Phoenix Feather (used for revival items)
+        "Flame Essence": 25,     # 25% chance to drop Flame Essence (used for fire-based crafting)
+        "Sacred Ash": 10,        # 10% chance to drop Sacred Ash (rare material)
+    },
+
+    # Minotaur (Strong melee-type enemy)
+    "Minotaur": {
+        "Minotaur Horn": 40,     # 40% chance to drop Minotaur Horn (used for weapons/armor)
+        "Beast Hide": 30,        # 30% chance to drop Beast Hide (used for crafting)
+        "Warrior’s Medallion": 5,# 5% chance to drop Warrior’s Medallion (rare accessory)
+    },
+
+    # Treant (Nature-based monster)
+    "Treant": {
+        "Ancient Bark": 45,      # 45% chance to drop Ancient Bark (used in alchemy)
+        "Dryad Leaf": 25,        # 25% chance to drop Dryad Leaf (used for healing potions)
+        "Spirit Core": 15,       # 15% chance to drop Spirit Core (used for enchantments)
     }
     }
+
     return monster_drop_tables
 
 def monster_exp_list():
@@ -275,5 +296,10 @@ def monster_exp_list():
     "Spider": 60,
     "Snake(Green)": 80,
     "Snake(Pink)": 100,
+    "Phoenix": 200,
+    "Minotaur": 200,
+    "Treant": 100
     }
     return monster_exp_values
+
+
