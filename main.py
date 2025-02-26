@@ -70,7 +70,7 @@ enemy2.sprite.set_animation("down_walk")
 enemies = [enemy1, enemy2]
 
 # Initialize each map
-town_map = Map(screen, "Backgrounds\TownMap.png", player_party=player_party, npcs=npcs, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3", allow_encounters=True, encounter_rate=0)
+town_map = Map(screen, "Backgrounds\TownMap.png", player_party=player_party, npcs=npcs, enemies=enemies, map_scale_factor=2, bgm= "music\\NewTownTheme.mp3", allow_encounters=True, encounter_rate=0)
 dungeon_map = Map(screen, ".\Backgrounds\Map-L.png", player_party=player_party, npcs=npcs1, enemies=enemies, map_scale_factor=0.3, bgm= "music\CaveTheme.mp3")
 shop_map = Map(screen, ".\Backgrounds\shopmap.png", player_party=player_party, npcs=npcs2, map_scale_factor=2, bgm= "music\TownTheme.mp3")
 Town_mapv1 = Map(screen, ".\Backgrounds\TownMapv1.png", player_party=player_party, map_scale_factor=3, layer_json_path="Backgrounds\TownMapV1\TownMapV1.json", bgm= "music\TownTheme.mp3")

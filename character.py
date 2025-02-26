@@ -23,7 +23,7 @@ class Character:
         self.can_move = True
         self.moving = False  # Track movement state
         self.current_direction = "down"  # Default direction
-        self.walkspeed = 5
+        self.walkspeed = 10
         self.buffs = []
 
         # Used to diplay the camera based location

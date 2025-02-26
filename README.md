@@ -99,3 +99,5 @@ Music and assets have been ethically borrowed
 Map design by Belle Stott
 
 Inspired by classic Dragon Quest-style RPG games.
+
+<a href="https://www.flaticon.com/free-icons/buff" title="buff icons">Buff icons created by Freepik - Flaticon</a>

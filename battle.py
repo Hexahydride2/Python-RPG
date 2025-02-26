@@ -106,6 +106,16 @@ class Battle:
         # Attack Effects
         self.active_effects = []
 
+        # buff icons
+        self.buff_icons = {
+            "atk_buff": pygame.image.load(R"Icons\atk_buff.png"),
+            "dfn_buff": pygame.image.load(R"Icons\dfn_buff.png"),
+            "spd_buff": pygame.image.load(R"Icons\spd_buff.png")
+        }
+
+        for icon in self.buff_icons:
+            self.buff_icons[icon] = pygame.transform.scale(self.buff_icons[icon], (25, 25))
+
 
     def save_initial_settings(self):
         """Save initial state of each character and decide the location where it will be displayed"""
@@ -278,6 +288,9 @@ class Battle:
             
             # Draw the white text on top
             self.screen.blit(name_text, (start_x + bar_width - 70, bar_y - 40))
+
+            # Draw buff icons
+            self.draw_buff_icons(player, start_x+10, start_y-30)
 
             # Draw HP bar
             hp_ratio = player.hp / player.max_hp
@@ -524,6 +537,23 @@ class Battle:
             text = self.font.render(enemy.name, True, color)
             self.screen.blit(text, (options_start_x, options_start_y + i * 40))
     
+    def draw_buff_icons(self, player, x, y):
+        i = 0
+        print(player.buffs)
+        atk_buff_displayed, dfn_buff_displayed, spd_buff_displayed = False, False, False
+
+        
+        for buff in player.buffs:
+            if not atk_buff_displayed and buff["type"] == "atk_buff":
+                self.screen.blit(self.buff_icons["atk_buff"], (x+(i*30), y))
+                atk_buff_displayed = True
+            elif not dfn_buff_displayed and buff["type"] == "dfn_buff":
+                self.screen.blit(self.buff_icons["dfn_buff"], (x+(i*30), y))
+                dfn_buff_displayed = True
+            elif not spd_buff_displayed and buff["type"] == "spd_buff":
+                self.screen.blit(self.buff_icons["spd_buff"], (x+(i*30), y))
+            i += 1
+
     def draw_attack_effects(self):
         """Draw attack effects on the screen."""
         if hasattr(self, "active_effects"):
