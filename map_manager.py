@@ -9,6 +9,7 @@ import json
 from character import Enemy
 import random
 from Maps import map_configs
+from adventure_guild import AdventurerGuild
 
 class Map:
     def __init__(self, screen, map_image_path, player_party, npcs=[], enemies=[], map_scale_factor=None, bgm=None, layer_json_path=False, allow_encounters=False, encounter_rate=0, transitions=None):
@@ -21,7 +22,8 @@ class Map:
 
         # Player and NPCs and Enemies data
         self.player_party = player_party
-        self.player = player_party[0]
+        self.party_members = self.player_party.members
+        self.player = self.party_members[0]
         self.npcs = npcs
         self.enemies = enemies
 
@@ -54,6 +56,9 @@ class Map:
 
         self.shop_active = False
         self.current_npc = None
+
+        self.guild_active = False
+        self.adventure_guild = None
 
         self.battle_screen = False
         self.current_enemies = []
@@ -137,6 +142,9 @@ class Map:
             screen.blit(self.map_image, (offset_x, offset_y))
             self.draw_characters()
             add_menu(self.menu, events)
+        
+        if self.guild_active:
+            self.adventure_guild.draw()
             
         self.text_manager.update()
         self.text_manager.draw()
@@ -242,6 +250,16 @@ class Map:
             self.current_npc.shop.draw()  # Redraw shop screen
             return  # Prevent other interactions while in shop mode
 
+        elif self.guild_active:
+            for event in events:
+                if event.type == pygame.KEYDOWN:
+                    if not self.adventure_guild.selecting_quests and not self.adventure_guild.viewing_active_quests and not self.adventure_guild.viewing_complete_quests and event.key == pygame.K_ESCAPE:  # Close guild on ESC
+                        self.guild_active = False
+                        self.player.can_move = True
+                    else:
+                        self.adventure_guild.handle_input(event)
+            
+
         # Deal with the interaction with NPCs
         for npc in self.npcs:
             distance = ((self.player.draw_x - npc.draw_x) ** 2 + (self.player.draw_y - npc.draw_y) ** 2) ** 0.5  # Distance formula
@@ -266,6 +284,13 @@ class Map:
                                     self.current_npc = npc
                                     npc.shop = Shop(self.screen, self.player, npc.shop_items)
                                     return  # Exit to prevent further interactions
+
+                                elif npc.guild:
+                                    self.player.can_move = False
+                                    self.guild_active = True
+                                    self.current_npc = npc
+                                    self.adventure_guild = AdventurerGuild(self.screen, self.player_party)
+
                     return  # Avoid multiple NPCs getting activated
              
                 # Press 'E' to start the conversation
@@ -297,11 +322,10 @@ class Map:
 
     def move_to_battle(self):
         if self.battle_screen and self.current_enemies:
-            battle = Battle(self.screen, self.player_party, self.current_enemies, background_image=".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png")
+            battle = Battle(self.screen, self.party_members, self.current_enemies, background_image=".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png")
             #change_theme("Music\BattleTheme.mp3")
-            print(self.player.current_direction)
+          
             result = battle.run()
-            print(self.player.current_direction)
             # When the battle was the random encounter
             if self.random_encounter_battle:
                     self.random_encounter_battle = False
@@ -309,8 +333,17 @@ class Map:
 
             if result == "Victory":
                 self.enemies.remove(self.current_enemies[0])
-                self.battle_screen = False  # Exit battle screen
+                self.battle_screen = False  # Exit battle 
                 
+                # Check quest acheivement
+                print(self.player_party.current_quests)
+                if self.player_party.current_quests:
+                    for quest in self.player_party.current_quests:
+                        target = quest["objective"]["target"]
+                        for enemy in self.current_enemies:
+                            if target == enemy.name:
+                                quest["objective"]["count"] -= 1
+                print(self.player_party.current_quests)
 
                 #revert_theme()
             elif result == "Defeat":

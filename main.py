@@ -14,7 +14,7 @@ game_manager = GameManager(screen)
 player_party = game_manager.load_game(save_file="JsonData\data1.json")
 
 # Load initial map
-current_map = load_map("Town_mapv1", screen, player_party.members)
+current_map = load_map("town_map", screen, player_party)
 
 running = True
 while running:
