@@ -88,6 +88,16 @@ class Battle:
         self.magic_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
         self.bow_sound = pygame.mixer.Sound(R".\Sound_Effects\bow.mp3")  
         self.bow_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
+        self.win_sound = pygame.mixer.Sound(R"Music\success-fanfare-trumpets.mp3")
+        self.win_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
+        self.heal_sound = pygame.mixer.Sound(R"Sound_Effects\8_Buffs_Heals_SFX\heal.wav")
+        self.heal_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
+        self.atk_buff_sound = pygame.mixer.Sound(R"Sound_Effects\8_Buffs_Heals_SFX\atk_buff.wav")
+        self.atk_buff_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
+        self.dfn_buff_sound = pygame.mixer.Sound(R"Sound_Effects\8_Buffs_Heals_SFX\dfn_buff.wav")
+        self.dfn_buff_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
+        self.spd_buff_sound = pygame.mixer.Sound(R"Sound_Effects\8_Buffs_Heals_SFX\spd_buff.wav")
+        self.spd_buff_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
 
         # Key icons
         self.key_icons = {
@@ -543,7 +553,6 @@ class Battle:
     
     def draw_buff_icons(self, player, x, y):
         i = 0
-        print(player.buffs)
         atk_buff_displayed, dfn_buff_displayed, spd_buff_displayed = False, False, False
 
         
@@ -823,7 +832,6 @@ class Battle:
             
             while True:
                 attack_skill = random.choice(enemy.skills)
-                print(attack_skill, "#############")
                 if enemy.mp >= self.attack_list[attack_skill]["mp"]:
                     break
             self.enemy_actions[enemy] = {"action": "Attack", "skill": attack_skill, "target": target}
@@ -906,6 +914,7 @@ class Battle:
                 else:
                     target.hp = min(target.max_hp, target.hp+effect)
                     self.text_manager.add_message(f'{player.name} used a {item}! {target.name} +{effect} HP')
+                self.heal_sound.play()
 
             elif type == "mp":
                 if effect == "full":
@@ -914,6 +923,7 @@ class Battle:
                 else:
                     target.mp = min(target.max_mp, target.mp+effect)
                     self.text_manager.add_message(f'{player.name} used a {item}! {target.name} +{effect} MP')
+                self.heal_sound.play()
 
             elif type == "hp+mp":
                 if effect == "full":
@@ -924,6 +934,7 @@ class Battle:
                     target.hp = min(target.max_hp, target.hp+effect)
                     target.mp = min(target.max_mp, target.mp+effect)
                     self.text_manager.add_message(f'{player.name} used a {item}! {target.name} +{effect} HP and +{effect} MP')
+                self.heal_sound.play()
             
             elif type == "atk_buff":
                 duration = self.items_list[item]["duration"]
@@ -934,6 +945,7 @@ class Battle:
                 else:
                     target.atk += effect
                     self.text_manager.add_message(f'{target.name} feels empowered! ATK boosted for {duration} turns!')
+                self.atk_buff_sound.play()
             
             elif type == "dfn_buff":
                 duration = self.items_list[item]["duration"]
@@ -944,6 +956,7 @@ class Battle:
                 else:
                     target.dfn += effect
                     self.text_manager.add_message(f'{target.name} braces themselves! DEF boosted for {duration} turns!')
+                self.dfn_buff_sound.play()
             
             elif type == "spd_buff":
                 duration = self.items_list[item]["duration"]
@@ -954,6 +967,7 @@ class Battle:
                 else:
                     target.spd += effect
                     self.text_manager.add_message(f'{target.name} moves with blinding speed! SPD boosted for {duration} turns!')
+                self.spd_buff_sound.play()
 
         else:
             if type == "re":
@@ -966,6 +980,7 @@ class Battle:
                 else:
                     target.hp = min(target.max_hp, target.hp+effect)
                     self.text_manager.add_message(f'{target.name} was revived with {target.hp} HP!')
+                self.heal_sound.play()
                 
                 # Set revived chara animation to idle
                 target.sprite.set_animation("idle1")
@@ -1098,7 +1113,6 @@ class Battle:
                         if buff["type"] == "atk_buff":
                             chara.atk -=  buff["effect"]
                         elif buff["type"] == "dfn_buff":
-                            print("DFSFSDF")
                             chara.dfn -= buff["effect"]
                         elif buff["type"] == "spd_buff":
                             chara.spd -= buff["effect"]
@@ -1142,6 +1156,7 @@ class Battle:
             exp_per_member = self.distribute_exp(total_exp=total_exp)
             drop_items = self.get_drop_item()
             total_gold = self.calculate_total_gold()
+            self.win_sound.play()
             self.text_manager.add_message(f"Victory! You gained {exp_per_member} EXP, found {total_gold} gold, and obtained {', '.join(drop_items) if drop_items else "nothing"}!")
 
         elif result == "Defeat":

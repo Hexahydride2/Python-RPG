@@ -1,7 +1,7 @@
 import os
 
 # Set your target folder path
-folder_path = R"C:\Users\papic\Documents\Second_term\Python_Essentials\group1-dragonquest\timefantasy_characters\timefantasy_characters\frames\chara\chara1_5"  # Change this to your folder path
+folder_path = R"C:\Users\papic\Documents\Second_term\Python_Essentials\group1-dragonquest\timefantasy_characters\timefantasy_characters\frames\chara\chara1_3"  # Change this to your folder path
 
 # Define the new names in order
 new_filenames = [

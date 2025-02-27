@@ -1,5 +1,6 @@
 import random
 import pygame
+import json
 from sprite import Sprite
 from items import items_list, attack_list
 from shop import Shop
@@ -9,6 +10,7 @@ class Character:
         # Character Stats
         self.name = name
         self.x, self.y = x, y
+        self.folder_paths = folder_paths
         self.level = level
         self.hp = hp
         self.max_hp = hp
@@ -20,6 +22,7 @@ class Character:
         self.inventory = inventory
         self.gold = gold
         self.skills = skills
+        self.scale_factor = scale_factor
         self.can_move = True
         self.moving = False  # Track movement state
         self.current_direction = "down"  # Default direction
@@ -31,7 +34,7 @@ class Character:
         self.draw_y = 0
 
         # Sprite system (supports multiple animations)
-        self.sprite = Sprite(folder_paths, scale_factor, animation_speed)
+        self.sprite = Sprite(self.folder_paths, self.scale_factor, animation_speed)
 
         # Define hitbox based on sprite dimenstions
         self.hitbox_width = (self.sprite.sprite_shape[self.sprite.current_animation]["width"]) * scale_factor
@@ -61,6 +64,11 @@ class Character:
         self.level += 1
         self.exp -= self.exp_to_next_level  # Carry over remaining EXP
         self.exp_to_next_level = self.calculate_exp_to_next_level()  # Update EXP requirement for next level
+
+        level_up_sound = pygame.mixer.Sound(R"Sound_Effects\level-win.mp3")
+        level_up_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
+        level_up_sound.play()
+
 
         # Randomized stat increases
         hp_increase = random.randint(8, 12)  # HP increases by 8–12
@@ -262,3 +270,30 @@ class Enemy(Character):
         self.exp_reward = exp_reward  # EXP gained by player on defeat
         self.loot = loot  # Dictionary of possible loot {"Potion": 50% chance, "Gold": 100% chance}
         self.is_alive = True  # Enemy state 
+
+
+class Party:
+    def __init__(self, leader):
+        """
+        Initialize the party with a leader (main character).
+        :param leader: The main character (instance of Character class).
+        """
+        self.leader = leader
+        self.members = [leader]  # Leader is the first member
+        self.max_size = 4  # Maximum party size
+        self.storage = []
+        self.current_quest = None
+        self.guild_rank = "C"
+        self.guild_point = 0
+
+    
+    def add_member(self, character):
+        """
+        Add a new member to the party.
+        :param character: The character to add (instance of Character class).
+        """
+        if len(self.members) < self.max_size:
+            self.members.append(character)
+        else:
+            self.storage.append(character)
+    

@@ -1,0 +1,210 @@
+{
+    "C": [
+        {
+            "id": 1,
+            "description": "Kill 5 Slimes",
+            "objective": {
+                "type": "kill",
+                "target": "Slime",
+                "count": 5
+            },
+            "reward": 50
+        },
+        {
+            "id": 2,
+            "description": "Kill 3 Bats",
+            "objective": {
+                "type": "kill",
+                "target": "Bat",
+                "count": 3
+            },
+            "reward": 40
+        },
+        {
+            "id": 3,
+            "description": "Collect 10 Herbs",
+            "objective": {
+                "type": "collect",
+                "target": "Herb",
+                "count": 10
+            },
+            "reward": 30
+        },
+        {
+            "id": 4,
+            "description": "Kill 2 Green Snakes",
+            "objective": {
+                "type": "kill",
+                "target": "Snake_Green",
+                "count": 2
+            },
+            "reward": 45
+        },
+        {
+            "id": 5,
+            "description": "Kill 4 Bees",
+            "objective": {
+                "type": "kill",
+                "target": "Bee",
+                "count": 4
+            },
+            "reward": 55
+        }
+    ],
+    "B": [
+        {
+            "id": 6,
+            "description": "Kill 7 Scorpions",
+            "objective": {
+                "type": "kill",
+                "target": "Scorpion",
+                "count": 7
+            },
+            "reward": 80
+        },
+        {
+            "id": 7,
+            "description": "Kill 5 Pink Snakes",
+            "objective": {
+                "type": "kill",
+                "target": "Snake_Pink",
+                "count": 5
+            },
+            "reward": 90
+        },
+        {
+            "id": 8,
+            "description": "Collect 15 Spider Silk",
+            "objective": {
+                "type": "collect",
+                "target": "Spider_Silk",
+                "count": 15
+            },
+            "reward": 70
+        },
+        {
+            "id": 9,
+            "description": "Kill 6 Spiders",
+            "objective": {
+                "type": "kill",
+                "target": "Spider",
+                "count": 6
+            },
+            "reward": 85
+        },
+        {
+            "id": 10,
+            "description": "Kill 3 Minotaurs",
+            "objective": {
+                "type": "kill",
+                "target": "Minotaur",
+                "count": 3
+            },
+            "reward": 100
+        }
+    ],
+    "A": [
+        {
+            "id": 11,
+            "description": "Kill 10 Mice",
+            "objective": {
+                "type": "kill",
+                "target": "Mouse",
+                "count": 10
+            },
+            "reward": 120
+        },
+        {
+            "id": 12,
+            "description": "Kill 8 Raptors",
+            "objective": {
+                "type": "kill",
+                "target": "Raptor1",
+                "count": 8
+            },
+            "reward": 150
+        },
+        {
+            "id": 13,
+            "description": "Collect 20 Phoenix Feathers",
+            "objective": {
+                "type": "collect",
+                "target": "Phoenix_Feather",
+                "count": 20
+            },
+            "reward": 130
+        },
+        {
+            "id": 14,
+            "description": "Kill 5 Treants",
+            "objective": {
+                "type": "kill",
+                "target": "Treant",
+                "count": 5
+            },
+            "reward": 140
+        },
+        {
+            "id": 15,
+            "description": "Kill 7 Phoenixes",
+            "objective": {
+                "type": "kill",
+                "target": "Phoenix",
+                "count": 7
+            },
+            "reward": 160
+        }
+    ],
+    "S": [
+        {
+            "id": 16,
+            "description": "Kill 15 Scorpions",
+            "objective": {
+                "type": "kill",
+                "target": "Scorpion",
+                "count": 15
+            },
+            "reward": 200
+        },
+        {
+            "id": 17,
+            "description": "Kill 10 Minotaurs",
+            "objective": {
+                "type": "kill",
+                "target": "Minotaur",
+                "count": 10
+            },
+            "reward": 250
+        },
+        {
+            "id": 18,
+            "description": "Collect 30 Phoenix Feathers",
+            "objective": {
+                "type": "collect",
+                "target": "Phoenix_Feather",
+                "count": 30
+            },
+            "reward": 220
+        },
+        {
+            "id": 19,
+            "description": "Kill 12 Treants",
+            "objective": {
+                "type": "kill",
+                "target": "Treant",
+                "count": 12
+            },
+            "reward": 240
+        },
+        {
+            "id": 20,
+            "description": "Kill 15 Raptors",
+            "objective": {
+                "type": "kill",
+                "target": "Raptor1",
+                "count": 15
+            },
+            "reward": 300
+        }
+    ]
+}
