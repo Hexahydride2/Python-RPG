@@ -74,3 +74,72 @@ def add_menu(menu, events):
 
     menu.draw()  # Draw the menu if active
 
+class MusicManager:
+    def __init__(self):
+        self.current_theme = None
+        self.previous_theme = None
+
+    def change_theme(self, theme_file):
+        self.previous_theme = self.current_theme
+        self.current_theme = theme_file
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load(theme_file)
+        pygame.mixer.music.set_volume(0.2)
+        pygame.mixer.music.play(-1)
+
+    def revert_theme(self):
+        if self.previous_theme:
+            self.change_theme(self.previous_theme)
+
+music_manager = MusicManager()
+
+def change_theme(theme_file):
+    music_manager.change_theme(theme_file)
+
+def revert_theme():
+    music_manager.revert_theme()
+
+# def initialize_main_menu():
+    
+#     pygame.mixer.init()
+#     change_theme("Music\MainMenuTheme.mp3")
+
+    
+#     screen = initialize_screen(1600, 800, "Main Menu")
+    
+#     # Load and scale the background image.
+#     background = pygame.image.load("Backgrounds\MainMenu.png").convert() 
+#     background = pygame.transform.scale(background, (1600, 800))
+    
+#     clock = pygame.time.Clock()  # Create a local clock
+#     menu_running = True
+    
+    
+#     font = pygame.font.SysFont("Arial", 40)
+#     # Define button dimensions 
+#     button_rect = pygame.Rect(700, 550, 200, 80)
+    
+#     while menu_running:
+#         for event in pygame.event.get():
+#             if event.type == pygame.QUIT:
+#                 pygame.quit()
+#                 sys.exit()
+#             # Check for mouse click within button area.
+#             elif event.type == pygame.MOUSEBUTTONDOWN:
+#                 mouse_pos = pygame.mouse.get_pos()
+#                 if button_rect.collidepoint(mouse_pos):
+#                     menu_running = False  # Exit the menu
+
+#         # Draw main menu background image
+#         screen.blit(background, (0, 0))
+#         # Draw start button
+#         pygame.draw.rect(screen, (0, 200, 0), button_rect)
+#         # Render text
+#         text_surface = font.render("Start Game", True, (255, 255, 255))
+#         # Center text on button
+#         text_rect = text_surface.get_rect(center=button_rect.center)
+#         screen.blit(text_surface, text_rect)
+#         pygame.display.update()
+#         clock.tick(30)
+    
+#     return screen
