@@ -1,10 +1,10 @@
 [
     {
         "name": "Gabe",
-        "x": 1485,
-        "y": 1835,
+        "x": 1880,
+        "y": 590,
         "level": 4,
-        "hp": 209,
+        "hp": 191,
         "max_hp": 209,
         "mp": 154,
         "max_mp": 154,
@@ -12,8 +12,8 @@
         "dfn": 27,
         "spd": 34,
         "inventory": {
-            "Potion": 3,
-            "Super Potion": 2,
+            "Potion": 5,
+            "Super Potion": 3,
             "Mega Potion": 1,
             "Mana Crystal": 2,
             "Ether": 2,
@@ -28,7 +28,7 @@
             "Wind Amulet": 2,
             "Shadow Cloak": 2
         },
-        "gold": 85,
+        "gold": 999,
         "skills": [
             "Strike",
             "Earth Smash",
@@ -41,7 +41,7 @@
             ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_3",
             ".\\tf_svbattle\\singleframes\\set1\\3"
         ],
-        "exp": 10,
+        "exp": 40,
         "scale_factor": 1
     },
     {
@@ -49,7 +49,7 @@
         "x": 700,
         "y": 700,
         "level": 10,
-        "hp": 87,
+        "hp": 59,
         "max_hp": 150,
         "mp": 150,
         "max_mp": 200,
@@ -86,7 +86,7 @@
             ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_7",
             ".\\tf_svbattle\\singleframes\\set2\\7"
         ],
-        "exp": 430,
+        "exp": 460,
         "scale_factor": 1
     }
 ]

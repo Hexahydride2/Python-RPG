@@ -172,3 +172,5 @@ class GameManager:
             pygame.draw.rect(self.screen, color, input_box, 2)
             pygame.display.flip()
             clock.tick(30)
+
+   

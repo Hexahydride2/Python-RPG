@@ -1157,7 +1157,7 @@ class Battle:
             drop_items = self.get_drop_item()
             total_gold = self.calculate_total_gold()
             self.win_sound.play()
-            self.text_manager.add_message(f"Victory! You gained {exp_per_member} EXP, found {total_gold} gold, and obtained {', '.join(drop_items) if drop_items else "nothing"}!")
+            self.text_manager.add_message(f"Victory! You gained {exp_per_member} EXP, found {total_gold} gold, and obtained {', '.join(drop_items) if drop_items else 'nothing'}!")
 
         elif result == "Defeat":
             self.result = "Defeat"

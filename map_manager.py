@@ -9,10 +9,10 @@ import numpy as np
 import json
 from character import Enemy
 import random
-
+from Maps import map_configs
 
 class Map:
-    def __init__(self, screen, map_image_path, player_party, npcs=[], enemies=[], map_scale_factor=None, bgm=None, layer_json_path=False, allow_encounters=False, encounter_rate=0.01):
+    def __init__(self, screen, map_image_path, player_party, npcs=[], enemies=[], map_scale_factor=None, bgm=None, layer_json_path=False, allow_encounters=False, encounter_rate=0, transitions=None):
         # Screen dimensions
         self.screen = screen
         self.screen_width, self.screen_height = screen.get_size()
@@ -29,7 +29,15 @@ class Map:
         self.allow_encounters = allow_encounters # Toggle encounters
         self.encounter_rate = encounter_rate  # Probability per step (e.g., 0.05 = 5%)
         self.random_encounter_battle = False
-
+        self.transitions = {}  # or a list
+        if transitions:
+            for trans in transitions:
+                zone = trans["zone"]
+                self.transitions[zone] = {
+                    "map_id": trans["target"],
+                    "player_x": trans["player_x"],
+                    "player_y": trans["player_y"]
+                }
         if map_scale_factor:
             self.map_image = pygame.transform.scale(self.map_image, (self.map_image.get_width()*map_scale_factor, self.map_image.get_height()*map_scale_factor))
 
@@ -43,9 +51,7 @@ class Map:
 
         # BGM
         self.bgm = bgm
-
-        # Dictionary to store transition areas and target maps
-        self.transitions = {}  # Format: {(x1, y1, x2, y2): {"map": target_map, "player_x": new_x, "player_y": new_y}}
+    
 
         self.shop_active = False
         self.current_npc = None
@@ -204,11 +210,12 @@ class Map:
         self.player.y = max(0, min(self.player.y, self.map_height - self.player.sprite.sprite_shape[self.player.sprite.current_animation]["height"]))         
 
 
-    def add_transition_zone(self, x1, y1, x2, y2, target_map, new_x, new_y):
+    def add_transition_zone(self, x1, y1, x2, y2, target_map_id, new_x, new_y):
         """
         Define a transition zone where the player moves to a new map.
+        Instead of passing a map object, we pass a map identifier.
         """
-        self.transitions[(x1, y1, x2, y2)] = {"map": target_map, "player_x": new_x, "player_y": new_y}
+        self.transitions[(x1, y1, x2, y2)] = {"map_id": target_map_id, "player_x": new_x, "player_y": new_y}
 
     def check_transition(self):
         """
@@ -330,3 +337,23 @@ class Map:
                 elif self.player.current_direction == "down":
                     self.player.y -= 100  # Move player away to prevent instant re-entry
                 #revert_theme()
+
+def load_map(map_id, screen, player_party):
+    config = map_configs.get(map_id)
+    if config:
+        return Map(
+            screen=screen,
+            map_image_path=config["map_image_path"],
+            player_party=player_party,
+            npcs=config.get("npcs", []),
+            enemies=config.get("enemies", []),
+            map_scale_factor=config.get("map_scale_factor"),
+            bgm=config.get("bgm"),
+            layer_json_path=config.get("layer_json_path"),
+            allow_encounters=config.get("allow_encounters", False),
+            encounter_rate=config.get("encounter_rate", 0),
+            transitions=config.get("transitions", [])
+        )
+    else:
+        raise ValueError(f"Map {map_id} is not defined.")
+
