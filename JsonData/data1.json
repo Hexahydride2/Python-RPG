@@ -1,34 +1,34 @@
 [
     {
         "name": "Gabe",
-        "x": 1880,
-        "y": 590,
+        "x": 1893,
+        "y": 570,
         "level": 4,
-        "hp": 191,
+        "hp": 146,
         "max_hp": 209,
-        "mp": 154,
+        "mp": 104,
         "max_mp": 154,
         "atk": 48,
         "dfn": 27,
         "spd": 34,
         "inventory": {
-            "Potion": 5,
-            "Super Potion": 3,
-            "Mega Potion": 1,
-            "Mana Crystal": 2,
-            "Ether": 2,
+            "Potion": 6,
+            "Super Potion": 4,
+            "Mega Potion": 2,
+            "Mana Crystal": 3,
+            "Ether": 3,
             "Elixir": 2,
             "Revive": 2,
             "Phoenix down": 2,
-            "Strength Potion": 1,
+            "Strength Potion": 2,
             "Berserker Brew": 2,
             "Warrior's Elixir": 2,
             "Defense Shield": 2,
             "Dragon Scale": 2,
             "Wind Amulet": 2,
-            "Shadow Cloak": 2
+            "Shadow Cloak": 3
         },
-        "gold": 999,
+        "gold": 416,
         "skills": [
             "Strike",
             "Earth Smash",
@@ -41,7 +41,7 @@
             ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_3",
             ".\\tf_svbattle\\singleframes\\set1\\3"
         ],
-        "exp": 40,
+        "exp": 155,
         "scale_factor": 1
     },
     {
@@ -51,7 +51,7 @@
         "level": 10,
         "hp": 59,
         "max_hp": 150,
-        "mp": 150,
+        "mp": 135,
         "max_mp": 200,
         "atk": 40,
         "dfn": 20,
@@ -86,7 +86,7 @@
             ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_7",
             ".\\tf_svbattle\\singleframes\\set2\\7"
         ],
-        "exp": 460,
+        "exp": 575,
         "scale_factor": 1
     }
 ]

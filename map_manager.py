@@ -2,9 +2,8 @@ import pygame
 from text_manager import TextManager
 from shop import Shop
 from battle import Battle
-from Draw import change_theme, revert_theme
 from menu import Menu
-from utilities import add_menu
+from utilities import add_menu, change_theme, revert_theme
 import numpy as np
 import json
 from character import Enemy

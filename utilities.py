@@ -2,8 +2,7 @@ import re
 import math
 import random
 import pygame
-from battle import Battle
-from Draw import change_theme, revert_theme
+
 
 
 # To separate "walk1" into "walk" and "1",for example, 

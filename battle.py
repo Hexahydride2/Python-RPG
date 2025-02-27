@@ -3,7 +3,7 @@ import random
 #from character import Character, NPC, Enemy
 from text_manager import TextManager
 from items import items_list, attack_list, monster_exp_list, monster_drop_list
-from Draw import change_theme
+from utilities import change_theme
 
 class Battle:
     def __init__(self, screen, player_party, enemies, background_image=None, escape_chance=0.5, boss_x=0, boss_y=0):

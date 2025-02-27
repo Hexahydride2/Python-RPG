@@ -1,7 +1,6 @@
 import pygame
 from character import Party
 from map_manager import load_map  # Loads maps from configuration in Maps.py
-from Draw import change_theme
 import Blackjack  
 from game_manager import GameManager
 
