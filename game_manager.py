@@ -2,7 +2,8 @@ import pygame
 import json
 import os
 from character import Character, Party
-
+from Maps import map_configs
+from map_manager import Map
 class GameManager:
     def __init__(self, screen):
         self.screen = screen
@@ -17,7 +18,7 @@ class GameManager:
         ], level=1, hp=100, mp=50, atk=10, dfn=5, spd=5, scale_factor=1)
         print(f"New Game Started: {self.player.name}")
 
-    def save_game(self, file_path):
+    def save_game(self, file_path, current_map_id):
         """Saves the game state to a JSON file."""
         party_data = []
         for member in self.player_party.members + self.player_party.storage:
@@ -41,45 +42,72 @@ class GameManager:
                 "scale_factor": member.scale_factor
             }
             party_data.append(member_data)
-        
+        game_state = {
+            "current_map": current_map_id,
+            "party_data": party_data
+        }
         with open(file_path, "w") as file:
-            json.dump(party_data, file, indent=4)
+            json.dump(game_state, file, indent=4)
 
     def load_game(self, save_file):
         """Loads the game state from a JSON file."""
         with open(save_file, "r") as file:
-            party_data = json.load(file)
-            self.members = []  # Clear existing members
-            for member_data in party_data:
-                character = Character(
-                    name=member_data["name"],
-                    x=member_data["x"],
-                    y=member_data["y"],
-                    folder_paths=member_data["folder_paths"],  
-                    level=member_data["level"],
-                    hp=member_data["hp"],
-                    mp=member_data["mp"],
-                    atk=member_data["atk"],
-                    dfn=member_data["dfn"],
-                    spd=member_data["spd"],
-                    inventory=member_data["inventory"],
-                    gold=member_data["gold"],
-                    skills=member_data["skills"],
-                    scale_factor=member_data["scale_factor"]
-                )
-                character.max_hp = member_data["max_hp"]
-                character.max_mp = member_data["max_mp"]
-                character.exp = member_data["exp"]
-                self.members.append(character)
-            
-            for i, member in enumerate(self.members):
-                if i == 0:
-                    self.player_party = Party(member)
-                else:
-                    self.player_party.add_member(member)
-            
-            return self.player_party
+            data = json.load(file)
+        # Load party members from party_data
+        self.members = []
+        for member_data in data["party_data"]:
+            character = Character(
+                name=member_data["name"],
+                x=member_data["x"],
+                y=member_data["y"],
+                folder_paths=member_data["folder_paths"],
+                level=member_data["level"],
+                hp=member_data["hp"],
+                mp=member_data["mp"],
+                atk=member_data["atk"],
+                dfn=member_data["dfn"],
+                spd=member_data["spd"],
+                inventory=member_data["inventory"],
+                gold=member_data["gold"],
+                skills=member_data["skills"],
+                scale_factor=member_data["scale_factor"]
+            )
+            character.max_hp = member_data["max_hp"]
+            character.max_mp = member_data["max_mp"]
+            character.exp = member_data["exp"]
+            self.members.append(character)
+        
+        # Build the party
+        for i, member in enumerate(self.members):
+            if i == 0:
+                self.player_party = Party(member)
+            else:
+                self.player_party.add_member(member)
+        
+        saved_map_id = data["current_map"]
+        return self.player_party, saved_map_id
        
+    def load_map(self, map_id, screen, player_party):
+        config = map_configs.get(map_id)
+        if config:
+            map_instance = Map(
+                screen=screen,
+                map_image_path=config["map_image_path"],
+                player_party=player_party,
+                npcs=config.get("npcs", []),
+                enemies=config.get("enemies", []),
+                map_scale_factor=config.get("map_scale_factor"),
+                bgm=config.get("bgm"),
+                layer_json_path=config.get("layer_json_path"),
+                allow_encounters=config.get("allow_encounters", False),
+                encounter_rate=config.get("encounter_rate", 0),
+                transitions=config.get("transitions", [])
+            )
+            map_instance.config_key = map_id
+            return map_instance
+        else:
+            raise ValueError(f"Map {map_id} is not defined.")
+
 
     def delete_game_data(self):
         """Deletes the saved game data."""
@@ -173,4 +201,3 @@ class GameManager:
             pygame.display.flip()
             clock.tick(30)
 
-   

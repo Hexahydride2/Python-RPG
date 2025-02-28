@@ -16,7 +16,17 @@ npc2 = NPC(
     [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"],
     items_list()
 )
-npcs = [npc1, npc2]
+npc2.sprite.set_animation("down_walk")
+npc7 = NPC(
+    "Shopkeeper",
+    ["Welcome to my shop!  I sell potions and weapons."],
+    1400,
+    1200,
+    [R"timefantasy_characters\timefantasy_characters\frames\chara\chara2_8", "tf_svbattle\singleframes\set2\8"],
+    items_list()
+)
+npc7.sprite.set_animation("idle1")
+npcs = [npc1, npc2, npc7]
 
 npc3 = NPC(
     "Bold Man",
