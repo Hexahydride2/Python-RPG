@@ -224,7 +224,7 @@ class Character:
             self.sprite.set_animation("down_walk")
 
 class NPC(Character):
-    def __init__(self, name, dialogues, x, y, folder_paths, shop_items=None, scale_factor=3):
+    def __init__(self, name, dialogues, x, y, folder_paths, shop_items=None, guild=False, scale_factor=3):
         """NPC class that extends Character and supports conversations."""
         super().__init__(name, x, y, level=1, hp=50, mp=0, atk=1, dfn=1, spd=1, inventory={}, folder_paths=folder_paths, scale_factor=scale_factor)
         
@@ -236,6 +236,8 @@ class NPC(Character):
         self.interaction_symbol = pygame.image.load(R".\Icons\dialog.png")  # Load interaction icon
         self.shop_items = shop_items # Shop inventory (None if NPC isn't a shopkeeper)
         self.shop = None
+
+        self.guild = guild
 
     def draw(self, screen):
         """Draw NPC sprite and interaction symbol if the player is near."""
@@ -252,13 +254,15 @@ class NPC(Character):
             text_manager.add_message(self.dialogues[self.current_dialogue], self.name)
             self.current_dialogue += 1  # Move to the next dialogue line
             
-            # if npc hace shop_items, make a shop instance
+            # if npc has shop_items, make a shop instance
             if self.shop_items:
                 self.shop = Shop(screen, player, self.shop_items)
     
         else:
             self.current_dialogue = 0  # Reset when finished
             self.talking = False  # Stop conversation
+
+
     
 
 
@@ -282,7 +286,7 @@ class Party:
         self.members = [leader]  # Leader is the first member
         self.max_size = 4  # Maximum party size
         self.storage = []
-        self.current_quest = None
+        self.current_quests = [] # maximum 3
         self.guild_rank = "C"
         self.guild_point = 0
 

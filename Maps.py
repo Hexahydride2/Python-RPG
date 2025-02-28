@@ -16,17 +16,19 @@ npc2 = NPC(
     [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"],
     items_list()
 )
-npc2.sprite.set_animation("down_walk")
-npc7 = NPC(
-    "Shopkeeper",
-    ["Welcome to my shop!  I sell potions and weapons."],
-    1400,
-    1200,
-    [R"timefantasy_characters\timefantasy_characters\frames\chara\chara2_8", "tf_svbattle\singleframes\set2\8"],
-    items_list()
+
+
+guild_npc = NPC(
+    "Reception girl",
+    ["Welcome to the Adventurer's Guild! How can I assist you today?"],
+    1300,
+    1300,
+    [R"timefantasy_characters\timefantasy_characters\frames\npc\npc2_1"],
+    guild=True
 )
-npc7.sprite.set_animation("idle1")
-npcs = [npc1, npc2, npc7]
+
+
+npcs = [npc1, npc2, guild_npc]
 
 npc3 = NPC(
     "Bold Man",
@@ -84,7 +86,7 @@ enemy1 = Enemy(
 enemy1.sprite.set_animation("down_walk")
 
 enemy2 = Enemy(
-    name="Bat",
+    name="Slime",
     x=1615,
     y=1885,
     level=8,
@@ -96,7 +98,7 @@ enemy2 = Enemy(
     inventory={},
     exp_reward=5,
     loot=None,
-    folder_paths=[R"Monsters\bat"]
+    folder_paths=[R"Monsters\slime"]
 )
 enemy2.sprite.set_animation("down_walk")
 

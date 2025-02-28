@@ -2,209 +2,571 @@
     "C": [
         {
             "id": 1,
-            "description": "Kill 5 Slimes",
+            "name": "Slime Infestation",
+            "description": "The nearby forest is overrun with slimes. Clear out 5 of these gelatinous pests to restore safety to the area.",
             "objective": {
                 "type": "kill",
                 "target": "Slime",
-                "count": 5
+                "count": 1
             },
-            "reward": 50
+            "reward": {
+                "gold": 50,
+                "items": []
+            }
         },
         {
             "id": 2,
-            "description": "Kill 3 Bats",
+            "name": "Bat Menace",
+            "description": "Bats have been terrorizing the villagers at night. Hunt down 3 of these winged nuisances to bring peace to the town.",
             "objective": {
                 "type": "kill",
                 "target": "Bat",
                 "count": 3
             },
-            "reward": 40
+            "reward": {
+                "gold": 40,
+                "items": []
+            }
         },
         {
             "id": 3,
-            "description": "Collect 10 Herbs",
+            "name": "Herbal Remedy",
+            "description": "The local healer needs 10 herbs to create potions for the sick. Gather these herbs from the forest.",
             "objective": {
                 "type": "collect",
                 "target": "Herb",
                 "count": 10
             },
-            "reward": 30
+            "reward": {
+                "gold": 30,
+                "items": ["Health Potion"]
+            }
         },
         {
             "id": 4,
-            "description": "Kill 2 Green Snakes",
+            "name": "Snake Hunt",
+            "description": "Green snakes have been spotted near the village. Eliminate 2 of these venomous creatures to protect the villagers.",
             "objective": {
                 "type": "kill",
                 "target": "Snake_Green",
                 "count": 2
             },
-            "reward": 45
+            "reward": {
+                "gold": 45,
+                "items": []
+            }
         },
         {
             "id": 5,
-            "description": "Kill 4 Bees",
+            "name": "Bee Swarm",
+            "description": "A swarm of aggressive bees is blocking the path to the forest. Defeat 4 of these insects to clear the way.",
             "objective": {
                 "type": "kill",
                 "target": "Bee",
                 "count": 4
             },
-            "reward": 55
+            "reward": {
+                "gold": 55,
+                "items": []
+            }
+        },
+        {
+            "id": 21,
+            "name": "Mouse Problem",
+            "description": "Mice are stealing food from the village granary. Eliminate 6 of these pests to protect the food supply.",
+            "objective": {
+                "type": "kill",
+                "target": "Mouse",
+                "count": 6
+            },
+            "reward": {
+                "gold": 60,
+                "items": []
+            }
+        },
+        {
+            "id": 22,
+            "name": "Spider Silk Gathering",
+            "description": "The tailor needs 5 strands of spider silk for a special project. Collect these from the spiders in the forest.",
+            "objective": {
+                "type": "collect",
+                "target": "Spider_Silk",
+                "count": 5
+            },
+            "reward": {
+                "gold": 35,
+                "items": ["Spider Silk Cloak"]
+            }
+        },
+        {
+            "id": 23,
+            "name": "Scorpion Patrol",
+            "description": "Scorpions have been spotted near the village outskirts. Defeat 3 of these dangerous creatures to ensure safety.",
+            "objective": {
+                "type": "kill",
+                "target": "Scorpion",
+                "count": 3
+            },
+            "reward": {
+                "gold": 50,
+                "items": []
+            }
+        },
+        {
+            "id": 24,
+            "name": "Pink Snake Hunt",
+            "description": "Pink snakes are causing trouble in the jungle. Hunt down 2 of these elusive creatures to restore peace.",
+            "objective": {
+                "type": "kill",
+                "target": "Snake_Pink",
+                "count": 2
+            },
+            "reward": {
+                "gold": 40,
+                "items": []
+            }
+        },
+        {
+            "id": 25,
+            "name": "Herb Gathering",
+            "description": "The healer needs 8 herbs to prepare remedies for the sick. Gather these from the forest.",
+            "objective": {
+                "type": "collect",
+                "target": "Herb",
+                "count": 8
+            },
+            "reward": {
+                "gold": 25,
+                "items": ["Health Potion"]
+            }
         }
     ],
     "B": [
         {
             "id": 6,
-            "description": "Kill 7 Scorpions",
+            "name": "Scorpion Threat",
+            "description": "Scorpions have been spotted near the desert outpost. Eliminate 7 of these dangerous creatures to protect travelers.",
             "objective": {
                 "type": "kill",
                 "target": "Scorpion",
                 "count": 7
             },
-            "reward": 80
+            "reward": {
+                "gold": 80,
+                "items": []
+            }
         },
         {
             "id": 7,
-            "description": "Kill 5 Pink Snakes",
+            "name": "Pink Snake Problem",
+            "description": "Pink snakes are causing chaos in the jungle. Hunt down 5 of these elusive creatures to restore order.",
             "objective": {
                 "type": "kill",
                 "target": "Snake_Pink",
                 "count": 5
             },
-            "reward": 90
+            "reward": {
+                "gold": 90,
+                "items": []
+            }
         },
         {
             "id": 8,
-            "description": "Collect 15 Spider Silk",
+            "name": "Spider Silk Harvest",
+            "description": "The tailor needs 15 strands of spider silk to craft a special cloak. Collect these from the spiders in the forest.",
             "objective": {
                 "type": "collect",
                 "target": "Spider_Silk",
                 "count": 15
             },
-            "reward": 70
+            "reward": {
+                "gold": 70,
+                "items": ["Spider Silk Cloak"]
+            }
         },
         {
             "id": 9,
-            "description": "Kill 6 Spiders",
+            "name": "Spider Infestation",
+            "description": "Spiders have taken over the old ruins. Clear out 6 of these eight-legged foes to reclaim the area.",
             "objective": {
                 "type": "kill",
                 "target": "Spider",
                 "count": 6
             },
-            "reward": 85
+            "reward": {
+                "gold": 85,
+                "items": []
+            }
         },
         {
             "id": 10,
-            "description": "Kill 3 Minotaurs",
+            "name": "Minotaur Challenge",
+            "description": "A minotaur has been spotted in the labyrinth. Defeat 3 of these powerful beasts to prove your strength.",
             "objective": {
                 "type": "kill",
                 "target": "Minotaur",
                 "count": 3
             },
-            "reward": 100
+            "reward": {
+                "gold": 100,
+                "items": ["Minotaur Horn"]
+            }
+        },
+        {
+            "id": 26,
+            "name": "Bat Swarm",
+            "description": "A swarm of bats is terrorizing the village at night. Hunt down 8 of these winged nuisances to bring peace.",
+            "objective": {
+                "type": "kill",
+                "target": "Bat",
+                "count": 8
+            },
+            "reward": {
+                "gold": 75,
+                "items": []
+            }
+        },
+        {
+            "id": 27,
+            "name": "Phoenix Feather Gathering",
+            "description": "The mage needs 10 phoenix feathers for a spell. Collect these rare items from the fiery birds.",
+            "objective": {
+                "type": "collect",
+                "target": "Phoenix_Feather",
+                "count": 10
+            },
+            "reward": {
+                "gold": 80,
+                "items": ["Phoenix Feather"]
+            }
+        },
+        {
+            "id": 28,
+            "name": "Treant Patrol",
+            "description": "Treants have been spotted near the forest path. Defeat 4 of these ancient tree creatures to ensure safe passage.",
+            "objective": {
+                "type": "kill",
+                "target": "Treant",
+                "count": 4
+            },
+            "reward": {
+                "gold": 95,
+                "items": ["Treant Bark"]
+            }
+        },
+        {
+            "id": 29,
+            "name": "Raptor Challenge",
+            "description": "Raptors are preying on travelers in the mountains. Hunt down 5 of these dangerous predators.",
+            "objective": {
+                "type": "kill",
+                "target": "Raptor1",
+                "count": 5
+            },
+            "reward": {
+                "gold": 110,
+                "items": ["Raptor Claw"]
+            }
+        },
+        {
+            "id": 30,
+            "name": "Herb Harvest",
+            "description": "The healer needs 12 herbs to prepare remedies for the sick. Gather these from the forest.",
+            "objective": {
+                "type": "collect",
+                "target": "Herb",
+                "count": 12
+            },
+            "reward": {
+                "gold": 60,
+                "items": ["Health Potion"]
+            }
         }
     ],
     "A": [
         {
             "id": 11,
-            "description": "Kill 10 Mice",
+            "name": "Mouse Plague",
+            "description": "A plague of mice is destroying crops in the village. Eliminate 10 of these pests to save the harvest.",
             "objective": {
                 "type": "kill",
                 "target": "Mouse",
                 "count": 10
             },
-            "reward": 120
+            "reward": {
+                "gold": 120,
+                "items": []
+            }
         },
         {
             "id": 12,
-            "description": "Kill 8 Raptors",
+            "name": "Raptor Hunt",
+            "description": "Raptors are preying on travelers in the mountains. Hunt down 8 of these dangerous predators.",
             "objective": {
                 "type": "kill",
                 "target": "Raptor1",
                 "count": 8
             },
-            "reward": 150
+            "reward": {
+                "gold": 150,
+                "items": ["Raptor Claw"]
+            }
         },
         {
             "id": 13,
-            "description": "Collect 20 Phoenix Feathers",
+            "name": "Phoenix Feathers",
+            "description": "The mage needs 20 phoenix feathers for a powerful spell. Collect these rare items from the fiery birds.",
             "objective": {
                 "type": "collect",
                 "target": "Phoenix_Feather",
                 "count": 20
             },
-            "reward": 130
+            "reward": {
+                "gold": 130,
+                "items": ["Phoenix Feather"]
+            }
         },
         {
             "id": 14,
-            "description": "Kill 5 Treants",
+            "name": "Treant Threat",
+            "description": "Treants have awakened and are attacking travelers. Defeat 5 of these ancient tree creatures.",
             "objective": {
                 "type": "kill",
                 "target": "Treant",
                 "count": 5
             },
-            "reward": 140
+            "reward": {
+                "gold": 140,
+                "items": ["Treant Bark"]
+            }
         },
         {
             "id": 15,
-            "description": "Kill 7 Phoenixes",
+            "name": "Phoenix Hunt",
+            "description": "Phoenixes are causing wildfires in the valley. Hunt down 7 of these fiery birds to protect the land.",
             "objective": {
                 "type": "kill",
                 "target": "Phoenix",
                 "count": 7
             },
-            "reward": 160
+            "reward": {
+                "gold": 160,
+                "items": ["Phoenix Feather"]
+            }
+        },
+        {
+            "id": 31,
+            "name": "Scorpion Extermination",
+            "description": "A scorpion infestation threatens the desert outpost. Eliminate 12 of these deadly creatures.",
+            "objective": {
+                "type": "kill",
+                "target": "Scorpion",
+                "count": 12
+            },
+            "reward": {
+                "gold": 170,
+                "items": ["Scorpion Stinger"]
+            }
+        },
+        {
+            "id": 32,
+            "name": "Spider Silk Harvest",
+            "description": "The tailor needs 25 strands of spider silk for a special project. Collect these from the spiders in the forest.",
+            "objective": {
+                "type": "collect",
+                "target": "Spider_Silk",
+                "count": 25
+            },
+            "reward": {
+                "gold": 140,
+                "items": ["Spider Silk Cloak"]
+            }
+        },
+        {
+            "id": 33,
+            "name": "Minotaur Slayer",
+            "description": "A pack of minotaurs is terrorizing the labyrinth. Defeat 9 of these powerful beasts to restore peace.",
+            "objective": {
+                "type": "kill",
+                "target": "Minotaur",
+                "count": 9
+            },
+            "reward": {
+                "gold": 180,
+                "items": ["Minotaur Horn"]
+            }
+        },
+        {
+            "id": 34,
+            "name": "Phoenix Hunt",
+            "description": "Phoenixes are causing wildfires in the valley. Hunt down 6 of these fiery birds to protect the land.",
+            "objective": {
+                "type": "kill",
+                "target": "Phoenix",
+                "count": 6
+            },
+            "reward": {
+                "gold": 150,
+                "items": ["Phoenix Feather"]
+            }
+        },
+        {
+            "id": 35,
+            "name": "Treant Extermination",
+            "description": "Treants have overrun the ancient forest. Defeat 10 of these ancient tree creatures to reclaim the land.",
+            "objective": {
+                "type": "kill",
+                "target": "Treant",
+                "count": 10
+            },
+            "reward": {
+                "gold": 200,
+                "items": ["Treant Bark"]
+            }
         }
     ],
     "S": [
         {
             "id": 16,
-            "description": "Kill 15 Scorpions",
+            "name": "Scorpion Extermination",
+            "description": "A massive scorpion infestation threatens the desert. Eliminate 15 of these deadly creatures.",
             "objective": {
                 "type": "kill",
                 "target": "Scorpion",
                 "count": 15
             },
-            "reward": 200
+            "reward": {
+                "gold": 200,
+                "items": ["Scorpion Stinger"]
+            }
         },
         {
             "id": 17,
-            "description": "Kill 10 Minotaurs",
+            "name": "Minotaur Slayer",
+            "description": "A pack of minotaurs is terrorizing the labyrinth. Defeat 10 of these powerful beasts to restore peace.",
             "objective": {
                 "type": "kill",
                 "target": "Minotaur",
                 "count": 10
             },
-            "reward": 250
+            "reward": {
+                "gold": 250,
+                "items": ["Minotaur Horn"]
+            }
         },
         {
             "id": 18,
-            "description": "Collect 30 Phoenix Feathers",
+            "name": "Phoenix Feather Harvest",
+            "description": "The mage needs 30 phoenix feathers for a legendary spell. Collect these rare items from the fiery birds.",
             "objective": {
                 "type": "collect",
                 "target": "Phoenix_Feather",
                 "count": 30
             },
-            "reward": 220
+            "reward": {
+                "gold": 220,
+                "items": ["Phoenix Feather"]
+            }
         },
         {
             "id": 19,
-            "description": "Kill 12 Treants",
+            "name": "Treant Extermination",
+            "description": "Treants have overrun the ancient forest. Defeat 12 of these ancient tree creatures to reclaim the land.",
             "objective": {
                 "type": "kill",
                 "target": "Treant",
                 "count": 12
             },
-            "reward": 240
+            "reward": {
+                "gold": 240,
+                "items": ["Treant Bark"]
+            }
         },
         {
             "id": 20,
-            "description": "Kill 15 Raptors",
+            "name": "Raptor Extermination",
+            "description": "A pack of raptors is terrorizing the mountains. Hunt down 15 of these dangerous predators.",
             "objective": {
                 "type": "kill",
                 "target": "Raptor1",
                 "count": 15
             },
-            "reward": 300
+            "reward": {
+                "gold": 300,
+                "items": ["Raptor Claw"]
+            }
+        },
+        {
+            "id": 36,
+            "name": "Bat Extermination",
+            "description": "A massive swarm of bats is terrorizing the village. Eliminate 20 of these winged nuisances to restore peace.",
+            "objective": {
+                "type": "kill",
+                "target": "Bat",
+                "count": 20
+            },
+            "reward": {
+                "gold": 210,
+                "items": []
+            }
+        },
+        {
+            "id": 37,
+            "name": "Spider Silk Harvest",
+            "description": "The tailor needs 40 strands of spider silk for a legendary project. Collect these from the spiders in the forest.",
+            "objective": {
+                "type": "collect",
+                "target": "Spider_Silk",
+                "count": 40
+            },
+            "reward": {
+                "gold": 230,
+                "items": ["Spider Silk Cloak"]
+            }
+        },
+        {
+            "id": 38,
+            "name": "Pink Snake Extermination",
+            "description": "Pink snakes have overrun the jungle. Hunt down 18 of these elusive creatures to restore order.",
+            "objective": {
+                "type": "kill",
+                "target": "Snake_Pink",
+                "count": 18
+            },
+            "reward": {
+                "gold": 260,
+                "items": []
+            }
+        },
+        {
+            "id": 39,
+            "name": "Treant Extermination",
+            "description": "Treants have overrun the ancient forest. Defeat 14 of these ancient tree creatures to reclaim the land.",
+            "objective": {
+                "type": "kill",
+                "target": "Treant",
+                "count": 14
+            },
+            "reward": {
+                "gold": 280,
+                "items": ["Treant Bark"]
+            }
+        },
+        {
+            "id": 40,
+            "name": "Raptor Extermination",
+            "description": "A pack of raptors is terrorizing the mountains. Hunt down 15 of these dangerous predators.",
+            "objective": {
+                "type": "kill",
+                "target": "Raptor1",
+                "count": 15
+            },
+            "reward": {
+                "gold": 300,
+                "items": ["Raptor Claw"]
+            }
         }
+        
     ]
 }
+
