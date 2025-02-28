@@ -1,6 +1,5 @@
 import pygame
 from character import Party
-from map_manager import load_map  # Loads maps from configuration in Maps.py
 import Blackjack  
 from game_manager import GameManager
 
@@ -11,10 +10,10 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 
 game_manager = GameManager(screen)
-player_party = game_manager.load_game(save_file="JsonData\data1.json")
+player_party, saved_map_id = game_manager.load_game(save_file="JsonData\data1.json")
 
-# Load initial map
-current_map = load_map("town_map", screen, player_party)
+# Load initial map from the saved map id
+current_map = game_manager.load_map(saved_map_id, screen, player_party)
 
 running = True
 while running:
@@ -35,7 +34,7 @@ while running:
     transition_data = current_map.check_transition()
     if transition_data:
         target_map_id = transition_data["map_id"]
-        current_map = load_map(target_map_id, screen, player_party.members)
+        current_map = game_manager.load_map(target_map_id, screen, player_party)
         player_party.leader.x = transition_data["player_x"]
         player_party.leader.y = transition_data["player_y"]
         # Switch BGM
@@ -48,10 +47,11 @@ while running:
 
     # Draw the background map
     current_map.draw(screen, events)
-    #print(player.x, player.y)
+#print(player.x, player.y)
+#print(player.x, player.y)
 
     # save data in each frame
-    game_manager.save_game("JsonData\data1.json")
+    game_manager.save_game("JsonData\data1.json", current_map.config_key)
     pygame.display.flip()
     clock.tick(30)
 

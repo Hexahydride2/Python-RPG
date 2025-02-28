@@ -131,13 +131,13 @@ class AdventurerGuild:
         
         # Display quest objective
         paper_y += 50
-        obj_text = obj_font.render("Objective", True, (50, 200, 50))
+        obj_text = obj_font.render('Objective', True, (50, 200, 50))
         self.screen.blit(obj_text, (paper_x, paper_y))
         paper_y += 30
-        type_text = reward_font.render(f"Type: {selected_quest["objective"]["type"]}", True, (10, 10, 10))
+        type_text = reward_font.render(f"Type: {selected_quest['objective']['type']}", True, (10, 10, 10))
         self.screen.blit(type_text, (paper_x+50, paper_y))
         paper_y += 30
-        target_text = reward_font.render(f"Target: {selected_quest["objective"]["target"]} x{selected_quest["objective"]["count"]}", True, (10, 10, 10))
+        target_text = reward_font.render(f"Target: {selected_quest['objective']['target']} x{selected_quest['objective']['count']}", True, (10, 10, 10))
         self.screen.blit(target_text, (paper_x+50, paper_y))
         
         # Display quest reward
@@ -145,7 +145,7 @@ class AdventurerGuild:
         reward_text = reward_font.render("Reward", True, (50, 200, 50))
         self.screen.blit(reward_text, (paper_x, paper_y))
         paper_y += 30
-        money_text = reward_font.render(f"Gold: {selected_quest["reward"]["gold"]} G", True, (10, 10, 10))
+        money_text = reward_font.render(f"Gold: {selected_quest['reward']['gold']} G", True, (10, 10, 10))
         self.screen.blit(money_text, (paper_x+50, paper_y))
         paper_y += 30
         
@@ -214,10 +214,10 @@ class AdventurerGuild:
         obj_text = obj_font.render("Objective", True, (50, 200, 50))
         self.screen.blit(obj_text, (paper_x, paper_y))
         paper_y += 30
-        type_text = reward_font.render(f"Type: {selected_quest["objective"]["type"]}", True, (10, 10, 10))
+        type_text = reward_font.render(f"Type: {selected_quest['objective']['type']}", True, (10, 10, 10))
         self.screen.blit(type_text, (paper_x+50, paper_y))
         paper_y += 30
-        target_text = reward_font.render(f"Target: {selected_quest["objective"]["target"]} x{selected_quest["objective"]["count"]}", True, (10, 10, 10))
+        target_text = reward_font.render(f"Target: {selected_quest['objective']['target']} x{selected_quest['objective']['count']}", True, (10, 10, 10))
         self.screen.blit(target_text, (paper_x+50, paper_y))
         
         # Display quest reward
@@ -225,7 +225,7 @@ class AdventurerGuild:
         reward_text = reward_font.render("Reward", True, (50, 200, 50))
         self.screen.blit(reward_text, (paper_x, paper_y))
         paper_y += 30
-        money_text = reward_font.render(f"Gold: {selected_quest["reward"]["gold"]} G", True, (10, 10, 10))
+        money_text = reward_font.render(f"Gold: {selected_quest['reward']['gold']} G", True, (10, 10, 10))
         self.screen.blit(money_text, (paper_x+50, paper_y))
         paper_y += 30
         
@@ -294,10 +294,10 @@ class AdventurerGuild:
         obj_text = obj_font.render("Objective", True, (50, 200, 50))
         self.screen.blit(obj_text, (paper_x, paper_y))
         paper_y += 30
-        type_text = reward_font.render(f"Type: {selected_quest["objective"]["type"]}", True, (10, 10, 10))
+        type_text = reward_font.render(f"Type: {selected_quest['objective']['type']}", True, (10, 10, 10))
         self.screen.blit(type_text, (paper_x+50, paper_y))
         paper_y += 30
-        target_text = reward_font.render(f"Target: {selected_quest["objective"]["target"]} x{selected_quest["objective"]["count"]}", True, (10, 10, 10))
+        target_text = reward_font.render(f"Target: {selected_quest['objective']['target']} x{selected_quest['objective']['count']}", True, (10, 10, 10))
         self.screen.blit(target_text, (paper_x+50, paper_y))
         
         # Display quest reward
@@ -305,7 +305,7 @@ class AdventurerGuild:
         reward_text = reward_font.render("Reward", True, (50, 200, 50))
         self.screen.blit(reward_text, (paper_x, paper_y))
         paper_y += 30
-        money_text = reward_font.render(f"Gold: {selected_quest["reward"]["gold"]} G", True, (10, 10, 10))
+        money_text = reward_font.render(f"Gold: {selected_quest['reward']['gold']} G", True, (10, 10, 10))
         self.screen.blit(money_text, (paper_x+50, paper_y))
         paper_y += 30
         

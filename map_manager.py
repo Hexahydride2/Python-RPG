@@ -368,22 +368,24 @@ class Map:
                     self.player.y -= 100  # Move player away to prevent instant re-entry
                 #revert_theme()
 
-def load_map(map_id, screen, player_party):
-    config = map_configs.get(map_id)
-    if config:
-        return Map(
-            screen=screen,
-            map_image_path=config["map_image_path"],
-            player_party=player_party,
-            npcs=config.get("npcs", []),
-            enemies=config.get("enemies", []),
-            map_scale_factor=config.get("map_scale_factor"),
-            bgm=config.get("bgm"),
-            layer_json_path=config.get("layer_json_path"),
-            allow_encounters=config.get("allow_encounters", False),
-            encounter_rate=config.get("encounter_rate", 0),
-            transitions=config.get("transitions", [])
-        )
-    else:
-        raise ValueError(f"Map {map_id} is not defined.")
+# def load_map(map_id, screen, player_party):
+#     config = map_configs.get(map_id)
+#     if config:
+#         map_instance = Map(
+#             screen=screen,
+#             map_image_path=config["map_image_path"],
+#             player_party=player_party,
+#             npcs=config.get("npcs", []),
+#             enemies=config.get("enemies", []),
+#             map_scale_factor=config.get("map_scale_factor"),
+#             bgm=config.get("bgm"),
+#             layer_json_path=config.get("layer_json_path"),
+#             allow_encounters=config.get("allow_encounters", False),
+#             encounter_rate=config.get("encounter_rate", 0),
+#             transitions=config.get("transitions", [])
+#         )
+#         map_instance.config_key = map_id
+#         return map_instance
+#     else:
+#         raise ValueError(f"Map {map_id} is not defined.")
 
