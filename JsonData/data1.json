@@ -1,12 +1,12 @@
 {
-    "current_map": "playerhouse",
+    "current_map": "town_map",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 620,
-            "y": 405,
+            "x": 1270,
+            "y": 1350,
             "level": 4,
-            "hp": 146,
+            "hp": 117,
             "max_hp": 209,
             "mp": 104,
             "max_mp": 154,
@@ -30,7 +30,7 @@
                 "Wind Amulet": 2,
                 "Shadow Cloak": 3
             },
-            "gold": 416,
+            "gold": 766,
             "skills": [
                 "Strike",
                 "Earth Smash",
@@ -43,7 +43,7 @@
                 ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_3",
                 ".\\tf_svbattle\\singleframes\\set1\\3"
             ],
-            "exp": 155,
+            "exp": 315,
             "scale_factor": 1
         },
         {
@@ -51,7 +51,7 @@
             "x": 700,
             "y": 700,
             "level": 10,
-            "hp": 59,
+            "hp": 74,
             "max_hp": 150,
             "mp": 135,
             "max_mp": 200,
@@ -61,7 +61,7 @@
             "inventory": {
                 "Potion": 2,
                 "Super Potion": 1,
-                "Mega Potion": 2,
+                "Mega Potion": 1,
                 "Mana Crystal": 2,
                 "Ether": 2,
                 "Elixir": 2,
@@ -88,7 +88,7 @@
                 ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_7",
                 ".\\tf_svbattle\\singleframes\\set2\\7"
             ],
-            "exp": 575,
+            "exp": 735,
             "scale_factor": 1
         }
     ]

@@ -140,7 +140,7 @@ map_configs = {
         "allow_encounters": False,
         "encounter_rate": 0,
         "layer_json_path": None,
-        "transitions": []  
+        "transitions": [{"zone": (230, 425, 340, 475), "target": "town_map", "player_x": 1370, "player_y": 950} ]  
     },
     "Town_mapv1": {
         "map_image_path": R".\Backgrounds\TownMapv1.png",

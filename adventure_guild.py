@@ -40,6 +40,13 @@ class AdventurerGuild:
         self.selected_complete_quest_index = 0
         self.scroll_offset = 0
         self.visible_quests = 10
+
+        # Sound effects
+        self.quest_complete_sound = pygame.mixer.Sound(R"Music/success-fanfare-trumpets.mp3")
+        self.quest_complete_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
+
+        self.level_up_sound = pygame.mixer.Sound(R"Sound_Effects\level-win.mp3")
+        self.level_up_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
         
        
 
@@ -274,8 +281,10 @@ class AdventurerGuild:
         title_font = pygame.font.Font(".\Fonts\RotisSerif.ttf", 26)
         desc_font = pygame.font.Font(".\Fonts\RotisSerif.ttf", 22)
         reward_font = pygame.font.Font(".\Fonts\RotisSerif.ttf", 24)
-        obj_font = pygame.font.Font(".\Fonts\RotisSerif.ttf", 24)
-        selected_quest = complete_quests[self.selected_quest_index]
+
+        print(complete_quests)
+        print(self.selected_complete_quest_index)
+        selected_quest = complete_quests[self.selected_complete_quest_index]
 
         # Display quest name
         title_text = title_font.render(selected_quest["name"], True, (200, 50, 50))
@@ -288,18 +297,7 @@ class AdventurerGuild:
             description_text = desc_font.render(line, True, (10, 10, 10))
             paper_y += 30
             self.screen.blit(description_text, (paper_x, paper_y))
-        
-        # Display quest objective
-        paper_y += 50
-        obj_text = obj_font.render("Objective", True, (50, 200, 50))
-        self.screen.blit(obj_text, (paper_x, paper_y))
-        paper_y += 30
-        type_text = reward_font.render(f"Type: {selected_quest['objective']['type']}", True, (10, 10, 10))
-        self.screen.blit(type_text, (paper_x+50, paper_y))
-        paper_y += 30
-        target_text = reward_font.render(f"Target: {selected_quest['objective']['target']} x{selected_quest['objective']['count']}", True, (10, 10, 10))
-        self.screen.blit(target_text, (paper_x+50, paper_y))
-        
+ 
         # Display quest reward
         paper_y += 50
         reward_text = reward_font.render("Reward", True, (50, 200, 50))
@@ -438,10 +436,31 @@ class AdventurerGuild:
                     elif event.key == pygame.K_RETURN:
                         self.selected_option()
     
-    # def finish_quest(self):
-    #     selected_quest = self.call_complete_quests()[self.selected_complete_quest_index]
-    #     gold = selected_quest["reward"]["gold"]
-    #     items = selected_quest["reward"]["items"]
+    def finish_quest(self):
+        selected_quest = self.call_complete_quests()[self.selected_complete_quest_index]
+        id = selected_quest["id"]
+        gold = selected_quest["reward"]["gold"]
+        items = selected_quest["reward"]["items"]
+        point = selected_quest["reward"]["guild_point"]
+
+        self.quest_complete_sound.play()
+        if items:
+            self.text_manager.add_message(f"Congratulations on completing the quest! Here's your reward: {gold} G, {items} and {point} Guild point.")
+        else:
+            self.text_manager.add_message(f"Congratulations on completing the quest! Here's your reward: {gold} G and {point} Guild point.")
+
+        self.player_party.leader.gold += gold
+        self.receive_guild_point(point)
+
+        for quest in self.player_party.current_quests:
+            if quest["id"] == id:
+                self.player_party.current_quests.remove(quest)
+        
+        self.scroll_offset = 0
+        self.selected_complete_quest_index = 0
+
+        if not self.player_party.current_quests:
+            self.viewing_complete_quests = False
 
 
     def selected_option(self):
@@ -494,4 +513,17 @@ class AdventurerGuild:
             else:
                 self.player_party.current_quests.append(selected_quest)
                 self.text_manager.add_message("Great choice! I'll mark this quest as active for you! Good luck!")
+
+    def receive_guild_point(self, point):
+        rank = ["C", "B", "A", "S"]
+        index = rank.index(self.player_party.guild_rank)
+        self.player_party.guild_point += point
+
+        if self.player_party.guild_point >= self.rank_thresholds[self.player_party.guild_rank]:
+            if self.player_party.guild_rank != "S":
+                self.player_party.guild_point -= self.rank_thresholds[self.player_party.guild_rank]
+                self.player_party.guild_rank = rank[index + 1]
+                self.level_up_sound.play()
+                self.text_manager.add_message(f"Congratulations! You've been promoted to {self.player_party.guild_rank}! Your hard work has paid off!")
+                
 

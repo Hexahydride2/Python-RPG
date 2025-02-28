@@ -11,7 +11,8 @@
             },
             "reward": {
                 "gold": 50,
-                "items": []
+                "items": [],
+                "guild_point": 150
             }
         },
         {
@@ -25,7 +26,8 @@
             },
             "reward": {
                 "gold": 40,
-                "items": []
+                "items": [],
+                "guild_point": 30
             }
         },
         {
@@ -39,7 +41,8 @@
             },
             "reward": {
                 "gold": 30,
-                "items": ["Health Potion"]
+                "items": ["Health Potion"],
+                "guild_point": 30
             }
         },
         {
@@ -53,7 +56,8 @@
             },
             "reward": {
                 "gold": 45,
-                "items": []
+                "items": [],
+                "guild_point": 30
             }
         },
         {
@@ -67,7 +71,8 @@
             },
             "reward": {
                 "gold": 55,
-                "items": []
+                "items": [],
+                "guild_point": 30
             }
         },
         {
@@ -81,7 +86,8 @@
             },
             "reward": {
                 "gold": 60,
-                "items": []
+                "items": [],
+                "guild_point": 30
             }
         },
         {
@@ -95,7 +101,8 @@
             },
             "reward": {
                 "gold": 35,
-                "items": ["Spider Silk Cloak"]
+                "items": ["Spider Silk Cloak"],
+                "guild_point": 30
             }
         },
         {
@@ -109,7 +116,8 @@
             },
             "reward": {
                 "gold": 50,
-                "items": []
+                "items": [],
+                "guild_point": 30
             }
         },
         {
@@ -123,7 +131,8 @@
             },
             "reward": {
                 "gold": 40,
-                "items": []
+                "items": [],
+                "guild_point": 30
             }
         },
         {
@@ -137,7 +146,8 @@
             },
             "reward": {
                 "gold": 25,
-                "items": ["Health Potion"]
+                "items": ["Health Potion"],
+                "guild_point": 30
             }
         }
     ],
@@ -153,7 +163,8 @@
             },
             "reward": {
                 "gold": 80,
-                "items": []
+                "items": [],
+                "guild_point": 60
             }
         },
         {
@@ -167,7 +178,8 @@
             },
             "reward": {
                 "gold": 90,
-                "items": []
+                "items": [],
+                "guild_point": 60
             }
         },
         {
@@ -181,7 +193,8 @@
             },
             "reward": {
                 "gold": 70,
-                "items": ["Spider Silk Cloak"]
+                "items": ["Spider Silk Cloak"],
+                "guild_point": 60
             }
         },
         {
@@ -195,7 +208,8 @@
             },
             "reward": {
                 "gold": 85,
-                "items": []
+                "items": [],
+                "guild_point": 60
             }
         },
         {
@@ -209,7 +223,8 @@
             },
             "reward": {
                 "gold": 100,
-                "items": ["Minotaur Horn"]
+                "items": ["Minotaur Horn"],
+                "guild_point": 60
             }
         },
         {
@@ -223,7 +238,8 @@
             },
             "reward": {
                 "gold": 75,
-                "items": []
+                "items": [],
+                "guild_point": 60
             }
         },
         {
@@ -237,7 +253,8 @@
             },
             "reward": {
                 "gold": 80,
-                "items": ["Phoenix Feather"]
+                "items": ["Phoenix Feather"],
+                "guild_point": 60
             }
         },
         {
@@ -251,7 +268,8 @@
             },
             "reward": {
                 "gold": 95,
-                "items": ["Treant Bark"]
+                "items": ["Treant Bark"],
+                "guild_point": 60
             }
         },
         {
@@ -265,7 +283,8 @@
             },
             "reward": {
                 "gold": 110,
-                "items": ["Raptor Claw"]
+                "items": ["Raptor Claw"],
+                "guild_point": 60
             }
         },
         {
@@ -279,7 +298,8 @@
             },
             "reward": {
                 "gold": 60,
-                "items": ["Health Potion"]
+                "items": ["Health Potion"],
+                "guild_point": 60
             }
         }
     ],
@@ -295,7 +315,8 @@
             },
             "reward": {
                 "gold": 120,
-                "items": []
+                "items": [],
+                "guild_point": 100
             }
         },
         {
@@ -309,7 +330,8 @@
             },
             "reward": {
                 "gold": 150,
-                "items": ["Raptor Claw"]
+                "items": ["Raptor Claw"],
+                "guild_point": 100
             }
         },
         {
@@ -323,7 +345,8 @@
             },
             "reward": {
                 "gold": 130,
-                "items": ["Phoenix Feather"]
+                "items": ["Phoenix Feather"],
+                "guild_point": 100
             }
         },
         {
@@ -337,7 +360,8 @@
             },
             "reward": {
                 "gold": 140,
-                "items": ["Treant Bark"]
+                "items": ["Treant Bark"],
+                "guild_point": 100
             }
         },
         {
@@ -351,7 +375,8 @@
             },
             "reward": {
                 "gold": 160,
-                "items": ["Phoenix Feather"]
+                "items": ["Phoenix Feather"],
+                "guild_point": 100
             }
         },
         {
@@ -365,7 +390,8 @@
             },
             "reward": {
                 "gold": 170,
-                "items": ["Scorpion Stinger"]
+                "items": ["Scorpion Stinger"],
+                "guild_point": 100
             }
         },
         {
@@ -379,7 +405,8 @@
             },
             "reward": {
                 "gold": 140,
-                "items": ["Spider Silk Cloak"]
+                "items": ["Spider Silk Cloak"],
+                "guild_point": 100
             }
         },
         {
@@ -393,7 +420,8 @@
             },
             "reward": {
                 "gold": 180,
-                "items": ["Minotaur Horn"]
+                "items": ["Minotaur Horn"],
+                "guild_point": 100
             }
         },
         {
@@ -407,7 +435,8 @@
             },
             "reward": {
                 "gold": 150,
-                "items": ["Phoenix Feather"]
+                "items": ["Phoenix Feather"],
+                "guild_point": 100
             }
         },
         {
@@ -421,7 +450,8 @@
             },
             "reward": {
                 "gold": 200,
-                "items": ["Treant Bark"]
+                "items": ["Treant Bark"],
+                "guild_point": 100
             }
         }
     ],
@@ -437,7 +467,8 @@
             },
             "reward": {
                 "gold": 200,
-                "items": ["Scorpion Stinger"]
+                "items": ["Scorpion Stinger"],
+                "guild_point": 200
             }
         },
         {
@@ -451,7 +482,8 @@
             },
             "reward": {
                 "gold": 250,
-                "items": ["Minotaur Horn"]
+                "items": ["Minotaur Horn"],
+                "guild_point": 200
             }
         },
         {
@@ -465,7 +497,8 @@
             },
             "reward": {
                 "gold": 220,
-                "items": ["Phoenix Feather"]
+                "items": ["Phoenix Feather"],
+                "guild_point": 200
             }
         },
         {
@@ -479,7 +512,8 @@
             },
             "reward": {
                 "gold": 240,
-                "items": ["Treant Bark"]
+                "items": ["Treant Bark"],
+                "guild_point": 200
             }
         },
         {
@@ -493,7 +527,8 @@
             },
             "reward": {
                 "gold": 300,
-                "items": ["Raptor Claw"]
+                "items": ["Raptor Claw"],
+                "guild_point": 200
             }
         },
         {
@@ -507,7 +542,8 @@
             },
             "reward": {
                 "gold": 210,
-                "items": []
+                "items": [],
+                "guild_point": 200
             }
         },
         {
@@ -521,7 +557,8 @@
             },
             "reward": {
                 "gold": 230,
-                "items": ["Spider Silk Cloak"]
+                "items": ["Spider Silk Cloak"],
+                "guild_point": 200
             }
         },
         {
@@ -535,7 +572,8 @@
             },
             "reward": {
                 "gold": 260,
-                "items": []
+                "items": [],
+                "guild_point": 200
             }
         },
         {
@@ -549,7 +587,8 @@
             },
             "reward": {
                 "gold": 280,
-                "items": ["Treant Bark"]
+                "items": ["Treant Bark"],
+                "guild_point": 200
             }
         },
         {
@@ -563,7 +602,8 @@
             },
             "reward": {
                 "gold": 300,
-                "items": ["Raptor Claw"]
+                "items": ["Raptor Claw"],
+                "guild_point": 200
             }
         }
         
