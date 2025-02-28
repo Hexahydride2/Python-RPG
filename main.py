@@ -13,7 +13,7 @@ game_manager = GameManager(screen)
 player_party, saved_map_id = game_manager.load_game(save_file="JsonData\data1.json")
 
 # Load initial map from the saved map id
-current_map = game_manager.load_map(saved_map_id, screen, player_party.members)
+current_map = game_manager.load_map(saved_map_id, screen, player_party)
 
 running = True
 while running:
@@ -34,7 +34,7 @@ while running:
     transition_data = current_map.check_transition()
     if transition_data:
         target_map_id = transition_data["map_id"]
-        current_map = game_manager.load_map(target_map_id, screen, player_party.members)
+        current_map = game_manager.load_map(target_map_id, screen, player_party)
         player_party.leader.x = transition_data["player_x"]
         player_party.leader.y = transition_data["player_y"]
         # Switch BGM
