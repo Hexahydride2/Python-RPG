@@ -336,14 +336,12 @@ class Map:
                 self.battle_screen = False  # Exit battle 
                 
                 # Check quest acheivement
-                print(self.player_party.current_quests)
                 if self.player_party.current_quests:
                     for quest in self.player_party.current_quests:
                         target = quest["objective"]["target"]
                         for enemy in self.current_enemies:
                             if target == enemy.name:
                                 quest["objective"]["count"] -= 1
-                print(self.player_party.current_quests)
 
                 #revert_theme()
             elif result == "Defeat":

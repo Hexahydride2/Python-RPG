@@ -1,12 +1,12 @@
 [
     {
         "name": "Gabe",
-        "x": 990,
-        "y": 1165,
+        "x": 1313,
+        "y": 1345,
         "level": 4,
-        "hp": 494,
+        "hp": 441,
         "max_hp": 500,
-        "mp": 140,
+        "mp": 95,
         "max_mp": 150,
         "atk": 48,
         "dfn": 27,
@@ -22,7 +22,7 @@
             "Phoenix down": 2,
             "Strength Potion": 2,
             "Berserker Brew": 2,
-            "Warrior's Elixir": 2,
+            "Warrior's Elixir": 1,
             "Defense Shield": 2,
             "Dragon Scale": 2,
             "Wind Amulet": 2,
@@ -41,7 +41,7 @@
             ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_3",
             ".\\tf_svbattle\\singleframes\\set1\\3"
         ],
-        "exp": 245,
+        "exp": 475,
         "scale_factor": 1
     },
     {
@@ -49,9 +49,9 @@
         "x": 700,
         "y": 700,
         "level": 10,
-        "hp": 470,
+        "hp": 368,
         "max_hp": 500,
-        "mp": 185,
+        "mp": 170,
         "max_mp": 200,
         "atk": 40,
         "dfn": 20,
@@ -66,7 +66,7 @@
             "Revive": 2,
             "Phoenix down": 2,
             "Strength Potion": 2,
-            "Berserker Brew": 2,
+            "Berserker Brew": 1,
             "Warrior's Elixir": 2,
             "Defense Shield": 2,
             "Dragon Scale": 2,
@@ -86,7 +86,7 @@
             ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_7",
             ".\\tf_svbattle\\singleframes\\set2\\7"
         ],
-        "exp": 665,
+        "exp": 895,
         "scale_factor": 1
     }
 ]

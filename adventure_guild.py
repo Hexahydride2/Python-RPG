@@ -423,7 +423,7 @@ class AdventurerGuild:
                             if self.selected_complete_quest_index < self.scroll_offset:
                                 self.scroll_offset -= 1
                     elif event.key == pygame.K_RETURN:
-                        pass
+                        self.finish_quest()
 
                     elif event.key == pygame.K_ESCAPE:
                         self.viewing_complete_quests = False
@@ -438,6 +438,12 @@ class AdventurerGuild:
                     elif event.key == pygame.K_RETURN:
                         self.selected_option()
     
+    # def finish_quest(self):
+    #     selected_quest = self.call_complete_quests()[self.selected_complete_quest_index]
+    #     gold = selected_quest["reward"]["gold"]
+    #     items = selected_quest["reward"]["items"]
+
+
     def selected_option(self):
         selected_option = self.options[self.selected_option_index]
         print(self.player_party.current_quests)
@@ -457,7 +463,7 @@ class AdventurerGuild:
                 self.text_manager.add_message("What quest have you completed?")
                 self.viewing_complete_quests = True
             else:
-                self.text_manager.add_message("You seem not to have any active quests.")
+                self.text_manager.add_message("Come back when you've completed any quests.")
     
     
     def call_available_quests(self):
@@ -489,29 +495,3 @@ class AdventurerGuild:
                 self.player_party.current_quests.append(selected_quest)
                 self.text_manager.add_message("Great choice! I'll mark this quest as active for you! Good luck!")
 
-    # def run(self):
-    #     while self.running:
-    #         self.screen.fill((0, 0, 0))
-
-    #         for event in pygame.event.get():
-    #             if event.type == pygame.QUIT:
-    #                 self.running = False
-    #             self.handle_input(event)
-    #         self.draw()
-    #         self.call_available_quests()
-
-    #         pygame.display.update()
-    #         self.clock.tick(30)
-
-    #     pygame.quit()
-
-    
-# # Example usage
-# pygame.init()
-# screen = pygame.display.set_mode((1280, 720))
-
-# game_manager = GameManager(screen)
-# player_party = game_manager.load_game(save_file="JsonData\data1.json")
-
-# adventurer_guild = AdventurerGuild(screen, player_party)
-# adventurer_guild.run()
