@@ -43,7 +43,7 @@
                 ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_3",
                 ".\\tf_svbattle\\singleframes\\set1\\3"
             ],
-            "exp": 315,
+            "exp": 345,
             "scale_factor": 1
         },
         {
@@ -88,7 +88,7 @@
                 ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_7",
                 ".\\tf_svbattle\\singleframes\\set2\\7"
             ],
-            "exp": 735,
+            "exp": 765,
             "scale_factor": 1
         }
     ]

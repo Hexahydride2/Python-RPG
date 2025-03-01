@@ -79,9 +79,7 @@ enemy1 = Enemy(
     spd=30,
     inventory={},
     skills=["Strike", "Flame Slash", "Earth Smash"],
-    exp_reward=5,
-    loot=None,
-    folder_paths=[R"Monsters\phoenix"]
+    folder_paths=[R"Monsters\Phoenix"]
 )
 enemy1.sprite.set_animation("down_walk")
 
@@ -96,9 +94,7 @@ enemy2 = Enemy(
     dfn=20,
     spd=30,
     inventory={},
-    exp_reward=5,
-    loot=None,
-    folder_paths=[R"Monsters\slime"]
+    folder_paths=[R"Monsters\Slime"]
 )
 enemy2.sprite.set_animation("down_walk")
 

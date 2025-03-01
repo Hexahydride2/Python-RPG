@@ -76,25 +76,27 @@ class Map:
         """Triggers a random enemy encounter based on player's movement."""
         if self.allow_encounters and random.random() < self.encounter_rate:
             # Create a random enemy
+            enemy_num = random.randint(1, 4)
+            enemy_list = ["Bat", "Bee", "Scorpion", "Slime", "Mouse", "Spider", "Snake(Green)", "Snake(Pink)"]
 
-            enemy = Enemy(
-                name="Goblin",
-                x = player.x,
-                y = player.y,
-                level=random.randint(1, 5),
-                hp=random.randint(20, 50),
-                mp=50,
-                atk=random.randint(5, 10),
-                dfn=random.randint(2, 5),
-                spd=random.randint(3, 6),
-                exp_reward=random.randint(10, 20),
-                inventory={},
-                loot=None,
-                folder_paths=[
-                    R".\timefantasy_characters\timefantasy_characters\frames\chara\chara4_5",
-                    R".\tf_svbattle\singleframes\set4\5"
-                ]
-            )
+            for i in range(enemy_num):
+                enemy_name = random.choice(enemy_list)
+                enemy = Enemy(
+                    name=enemy_name,
+                    x = player.x,
+                    y = player.y,
+                    level=random.randint(1, 5),
+                    hp=random.randint(20, 50),
+                    mp=50,
+                    atk=random.randint(20, 40),
+                    dfn=random.randint(20, 40),
+                    spd=random.randint(10, 30),
+                    inventory={},
+                    folder_paths=[
+                        Rf"Monsters\{enemy_name}",
+                    ]
+                )
+                self.current_enemies.append(enemy)
             self.battle_screen = True
             self.random_encounter_battle = True
             
@@ -328,45 +330,46 @@ class Map:
             result = battle.run()
             # When the battle was the random encounter
             if self.random_encounter_battle:
-                    self.random_encounter_battle = False
-                    self.current_enemies = []
+                self.random_encounter_battle = False
 
-            if result == "Victory":
-                self.enemies.remove(self.current_enemies[0])
-                self.battle_screen = False  # Exit battle 
-                
-                # Check quest acheivement
-                if self.player_party.current_quests:
-                    for quest in self.player_party.current_quests:
-                        target = quest["objective"]["target"]
-                        for enemy in self.current_enemies:
-                            if target == enemy.name:
-                                quest["objective"]["count"] -= 1
 
-                #revert_theme()
-            elif result == "Defeat":
-                self.battle_screen = False  # Exit battle screen
-                if self.player.current_direction == "right":
-                    self.player.x -= 90  # Move player away to prevent instant re-entry
-                elif self.player.current_direction == "left":
-                    self.player.x += 90  # Move player away to prevent instant re-entry
-                elif self.player.current_direction == "up":
-                    self.player.y += 90  # Move player away to prevent instant re-entry
-                elif self.player.current_direction == "down":
-                    self.player.y -= 90  # Move player away to prevent instant re-entry
-                #revert_theme()
+            else:
+                if result == "Victory":
+                    self.enemies.remove(self.current_enemies[0])
+                    self.battle_screen = False  # Exit battle 
 
-            elif result == "Escape":
-                self.battle_screen = False  # Exit battle screen
-                if self.player.current_direction == "right":
-                    self.player.x -= 90  # Move player away to prevent instant re-entry
-                elif self.player.current_direction == "left":
-                    self.player.x += 90  # Move player away to prevent instant re-entry
-                elif self.player.current_direction == "up":
-                    self.player.y += 90  # Move player away to prevent instant re-entry
-                elif self.player.current_direction == "down":
-                    self.player.y -= 100  # Move player away to prevent instant re-entry
+                    # Check quest acheivement
+                    if self.player_party.current_quests:
+                        for quest in self.player_party.current_quests:
+                            target = quest["objective"]["target"]
+                            for enemy in self.current_enemies:
+                                if target == enemy.name:
+                                    quest["objective"]["count"] -= 1
+
+                    #revert_theme()
+                elif result == "Defeat":
+                    if self.player.current_direction == "right":
+                        self.player.x -= 90  # Move player away to prevent instant re-entry
+                    elif self.player.current_direction == "left":
+                        self.player.x += 90  # Move player away to prevent instant re-entry
+                    elif self.player.current_direction == "up":
+                        self.player.y += 90  # Move player away to prevent instant re-entry
+                    elif self.player.current_direction == "down":
+                        self.player.y -= 90  # Move player away to prevent instant re-entry
+                    #revert_theme()
+
+                elif result == "Escape":
+                    if self.player.current_direction == "right":
+                        self.player.x -= 90  # Move player away to prevent instant re-entry
+                    elif self.player.current_direction == "left":
+                        self.player.x += 90  # Move player away to prevent instant re-entry
+                    elif self.player.current_direction == "up":
+                        self.player.y += 90  # Move player away to prevent instant re-entry
+                    elif self.player.current_direction == "down":
+                        self.player.y -= 90  # Move player away to prevent instant re-entry
                 #revert_theme()
+            self.battle_screen = False  # Exit battle screen
+            self.current_enemies = []
 
 # def load_map(map_id, screen, player_party):
 #     config = map_configs.get(map_id)

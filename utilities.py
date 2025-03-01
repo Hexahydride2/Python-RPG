@@ -89,6 +89,8 @@ class MusicManager:
     def revert_theme(self):
         if self.previous_theme:
             self.change_theme(self.previous_theme)
+        else:
+            pygame.mixer.music.stop()
 
 music_manager = MusicManager()
 

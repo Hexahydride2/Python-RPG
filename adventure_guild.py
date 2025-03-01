@@ -1,5 +1,6 @@
 import pygame
 import json
+import time
 from text_manager import TextManager
 
 class AdventurerGuild:
@@ -42,13 +43,14 @@ class AdventurerGuild:
         self.visible_quests = 10
 
         # Sound effects
-        self.quest_complete_sound = pygame.mixer.Sound(R"Music/success-fanfare-trumpets.mp3")
+        self.quest_complete_sound = pygame.mixer.Sound(R"Music\success-fanfare-trumpets.mp3")
         self.quest_complete_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
 
         self.level_up_sound = pygame.mixer.Sound(R"Sound_Effects\level-win.mp3")
         self.level_up_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
         
-       
+        self.channel1 = pygame.mixer.Channel(1)
+    
 
     def draw(self):
         if self.selecting_quests:
@@ -443,7 +445,8 @@ class AdventurerGuild:
         items = selected_quest["reward"]["items"]
         point = selected_quest["reward"]["guild_point"]
 
-        self.quest_complete_sound.play()
+        #self.quest_complete_sound.play()
+        self.channel1.play(self.quest_complete_sound)
         if items:
             self.text_manager.add_message(f"Congratulations on completing the quest! Here's your reward: {gold} G, {items} and {point} Guild point.")
         else:
@@ -523,7 +526,11 @@ class AdventurerGuild:
             if self.player_party.guild_rank != "S":
                 self.player_party.guild_point -= self.rank_thresholds[self.player_party.guild_rank]
                 self.player_party.guild_rank = rank[index + 1]
-                self.level_up_sound.play()
+                #self.level_up_sound.play()
+                # Wait for the first sound to finish
+                while self.channel1.get_busy():
+                    time.sleep(0.1)  # Sleep for a short time to avoid busy-waiting
+                self.channel1.play(self.level_up_sound)
                 self.text_manager.add_message(f"Congratulations! You've been promoted to {self.player_party.guild_rank}! Your hard work has paid off!")
                 
 

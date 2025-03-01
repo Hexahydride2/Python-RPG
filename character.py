@@ -267,12 +267,9 @@ class NPC(Character):
 
 
 class Enemy(Character):
-    def __init__(self, name, x, y, folder_paths, level, hp, mp, atk, dfn, spd, inventory, gold=100, skills=["Strike"], exp_reward=0, loot={},  scale_factor=3):
+    def __init__(self, name, x, y, folder_paths, level, hp, mp, atk, dfn, spd, inventory={}, gold=100, skills=["Strike"],   scale_factor=3):
         """Enemy inherits from Character and adds EXP & loot system."""
         super().__init__(name, x, y, folder_paths, level, hp, mp, atk, dfn, spd, inventory, gold=gold, skills=skills, scale_factor=scale_factor)
-        
-        self.exp_reward = exp_reward  # EXP gained by player on defeat
-        self.loot = loot  # Dictionary of possible loot {"Potion": 50% chance, "Gold": 100% chance}
         self.is_alive = True  # Enemy state 
 
 

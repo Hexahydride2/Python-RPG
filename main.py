@@ -3,6 +3,8 @@ from character import Party
 import Blackjack  
 from game_manager import GameManager
 
+from new_opening import opening_scene
+
 pygame.init()
 screen_width = 1280
 screen_height = 720
@@ -14,6 +16,11 @@ player_party, saved_map_id = game_manager.load_game(save_file=".\JsonData\data1.
 
 # Load initial map from the saved map id
 current_map = game_manager.load_map(saved_map_id, screen, player_party)
+
+
+#### Turn off if you dont want to see opening scene #####
+opening_scene(screen, player_party)
+#########################################################
 
 running = True
 while running:

@@ -4,6 +4,7 @@ from character import Character, NPC
 from text_manager import TextManager
 from map_manager import Map
 from battle import Battle
+from utilities import change_theme, revert_theme
 
 
 class Scene:
@@ -24,7 +25,10 @@ class Scene:
         self.top_left_x = top_left_x
         self.top_left_y = top_left_y
         self.view_width, self.view_height = screen.get_width(), screen.get_height()
-        self.background = pygame.image.load(background_image)
+        if background_image:
+            self.background = pygame.image.load(background_image)
+        else:
+            self.background = None
         if scale_factor:
             self.background = pygame.transform.scale(self.background, (self.background.get_width()*scale_factor, self.background.get_height()*scale_factor))
 
@@ -45,7 +49,11 @@ class Scene:
         if not self.is_scene_active or self.current_action_index >= len(self.actions):
             return
         
-        self.screen.blit(self.background, (0,0), (self.top_left_x, self.top_left_y, self.view_width, self.view_height))
+        if self.background:
+            self.screen.blit(self.background, (0,0), (self.top_left_x, self.top_left_y, self.view_width, self.view_height))
+        else:
+            # Fill the screen with black
+            self.screen.fill((0, 0, 0))
        
     
         action = self.actions[self.current_action_index]
@@ -76,6 +84,7 @@ class Scene:
         # Check if the character has reached the target position
         if self._is_action_complete(character, direction, distance):
             # Set the standing animation when the movement is complete
+            character.initial_x, character.initial_y = character.x, character.y
             character.sprite.set_animation(f"{direction}_stand")
             self.current_action_index += 1
 
@@ -90,7 +99,6 @@ class Scene:
             else:
                 self.text_manager.add_message(message)
         
-        print("3",self.text_manager.messages, self.text_manager.message_finished)
 
         if event != None:
             # If message is complete and waiting for Enter, we proceed
@@ -129,15 +137,17 @@ class Scene:
 
     def handle_battle(self, action):
         """handle a battle action."""
-        enemy = action["enemy"]
-        player = action["player"]
+        enemies = action["enemies"]
+        player_party = action["player_party"]
         background_image = action.get("background_image", None)  # Optional background image
         
         # Start the battle
-        battle = Battle(self.screen, player, enemy, background_image)
+        battle = Battle(self.screen, player_party.members, enemies, background_image, escape_chance=0)
         self.battle_result = battle.run()
-        player.sprite.is_flipped = False
+        player_party.leader.sprite.is_flipped = False
         self.current_action_index += 1
+
+        revert_theme()
 
     def handle_animation(self, action):
         """handle a pose of character"""

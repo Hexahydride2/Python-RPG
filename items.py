@@ -295,6 +295,13 @@ def monster_drop_list():
         "Rare Flower": 5,  # 5% chance to drop a Rare Flower
     },
 
+    # Pink Snake
+    "Scorpion": {
+        "Snake Skin": 40,  # 40% chance to drop Snake Skin
+        "Venom Sack": 20,  # 20% chance to drop a Venom Sack
+        "Rare Flower": 5,  # 5% chance to drop a Rare Flower
+    },
+
     # Phoenix (Fire-based rare enemy)
     "Phoenix": {
         "Phoenix Feather": 50,   # 50% chance to drop Phoenix Feather (used for revival items)
@@ -326,6 +333,7 @@ def monster_exp_list():
     "Bee": 50,
     "Mouse": 40,
     "Spider": 60,
+    "Scorpion":28,
     "Snake(Green)": 80,
     "Snake(Pink)": 100,
     "Phoenix": 200,
