@@ -28,5 +28,8 @@
             "exp": 0,
             "scale_factor": 1
         }
-    ]
+    ],
+    "party_rank": "C",
+    "guild_point": 0,
+    "current_quests": []
 }

@@ -12,7 +12,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 
 game_manager = GameManager(screen)
-player_party, saved_map_id = game_manager.load_game(save_file=".\SaveData\data1.json")
+player_party, saved_map_id = game_manager.load_game(save_file=".\SaveData\Data1.json")
 
 # Load initial map from the saved map id
 current_map = game_manager.load_map(saved_map_id, screen, player_party)
@@ -58,7 +58,7 @@ while running:
 #print(player.x, player.y)
 
     # save data in each frame
-    game_manager.save_game("SaveData\data1.json", current_map.config_key)
+    game_manager.save_game("SaveData\Data1.json", current_map.config_key)
     pygame.display.flip()
     clock.tick(30)
 

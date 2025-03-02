@@ -94,7 +94,10 @@ class GameManager:
             party_data.append(member_data)
         game_state = {
             "current_map": current_map_id,
-            "party_data": party_data
+            "party_data": party_data,
+            "party_rank": self.player_party.guild_rank,
+            "guild_point": self.player_party.guild_point,
+            "current_quests": self.player_party.current_quests
         }
         with open(file_path, "w") as file:
             json.dump(game_state, file, indent=4)
@@ -133,6 +136,10 @@ class GameManager:
                 self.player_party = Party(member)
             else:
                 self.player_party.add_member(member)
+
+        self.player_party.guild_rank = data["party_rank"]
+        self.player_party.guild_point = data["guild_point"]
+        self.player_party.current_quests = data["current_quests"]
         
         saved_map_id = data["current_map"]
         return self.player_party, saved_map_id
@@ -225,6 +232,7 @@ class GameManager:
             text = font.render(file_names[i], True, color)
             self.screen.blit(text, (base_x + 10, base_y + 10 + (i - self.scroll_offset)*40))
 
+        # Draw Right Pane
         desc_font = pygame.font.Font(".\Fonts\RotisSerif.ttf", 26)
         with open(self.save_data_list[self.selected_save_data_index], "r") as file:
             data = json.load(file)
@@ -238,17 +246,15 @@ class GameManager:
         party = desc_font.render(f"Party Info:", True, (245, 245, 245))
         self.screen.blit(party, (base_x + width + 20, base_y+40))
 
+        rank = desc_font.render(f"Rank: {data["party_rank"]}", True, (245, 245, 245))
+        self.screen.blit(rank, (base_x + width + 20, base_y+70))
+
         for i in range(len(members)):
             leader_name = desc_font.render(f"  Name: {members[i]["name"]}", True, (245, 245, 245))
-            self.screen.blit(leader_name, (base_x + width + 20, base_y+70 + i*60))
+            self.screen.blit(leader_name, (base_x + width + 20, base_y+100 + i*60))
 
             leader_level = desc_font.render(f"  Lv. {members[i]["level"]}", True, (245, 245, 245))
-            self.screen.blit(leader_level, (base_x + width + 20, base_y+100 + i*60))
-
-        
-
-        
-        
+            self.screen.blit(leader_level, (base_x + width + 20, base_y+130 + i*60))
         
         # Draw scrollbar if necessary
         total_save_data = len(self.save_data_list)

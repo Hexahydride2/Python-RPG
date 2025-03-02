@@ -6,6 +6,22 @@ def opening_scene(screen, player_party):
     name = player_party.leader.name
 
     folder_paths = player_party.leader.folder_paths
+
+    player = Character(
+    name=name,
+    x=-500,
+    y=-500,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=folder_paths,
+    scale_factor=1
+    )
+
     Elysia = Character(
     name="Elysia",
     x=-500,
@@ -21,6 +37,7 @@ def opening_scene(screen, player_party):
     )
 
     opening_scene1_actions = [
+        {"type": "talk", "character": player, "message": f'"I... I remember now. I died. It was so sudden—a train, screeching metal, and then...nothing. What is this place? And why am I here?"'},
         {"type": "talk", "character": Elysia, "message": f"{name}, you have passed beyond the veil of life...but your story is not yet over. If you save this world, I may grant you a second chance. Do you accept this fate?"},
         {"type": "talk", "character": None, "message": f"{name} tries to speak, but no sound comes out."},
         {"type": "talk", "character": None, "message": "Darkness envelops you as you lose consciousness..."},
