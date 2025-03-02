@@ -161,9 +161,9 @@ def opening_scene(screen, player_party):
         level=1,
         hp=70,
         mp=30,
-        atk=20,
-        dfn=10,
-        spd=10
+        atk=10,
+        dfn=5,
+        spd=5
     )
 
 

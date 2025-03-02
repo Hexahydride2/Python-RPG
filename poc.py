@@ -4,27 +4,56 @@ import pygame
 
 # Initialize Pygame
 pygame.init()
-screen = pygame.display.set_mode((800, 600))  # Set screen size
+screen = pygame.display.set_mode((1280, 720))  # Set screen size
+clock = pygame.time.Clock()
 
 # Create GameManager instance
 game_manager = GameManager(screen)
+game_manager.run()
 
-# Run the main menu
-game_manager.main_menu()
+player_party, saved_map_id = game_manager.load_game(save_file=R"JsonData\test.json")
 
-# Start the main game loop after selecting an option
+# Load initial map from the saved map id
+current_map = game_manager.load_map(saved_map_id, screen, player_party)
+
 running = True
 while running:
-    screen.fill((0, 0, 0))  # Clear the screen
+    screen.fill((0,0,0))
+    events = pygame.event.get()
+    keys = pygame.key.get_pressed()
 
-    # Your game logic here (draw player, handle movement, etc.)
-    if game_manager.player:
-        print(f"Current Player: {game_manager.player.name}, Level: {game_manager.player.level}")
-
-    for event in pygame.event.get():
+    for event in events:
         if event.type == pygame.QUIT:
             running = False
 
-    pygame.display.flip()  # Update the screen
+    # Player walk function
+    player_party.leader.walk(keys, current_map)
+
+    # Update map based on player's current position and check for transitions
+    player_x = player_party.leader.x
+    player_y = player_party.leader.y
+    transition_data = current_map.check_transition()
+    if transition_data:
+        target_map_id = transition_data["map_id"]
+        current_map = game_manager.load_map(target_map_id, screen, player_party)
+        player_party.leader.x = transition_data["player_x"]
+        player_party.leader.y = transition_data["player_y"]
+        # Switch BGM
+        #change_theme(current_map.bgm)
+    ###########################################################
+
+    # Draw the background map
+    current_map.draw(screen, events)
+    print(player_party.leader.x, player_party.leader.y)
+
+
+    # save data in each frame
+    game_manager.save_game("JsonData\data1.json", current_map.config_key)
+    pygame.display.flip()
+    clock.tick(30)
+
+pygame.quit()
+
+
 
 pygame.quit()
