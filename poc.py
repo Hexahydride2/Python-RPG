@@ -9,9 +9,12 @@ clock = pygame.time.Clock()
 
 # Create GameManager instance
 game_manager = GameManager(screen)
-game_manager.run()
 
-player_party, saved_map_id = game_manager.load_game(save_file=R"JsonData\test.json")
+# "New Game" or "Continue"
+save_file = game_manager.run()
+
+# Load the save data
+player_party, saved_map_id = game_manager.load_game(save_file=save_file)
 
 # Load initial map from the saved map id
 current_map = game_manager.load_map(saved_map_id, screen, player_party)
@@ -48,12 +51,8 @@ while running:
 
 
     # save data in each frame
-    game_manager.save_game("JsonData\data1.json", current_map.config_key)
+    game_manager.save_game(R"SaveData\test.json", current_map.config_key)
     pygame.display.flip()
     clock.tick(30)
-
-pygame.quit()
-
-
 
 pygame.quit()

@@ -1,6 +1,7 @@
 import pygame
 import json
 import os
+from pathlib import Path
 from character import Character, Party
 from Maps import map_configs
 from map_manager import Map
@@ -13,15 +14,26 @@ class GameManager:
         self.screen = screen
         self.player = None  # Player instance
         self.save_file = "save_data.json"
-        
+
+        self.save_file
 
         # Main menu display
         self.options = ["New Game", "Continue", "Delete Data"]
         self.selected_option_index = 0
         self.selecting_new_game = False
         self.selecting_contine = 0
-        self.selecting_contine_index = 0
+        self.selected_save_data_index = 0
+        self.scroll_offset = 0
+        self.visible_save_data = 8
         self.running = True
+
+        # Get all the save data
+        self.save_data_list = []
+        directory = "SaveData"
+        for root, dirs, files in os.walk(directory):
+            for file in files:
+                self.save_data_list.append(os.path.join(root, file))
+
         
         # Load background image
         self.background_image = pygame.image.load("Backgrounds\main_menu.png")
@@ -47,14 +59,14 @@ class GameManager:
                                             }, 
                                 scale_factor=1)
         
-        file_path = "JsonData/test.json"
+        num_save_data = len(self.save_data_list)
+        file_path = f"SaveData/Data{num_save_data + 1}.json"
         self.player_party = Party(self.player)
+        # initial save
         self.save_game(file_path=file_path, current_map_id="Town_mapv1")
         self.running = False
+        self.save_file = file_path
         opening_scene(self.screen, self.player_party)
-
-        print(f"New Game Started: {self.player.name}")
-
 
     def save_game(self, file_path, current_map_id):
         """Saves the game state to a JSON file."""
@@ -158,6 +170,8 @@ class GameManager:
         self.screen.blit(self.background_image, (0, 0))
         if self.selecting_new_game:
             self.new_game_ui()
+        elif self.selecting_contine:
+            self.draw_continue()
         else:
             self.draw_main_menu()
 
@@ -187,16 +201,98 @@ class GameManager:
             text_rect = text.get_rect(center=(button_x + BUTTON_WIDTH // 2, button_y + BUTTON_HEIGHT // 2))  # Center the text
             self.screen.blit(text, text_rect)
     
-    # def draw_new_game(self):
+    def draw_continue(self):
+        base_x, base_y = self.screen.get_width()*0.25, self.screen.get_height()*0.2
+        width, height = self.screen.get_width()*0.25, self.screen.get_height()*0.6
+        # Print the list of file paths
+        file_names = [Path(path).stem for path in self.save_data_list]
+
+        # Left Pane
+        rect_surface = pygame.Surface((width, height), pygame.SRCALPHA)
+        pygame.draw.rect(rect_surface, (10, 10, 10, 200), (0, 0, width, height), border_radius=10)            
+        self.screen.blit(rect_surface, (base_x, base_y))
+        pygame.draw.rect(self.screen, (245, 245, 245), (base_x, base_y, width, height), width=2, border_radius=10) # Border
+
+        # Right Pane
+        rect_surface = pygame.Surface((width, height), pygame.SRCALPHA)
+        pygame.draw.rect(rect_surface, (10, 10, 10, 200), (0, 0, width, height), border_radius=10)            
+        self.screen.blit(rect_surface, (base_x + width + 10, base_y))
+        pygame.draw.rect(self.screen, (245, 245, 245), (base_x + width + 10, base_y, width, height), width=2, border_radius=10) # Border
+
+        font = pygame.font.Font(".\Fonts\RotisSerif.ttf", 30)
+        for i in range(self.scroll_offset, min(self.scroll_offset + self.visible_save_data, len(file_names))):
+            color = (245, 245, 245) if i == self.selected_save_data_index else (150, 150, 150)
+            text = font.render(file_names[i], True, color)
+            self.screen.blit(text, (base_x + 10, base_y + 10 + (i - self.scroll_offset)*40))
+
+        desc_font = pygame.font.Font(".\Fonts\RotisSerif.ttf", 26)
+        with open(self.save_data_list[self.selected_save_data_index], "r") as file:
+            data = json.load(file)
+        members = []
+        for member in data["party_data"]:
+            members.append(member)
+
+        current_map = desc_font.render(f"Map: {data["current_map"]}", True, (245, 245, 245))
+        self.screen.blit(current_map, (base_x + width + 20, base_y+10))
+
+        party = desc_font.render(f"Party Info:", True, (245, 245, 245))
+        self.screen.blit(party, (base_x + width + 20, base_y+40))
+
+        for i in range(len(members)):
+            leader_name = desc_font.render(f"  Name: {members[i]["name"]}", True, (245, 245, 245))
+            self.screen.blit(leader_name, (base_x + width + 20, base_y+70 + i*60))
+
+            leader_level = desc_font.render(f"  Lv. {members[i]["level"]}", True, (245, 245, 245))
+            self.screen.blit(leader_level, (base_x + width + 20, base_y+100 + i*60))
+
+        
+
+        
+        
+        
+        # Draw scrollbar if necessary
+        total_save_data = len(self.save_data_list)
+        inventory_x, inventory_y = base_x, base_y
+        scrollbar_width = 10
+        self.max_scroll = max(0, total_save_data - self.visible_save_data)
+        
+        scrollbar_x = inventory_x + width - 15  # Right edge for the scrollbar
+        if total_save_data > self.visible_save_data:
+            # Scroll indicator height
+            scroll_indicator_height = max(30, (self.visible_save_data / total_save_data) * height)
+            # Scroll indicator position (proportional to scroll offset)
+            scroll_indicator_y = inventory_y + (self.scroll_offset / self.max_scroll) * (height - scroll_indicator_height)
+            # Draw scroll indicator
+            pygame.draw.rect(self.screen, (255, 255, 255), (scrollbar_x, scroll_indicator_y, scrollbar_width, scroll_indicator_height), border_radius=5)
 
     def handle_input(self, event):
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_DOWN:
-                self.selected_option_index = (self.selected_option_index + 1) % len(self.options)
-            elif event.key == pygame.K_UP:
-                self.selected_option_index = (self.selected_option_index - 1) % len(self.options)
-            elif event.key == pygame.K_RETURN:
-                self.select_option()
+            if self.selecting_contine:
+                if event.key == pygame.K_DOWN:
+                    if self.selected_save_data_index < len(self.save_data_list) - 1:
+                        self.selected_save_data_index += 1
+                        if self.selected_save_data_index >= self.scroll_offset + self.visible_save_data:
+                            self.scroll_offset += 1
+                   
+                elif event.key == pygame.K_UP:
+                    if self.selected_save_data_index > 0:
+                        self.selected_save_data_index -= 1
+                        if self.selected_save_data_index < self.scroll_offset:
+                            self.scroll_offset -= 1
+                    
+                elif event.key == pygame.K_RETURN:
+                    self.select_continue()
+
+                elif event.key == pygame.K_ESCAPE:
+                    self.selecting_contine = False                    
+
+            else:
+                if event.key == pygame.K_DOWN:
+                    self.selected_option_index = (self.selected_option_index + 1) % len(self.options)
+                elif event.key == pygame.K_UP:
+                    self.selected_option_index = (self.selected_option_index - 1) % len(self.options)
+                elif event.key == pygame.K_RETURN:
+                    self.select_option()
     
     def select_option(self):
         selected_option = self.options[self.selected_option_index]
@@ -205,6 +301,11 @@ class GameManager:
             self.selecting_new_game = True
         elif selected_option == "Continue":
             self.selecting_contine = True
+    
+    def select_continue(self):
+        selected_save_data = self.save_data_list[self.selected_save_data_index]
+        self.save_file = selected_save_data
+        self.running = False
 
 
     def new_game_ui(self):
@@ -294,7 +395,8 @@ class GameManager:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    self.running = False
                 self.handle_input(event)
 
             pygame.display.flip()  # Update the screen
+        return self.save_file

@@ -1,0 +1,95 @@
+{
+    "current_map": "town_map",
+    "party_data": [
+        {
+            "name": "Gabe",
+            "x": 820,
+            "y": 1160,
+            "level": 4,
+            "hp": 117,
+            "max_hp": 209,
+            "mp": 104,
+            "max_mp": 154,
+            "atk": 48,
+            "dfn": 27,
+            "spd": 34,
+            "inventory": {
+                "Potion": 6,
+                "Super Potion": 4,
+                "Mega Potion": 2,
+                "Mana Crystal": 3,
+                "Ether": 3,
+                "Elixir": 2,
+                "Revive": 2,
+                "Phoenix down": 2,
+                "Strength Potion": 2,
+                "Berserker Brew": 2,
+                "Warrior's Elixir": 2,
+                "Defense Shield": 2,
+                "Dragon Scale": 2,
+                "Wind Amulet": 2,
+                "Shadow Cloak": 3
+            },
+            "gold": 766,
+            "skills": [
+                "Strike",
+                "Earth Smash",
+                "Flame Slash",
+                "Crystal Strike",
+                "Frost Blade",
+                "Explosive Arrow"
+            ],
+            "folder_paths": [
+                ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_3",
+                ".\\tf_svbattle\\singleframes\\set1\\3"
+            ],
+            "exp": 315,
+            "scale_factor": 1
+        },
+        {
+            "name": "Reiya",
+            "x": 700,
+            "y": 700,
+            "level": 10,
+            "hp": 74,
+            "max_hp": 150,
+            "mp": 135,
+            "max_mp": 200,
+            "atk": 40,
+            "dfn": 20,
+            "spd": 30,
+            "inventory": {
+                "Potion": 2,
+                "Super Potion": 1,
+                "Mega Potion": 1,
+                "Mana Crystal": 2,
+                "Ether": 2,
+                "Elixir": 2,
+                "Revive": 2,
+                "Phoenix down": 2,
+                "Strength Potion": 2,
+                "Berserker Brew": 2,
+                "Warrior's Elixir": 2,
+                "Defense Shield": 2,
+                "Dragon Scale": 2,
+                "Wind Amulet": 2,
+                "Shadow Cloak": 2
+            },
+            "gold": 100,
+            "skills": [
+                "Strike",
+                "Earth Smash",
+                "Flame Slash",
+                "Crystal Strike",
+                "Frost Blade",
+                "Explosive Arrow"
+            ],
+            "folder_paths": [
+                ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_7",
+                ".\\tf_svbattle\\singleframes\\set2\\7"
+            ],
+            "exp": 735,
+            "scale_factor": 1
+        }
+    ]
+}
