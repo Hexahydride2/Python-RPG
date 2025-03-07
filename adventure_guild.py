@@ -21,9 +21,6 @@ class AdventurerGuild:
             "S": 1000
         }
 
-        self.quest_board_image = pygame.image.load("Backgrounds\quest_board.png")
-        self.quest_board_image = pygame.transform.scale(self.quest_board_image, (self.screen.get_height(), self.screen.get_height()))
-
         self.quest_board_image = pygame.image.load("Backgrounds\quest_board1.png")
         self.quest_board_image = pygame.transform.scale(self.quest_board_image, (self.screen.get_height()*0.6, self.screen.get_height()))
 

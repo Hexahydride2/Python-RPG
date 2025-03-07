@@ -51,7 +51,7 @@ while running:
 
 
     # save data in each frame
-    game_manager.save_game(R"SaveData\test.json", current_map.config_key)
+    game_manager.save_game(save_file, current_map.config_key)
     pygame.display.flip()
     clock.tick(30)
 

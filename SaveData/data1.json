@@ -3,24 +3,24 @@
     "party_data": [
         {
             "name": "Gabe",
-            "x": 1060,
-            "y": 1390,
-            "level": 4,
-            "hp": 117,
-            "max_hp": 209,
-            "mp": 104,
-            "max_mp": 154,
-            "atk": 48,
-            "dfn": 27,
-            "spd": 34,
+            "x": 1028,
+            "y": 1325,
+            "level": 5,
+            "hp": 219,
+            "max_hp": 219,
+            "mp": 157,
+            "max_mp": 157,
+            "atk": 52,
+            "dfn": 30,
+            "spd": 35,
             "inventory": {
-                "Potion": 6,
+                "Potion": 7,
                 "Super Potion": 4,
                 "Mega Potion": 2,
                 "Mana Crystal": 3,
                 "Ether": 3,
                 "Elixir": 2,
-                "Revive": 2,
+                "Revive": 3,
                 "Phoenix down": 2,
                 "Strength Potion": 2,
                 "Berserker Brew": 2,
@@ -30,7 +30,7 @@
                 "Wind Amulet": 2,
                 "Shadow Cloak": 3
             },
-            "gold": 766,
+            "gold": 496,
             "skills": [
                 "Strike",
                 "Earth Smash",
@@ -43,7 +43,7 @@
                 ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_3",
                 ".\\tf_svbattle\\singleframes\\set1\\3"
             ],
-            "exp": 315,
+            "exp": 145,
             "scale_factor": 1
         },
         {
@@ -51,16 +51,15 @@
             "x": 700,
             "y": 700,
             "level": 10,
-            "hp": 74,
+            "hp": 18,
             "max_hp": 150,
-            "mp": 135,
+            "mp": 45,
             "max_mp": 200,
             "atk": 40,
             "dfn": 20,
             "spd": 30,
             "inventory": {
                 "Potion": 2,
-                "Super Potion": 1,
                 "Mega Potion": 1,
                 "Mana Crystal": 2,
                 "Ether": 2,
@@ -88,11 +87,76 @@
                 ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_7",
                 ".\\tf_svbattle\\singleframes\\set2\\7"
             ],
-            "exp": 735,
+            "exp": 1045,
             "scale_factor": 1
         }
     ],
-    "party_rank": "C",
-    "guild_point": 0,
-    "current_quests": []
+    "party_rank": "B",
+    "guild_point": 50,
+    "current_quests": [
+        {
+            "id": 7,
+            "name": "Pink Snake Problem",
+            "description": "Pink snakes are causing chaos in the jungle. Hunt down 5 of these elusive creatures to restore order.",
+            "objective": {
+                "type": "kill",
+                "target": "Snake_Pink",
+                "count": 5
+            },
+            "reward": {
+                "gold": 90,
+                "items": [],
+                "guild_point": 60
+            }
+        },
+        {
+            "id": 8,
+            "name": "Spider Silk Harvest",
+            "description": "The tailor needs 15 strands of spider silk to craft a special cloak. Collect these from the spiders in the forest.",
+            "objective": {
+                "type": "collect",
+                "target": "Spider_Silk",
+                "count": 15
+            },
+            "reward": {
+                "gold": 70,
+                "items": [
+                    "Spider Silk Cloak"
+                ],
+                "guild_point": 60
+            }
+        },
+        {
+            "id": 9,
+            "name": "Spider Infestation",
+            "description": "Spiders have taken over the old ruins. Clear out 6 of these eight-legged foes to reclaim the area.",
+            "objective": {
+                "type": "kill",
+                "target": "Spider",
+                "count": 6
+            },
+            "reward": {
+                "gold": 85,
+                "items": [],
+                "guild_point": 60
+            }
+        },
+        {
+            "id": 10,
+            "name": "Minotaur Challenge",
+            "description": "A minotaur has been spotted in the labyrinth. Defeat 3 of these powerful beasts to prove your strength.",
+            "objective": {
+                "type": "kill",
+                "target": "Minotaur",
+                "count": 3
+            },
+            "reward": {
+                "gold": 100,
+                "items": [
+                    "Minotaur Horn"
+                ],
+                "guild_point": 60
+            }
+        }
+    ]
 }

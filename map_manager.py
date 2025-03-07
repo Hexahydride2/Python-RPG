@@ -64,7 +64,7 @@ class Map:
         self.current_enemies = []
 
         self.text_manager = TextManager(screen)
-        self.menu = Menu(self.screen, self.player)
+        self.menu = Menu(self.screen, self.player_party)
 
         if layer_json_path:
             self.positions = self.parse_json_data(layer_json_path)

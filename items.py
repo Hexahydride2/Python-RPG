@@ -96,6 +96,126 @@ def items_list():
         "effect": 0.30,
         "duration": 3,
         "price": 180
+    },
+    "Bat Wing": {
+        "description": "A wing from a bat. Can be used in crafting.",
+        "type": "dropped",
+        "effect": None,
+        "price": 10
+    },
+    "Herb": {
+        "description": "A common herb used in potions and remedies.",
+        "type": "dropped",
+        "effect": None,
+        "price": 5
+    },
+    "Honey": {
+        "description": "Sweet honey collected from bees. Used in cooking and potions.",
+        "type": "dropped",
+        "effect": None,
+        "price": 8
+    },
+    "Stinger": {
+        "description": "A sharp stinger from a bee. Can be used in crafting.",
+        "type": "dropped",
+        "effect": None,
+        "price": 12
+    },
+    "Cheese": {
+        "description": "A piece of cheese. Can be eaten for a small health boost.",
+        "type": "dropped",
+        "effect": 5,
+        "price": 7
+    },
+    "Tail": {
+        "description": "A tail from a mouse. Used in crafting.",
+        "type": "dropped",
+        "effect": None,
+        "price": 6
+    },
+    "Spider Silk": {
+        "description": "Strong silk from a spider. Used in crafting armor and tools.",
+        "type": "dropped",
+        "effect": None,
+        "price": 20
+    },
+    "Venom Sack": {
+        "description": "A sack filled with venom. Used in poison-based crafting.",
+        "type": "dropped",
+        "effect": None,
+        "price": 25
+    },
+    "Slime Gel": {
+        "description": "A sticky gel from a slime. Used in alchemy.",
+        "type": "dropped",
+        "effect": None,
+        "price": 15
+    },
+    "Snake Skin": {
+        "description": "The skin of a snake. Used in crafting light armor.",
+        "type": "dropped",
+        "effect": None,
+        "price": 30
+    },
+    "Rare Flower": {
+        "description": "A rare flower with magical properties. Used in high-level potions.",
+        "type": "dropped",
+        "effect": None,
+        "price": 50
+    },
+    "Phoenix Feather": {
+        "description": "A feather from a phoenix. Used in revival items.",
+        "type": "dropped",
+        "effect": None,
+        "price": 100
+    },
+    "Flame Essence": {
+        "description": "Essence of fire. Used in fire-based crafting.",
+        "type": "dropped",
+        "effect": None,
+        "price": 75
+    },
+    "Sacred Ash": {
+        "description": "Rare ash from a phoenix. Used in high-level crafting.",
+        "type": "dropped",
+        "effect": None,
+        "price": 150
+    },
+    "Minotaur Horn": {
+        "description": "A horn from a minotaur. Used in crafting weapons and armor.",
+        "type": "dropped",
+        "effect": None,
+        "price": 80
+    },
+    "Beast Hide": {
+        "description": "Tough hide from a beast. Used in crafting armor.",
+        "type": "dropped",
+        "effect": None,
+        "price": 60
+    },
+    "Warrior’s Medallion": {
+        "description": "A rare medallion worn by warriors. Grants strength when equipped.",
+        "type": "dropped",
+        "effect": "strength",
+        "price": 200
+    },
+    "Ancient Bark": {
+        "description": "Bark from an ancient tree. Used in alchemy.",
+        "type": "dropped",
+        "effect": None,
+        "price": 40
+    },
+    "Dryad Leaf": {
+        "description": "A leaf from a dryad. Used in healing potions.",
+        "type": "dropped",
+        "effect": None,
+        "price": 25
+    },
+    "Spirit Core": {
+        "description": "The core of a spirit. Used in enchantments.",
+        "type": "dropped",
+        "effect": None,
+        "price": 90
     }
 }
 
