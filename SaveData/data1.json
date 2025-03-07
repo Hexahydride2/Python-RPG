@@ -91,72 +91,7 @@
             "scale_factor": 1
         }
     ],
-    "party_rank": "B",
-    "guild_point": 50,
-    "current_quests": [
-        {
-            "id": 7,
-            "name": "Pink Snake Problem",
-            "description": "Pink snakes are causing chaos in the jungle. Hunt down 5 of these elusive creatures to restore order.",
-            "objective": {
-                "type": "kill",
-                "target": "Snake_Pink",
-                "count": 5
-            },
-            "reward": {
-                "gold": 90,
-                "items": [],
-                "guild_point": 60
-            }
-        },
-        {
-            "id": 8,
-            "name": "Spider Silk Harvest",
-            "description": "The tailor needs 15 strands of spider silk to craft a special cloak. Collect these from the spiders in the forest.",
-            "objective": {
-                "type": "collect",
-                "target": "Spider_Silk",
-                "count": 15
-            },
-            "reward": {
-                "gold": 70,
-                "items": [
-                    "Spider Silk Cloak"
-                ],
-                "guild_point": 60
-            }
-        },
-        {
-            "id": 9,
-            "name": "Spider Infestation",
-            "description": "Spiders have taken over the old ruins. Clear out 6 of these eight-legged foes to reclaim the area.",
-            "objective": {
-                "type": "kill",
-                "target": "Spider",
-                "count": 6
-            },
-            "reward": {
-                "gold": 85,
-                "items": [],
-                "guild_point": 60
-            }
-        },
-        {
-            "id": 10,
-            "name": "Minotaur Challenge",
-            "description": "A minotaur has been spotted in the labyrinth. Defeat 3 of these powerful beasts to prove your strength.",
-            "objective": {
-                "type": "kill",
-                "target": "Minotaur",
-                "count": 3
-            },
-            "reward": {
-                "gold": 100,
-                "items": [
-                    "Minotaur Horn"
-                ],
-                "guild_point": 60
-            }
-        }
-    ]
+    "party_rank": "C",
+    "guild_point": 0,
+    "current_quests": []
 }

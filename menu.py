@@ -145,6 +145,7 @@ class Menu:
         elif selected_option == "Quests":
             self.showing_quests = True
             self.selected_active_quest_index = 0
+
     
     def toggle(self):
         """Open or close the menu"""
@@ -318,6 +319,9 @@ class Menu:
 
         self.draw_rectangle(base_x, base_y, quest_list_width, quest_list_height, alpha=200, border_radius=10, c1=10, c2=10, c3=10)
         pygame.draw.rect(self.screen, (245, 245, 245), (base_x, base_y, quest_list_width, quest_list_height), width=2, border_radius=10) # Border
+
+        if not self.player_party.current_quests:
+            return
 
         font = pygame.font.Font(".\Fonts\RotisSerif.ttf", 26)
         for i in range(self.scroll_offset, min(self.scroll_offset + self.visible_quests, len(active_quests))):
