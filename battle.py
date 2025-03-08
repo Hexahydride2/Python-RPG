@@ -423,8 +423,9 @@ class Battle:
         pygame.draw.rect(self.screen, (245, 245, 245), (base_x + item_list_width +10, base_y, item_list_width, item_list_height), width=2, border_radius=10) # Border
 
         item_font = pygame.font.Font(".\Fonts\RotisSerif.ttf", 24)
-        items = list(self.player_party_alive[self.current_player_index].inventory)
-        inventory = self.player_party_alive[self.current_player_index].inventory
+
+        items = list(self.player_party[0].inventory)
+        inventory = self.player_party[0].inventory
 
         for i in range(self.items_scroll_offset, min(self.items_scroll_offset + self.visible_items, len(items))):
             item = items[i]
@@ -781,7 +782,7 @@ class Battle:
     def store_selected_item(self):
         """Store the selected item for the current player."""
         current_player = self.player_party_alive[self.current_player_index]
-        selected_item = list(current_player.inventory)[self.selected_item_index]
+        selected_item = list(self.player_party[0].inventory)[self.selected_item_index]
         target = self.player_party[self.selected_item_target_index]
         self.player_actions[current_player] = {"action": "Items", "item": selected_item, "target": target}
         
@@ -990,10 +991,10 @@ class Battle:
             else:
                 self.text_manager.add_message(f'{target.name} is already dead, The item has no effect.')
 
-        if player.inventory[item] > 1:
-            player.inventory[item] -= 1
+        if self.player_party[0].inventory[item] > 1:
+            self.player_party[0].inventory[item] -= 1
         else:
-            player.inventory.pop(item)
+            self.player_party[0].inventory.pop(item)
 
 
     def player_attack(self, player, action):
@@ -1158,6 +1159,10 @@ class Battle:
             total_gold = self.calculate_total_gold()
             self.win_sound.play()
             self.text_manager.add_message(f"Victory! You gained {exp_per_member} EXP, found {total_gold} gold, and obtained {', '.join(drop_items) if drop_items else 'nothing'}!")
+            self.player_party[0].gold += total_gold
+
+            for item in drop_items:
+                self.player_party[0].add_item(item)
 
         elif result == "Defeat":
             self.result = "Defeat"
@@ -1242,6 +1247,9 @@ class Battle:
             player.sprite.rescale(self.initial_player_party_info[player]["scale_factor"])
         for enemy in self.enemies:
             enemy.sprite.rescale(self.initial_enemies_info[enemy]["scale_factor"])
+
+            for member in self.player_party:
+                print(member.name, member.gold)
         return self.result
 
 

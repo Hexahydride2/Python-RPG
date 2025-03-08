@@ -181,7 +181,13 @@ class Menu:
         base_x = self.screen.get_width() * 0.1 - 20
         base_y = self.screen.get_height() * 0.15
         width = self.screen.get_width() * 0.2
-        height = self.screen.get_height() * 0.4
+        height = self.screen.get_height() * 0.3
+
+        # Display Gold
+        self.draw_rectangle(base_x, base_y + height + 140, 200, 60, alpha=200, border_radius=10, c1=10, c2=10, c3=10)
+        pygame.draw.rect(self.screen, (255, 255, 255), (base_x, base_y + height + 140, 200, 60), width=3, border_radius=10) # Border
+        text_surface = self.font.render(f"Gold: {self.player.gold} G", True, (255, 255, 255))
+        self.screen.blit(text_surface, (base_x + 10, base_y + height + 150))
 
         for player in self.player_party_members:
             stats = [
@@ -192,12 +198,11 @@ class Menu:
                 f"MP: {player.mp}/{self.player.max_mp}",
                 f"ATK: {player.atk}",
                 f"DEF: {player.dfn}",
-                f"SPD: {self.player.spd}",
-                f"Gold: {self.player.gold} G"
+                f"SPD: {player.spd}",
             ]
 
-            self.draw_rectangle(base_x, base_y, width, height + 160, alpha=200, border_radius=10, c1=10, c2=10, c3=10)
-            pygame.draw.rect(self.screen, (255, 255, 255), (base_x, base_y, width, height + 160), width=3, border_radius=10) # Border
+            self.draw_rectangle(base_x, base_y, width, height + 130, alpha=200, border_radius=10, c1=10, c2=10, c3=10)
+            pygame.draw.rect(self.screen, (255, 255, 255), (base_x, base_y, width, height + 130), width=3, border_radius=10) # Border
 
 
             for i, stat in enumerate(stats):

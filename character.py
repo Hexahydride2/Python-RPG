@@ -286,6 +286,7 @@ class Party:
         self.current_quests = [] # maximum 3
         self.guild_rank = "C"
         self.guild_point = 0
+        self.gold = 500
 
     
     def add_member(self, character):

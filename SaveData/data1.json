@@ -3,10 +3,10 @@
     "party_data": [
         {
             "name": "Gabe",
-            "x": 1028,
-            "y": 1325,
+            "x": 1218,
+            "y": 1254,
             "level": 5,
-            "hp": 219,
+            "hp": 205,
             "max_hp": 219,
             "mp": 157,
             "max_mp": 157,
@@ -14,11 +14,11 @@
             "dfn": 30,
             "spd": 35,
             "inventory": {
-                "Potion": 7,
-                "Super Potion": 4,
-                "Mega Potion": 2,
-                "Mana Crystal": 3,
-                "Ether": 3,
+                "Potion": 19,
+                "Super Potion": 19,
+                "Mega Potion": 21,
+                "Mana Crystal": 20,
+                "Ether": 4,
                 "Elixir": 2,
                 "Revive": 3,
                 "Phoenix down": 2,
@@ -28,9 +28,11 @@
                 "Defense Shield": 2,
                 "Dragon Scale": 2,
                 "Wind Amulet": 2,
-                "Shadow Cloak": 3
+                "Shadow Cloak": 3,
+                "Slime Gel": 2,
+                "Herb": 3
             },
-            "gold": 496,
+            "gold": 928,
             "skills": [
                 "Strike",
                 "Earth Smash",
@@ -43,7 +45,7 @@
                 ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_3",
                 ".\\tf_svbattle\\singleframes\\set1\\3"
             ],
-            "exp": 145,
+            "exp": 225,
             "scale_factor": 1
         },
         {
@@ -51,29 +53,14 @@
             "x": 700,
             "y": 700,
             "level": 10,
-            "hp": 18,
+            "hp": 140,
             "max_hp": 150,
-            "mp": 45,
+            "mp": 155,
             "max_mp": 200,
             "atk": 40,
             "dfn": 20,
             "spd": 30,
-            "inventory": {
-                "Potion": 2,
-                "Mega Potion": 1,
-                "Mana Crystal": 2,
-                "Ether": 2,
-                "Elixir": 2,
-                "Revive": 2,
-                "Phoenix down": 2,
-                "Strength Potion": 2,
-                "Berserker Brew": 2,
-                "Warrior's Elixir": 2,
-                "Defense Shield": 2,
-                "Dragon Scale": 2,
-                "Wind Amulet": 2,
-                "Shadow Cloak": 2
-            },
+            "inventory": {},
             "gold": 100,
             "skills": [
                 "Strike",
@@ -87,7 +74,7 @@
                 ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_7",
                 ".\\tf_svbattle\\singleframes\\set2\\7"
             ],
-            "exp": 1045,
+            "exp": 1125,
             "scale_factor": 1
         }
     ],
