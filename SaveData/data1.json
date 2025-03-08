@@ -3,8 +3,8 @@
     "party_data": [
         {
             "name": "Gabe",
-            "x": 1218,
-            "y": 1254,
+            "x": 1238,
+            "y": 1314,
             "level": 5,
             "hp": 205,
             "max_hp": 219,
@@ -29,10 +29,9 @@
                 "Dragon Scale": 2,
                 "Wind Amulet": 2,
                 "Shadow Cloak": 3,
-                "Slime Gel": 2,
-                "Herb": 3
+                "Slime Gel": 2
             },
-            "gold": 928,
+            "gold": 988,
             "skills": [
                 "Strike",
                 "Earth Smash",
@@ -79,6 +78,6 @@
         }
     ],
     "party_rank": "C",
-    "guild_point": 0,
+    "guild_point": 60,
     "current_quests": []
 }

@@ -210,7 +210,7 @@ class Menu:
                 self.screen.blit(text_surface, (base_x + 10, base_y + 10 + i * 40))
             base_x += width + 10
 
-        esc_icon_x, esc_icon_y = self.screen.get_width() // 2 - 20 , height * 2  # Bottom-right
+        esc_icon_x, esc_icon_y = self.screen.get_width() // 2 - 20 , height * 2 + 50 # Bottom-right
 
          # Draw ESC icon (Go Back)
         self.draw_rectangle(esc_icon_x, esc_icon_y, self.esc_icon.get_width(), self.esc_icon.get_height(), alpha=225, border_radius=10, c1=255, c2=255, c3=255)

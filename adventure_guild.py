@@ -445,9 +445,18 @@ class AdventurerGuild:
         #self.quest_complete_sound.play()
         self.channel1.play(self.quest_complete_sound)
         if items:
-            self.text_manager.add_message(f"Congratulations on completing the quest! Here's your reward: {gold} G, {items} and {point} Guild point.")
+            result = ", ".join(items)
+            self.text_manager.add_message(f"Congratulations on completing the quest! Here's your reward: {gold} G, {result} and {point} Guild point.")
         else:
             self.text_manager.add_message(f"Congratulations on completing the quest! Here's your reward: {gold} G and {point} Guild point.")
+
+        # Reduce items from a leader inventry if it is collect quest
+        if selected_quest["objective"]["type"] == "collect":
+            target = selected_quest["objective"]["target"]
+            count = selected_quest["objective"]["count"]
+            self.player_party.leader.inventory[target] -= count
+            if self.player_party.leader.inventory[target] <= 0:
+                self.player_party.leader.inventory.pop(target)
 
         self.player_party.leader.gold += gold
         self.receive_guild_point(point)
@@ -496,6 +505,11 @@ class AdventurerGuild:
         for quest in self.player_party.current_quests:
             if quest["objective"]["type"] == "kill":
                 if quest["objective"]["count"] <= 0:
+                    complete_quests.append(quest)
+            elif quest["objective"]["type"] == "collect":
+                target = quest["objective"]["target"]
+                count = quest["objective"]["count"]
+                if target in self.player_party.leader.inventory and self.player_party.leader.inventory[target] >= count:
                     complete_quests.append(quest)
         return complete_quests
 
