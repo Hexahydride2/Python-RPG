@@ -146,7 +146,7 @@ map_configs = {
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0.001,
-        "layer_json_path": R"Backgrounds/forest.json",
+        "layer_json_path": R"Backgrounds/forest/forest.json",
         "transitions": [
             {"zone": (1175, 2749, 1425, 2820), "target": "Town_mapv1", "player_x": 3600, "player_y": 1150},
             {"zone": (1170, 35, 1420, 40), "target": "castle_town", "player_x": 1860, "player_y": 3619},
@@ -159,7 +159,7 @@ map_configs = {
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0,
-        "layer_json_path": None,
+        "layer_json_path": R"Backgrounds/castle_town/castle_town.json",
         "transitions": [
             {"zone": (1750, 3749, 1990, 3751), "target": "forest", "player_x": 1280, "player_y": 200},
             {"zone": (1770, 0, 2000, 95), "target": "castle", "player_x": 2060, "player_y": 3960},
@@ -173,7 +173,7 @@ map_configs = {
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0,
-        "layer_json_path": None,
+        "layer_json_path": R"Backgrounds/castle/castle.json",
         "transitions": [
             {"zone": (1860, 4000, 2250, 4080), "target": "castle_town", "player_x": 1870, "player_y": 229},
             {"zone": (2040, 1820, 2100, 1870), "target": "castle_1F", "player_x": 1970, "player_y": 3599},
@@ -186,7 +186,7 @@ map_configs = {
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0,
-        "layer_json_path": None,
+        "layer_json_path": R"Backgrounds/castle1F/castle1F.json",
         "transitions": [
             {"zone": (1840, 3679, 2080, 3800), "target": "castle", "player_x": 2070, "player_y": 1929},
             {"zone": (1850, 1939, 2090, 2039), "target": "castle_3F", "player_x": 1970, "player_y": 2069},
@@ -200,7 +200,7 @@ map_configs = {
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0,
-        "layer_json_path": None,
+        "layer_json_path": R"Backgrounds/castle3F/castle3F.json",
         "transitions": [
             {"zone": (1860, 2149, 2080, 2249), "target": "castle_1F", "player_x": 1970, "player_y": 2069},
         ]
