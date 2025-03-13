@@ -1,12 +1,12 @@
 {
-    "current_map": "castle_town",
+    "current_map": "Town_mapv1",
     "party_data": [
         {
-            "name": "Lukas",
-            "x": 1857,
-            "y": 3047,
+            "name": "Reiya",
+            "x": 2700,
+            "y": 1100,
             "level": 1,
-            "hp": 2,
+            "hp": 100,
             "max_hp": 100,
             "mp": 50,
             "max_mp": 50,
@@ -31,5 +31,8 @@
     ],
     "party_rank": "C",
     "guild_point": 0,
-    "current_quests": []
+    "current_quests": [],
+    "events_progress": {
+        "guild_scene": false
+    }
 }

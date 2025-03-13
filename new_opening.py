@@ -1,5 +1,5 @@
 import pygame
-from character import Character, Enemy
+from character import Character, Enemy, Party
 from scene import Scene
 
 def opening_scene(screen, player_party):
@@ -246,6 +246,151 @@ def opening_scene(screen, player_party):
     opening_scene4.run()
     opening_scene5.run()
 
-def castle_town_scene(screen, player_party):
+def guild_scene(screen, player_party):
     name = player_party.leader.name
     folder_paths = player_party.leader.folder_paths
+
+    player = Character(
+    name=name,
+    x=600,
+    y=600,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=folder_paths,
+    scale_factor=1
+    )
+
+    Mira = Character(
+    name="Mira",
+    x=500,
+    y=200,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\npc\npc2_1"],
+    scale_factor=3
+    )
+
+    Garret = Character(
+    name="Garret",
+    x=380,
+    y=170,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\npc\npc3_2"],
+    scale_factor=3
+    )
+
+    scene4_actions = [
+        {"type": "animation", "character": Garret, "pose": "right_stand"},
+        {"type": "animation", "character": player, "pose": "up_stand"},
+        {"type": "move", "character": player, "direction": "up", "distance": 100},
+        {"type": "wait", "duration": 100},
+        {"type": "move", "character": Garret, "direction": "down", "distance": 100},
+        {"type": "move", "character": Garret, "direction": "right", "distance": 220},
+        {"type": "move", "character": Garret, "direction": "down", "distance": 130},
+        {"type": "talk", "character": Garret, "message": f"Hey there, newcomer! You look like you're here to join the guild. Have you already signed up?"},
+        {"type": "talk", "character": player, "message": f"No, not yet."},
+        {"type": "talk", "character": Garret, "message": f"Ah, I thought so. Head over to the reception desk. Mira will get you sorted. She's the one with the stack of papers and the frazzled look."},
+        {"type": "talk", "character": player, "message": f"Thank you! I'll ask her."},
+        {"type": "move", "character": Garret, "direction": "left", "distance": 50},
+        {"type": "animation", "character": Garret, "pose": "right_stand"},
+        {"type": "move", "character": player, "direction": "up", "distance": 200},
+        {"type": "move", "character": player, "direction": "right", "distance": 300},
+    ]
+
+    scene4 = Scene(screen, [player, Garret], scene4_actions, scale_factor=3, background_image=R"Backgrounds/guild.png", top_left_x=850, top_left_y=2000)
+
+    player = Character(
+    name=name,
+    x=250,
+    y=600,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=folder_paths,
+    scale_factor=1
+    )
+
+    Mira = Character(
+    name="Mira",
+    x=630,
+    y=85,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\npc\npc2_1"],
+    scale_factor=3
+    )
+
+    scene5_actions = [
+        {"type": "move", "character": player, "direction": "right", "distance": 380},
+        {"type": "move", "character": player, "direction": "up", "distance": 400},
+        {"type": "talk", "character": player, "message": 'Excuse me, do you know anything about a place called Canada?'},
+        {"type": "talk", "character": Mira, "message": "Hmm, never heard of it. But if anyone would know, it's the king! Of course, you can't just waltz into the castle. You'll need to be an A-rank adventurer to get an audience."},
+        {"type": "talk", "character": player, "message": "How do I become an A-rank adventurer?"},
+        {"type": "talk", "character": Mira, "message": "Oh, you're not registered yet? Let me fix that for you."},
+        {"type": "move", "character": Mira, "direction": "right", "distance": 100},
+        {"type": "animation", "character": Mira, "pose": "up_stand"},
+        {"type": "wait", "duration": 100},
+        {"type": "move", "character": Mira, "direction": "left", "distance": 100},
+        {"type": "animation", "character": Mira, "pose": "down_stand"},
+        {"type": "talk", "character": Mira, "message": "There! You're now an official adventurer. Start taking quests and work your way up! But don't get ahead of yourself—aim to become a B-rank party first. It's a big step, but it'll open up more opportunities for you"},
+        {"type": "talk", "character": player, "message": "A B-rank party? What does that mean?"},
+        {"type": "talk", "character": Mira, "message": "Well, adventurers are ranked individually, but parties are ranked too! To become a B-rank party, you'll need to complete enough quests and prove your teamwork. It's not just about strength—it's about trust and coordination. Once you're B-rank, you'll have access to better quests and resources. And who knows? Maybe one day you'll even reach A-rank!"},
+        {"type": "talk", "character": player, "message": f"({name} sighs but accepts his new role.)"},
+        {"type": "talk", "character": Mira, "message": f"Good luck, Kael! Oh, and don't forget to check the quest board over there. Start small, and you'll be B-rank in no time!"},
+    ]
+    scene5 = Scene(screen, [player, Mira], scene5_actions, scale_factor=3, background_image=R"Backgrounds/guild.png", top_left_x=1500, top_left_y=1700)
+
+    scene4.run()
+    scene5.run()
+
+##########################################3
+
+if __name__ == "__main__":
+    # Initialize Pygame
+    pygame.init()
+    screen = pygame.display.set_mode((1280, 720))  # Set screen size
+    clock = pygame.time.Clock()
+    player = Character(
+        name="Reiya",
+        x=720,
+        y=300,
+        level=10,
+        hp=100,
+        mp=50,
+        atk=40,
+        dfn=20,
+        spd=30,
+        inventory={},
+        folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara1_1"],
+        scale_factor=1
+        )
+    player_party = Party(player)
+    guild_scene(screen, player_party)
+
+
+

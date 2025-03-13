@@ -160,7 +160,6 @@ class Map:
         
         self.handle_npc_interaction(events)
         self.move_to_battle()
-    
         
         if not self.shop_active:
             # Draw the map

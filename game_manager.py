@@ -62,13 +62,14 @@ class GameManager:
         num_save_data = len(self.save_data_list)
         file_path = f"SaveData/Data{num_save_data + 1}.json"
         self.player_party = Party(self.player)
+        events_progress = {"guild_scene": False}   ###############
         # initial save
-        self.save_game(file_path=file_path, current_map_id="Town_mapv1")
+        self.save_game(file_path=file_path, current_map_id="Town_mapv1", events_progress=events_progress)
         self.running = False
         self.save_file = file_path
         opening_scene(self.screen, self.player_party)
 
-    def save_game(self, file_path, current_map_id):
+    def save_game(self, file_path, current_map_id, events_progress):
         """Saves the game state to a JSON file."""
         party_data = []
         for member in self.player_party.members + self.player_party.storage:
@@ -97,7 +98,8 @@ class GameManager:
             "party_data": party_data,
             "party_rank": self.player_party.guild_rank,
             "guild_point": self.player_party.guild_point,
-            "current_quests": self.player_party.current_quests
+            "current_quests": self.player_party.current_quests,
+            "events_progress": events_progress
         }
         with open(file_path, "w") as file:
             json.dump(game_state, file, indent=4)
@@ -142,7 +144,8 @@ class GameManager:
         self.player_party.current_quests = data["current_quests"]
         
         saved_map_id = data["current_map"]
-        return self.player_party, saved_map_id
+        events_progress = data["events_progress"]
+        return self.player_party, saved_map_id, events_progress
        
     def load_map(self, map_id, screen, player_party):
         config = map_configs.get(map_id)
@@ -406,3 +409,5 @@ class GameManager:
 
             pygame.display.flip()  # Update the screen
         return self.save_file
+
+        

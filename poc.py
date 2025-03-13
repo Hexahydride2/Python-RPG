@@ -1,5 +1,7 @@
 from game_manager import GameManager
 import pygame
+from new_opening import guild_scene
+
 
 
 # Initialize Pygame
@@ -14,7 +16,7 @@ game_manager = GameManager(screen)
 save_file = game_manager.run()
 
 # Load the save data
-player_party, saved_map_id = game_manager.load_game(save_file=save_file)
+player_party, saved_map_id, events_progress = game_manager.load_game(save_file=save_file)
 
 # Load initial map from the saved map id
 current_map = game_manager.load_map(saved_map_id, screen, player_party)
@@ -41,6 +43,12 @@ while running:
         current_map = game_manager.load_map(target_map_id, screen, player_party)
         player_party.leader.x = transition_data["player_x"]
         player_party.leader.y = transition_data["player_y"]
+
+        if target_map_id == "guild" and events_progress["guild_scene"] == False:
+            guild_scene(screen, player_party)
+            player_party.leader.x = 2157
+            player_party.leader.y = 1937
+            events_progress["guild_scene"] = True
         # Switch BGM
         #change_theme(current_map.bgm)
     ###########################################################
@@ -51,7 +59,7 @@ while running:
 
 
     # save data in each frame
-    game_manager.save_game(save_file, current_map.config_key)
+    game_manager.save_game(save_file, current_map.config_key, events_progress)
     pygame.display.flip()
     clock.tick(30)
 

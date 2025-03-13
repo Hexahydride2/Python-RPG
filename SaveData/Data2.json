@@ -2,9 +2,9 @@
     "current_map": "castle_town",
     "party_data": [
         {
-            "name": "Lean",
-            "x": 1790,
-            "y": 1890,
+            "name": "Lukas",
+            "x": 1007,
+            "y": 3017,
             "level": 1,
             "hp": 100,
             "max_hp": 100,
@@ -31,5 +31,8 @@
     ],
     "party_rank": "C",
     "guild_point": 0,
-    "current_quests": []
+    "current_quests": [],
+    "events_progress": {
+        "guild_scene": false
+    }
 }
