@@ -240,20 +240,20 @@ class GameManager:
         for member in data["party_data"]:
             members.append(member)
 
-        current_map = desc_font.render(f"Map: {data["current_map"]}", True, (245, 245, 245))
+        current_map = desc_font.render(f"Map: {data['current_map']}", True, (245, 245, 245))
         self.screen.blit(current_map, (base_x + width + 20, base_y+10))
 
         party = desc_font.render(f"Party Info:", True, (245, 245, 245))
         self.screen.blit(party, (base_x + width + 20, base_y+40))
 
-        rank = desc_font.render(f"Rank: {data["party_rank"]}", True, (245, 245, 245))
+        rank = desc_font.render(f"Rank: {data['party_rank']}", True, (245, 245, 245))
         self.screen.blit(rank, (base_x + width + 20, base_y+70))
 
         for i in range(len(members)):
-            leader_name = desc_font.render(f"  Name: {members[i]["name"]}", True, (245, 245, 245))
+            leader_name = desc_font.render(f"  Name: {members[i]['name']}", True, (245, 245, 245))
             self.screen.blit(leader_name, (base_x + width + 20, base_y+100 + i*60))
 
-            leader_level = desc_font.render(f"  Lv. {members[i]["level"]}", True, (245, 245, 245))
+            leader_level = desc_font.render(f"  Lv. {members[i]['level']}", True, (245, 245, 245))
             self.screen.blit(leader_level, (base_x + width + 20, base_y+130 + i*60))
         
         # Draw scrollbar if necessary
