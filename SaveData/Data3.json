@@ -1,12 +1,12 @@
 {
-    "current_map": "castle_1F",
+    "current_map": "castle_town",
     "party_data": [
         {
             "name": "Lukas",
-            "x": 1970,
-            "y": 2249,
+            "x": 1857,
+            "y": 3047,
             "level": 1,
-            "hp": 100,
+            "hp": 2,
             "max_hp": 100,
             "mp": 50,
             "max_mp": 50,

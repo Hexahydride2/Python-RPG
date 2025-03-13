@@ -245,3 +245,7 @@ def opening_scene(screen, player_party):
     opening_scene3.run()
     opening_scene4.run()
     opening_scene5.run()
+
+def castle_town_scene(screen, player_party):
+    name = player_party.leader.name
+    folder_paths = player_party.leader.folder_paths

@@ -1,14 +1,14 @@
 {
-    "current_map": "town_map",
+    "current_map": "casino_map",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 950,
-            "y": 1340,
+            "x": 430,
+            "y": 640,
             "level": 5,
             "hp": 205,
             "max_hp": 219,
-            "mp": 157,
+            "mp": 117,
             "max_mp": 157,
             "atk": 52,
             "dfn": 30,
@@ -29,9 +29,10 @@
                 "Dragon Scale": 2,
                 "Wind Amulet": 2,
                 "Shadow Cloak": 3,
-                "Slime Gel": 2
+                "Slime Gel": 2,
+                "Flame Essence": 1
             },
-            "gold": 988,
+            "gold": 1013.5,
             "skills": [
                 "Strike",
                 "Earth Smash",
@@ -44,7 +45,7 @@
                 ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_3",
                 ".\\tf_svbattle\\singleframes\\set1\\3"
             ],
-            "exp": 225,
+            "exp": 325,
             "scale_factor": 1
         },
         {
@@ -52,9 +53,9 @@
             "x": 700,
             "y": 700,
             "level": 10,
-            "hp": 140,
+            "hp": 96,
             "max_hp": 150,
-            "mp": 155,
+            "mp": 135,
             "max_mp": 200,
             "atk": 40,
             "dfn": 20,
@@ -73,7 +74,7 @@
                 ".\\timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_7",
                 ".\\tf_svbattle\\singleframes\\set2\\7"
             ],
-            "exp": 1125,
+            "exp": 1225,
             "scale_factor": 1
         }
     ],

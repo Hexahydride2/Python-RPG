@@ -204,7 +204,7 @@ class Map:
              
                 # Calculate the distance between player and a npc for the interaction symbol display
                 distance = ((self.player.draw_x - npc.draw_x) ** 2 + (self.player.draw_y - npc.draw_y) ** 2) ** 0.5  # Distance formula
-                if distance < 60:  # Interaction range
+                if distance < 130:  # Interaction range
                     npc.draw_interaction_symbol(self.screen)  # Show interaction symbol
 
         # Draw all the characters in order
@@ -288,7 +288,7 @@ class Map:
         # Deal with the interaction with NPCs
         for npc in self.npcs:
             distance = ((self.player.draw_x - npc.draw_x) ** 2 + (self.player.draw_y - npc.draw_y) ** 2) ** 0.5  # Distance formula
-            if distance < 70:  # Interaction range
+            if distance < 130:  # Interaction range
                 # This line is not working and I dont know why so I added this in the map.py
                 npc.draw_interaction_symbol(self.screen)  # Show interaction symbol
 

@@ -28,7 +28,7 @@ guild_npc = NPC(
 )
 
 
-npcs = [npc1, npc2, guild_npc]
+npcs = [npc1, npc2]
 
 npc3 = NPC(
     "Bold Man",
@@ -100,6 +100,33 @@ enemy2.sprite.set_animation("down_walk")
 
 enemies = [enemy1, enemy2]
 
+
+
+
+
+###### Initial Village #######
+
+###### Castle Town ######
+
+###### Castle 1F ######
+
+###### Castle 3F ######
+
+###### Guild ######
+reception_npc = NPC(
+    "Reception girl",
+    ["Welcome to the Adventurer's Guild! How can I assist you today?"],
+    2157,
+    1827,
+    [R"timefantasy_characters\timefantasy_characters\frames\npc\npc2_1"],
+    guild=True
+)
+
+guild_npc = [reception_npc]
+
+
+
+###############################################
 map_configs = {
     "Map002": {
         "map_image_path": R"Backgrounds/Map002.png",
@@ -118,8 +145,8 @@ map_configs = {
         "map_scale_factor": 4,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
-        "encounter_rate": 0,
-        "layer_json_path": None,
+        "encounter_rate": 0.001,
+        "layer_json_path": R"Backgrounds/forest.json",
         "transitions": [
             {"zone": (1175, 2749, 1425, 2820), "target": "Town_mapv1", "player_x": 3600, "player_y": 1150},
             {"zone": (1170, 35, 1420, 40), "target": "castle_town", "player_x": 1860, "player_y": 3619},
@@ -136,6 +163,7 @@ map_configs = {
         "transitions": [
             {"zone": (1750, 3749, 1990, 3751), "target": "forest", "player_x": 1280, "player_y": 200},
             {"zone": (1770, 0, 2000, 95), "target": "castle", "player_x": 2060, "player_y": 3960},
+            {"zone": (980, 2789, 1030, 2829), "target": "guild", "player_x": 1467, "player_y": 2637},
         ]
     },
     "castle": {
@@ -175,6 +203,18 @@ map_configs = {
         "layer_json_path": None,
         "transitions": [
             {"zone": (1860, 2149, 2080, 2249), "target": "castle_1F", "player_x": 1970, "player_y": 2069},
+        ]
+    },
+    "guild": {
+        "map_image_path": R"Backgrounds/guild.png",
+        "npcs": guild_npc,
+        "map_scale_factor": 3,
+        "bgm": R"music\NewTownTheme.mp3",
+        "allow_encounters": True,
+        "encounter_rate": 0,
+        "layer_json_path": None,
+        "transitions": [
+            {"zone": (1327, 2727, 1627, 2827), "target": "castle_town", "player_x": 997, "player_y": 2857},
         ]
     },
     "town_map": {

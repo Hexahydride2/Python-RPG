@@ -1,10 +1,10 @@
 {
-    "current_map": "Town_mapv1",
+    "current_map": "castle",
     "party_data": [
         {
             "name": "Lukas",
-            "x": 960,
-            "y": 860,
+            "x": 2070,
+            "y": 2679,
             "level": 1,
             "hp": 100,
             "max_hp": 100,
