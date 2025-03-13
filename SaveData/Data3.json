@@ -1,10 +1,10 @@
 {
-    "current_map": "Town_mapv1",
+    "current_map": "castle_1F",
     "party_data": [
         {
-            "name": "Reiya",
-            "x": 1200,
-            "y": 570,
+            "name": "Lukas",
+            "x": 1970,
+            "y": 2249,
             "level": 1,
             "hp": 100,
             "max_hp": 100,

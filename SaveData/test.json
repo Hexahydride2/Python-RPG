@@ -1,10 +1,10 @@
 {
-    "current_map": "Town_mapv1",
+    "current_map": "forest",
     "party_data": [
         {
             "name": "Reiya",
-            "x": 1380,
-            "y": 570,
+            "x": 995,
+            "y": 2055,
             "level": 1,
             "hp": 100,
             "max_hp": 100,

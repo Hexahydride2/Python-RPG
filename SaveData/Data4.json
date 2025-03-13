@@ -3,8 +3,8 @@
     "party_data": [
         {
             "name": "Lukas",
-            "x": 1520,
-            "y": 740,
+            "x": 960,
+            "y": 860,
             "level": 1,
             "hp": 100,
             "max_hp": 100,

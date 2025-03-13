@@ -101,8 +101,84 @@ enemy2.sprite.set_animation("down_walk")
 enemies = [enemy1, enemy2]
 
 map_configs = {
+    "Map002": {
+        "map_image_path": R"Backgrounds/Map002.png",
+        "npcs": npcs,
+        "map_scale_factor": 3,
+        "bgm": R"music\NewTownTheme.mp3",
+        "allow_encounters": True,
+        "encounter_rate": 0,
+        "layer_json_path": R"Backgrounds/Map002.json",
+        "transitions": [
+        ]
+    },
+    "forest" : {
+        "map_image_path": R"Backgrounds/forest.png",
+        "npcs": [],
+        "map_scale_factor": 4,
+        "bgm": R"music\NewTownTheme.mp3",
+        "allow_encounters": True,
+        "encounter_rate": 0,
+        "layer_json_path": None,
+        "transitions": [
+            {"zone": (1175, 2749, 1425, 2820), "target": "Town_mapv1", "player_x": 3600, "player_y": 1150},
+            {"zone": (1170, 35, 1420, 40), "target": "castle_town", "player_x": 1860, "player_y": 3619},
+        ]
+    },
+    "castle_town": {
+        "map_image_path": R"Backgrounds/castle_town.png",
+        "npcs": [],
+        "map_scale_factor": 4,
+        "bgm": R"music\NewTownTheme.mp3",
+        "allow_encounters": True,
+        "encounter_rate": 0,
+        "layer_json_path": None,
+        "transitions": [
+            {"zone": (1750, 3749, 1990, 3751), "target": "forest", "player_x": 1280, "player_y": 200},
+            {"zone": (1770, 0, 2000, 95), "target": "castle", "player_x": 2060, "player_y": 3960},
+        ]
+    },
+    "castle": {
+        "map_image_path": R"Backgrounds/castle.png",
+        "npcs": [],
+        "map_scale_factor": 4,
+        "bgm": R"music\NewTownTheme.mp3",
+        "allow_encounters": True,
+        "encounter_rate": 0,
+        "layer_json_path": None,
+        "transitions": [
+            {"zone": (1860, 4000, 2250, 4080), "target": "castle_town", "player_x": 1870, "player_y": 229},
+            {"zone": (2040, 1820, 2100, 1870), "target": "castle_1F", "player_x": 1970, "player_y": 3599},
+        ]
+    },
+    "castle_1F": {
+        "map_image_path": R"Backgrounds/castle1F.png",
+        "npcs": [],
+        "map_scale_factor": 4,
+        "bgm": R"music\NewTownTheme.mp3",
+        "allow_encounters": True,
+        "encounter_rate": 0,
+        "layer_json_path": None,
+        "transitions": [
+            {"zone": (1840, 3679, 2080, 3800), "target": "castle", "player_x": 2070, "player_y": 1929},
+            {"zone": (1850, 1939, 2090, 2039), "target": "castle_3F", "player_x": 1970, "player_y": 2069},
+            
+        ]
+    },
+    "castle_3F": {
+        "map_image_path": R"Backgrounds/castle3F.png",
+        "npcs": [],
+        "map_scale_factor": 4,
+        "bgm": R"music\NewTownTheme.mp3",
+        "allow_encounters": True,
+        "encounter_rate": 0,
+        "layer_json_path": None,
+        "transitions": [
+            {"zone": (1860, 2149, 2080, 2249), "target": "castle_1F", "player_x": 1970, "player_y": 2069},
+        ]
+    },
     "town_map": {
-        "map_image_path": "Backgrounds/TownMap.png",
+        "map_image_path": R"Backgrounds/TownMap.png",
         "npcs": npcs,
         "enemies": enemies,
         "map_scale_factor": 2,
@@ -149,7 +225,8 @@ map_configs = {
         "layer_json_path": R"Backgrounds\TownMapV1\TownMapV1.json",
         "transitions": [
             {"zone": (2020, 340, 2060, 400), "target": "playerhouse", "player_x": 620, "player_y": 575},
-            {"zone": (1730, 340, 1775, 380), "target": "friendshouse", "player_x": 620, "player_y": 575}
+            {"zone": (1730, 340, 1775, 380), "target": "friendshouse", "player_x": 620, "player_y": 575},
+            {"zone": (3603, 1080, 3603, 1200), "target": "forest", "player_x": 1275, "player_y": 2649},
         ]
     },
     "townTest_map": {

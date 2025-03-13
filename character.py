@@ -193,14 +193,15 @@ class Character:
         # Simulate new position
         new_hitbox  = pygame.Rect(new_x, new_y + self.hitbox_height, self.hitbox_width, self.hitbox_height)
        
-       # Check if new position collides with Buildings
+        # Check if new position collides with Buildings
         try:
-            if map_obj.positions[new_x][new_y + self.hitbox_height] == 0:
+            # if map_obj.positions[new_x][int(new_y + self.hitbox_height)] == 0:
+            if map_obj.positions[int(new_y + self.hitbox_height)][new_x] == 0:
             # Check if new position collides with NPCs
                 if not any(new_hitbox.colliderect(char.hitbox) for char in map_obj.npcs+map_obj.enemies):
                     self.x, self.y = new_x, new_y  # Update position
                     self.hitbox.topleft = (self.x, self.y + self.hitbox_height)
-        except: 
+        except:
             pass
         
     def move(self, direction):

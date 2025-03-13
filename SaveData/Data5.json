@@ -1,10 +1,10 @@
 {
-    "current_map": "Town_mapv1",
+    "current_map": "castle_town",
     "party_data": [
         {
             "name": "Lean",
-            "x": 1410,
-            "y": 620,
+            "x": 1790,
+            "y": 1890,
             "level": 1,
             "hp": 100,
             "max_hp": 100,

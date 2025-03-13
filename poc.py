@@ -47,7 +47,7 @@ while running:
 
     # Draw the background map
     current_map.draw(screen, events)
-    # print(player_party.leader.x, player_party.leader.y)
+    print(player_party.leader.x, player_party.leader.y)
 
 
     # save data in each frame
