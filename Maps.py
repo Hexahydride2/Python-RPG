@@ -123,9 +123,25 @@ castle_town_npc2 = NPC(
     [R"timefantasy_characters\timefantasy_characters\frames\npc\npc1_6"],
 )
 
+castle_town_gate_guard1 = NPC(
+    "Gate Guard",
+    ["The castle is restricted to authorized personnel only. Move along unless you have official business."],
+    1710,
+    289,
+    [R"timefantasy_characters\timefantasy_characters\frames\military\military1_6"]
+)
+
+castle_town_gate_guard2 = NPC(
+    "Gate Guard",
+    ["State your business. The castle is off-limits to unauthorized personnel."],
+    2039,
+    289,
+    [R"timefantasy_characters\timefantasy_characters\frames\military\military1_6"]
+)
+
 castle_town_npc1.sprite.set_animation("left_stand")
 castle_town_npc2.sprite.set_animation("right_stand")
-castle_town_ncps = [castle_town_npc1, castle_town_npc2]
+castle_town_ncps = [castle_town_npc1, castle_town_npc2, castle_town_gate_guard1, castle_town_gate_guard2]
 ###### Castle 1F ######
 
 ###### Castle 3F ######

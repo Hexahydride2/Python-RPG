@@ -4,7 +4,6 @@ from scene import Scene
 
 def opening_scene(screen, player_party):
     name = player_party.leader.name
-
     folder_paths = player_party.leader.folder_paths
 
     player = Character(
@@ -367,6 +366,70 @@ def guild_scene(screen, player_party):
 
     scene4.run()
     scene5.run()
+    
+
+def castle_entrance_denial_scene(screen, player_party):
+    name = player_party.leader.name
+    folder_paths = player_party.leader.folder_paths
+
+    player = Character(
+    name=name,
+    x=600,
+    y=20,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=folder_paths,
+    scale_factor=1
+    )
+
+    gate_guard_1 = Character(
+    name="Gate Guard1",
+    x=435,
+    y=240,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\military\military1_6"],
+    scale_factor=3
+    )
+
+    gate_guard_2 = Character(
+    name="Gate Guard2",
+    x=760,
+    y=240,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\military\military1_6"],
+    scale_factor=3
+    )
+    scene1_actions = [
+        {"type": "animation", "character": player, "pose": "up_stand"},
+        {"type": "move", "character": player, "direction": "up", "distance": 20},
+        {"type": "move", "character": gate_guard_1, "direction": "right", "distance": 161},
+        {"type": "animation", "character": gate_guard_1, "pose": "up_stand"},
+        {"type": "talk", "character": gate_guard_1, "message": "Halt! Only those with legitimate permission, such as A-rank adventurers, may enter the castle. Come back when you've proven your worth."},
+        {"type": "move", "character": player, "direction": "down", "distance": 150},
+        {"type": "move", "character": gate_guard_1, "direction": "left", "distance": 161},
+        {"type": "animation", "character": gate_guard_1, "pose": "down_stand"},
+        {"type": "move", "character": player, "direction": "down", "distance": 140},
+    ]
+
+    scene1 = Scene(screen, [player, gate_guard_1, gate_guard_2], scene1_actions, scale_factor=4, top_left_x=1250, top_left_y=0, background_image=R"Backgrounds/castle_town.png")
+    scene1.run()
 
 ##########################################3
 
@@ -390,7 +453,7 @@ if __name__ == "__main__":
         scale_factor=1
         )
     player_party = Party(player)
-    guild_scene(screen, player_party)
+    castle_entrance_denial_scene(screen, player_party)
 
 
 

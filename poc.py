@@ -1,6 +1,6 @@
 from game_manager import GameManager
 import pygame
-from new_opening import guild_scene
+from new_opening import guild_scene, castle_entrance_denial_scene
 
 
 
@@ -49,6 +49,13 @@ while running:
             player_party.leader.x = 2157
             player_party.leader.y = 1937
             events_progress["guild_scene"] = True
+        elif target_map_id == "castle" and player_party.guild_rank == "C":
+            castle_entrance_denial_scene(screen, player_party)
+            current_map = game_manager.load_map("castle_town", screen, player_party)
+            player_party.leader.x = 1870
+            player_party.leader.y = 340
+            player_party.leader.sprite.set_animation('down_stand')
+
         # Switch BGM
         #change_theme(current_map.bgm)
     ###########################################################
