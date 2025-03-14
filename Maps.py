@@ -174,6 +174,17 @@ itemshop_npcs = [shop_keeper]
 
 ##########################
 
+##### Inn 1F ######
+inn_owner = NPC(
+    "Inn Owner",
+    ["Welcome to my Inn! We've got warm beds, hot meals, and the best ale in town. Stay as long as you like—just leave your worries at the door!"],
+    1940,
+    1640,
+    [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_5"],
+)
+
+inn_1f_npcs = [inn_owner]
+
 ###############################################
 map_configs = {
     "Map002": {
@@ -213,6 +224,7 @@ map_configs = {
             {"zone": (1770, 0, 2000, 95), "target": "castle", "player_x": 2060, "player_y": 3960},
             {"zone": (980, 2789, 1030, 2829), "target": "guild", "player_x": 1467, "player_y": 2637},
             {"zone": (2510, 1900, 2570, 1970), "target": "item_shop", "player_x": 1457, "player_y": 1587},
+            {"zone": (877, 1717, 937, 1787), "target": "inn_1F", "player_x": 1860, "player_y": 2190}
         ]
     },
     "castle": {
@@ -276,6 +288,18 @@ map_configs = {
         "layer_json_path": None,
         "transitions": [
             {"zone": (1447, 1657, 1477, 1717), "target": "castle_town", "player_x": 2547, "player_y": 1997},
+        ]
+    },
+    "inn_1F": {
+        "map_image_path": R"Backgrounds/inn1F.png",
+        "npcs": inn_1f_npcs,
+        "map_scale_factor": 3,
+        "bgm": R"music\NewTownTheme.mp3",
+        "allow_encounters": True,
+        "encounter_rate": 0,
+        "layer_json_path": None,
+        "transitions": [
+            {"zone": (1850, 2250, 1890, 2300), "target": "castle_town", "player_x": 917, "player_y": 1817},
         ]
     },
     "town_map": {
