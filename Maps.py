@@ -107,7 +107,25 @@ enemies = [enemy1, enemy2]
 ###### Initial Village #######
 
 ###### Castle Town ######
+castle_town_npc1 = NPC(
+    "Old man",
+    ["Welcome to Castle Town Eryndor, travelers! The heart of the kingdom and home to adventurers, merchants, and dreamers alike!"],
+    2030,
+    3307,
+    [R"timefantasy_characters\timefantasy_characters\frames\npc\npc1_5"],
+)
 
+castle_town_npc2 = NPC(
+    "Old man",
+    ["You there! You look like you've got adventure in your eyes. If you're looking to make a name for yourself, head to the Adventurer's Guild. They'll set you on the right path."],
+    1700,
+    3017,
+    [R"timefantasy_characters\timefantasy_characters\frames\npc\npc1_6"],
+)
+
+castle_town_npc1.sprite.set_animation("left_stand")
+castle_town_npc2.sprite.set_animation("right_stand")
+castle_town_ncps = [castle_town_npc1, castle_town_npc2]
 ###### Castle 1F ######
 
 ###### Castle 3F ######
@@ -154,7 +172,7 @@ map_configs = {
     },
     "castle_town": {
         "map_image_path": R"Backgrounds/castle_town.png",
-        "npcs": [],
+        "npcs": castle_town_ncps,
         "map_scale_factor": 4,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
