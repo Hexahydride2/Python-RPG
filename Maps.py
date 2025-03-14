@@ -158,7 +158,21 @@ reception_npc = NPC(
 
 guild_npc = [reception_npc]
 
+#####################
 
+###### Item Shop ######
+shop_keeper = NPC(
+    "Shopkeeper",
+    ["Welcome to my shop!  I sell potions and weapons."],
+    1600,
+    1118,
+    [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"],
+    items_list()
+)
+
+itemshop_npcs = [shop_keeper]
+
+##########################
 
 ###############################################
 map_configs = {
@@ -198,6 +212,7 @@ map_configs = {
             {"zone": (1750, 3749, 1990, 3751), "target": "forest", "player_x": 1280, "player_y": 200},
             {"zone": (1770, 0, 2000, 95), "target": "castle", "player_x": 2060, "player_y": 3960},
             {"zone": (980, 2789, 1030, 2829), "target": "guild", "player_x": 1467, "player_y": 2637},
+            {"zone": (2510, 1900, 2570, 1970), "target": "item_shop", "player_x": 1457, "player_y": 1587},
         ]
     },
     "castle": {
@@ -249,6 +264,18 @@ map_configs = {
         "layer_json_path": None,
         "transitions": [
             {"zone": (1327, 2727, 1627, 2827), "target": "castle_town", "player_x": 997, "player_y": 2857},
+        ]
+    },
+    "item_shop": {
+        "map_image_path": R"Backgrounds/itemshop.png",
+        "npcs": itemshop_npcs,
+        "map_scale_factor": 3,
+        "bgm": R"music\NewTownTheme.mp3",
+        "allow_encounters": True,
+        "encounter_rate": 0,
+        "layer_json_path": None,
+        "transitions": [
+            {"zone": (1447, 1657, 1477, 1717), "target": "castle_town", "player_x": 2547, "player_y": 1997},
         ]
     },
     "town_map": {
