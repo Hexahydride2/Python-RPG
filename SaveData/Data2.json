@@ -3,8 +3,8 @@
     "party_data": [
         {
             "name": "Lukas",
-            "x": 1787,
-            "y": 3047,
+            "x": 1917,
+            "y": 2927,
             "level": 1,
             "hp": 100,
             "max_hp": 100,
@@ -29,7 +29,7 @@
             "scale_factor": 1
         }
     ],
-    "party_rank": "C",
+    "party_rank": "B",
     "guild_point": 0,
     "current_quests": [],
     "events_progress": {

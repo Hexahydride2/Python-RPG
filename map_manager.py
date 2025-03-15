@@ -104,49 +104,27 @@ class Map:
     def parse_json_data(self, layer_json_path):
         with open(layer_json_path, 'r') as file:
             data = json.load(file)
-
-        if 'autoplayBgm' in data:
-            width = data['width']
-            height = data['height']
-            d = data['data']
-            converted_data = np.array([d[i * width : (i + 1) * width] for i in range(height)])
-            binary_data =  (converted_data <= 1023) | ((4352 <= converted_data) & (converted_data <= 8191 ))  | (converted_data == 2844) | (2837 <= converted_data) & (converted_data <= 2863) | (converted_data <= 2815)
-
-            Positions = binary_data.astype(int)
-            np.set_printoptions(threshold=np.inf) 
-            np.set_printoptions(linewidth=200)  # Adjust the width as needed
-            # Display array with row numbers
-            for idx, row in enumerate(converted_data):
-                print(f"{idx}: {row}")
-            for idx, row in enumerate(Positions):
-                print(f"{idx}: {row}")
-            
-            scale =  self.map_width // width
-            Positions = np.repeat(np.repeat(Positions, scale, axis=1), scale, axis=0)
-            return Positions
-
-
-        else:
-            Positions = []
-            total_x = data["map_width"]
-            total_y = data["map_height"]
-            Positions = np.zeros((total_y, total_x))
-
-            for layer in data["layers"]:
-                if layer["name"] == "Layer 2":
-                    for pos in layer["positions"]:
-                        x = pos["x"]
-                        y = pos["y"]
-                        Positions[y][x] = 1
-            for layer in data["layers"]:
-                if layer["name"] == "Layer 3":
-                    for pos in layer["positions"]:
-                        x = pos["x"]
-                        y = pos["y"]
-                        Positions[y][x] = 0
-            scale =  self.map_width // total_x
-            Positions = np.repeat(np.repeat(Positions, scale, axis=1), scale, axis=0)
-            return Positions
+       
+        Positions = []
+        total_x = data["map_width"]
+        total_y = data["map_height"]
+        Positions = np.zeros((total_x, total_y))
+        print(Positions.shape)
+        for layer in data["layers"]:
+            if layer["name"] == "Layer 2":
+                for pos in layer["positions"]:
+                    x = pos["x"]
+                    y = pos["y"]
+                    Positions[x][y] = 1
+        for layer in data["layers"]:
+            if layer["name"] == "Layer 3":
+                for pos in layer["positions"]:
+                    x = pos["x"]
+                    y = pos["y"]
+                    Positions[x][y] = 0
+        scale =  self.map_width // total_x
+        Positions = np.repeat(np.repeat(Positions, scale, axis=1), scale, axis=0)
+        return Positions
     
 
     def draw(self, screen, events):
