@@ -1,10 +1,10 @@
 {
-    "current_map": "castle_town",
+    "current_map": "forest",
     "party_data": [
         {
             "name": "Lukas",
-            "x": 1917,
-            "y": 2927,
+            "x": 2550,
+            "y": 1450,
             "level": 1,
             "hp": 100,
             "max_hp": 100,
@@ -33,6 +33,6 @@
     "guild_point": 0,
     "current_quests": [],
     "events_progress": {
-        "guild_scene": true
+        "guild_scene": false
     }
 }

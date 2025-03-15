@@ -109,7 +109,6 @@ class Map:
         total_x = data["map_width"]
         total_y = data["map_height"]
         Positions = np.zeros((total_x, total_y))
-        print(Positions.shape)
         for layer in data["layers"]:
             if layer["name"] == "Layer 2":
                 for pos in layer["positions"]:

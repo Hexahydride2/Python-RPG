@@ -431,6 +431,55 @@ def castle_entrance_denial_scene(screen, player_party):
     scene1 = Scene(screen, [player, gate_guard_1, gate_guard_2], scene1_actions, scale_factor=4, top_left_x=1250, top_left_y=0, background_image=R"Backgrounds/castle_town.png")
     scene1.run()
 
+def lost_forest_entrance_denial_scene(screen, player_party):
+    name = player_party.leader.name
+    folder_paths = player_party.leader.folder_paths
+
+    player = Character(
+    name=name,
+    x=1200,
+    y=320,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=folder_paths,
+    scale_factor=1
+    )
+
+    forest_ranger = Character(
+    name="Forest Ranger",
+    x=1100,
+    y=530,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\npc\npc3_2"],
+    scale_factor=3
+    )
+
+    scene1_actions = [
+        {"type": "animation", "character": player, "pose": "right_stand"},
+        {"type": "animation", "character": forest_ranger, "pose": "up_stand"},
+        {"type": "move", "character": forest_ranger, "direction": "up", "distance": 200},
+        {"type": "animation", "character": forest_ranger, "pose": "right_stand"},
+        {"type": "animation", "character": player, "pose": "left_stand"},
+        {"type": "talk", "character": forest_ranger, "message": "Only registered guild adventurers are allowed beyond this point—come back once you've joined the guild."},
+        {"type": "move", "character": forest_ranger, "direction": "down", "distance": 200},
+        {"type": "animation", "character": forest_ranger, "pose": "up_stand"},
+        {"type": "move", "character": player, "direction": "left", "distance": 130},
+    ]
+
+    scene1 = Scene(screen, [player, forest_ranger], scene1_actions, scale_factor=4, top_left_x=1600, top_left_y=1087, background_image=R"Backgrounds/forest.png")
+    scene1.run()
+
 ##########################################3
 
 if __name__ == "__main__":
@@ -453,7 +502,7 @@ if __name__ == "__main__":
         scale_factor=1
         )
     player_party = Party(player)
-    castle_entrance_denial_scene(screen, player_party)
+    lost_forest_entrance_denial_scene(screen, player_party)
 
 
 

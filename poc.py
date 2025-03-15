@@ -1,6 +1,6 @@
 from game_manager import GameManager
 import pygame
-from new_opening import guild_scene, castle_entrance_denial_scene
+from new_opening import guild_scene, castle_entrance_denial_scene, lost_forest_entrance_denial_scene
 
 
 
@@ -54,7 +54,13 @@ while running:
             current_map = game_manager.load_map("castle_town", screen, player_party)
             player_party.leader.x = 1870
             player_party.leader.y = 340
-            player_party.leader.sprite.set_animation('down_stand')
+            player_party.leader.current_direction = "down"
+        elif target_map_id == "lost_forest" and events_progress["guild_scene"] == False:
+            lost_forest_entrance_denial_scene(screen, player_party)
+            current_map = game_manager.load_map("forest", screen, player_party)
+            player_party.leader.x = 2690
+            player_party.leader.y = 1450
+            player_party.leader.current_direction = "left"
 
         # Switch BGM
         #change_theme(current_map.bgm)

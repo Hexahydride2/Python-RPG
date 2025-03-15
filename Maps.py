@@ -106,6 +106,23 @@ enemies = [enemy1, enemy2]
 
 ###### Initial Village #######
 
+###### Forest ######
+
+####################
+
+###### Lost Forest #######
+forest_npc1 = NPC(
+    "Forest Ranger",
+    ["Only registered guild adventurers are allowed beyond this point—come back once you've joined the guild."],
+    2730,
+    1650,
+    [R"timefantasy_characters\timefantasy_characters\frames\npc\npc3_2"],    
+)
+forest_npc1.sprite.set_animation("up_stand")
+
+forest_npcs = [forest_npc1]
+##########################
+
 ###### Castle Town ######
 castle_town_npc1 = NPC(
     "Old man",
@@ -200,7 +217,7 @@ map_configs = {
     },
     "forest" : {
         "map_image_path": R"Backgrounds/forest.png",
-        "npcs": [],
+        "npcs": forest_npcs,
         "map_scale_factor": 4,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
