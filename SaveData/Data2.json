@@ -3,21 +3,23 @@
     "party_data": [
         {
             "name": "Lukas",
-            "x": 2000,
-            "y": 570,
-            "level": 1,
-            "hp": 100,
-            "max_hp": 100,
-            "mp": 50,
-            "max_mp": 50,
-            "atk": 20,
-            "dfn": 10,
-            "spd": 5,
+            "x": 1590,
+            "y": 1850,
+            "level": 3,
+            "hp": 118,
+            "max_hp": 118,
+            "mp": 56,
+            "max_mp": 56,
+            "atk": 26,
+            "dfn": 13,
+            "spd": 9,
             "inventory": {
                 "Potion": 3,
-                "Mana Crystal": 3
+                "Mana Crystal": 3,
+                "Venom Sack": 1,
+                "Bat Wing": 1
             },
-            "gold": 100,
+            "gold": 600,
             "skills": [
                 "Strike"
             ],
@@ -25,7 +27,7 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
                 "tf_svbattle\\singleframes\\set1\\1"
             ],
-            "exp": 0,
+            "exp": 110,
             "scale_factor": 1
         }
     ],

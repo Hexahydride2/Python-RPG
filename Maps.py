@@ -221,10 +221,10 @@ map_configs = {
         "map_scale_factor": 4,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
-        "encounter_rate": 0.000,
+        "encounter_rate": 0.001,
         "layer_json_path": R"Backgrounds/forest/forest.json",
         "transitions": [
-            {"zone": (1175, 2749, 1425, 2820), "target": "Town_mapv1", "player_x": 3600, "player_y": 1150},
+            {"zone": (1175, 2749, 1425, 2820), "target": "Town_mapv1", "player_x": 3550, "player_y": 1150},
             {"zone": (1170, 35, 1420, 40), "target": "castle_town", "player_x": 1860, "player_y": 3619},
             {"zone": (2840, 1340, 2870, 1600), "target": "lost_forest", "player_x": 80, "player_y": 1650}
         ]
@@ -248,7 +248,7 @@ map_configs = {
         "map_scale_factor": 4,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
-        "encounter_rate": 0.000,
+        "encounter_rate": 0.02,
         "layer_json_path": R"Backgrounds/stone_cave/stone_cave.json",
         "transitions": [
             {"zone": (1440, 2740, 1540, 2830), "target": "lost_forest", "player_x": 2160, "player_y": 2290},
@@ -396,7 +396,7 @@ map_configs = {
         "transitions": [
             {"zone": (2020, 340, 2060, 400), "target": "playerhouse", "player_x": 620, "player_y": 575},
             {"zone": (1730, 340, 1775, 380), "target": "friendshouse", "player_x": 620, "player_y": 575},
-            {"zone": (3603, 1080, 3603, 1200), "target": "forest", "player_x": 1275, "player_y": 2649},
+            {"zone": (3600, 1090, 3640, 1200), "target": "forest", "player_x": 1275, "player_y": 2649},
         ]
     },
     "townTest_map": {

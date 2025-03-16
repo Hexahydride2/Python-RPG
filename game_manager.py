@@ -51,8 +51,9 @@ class GameManager:
                                 hp=100, 
                                 mp=50, 
                                 atk=20, 
-                                dfn=10, 
+                                dfn=20, 
                                 spd=5, 
+                                skills=["Strike", "Power Cleave"],
                                 inventory={
                                         "Potion": 3,
                                         "Mana Crystal": 3

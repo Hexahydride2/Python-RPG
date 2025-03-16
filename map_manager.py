@@ -76,7 +76,7 @@ class Map:
         """Triggers a random enemy encounter based on player's movement."""
         if self.allow_encounters and random.random() < self.encounter_rate:
             # Create a random enemy
-            enemy_num = random.randint(1, 4)
+            enemy_num = random.randint(1, 2)
             enemy_list = ["Bat", "Bee", "Scorpion", "Slime", "Mouse", "Spider", "Snake(Green)", "Snake(Pink)"]
 
             for i in range(enemy_num):
@@ -88,9 +88,9 @@ class Map:
                     level=random.randint(1, 5),
                     hp=random.randint(20, 40),
                     mp=50,
-                    atk=random.randint(10, 20),
-                    dfn=random.randint(10, 20),
-                    spd=random.randint(10, 20),
+                    atk=random.randint(10, 15),
+                    dfn=random.randint(10, 11),
+                    spd=random.randint(10, 11),
                     inventory={},
                     folder_paths=[
                         Rf"Monsters\{enemy_name}",

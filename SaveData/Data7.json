@@ -1,0 +1,42 @@
+{
+    "current_map": "castle_town",
+    "party_data": [
+        {
+            "name": "Gabe",
+            "x": 1860,
+            "y": 3229,
+            "level": 2,
+            "hp": 110,
+            "max_hp": 110,
+            "mp": 54,
+            "max_mp": 54,
+            "atk": 24,
+            "dfn": 13,
+            "spd": 7,
+            "inventory": {
+                "Potion": 3,
+                "Mana Crystal": 3,
+                "Slime Gel": 1
+            },
+            "gold": 300,
+            "skills": [
+                "Strike",
+                "Power Cleave"
+            ],
+            "folder_paths": [
+                "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
+                "tf_svbattle\\singleframes\\set1\\1"
+            ],
+            "exp": 40,
+            "scale_factor": 1
+        }
+    ],
+    "party_rank": "C",
+    "guild_point": 0,
+    "current_quests": [],
+    "events_progress": {
+        "guild_scene": false,
+        "the_arrogant_stranger_scene": false,
+        "introduction_to_saving_princess": false
+    }
+}
