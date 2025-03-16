@@ -3,8 +3,8 @@
     "party_data": [
         {
             "name": "Reiya",
-            "x": 2700,
-            "y": 1100,
+            "x": 3340,
+            "y": 1120,
             "level": 1,
             "hp": 100,
             "max_hp": 100,
@@ -33,6 +33,7 @@
     "guild_point": 0,
     "current_quests": [],
     "events_progress": {
-        "guild_scene": false
+        "guild_scene": false,
+        "the_arrogant_stranger_scene": false
     }
 }

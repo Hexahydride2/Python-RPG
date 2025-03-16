@@ -1,10 +1,10 @@
 {
-    "current_map": "forest",
+    "current_map": "guild",
     "party_data": [
         {
             "name": "Lukas",
-            "x": 2550,
-            "y": 1450,
+            "x": 1467,
+            "y": 2327,
             "level": 1,
             "hp": 100,
             "max_hp": 100,
@@ -33,6 +33,8 @@
     "guild_point": 0,
     "current_quests": [],
     "events_progress": {
-        "guild_scene": false
+        "guild_scene": true,
+        "the_arrogant_stranger_scene": false,
+        "introduction_to_saving_princess": false
     }
 }

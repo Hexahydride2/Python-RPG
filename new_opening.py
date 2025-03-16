@@ -480,6 +480,104 @@ def lost_forest_entrance_denial_scene(screen, player_party):
     scene1 = Scene(screen, [player, forest_ranger], scene1_actions, scale_factor=4, top_left_x=1600, top_left_y=1087, background_image=R"Backgrounds/forest.png")
     scene1.run()
 
+def the_arrogant_stranger_scene(screen, player_party):
+    name = player_party.leader.name
+    folder_paths = player_party.leader.folder_paths
+
+    player = Character(
+    name=name,
+    x=580,
+    y=320,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=folder_paths,
+    scale_factor=1
+    )
+
+    Darius = Character(
+    name="???",
+    x=1300,
+    y=600,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara2_4"],
+    scale_factor=3
+    )
+
+    scene1_actions = [
+        {"type": "move", "character": player, "direction": "down", "distance": 50},
+        {"type": "move", "character": Darius, "direction": "left", "distance": 720},
+        {"type": "move", "character": Darius, "direction": "up", "distance": 150},
+        {"type": "talk", "character": Darius, "message": "Watch where you're going, rookie."},
+        {"type": "move", "character": player, "direction": "left", "distance": 50},
+        {"type": "animation", "character": player, "pose": "right_stand"},
+        {"type": "move", "character": Darius, "direction": "up", "distance": 150},
+    ]
+
+    scene1 = Scene(screen, [player, Darius], scene1_actions, scale_factor=4, top_left_x=400, top_left_y=2500, background_image=R"Backgrounds\castle_town.png")
+
+    scene2_actions = [
+        {"type": "animation", "character": player, "pose": "right_stand"},
+        {"type": "move", "character": player, "direction": "right", "distance": 50},
+        {"type": "animation", "character": player, "pose": "down_stand"},
+        {"type": "talk", "character": player, "message": "Who does that guy think he is? He looks strong, though..."},
+    ] 
+    scene2 = Scene(screen, [player], scene2_actions, scale_factor=4, top_left_x=400, top_left_y=2500, background_image=R"Backgrounds\castle_town.png")
+
+    scene1.run()
+    scene2.run()
+
+def introduction_to_saving_princess(screen, player_party):
+    name = player_party.leader.name
+    folder_paths = player_party.leader.folder_paths
+
+    player = Character(
+    name=name,
+    x=610,
+    y=150,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=folder_paths,
+    scale_factor=1
+    )
+
+    Seraphina = Character(
+    name="???",
+    x=1300,
+    y=600,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara8_4"],
+    scale_factor=3
+    )
+    scene1_actions = [
+        {"type": "talk", "character": Seraphina, "message": "Help! Someone, please! HELP!"},
+        {"type": "talk", "character": player, "message": "This is from the direction of the Lost Forest... Something's wrong. I need to check it out."},
+    ]
+    
+    scene1 = Scene(screen,[player, Seraphina], scene1_actions, scale_factor=4, top_left_x=650, top_left_y=0, background_image=R"Backgrounds/forest.png")
+    scene1.run()
+
 ##########################################3
 
 if __name__ == "__main__":
@@ -502,7 +600,7 @@ if __name__ == "__main__":
         scale_factor=1
         )
     player_party = Party(player)
-    lost_forest_entrance_denial_scene(screen, player_party)
+    introduction_to_saving_princess(screen, player_party)
 
 
 

@@ -33,6 +33,7 @@
     "guild_point": 0,
     "current_quests": [],
     "events_progress": {
-        "guild_scene": false
+        "guild_scene": false,
+        "the_arrogant_stranger_scene": false
     }
 }

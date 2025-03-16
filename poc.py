@@ -1,6 +1,6 @@
 from game_manager import GameManager
 import pygame
-from new_opening import guild_scene, castle_entrance_denial_scene, lost_forest_entrance_denial_scene
+from new_opening import guild_scene, castle_entrance_denial_scene, lost_forest_entrance_denial_scene, the_arrogant_stranger_scene, introduction_to_saving_princess
 
 
 
@@ -61,6 +61,15 @@ while running:
             player_party.leader.x = 2690
             player_party.leader.y = 1450
             player_party.leader.current_direction = "left"
+        elif target_map_id == "castle_town" and player_party.guild_rank == "B" and events_progress["the_arrogant_stranger_scene"] == False:
+            the_arrogant_stranger_scene(screen, player_party)
+            player_party.leader.x = 997
+            player_party.leader.y = 2917
+            events_progress["the_arrogant_stranger_scene"] = True
+        elif target_map_id == "forest" and events_progress["the_arrogant_stranger_scene"] and events_progress["introduction_to_saving_princess"] == False:
+            introduction_to_saving_princess(screen, player_party)
+            events_progress["introduction_to_saving_princess"] = True
+
 
         # Switch BGM
         #change_theme(current_map.bgm)
