@@ -1,10 +1,10 @@
 {
-    "current_map": "stone_cave",
+    "current_map": "inn_1F",
     "party_data": [
         {
             "name": "Lukas",
-            "x": 2000,
-            "y": 570,
+            "x": 1110,
+            "y": 1110,
             "level": 1,
             "hp": 100,
             "max_hp": 100,

@@ -224,7 +224,7 @@ class Character:
             self.sprite.set_animation("down_walk")
 
 class NPC(Character):
-    def __init__(self, name, dialogues, x, y, folder_paths, shop_items=None, guild=False, scale_factor=3):
+    def __init__(self, name, dialogues, x, y, folder_paths, shop_items=None, guild=False, inn=False, scale_factor=3):
         """NPC class that extends Character and supports conversations."""
         super().__init__(name, x, y, level=1, hp=50, mp=0, atk=1, dfn=1, spd=1, inventory={}, folder_paths=folder_paths, scale_factor=scale_factor)
         
@@ -238,6 +238,7 @@ class NPC(Character):
         self.shop = None
 
         self.guild = guild
+        self.inn = inn
 
     def draw(self, screen):
         """Draw NPC sprite and interaction symbol if the player is near."""

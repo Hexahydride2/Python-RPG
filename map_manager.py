@@ -291,6 +291,15 @@ class Map:
                                     self.guild_active = True
                                     self.current_npc = npc
                                     self.adventure_guild = AdventurerGuild(self.screen, self.player_party)
+                                
+                                elif npc.inn == True:
+                                    for player in self.player_party.members:
+                                        player.hp = player.max_hp
+                                        player.mp = player.max_mp
+                                    heal_sound = pygame.mixer.Sound(R"Sound_Effects\8_Buffs_Heals_SFX\heal.wav")  
+                                    heal_sound.set_volume(0.5)  # Adjust volume (0.0 to 1.0)
+                                    heal_sound.play()
+
 
                     return  # Avoid multiple NPCs getting activated
              

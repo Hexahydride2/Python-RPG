@@ -194,10 +194,11 @@ itemshop_npcs = [shop_keeper]
 ##### Inn 1F ######
 inn_owner = NPC(
     "Inn Owner",
-    ["Welcome to my Inn! We've got warm beds, hot meals, and the best ale in town. Stay as long as you like—just leave your worries at the door!"],
+    ["Welcome to my Inn! We've got warm beds, hot meals, and the best ale in town. Your HP and MP have been fully restored!"],
     1120,
     819,
     [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_5"],
+    inn=True
 )
 
 inn_1f_npcs = [inn_owner]
