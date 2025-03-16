@@ -339,6 +339,21 @@ class Map:
             # When the battle was the random encounter
             if self.random_encounter_battle:
                 self.random_encounter_battle = False
+                if result == "Victory":
+
+                    # Check quest acheivement
+                    if self.player_party.current_quests:
+                        for quest in self.player_party.current_quests:
+                            target = quest["objective"]["target"]
+                            for enemy in self.current_enemies:
+                                if target == enemy.name:
+                                    quest["objective"]["count"] -= 1
+
+                elif result == "Defeat":
+                    pass
+
+                elif result == "Escape":
+                    pass
 
 
             else:
@@ -354,7 +369,6 @@ class Map:
                                 if target == enemy.name:
                                     quest["objective"]["count"] -= 1
 
-                    #revert_theme()
                 elif result == "Defeat":
                     if self.player.current_direction == "right":
                         self.player.x -= 90  # Move player away to prevent instant re-entry
@@ -364,7 +378,7 @@ class Map:
                         self.player.y += 90  # Move player away to prevent instant re-entry
                     elif self.player.current_direction == "down":
                         self.player.y -= 90  # Move player away to prevent instant re-entry
-                    #revert_theme()
+               
 
                 elif result == "Escape":
                     if self.player.current_direction == "right":
@@ -375,7 +389,7 @@ class Map:
                         self.player.y += 90  # Move player away to prevent instant re-entry
                     elif self.player.current_direction == "down":
                         self.player.y -= 90  # Move player away to prevent instant re-entry
-                #revert_theme()
+            revert_theme()
             self.battle_screen = False  # Exit battle screen
             self.current_enemies = []
 

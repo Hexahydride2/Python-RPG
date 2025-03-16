@@ -1,25 +1,25 @@
 {
-    "current_map": "forest",
+    "current_map": "castle_town",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 1170,
-            "y": 640,
-            "level": 3,
-            "hp": 45,
-            "max_hp": 121,
-            "mp": 17,
-            "max_mp": 57,
-            "atk": 27,
-            "dfn": 16,
-            "spd": 8,
+            "x": 1860,
+            "y": 3619,
+            "level": 4,
+            "hp": 129,
+            "max_hp": 130,
+            "mp": 63,
+            "max_mp": 63,
+            "atk": 31,
+            "dfn": 19,
+            "spd": 9,
             "inventory": {
                 "Potion": 3,
                 "Mana Crystal": 3,
-                "Slime Gel": 4,
-                "Herb": 9
+                "Slime Gel": 5,
+                "Herb": 12
             },
-            "gold": 1800,
+            "gold": 2250,
             "skills": [
                 "Strike",
                 "Power Cleave"
@@ -28,32 +28,16 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
                 "tf_svbattle\\singleframes\\set1\\1"
             ],
-            "exp": 220,
+            "exp": 30,
             "scale_factor": 1
         }
     ],
-    "party_rank": "C",
-    "guild_point": 0,
-    "current_quests": [
-        {
-            "id": 1,
-            "name": "Slime Infestation",
-            "description": "The nearby forest is overrun with slimes. Clear out 5 of these gelatinous pests to restore safety to the area.",
-            "objective": {
-                "type": "kill",
-                "target": "Slime",
-                "count": 1
-            },
-            "reward": {
-                "gold": 50,
-                "items": [],
-                "guild_point": 150
-            }
-        }
-    ],
+    "party_rank": "B",
+    "guild_point": 50,
+    "current_quests": [],
     "events_progress": {
         "guild_scene": true,
-        "the_arrogant_stranger_scene": false,
-        "introduction_to_saving_princess": false
+        "the_arrogant_stranger_scene": true,
+        "introduction_to_saving_princess": true
     }
 }
