@@ -809,9 +809,18 @@ class Battle:
 
         if current_player.mp < self.attack_list[selected_attack]["mp"]:
             self.text_manager.add_message(f"Not enough MP to use {selected_attack}!")
-            return 
+            return
         
-        # Sometimes crash happens here
+        # Check if there are any enemies alive before proceeding
+        if not self.enemies_alive:
+            self.check_battle_over()
+            return
+        
+        # Make sure selected_enemy_index is valid
+        if self.selected_enemy_index >= len(self.enemies_alive):
+            self.selected_enemy_index = 0
+        
+        # Now it's safe to access the enemy
         self.player_actions[current_player] = {"action": "Attack", "skill": selected_attack, "target": self.enemies_alive[self.selected_enemy_index]}
 
         self.current_player_index += 1
@@ -1042,7 +1051,18 @@ class Battle:
         if target.hp <= 0:
             if target in self.enemies_alive:
                 self.text_manager.add_message(f'{player.name} defeated {target.name}!')
-               
+                # Remove the defeated enemy from enemies_alive and action_order lists
+                self.enemies_alive.remove(target)
+                if target in self.action_order:
+                    self.action_order.remove(target)
+                    
+                # Reset selected_enemy_index if it's now out of range
+                if self.selected_enemy_index >= len(self.enemies_alive):
+                    self.selected_enemy_index = 0 if self.enemies_alive else 0
+                    
+                # Check if all enemies are defeated
+                self.check_battle_over()
+
         player.sprite.current_frame = 0
 
 

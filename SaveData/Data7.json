@@ -1,14 +1,14 @@
 {
-    "current_map": "guild",
+    "current_map": "forest",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 2147,
-            "y": 2167,
+            "x": 1170,
+            "y": 640,
             "level": 3,
-            "hp": 121,
+            "hp": 45,
             "max_hp": 121,
-            "mp": 57,
+            "mp": 17,
             "max_mp": 57,
             "atk": 27,
             "dfn": 16,
@@ -16,10 +16,10 @@
             "inventory": {
                 "Potion": 3,
                 "Mana Crystal": 3,
-                "Slime Gel": 2,
-                "Herb": 4
+                "Slime Gel": 4,
+                "Herb": 9
             },
-            "gold": 800,
+            "gold": 1800,
             "skills": [
                 "Strike",
                 "Power Cleave"
@@ -28,7 +28,7 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
                 "tf_svbattle\\singleframes\\set1\\1"
             ],
-            "exp": 20,
+            "exp": 220,
             "scale_factor": 1
         }
     ],
