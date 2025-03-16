@@ -195,8 +195,8 @@ itemshop_npcs = [shop_keeper]
 inn_owner = NPC(
     "Inn Owner",
     ["Welcome to my Inn! We've got warm beds, hot meals, and the best ale in town. Stay as long as you like—just leave your worries at the door!"],
-    1940,
-    1640,
+    1120,
+    819,
     [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_5"],
 )
 
@@ -249,7 +249,7 @@ map_configs = {
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0.000,
-        "layer_json_path": None,
+        "layer_json_path": R"Backgrounds/stone_cave/stone_cave.json",
         "transitions": [
             {"zone": (1440, 2740, 1540, 2830), "target": "lost_forest", "player_x": 2160, "player_y": 2290},
         ]
@@ -266,8 +266,8 @@ map_configs = {
             {"zone": (1750, 3749, 1990, 3800), "target": "forest", "player_x": 1280, "player_y": 200},
             {"zone": (1770, 0, 2000, 95), "target": "castle", "player_x": 2060, "player_y": 3960},
             {"zone": (980, 2789, 1030, 2829), "target": "guild", "player_x": 1467, "player_y": 2637},
-            {"zone": (2510, 1900, 2570, 1970), "target": "item_shop", "player_x": 1457, "player_y": 1587},
-            {"zone": (877, 1717, 937, 1787), "target": "inn_1F", "player_x": 1860, "player_y": 2190}
+            {"zone": (2510, 1900, 2570, 1970), "target": "item_shop", "player_x": 750, "player_y": 1080},
+            {"zone": (877, 1717, 937, 1787), "target": "inn_1F", "player_x": 1040, "player_y": 1360}
         ]
     },
     "castle": {
@@ -328,21 +328,21 @@ map_configs = {
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0,
-        "layer_json_path": None,
+        "layer_json_path": R"Backgrounds/itemshop/itemshop.json",
         "transitions": [
-            {"zone": (1447, 1657, 1477, 1717), "target": "castle_town", "player_x": 2547, "player_y": 1997},
+            {"zone": (720, 1120, 790, 1170), "target": "castle_town", "player_x": 2547, "player_y": 1997},
         ]
     },
     "inn_1F": {
-        "map_image_path": R"Backgrounds/inn1F.png",
+        "map_image_path": R"Backgrounds/inn_1F.png",
         "npcs": inn_1f_npcs,
         "map_scale_factor": 3,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0,
-        "layer_json_path": None,
+        "layer_json_path": R"Backgrounds/inn1F/inn1F.json",
         "transitions": [
-            {"zone": (1850, 2250, 1890, 2300), "target": "castle_town", "player_x": 917, "player_y": 1817},
+            {"zone": (1010, 1420, 1070, 1460), "target": "castle_town", "player_x": 917, "player_y": 1817},
         ]
     },
 
