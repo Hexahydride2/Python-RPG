@@ -1,26 +1,31 @@
 # Group1 Dragon Quest
 
-A Dragon Quest–inspired RPG game built with Python and Pygame. The project features multiple maps, dynamic transitions, NPC interactions, menu systems, battle scenes, and a music manager to create an immersive game experience.
+An immersive Dragon Quest-inspired RPG built with Python and Pygame, featuring dynamic maps, engaging battles, and interactive NPC conversations.
 
 ## Table of Contents
 
+- [Overview](#overview)
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
-- [File Structure](#file-structure)
 - [Controls](#controls)
+- [Battle System](#battle-system)
 - [Credits](#credits)
-- [License](#license)
+
+## Overview
+
+Group1 Dragon Quest is a turn-based RPG game that captures the nostalgic essence of classic JRPGs while implementing modern programming practices. Navigate through various maps, interact with NPCs, engage in strategic battles, and progress through an engaging storyline.
 
 ## Features
 
-- **Multiple Maps & Transitions:** Experience different environments (town, dungeon, shop) with seamless transitions.
-- **Dynamic Music Management:** Each map has its own background music which changes automatically during transitions.
-- **NPC Interactions:** Engage in dialogue with various characters and access shop inventory.
-- **Battle System:** Real-time battle scenes featuring turn-based combat, animations, and detailed stat displays.
-- **Menu System:** Access character status, inventory, quests, and other game options through a pause menu.
-- **Custom Sprite Animations:** Dynamic sprite animations for characters, NPCs, and enemies.
+- **Rich World Environment:** Multiple detailed maps including towns, dungeons, and shops with seamless transitions
+- **Dynamic Character System:** Customizable player characters with stats, equipment, and skills
+- **Strategic Turn-Based Combat:** Battle enemies with an intuitive combat system featuring attacks, skills, and items
+- **Interactive NPCs:** Engage in dialogues, receive quests, and trade with merchants
+- **Immersive Audio:** Dynamic soundtrack that changes based on location and battle status
+- **Inventory Management:** Collect, use, and manage various items throughout your adventure
+- **Status Effects:** Experience buffs, debuffs, and special conditions during battles
 
 ## Prerequisites
 
@@ -37,11 +42,16 @@ Clone the repository:
 ```bash
 git clone https://10.21.75.193/csnt-161/lab-assignment-2/group1-dragonquest.git
 ```
+
 Navigate into the project directory:
 ```bash
 cd group1-dragonquest
 ```
-Install dependencies: Make sure Pygame is installed using the command shown above.
+
+Install dependencies:
+```bash
+pip install pygame
+```
 
 ## Usage
 
@@ -49,55 +59,50 @@ Run the main game file:
 ```bash
 python main.py
 ```
-Enjoy the game! The game window opens with the initial town map, background music, and visible NPCs.
 
-## File Structure
-
-group1-dragonquest
-
-├── main.py                  # Main game loop and initialization
-
-├── character.py             # Defines player, NPC, and enemy 
-
-classes
-
-├── battle.py                # Contains the battle system and animations
-
-├── map_manager.py           # Manages maps, camera updates, and transitions
-
-├── menu.py                  # In-game menu system for status, inventory, etc.
-
-├── items.py                 # Definitions for items and attacks
-
-├── Draw.py                  # Utility functions for drawing and music management
-
-├── utilities.py             # Additional helper functions and utilities
-
-├── poc.py                   # Proof-of-concept file for testing collisions and transitions
-
-└── README.md                # This file
+For testing specific components, use the proof-of-concept file:
+```bash
+python poc.py
+```
 
 ## Controls
 
-Movement: Arrow keys (Up, Down, Left, Right) move the character.
+### General Navigation
+- **Arrow Keys:** Move character (Up, Down, Left, Right)
+- **E:** Interact with NPCs/objects
+- **Enter/Return:** Confirm selections, advance dialogue
+- **M:** Open/close the game menu
 
-Interactions:
-Press E near an NPC to start a dialogue.
+### Battle Controls
+- **Arrow Keys:** Navigate battle options and target selection
+- **Enter/Return:** Select action
+- **Escape:** Attempt to flee from battle (success rate varies)
 
-Press Enter to continue dialogue.
+### Menu Navigation
+- **Arrow Keys:** Navigate menu options
+- **Enter/Return:** Select menu item
+- **Escape/M:** Close current menu
 
-Menu: Press M to open or close the in-game menu.
+## Battle System
 
-Battle Options: Within battle scenes, use designated keys/buttons to attack, use items, or escape.
+The battle system features turn-based combat with the following elements:
+
+- **Turn Order:** Characters act based on speed stats
+- **Action Types:** Attack, Defend, Use Item, Escape
+- **Special Attacks:** Character-specific skills with MP costs
+- **Status Effects:** Temporary stat changes affecting battle performance
+- **Victory Rewards:** Experience points, gold, and item drops
+- **Dynamic Difficulty:** Enemy strength scales with player progression
 
 ## Credits
 
-Developed by Gabriel Paquette and Reyia Ihara
-
-Music and assets have been ethically borrowed
-
-Map design by Belle Stott
-
-Inspired by classic Dragon Quest-style RPG games.
+- **Development Team:** Gabriel Paquette and Reyia Ihara
+- **Map Design:** Belle Stott
+- **Inspired by:** Classic Dragon Quest-style RPG games
 
 <a href="https://www.flaticon.com/free-icons/buff" title="buff icons">Buff icons created by Freepik - Flaticon</a>
+
+---
+
+*This project was developed as part of a programming course assignment.*
+
