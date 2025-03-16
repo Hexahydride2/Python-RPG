@@ -3,7 +3,7 @@
         {
             "id": 1,
             "name": "Slime Infestation",
-            "description": "The nearby forest is overrun with slimes. Clear out 5 of these gelatinous pests to restore safety to the area.",
+            "description": "The nearby forest is overrun with slimes. Clear out 1 of these gelatinous pests to restore safety to the area.",
             "objective": {
                 "type": "kill",
                 "target": "Slime",

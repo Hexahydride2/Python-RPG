@@ -77,8 +77,8 @@ class Map:
         if self.allow_encounters and random.random() < self.encounter_rate:
             # Create a random enemy
             enemy_num = random.randint(1, 2)
-            enemy_list = ["Bat", "Bee", "Scorpion", "Slime", "Mouse", "Spider", "Snake(Green)", "Snake(Pink)"]
-
+            # enemy_list = ["Bat", "Bee", "Scorpion", "Slime", "Mouse", "Spider", "Snake(Green)", "Snake(Pink)"]
+            enemy_list = ["Slime"]
             for i in range(enemy_num):
                 enemy_name = random.choice(enemy_list)
                 enemy = Enemy(

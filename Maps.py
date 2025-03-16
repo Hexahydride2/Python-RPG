@@ -133,10 +133,17 @@ castle_town_npc1 = NPC(
 )
 
 castle_town_npc2 = NPC(
-    "Old man",
+    "Jason",
     ["You there! You look like you've got adventure in your eyes. If you're looking to make a name for yourself, head to the Adventurer's Guild. They'll set you on the right path."],
     1700,
     3017,
+    [R"timefantasy_characters\timefantasy_characters\frames\npc\npc1_6"],
+)
+castle_town_npc3 = NPC(
+    "Kaylan",
+    ["Hey there, you can head to the Inn to rest and heal up from your travels. The Innkeeper is a good friend of mine."],
+    1787,
+    2157,
     [R"timefantasy_characters\timefantasy_characters\frames\npc\npc1_6"],
 )
 
@@ -158,7 +165,8 @@ castle_town_gate_guard2 = NPC(
 
 castle_town_npc1.sprite.set_animation("left_stand")
 castle_town_npc2.sprite.set_animation("right_stand")
-castle_town_ncps = [castle_town_npc1, castle_town_npc2, castle_town_gate_guard1, castle_town_gate_guard2]
+castle_town_npc3.sprite.set_animation("down_stand")
+castle_town_ncps = [castle_town_npc1, castle_town_npc2, castle_town_gate_guard1, castle_town_gate_guard2, castle_town_npc3]
 ###### Castle 1F ######
 
 ###### Castle 3F ######
@@ -181,8 +189,8 @@ guild_npc = [reception_npc]
 shop_keeper = NPC(
     "Shopkeeper",
     ["Welcome to my shop!  I sell potions and weapons."],
-    1600,
-    1118,
+    970,
+    600,
     [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"],
     items_list()
 )
@@ -222,7 +230,7 @@ map_configs = {
         "map_scale_factor": 4,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
-        "encounter_rate": 0.001,
+        "encounter_rate": 0.01,
         "layer_json_path": R"Backgrounds/forest/forest.json",
         "transitions": [
             {"zone": (1175, 2749, 1425, 2820), "target": "Town_mapv1", "player_x": 3550, "player_y": 1150},
