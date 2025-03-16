@@ -1,10 +1,10 @@
 {
-    "current_map": "guild",
+    "current_map": "stone_cave",
     "party_data": [
         {
             "name": "Lukas",
-            "x": 1467,
-            "y": 2327,
+            "x": 2000,
+            "y": 570,
             "level": 1,
             "hp": 100,
             "max_hp": 100,
@@ -34,7 +34,7 @@
     "current_quests": [],
     "events_progress": {
         "guild_scene": true,
-        "the_arrogant_stranger_scene": false,
-        "introduction_to_saving_princess": false
+        "the_arrogant_stranger_scene": true,
+        "introduction_to_saving_princess": true
     }
 }

@@ -222,7 +222,7 @@ map_configs = {
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0.000,
-        "layer_json_path": None,
+        "layer_json_path": R"Backgrounds/forest/forest.json",
         "transitions": [
             {"zone": (1175, 2749, 1425, 2820), "target": "Town_mapv1", "player_x": 3600, "player_y": 1150},
             {"zone": (1170, 35, 1420, 40), "target": "castle_town", "player_x": 1860, "player_y": 3619},
@@ -236,7 +236,7 @@ map_configs = {
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0.000,
-        "layer_json_path": None,
+        "layer_json_path": R"Backgrounds/lost_forest/lost_forest.json",
         "transitions": [
             {"zone": (0, 1510, 40, 1780), "target": "forest", "player_x": 2800, "player_y": 1450},
             {"zone": (2140, 2180, 2200, 2260), "target": "stone_cave", "player_x": 1480, "player_y": 2680}
@@ -316,7 +316,7 @@ map_configs = {
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0,
-        "layer_json_path": None,
+        "layer_json_path": R"Backgrounds/guild/guild.json",
         "transitions": [
             {"zone": (1327, 2727, 1627, 2827), "target": "castle_town", "player_x": 997, "player_y": 2857},
         ]

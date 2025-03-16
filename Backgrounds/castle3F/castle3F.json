@@ -4,7 +4,7 @@
 	"map_height": 30,
 	"layers": [
 		{
-			"name": "Unnamed Layer", 
+			"name": "Layer 1", 
 			"positions": [
 				{ "x":0, "y":0, "id":0 },
 				{ "x":0, "y":1, "id":1 },
@@ -1239,7 +1239,7 @@
 			]
 		},
 		{
-			"name": "Unnamed Layer", 
+			"name": "Layer 2", 
 			"positions": [
 				{ "x":3, "y":1, "id":91 },
 				{ "x":3, "y":2, "id":92 },
