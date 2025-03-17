@@ -4,32 +4,34 @@
         {
             "name": "Gabe",
             "x": 1280,
-            "y": 840,
-            "level": 5,
-            "hp": 141,
-            "max_hp": 142,
-            "mp": 51,
-            "max_mp": 66,
-            "atk": 34,
-            "dfn": 22,
-            "spd": 10,
+            "y": 550,
+            "level": 7,
+            "hp": 158,
+            "max_hp": 162,
+            "mp": 55,
+            "max_mp": 75,
+            "atk": 42,
+            "dfn": 27,
+            "spd": 14,
             "inventory": {
                 "Potion": 3,
                 "Mana Crystal": 3,
-                "Slime Gel": 10,
-                "Herb": 16
+                "Slime Gel": 16,
+                "Herb": 24
             },
-            "gold": 3350,
+            "gold": 4750,
             "skills": [
                 "Strike",
                 "Power Cleave",
-                "Explosive Arrow"
+                "Explosive Arrow",
+                "Sonic Shot",
+                "Crystal Strike"
             ],
             "folder_paths": [
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
                 "tf_svbattle\\singleframes\\set1\\1"
             ],
-            "exp": 30,
+            "exp": 190,
             "scale_factor": 1
         }
     ],

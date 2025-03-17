@@ -811,14 +811,14 @@ class Battle:
             self.text_manager.add_message(f"Not enough MP to use {selected_attack}!")
             return
         
-        # Check if there are any enemies alive before proceeding
-        if not self.enemies_alive:
-            self.check_battle_over()
-            return
+        # # Check if there are any enemies alive before proceeding
+        # if not self.enemies_alive:
+        #     self.check_battle_over()
+        #     return
         
-        # Make sure selected_enemy_index is valid
-        if self.selected_enemy_index >= len(self.enemies_alive):
-            self.selected_enemy_index = 0
+        # # Make sure selected_enemy_index is valid
+        # if self.selected_enemy_index >= len(self.enemies_alive):
+        #     self.selected_enemy_index = 0
         
         # Now it's safe to access the enemy
         self.player_actions[current_player] = {"action": "Attack", "skill": selected_attack, "target": self.enemies_alive[self.selected_enemy_index]}
@@ -1052,16 +1052,16 @@ class Battle:
             if target in self.enemies_alive:
                 self.text_manager.add_message(f'{player.name} defeated {target.name}!')
                 # Remove the defeated enemy from enemies_alive and action_order lists
-                self.enemies_alive.remove(target)
-                if target in self.action_order:
-                    self.action_order.remove(target)
+                # self.enemies_alive.remove(target)
+                # if target in self.action_order:
+                #     self.action_order.remove(target)
                     
-                # Reset selected_enemy_index if it's now out of range
-                if self.selected_enemy_index >= len(self.enemies_alive):
-                    self.selected_enemy_index = 0 if self.enemies_alive else 0
+                # # Reset selected_enemy_index if it's now out of range
+                # if self.selected_enemy_index >= len(self.enemies_alive):
+                #     self.selected_enemy_index = 0 if self.enemies_alive else 0
                     
                 # Check if all enemies are defeated
-                self.check_battle_over()
+                # self.check_battle_over()
 
         player.sprite.current_frame = 0
 
@@ -1209,9 +1209,21 @@ class Battle:
     
     def distribute_exp(self, total_exp):
         """Distribute EXP equally among party members."""
+        ### Save the previous level to check if the level went up
+        prev_level = {}
+        for member in self.player_party_alive:
+            prev_level[member.name] = (member.level, len(member.skills))
+
         exp_per_member = total_exp // len(self.player_party_alive)
         for member in self.player_party_alive:
             member.gain_exp(exp_per_member)
+
+            if member.level > prev_level[member.name][0]:
+                self.text_manager.add_message(f"{member.name} has reached Level {member.level}!")
+                if len(member.skills) > prev_level[member.name][1]:
+                    self.text_manager.add_message(f"A new skill has been unlocked: {member.skills[-1]}")
+        
+
         return exp_per_member
     
     def get_drop_item(self):
