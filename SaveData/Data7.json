@@ -1,28 +1,29 @@
 {
-    "current_map": "castle_town",
+    "current_map": "forest",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 1860,
-            "y": 3619,
-            "level": 4,
-            "hp": 129,
-            "max_hp": 130,
-            "mp": 63,
-            "max_mp": 63,
-            "atk": 31,
-            "dfn": 19,
-            "spd": 9,
+            "x": 1280,
+            "y": 840,
+            "level": 5,
+            "hp": 141,
+            "max_hp": 142,
+            "mp": 51,
+            "max_mp": 66,
+            "atk": 34,
+            "dfn": 22,
+            "spd": 10,
             "inventory": {
                 "Potion": 3,
                 "Mana Crystal": 3,
-                "Slime Gel": 5,
-                "Herb": 12
+                "Slime Gel": 10,
+                "Herb": 16
             },
-            "gold": 2250,
+            "gold": 3350,
             "skills": [
                 "Strike",
-                "Power Cleave"
+                "Power Cleave",
+                "Explosive Arrow"
             ],
             "folder_paths": [
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",

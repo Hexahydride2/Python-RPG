@@ -1,7 +1,7 @@
 from game_manager import GameManager
 import pygame
 from new_opening import guild_scene, castle_entrance_denial_scene, lost_forest_entrance_denial_scene, the_arrogant_stranger_scene, introduction_to_saving_princess
-
+from utilities import change_theme
 
 
 # Initialize Pygame
@@ -72,7 +72,7 @@ while running:
 
 
         # Switch BGM
-        #change_theme(current_map.bgm)
+        change_theme(current_map.bgm)
     ###########################################################
 
     # Draw the background map

@@ -276,7 +276,7 @@ map_configs = {
             {"zone": (1770, 0, 2000, 95), "target": "castle", "player_x": 2060, "player_y": 3960},
             {"zone": (980, 2789, 1030, 2829), "target": "guild", "player_x": 1467, "player_y": 2637},
             {"zone": (2510, 1900, 2570, 1970), "target": "item_shop", "player_x": 750, "player_y": 1080},
-            {"zone": (877, 1717, 937, 1787), "target": "inn_1F", "player_x": 1040, "player_y": 1360}
+            {"zone": (867, 1687, 957, 1787), "target": "inn_1F", "player_x": 1040, "player_y": 1360}
         ]
     },
     "castle": {

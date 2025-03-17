@@ -86,6 +86,17 @@ class Character:
         self.dfn += dfn_increase
         self.spd += spd_increase
 
+        # Gain skill
+        while True:
+            skill_gained = random.choice(list(attack_list().keys()))
+            if attack_list()[skill_gained]["state"] not in self.sprite.animations:
+                pass
+            elif skill_gained in self.skills:
+                pass
+            else:
+                self.skills.append(skill_gained)
+                break
+
     def calculate_damage(self, attacker_atk, defender_def, base_damage=1, is_critical=False):
         """Calculate damage using a DQ-style formula."""
         if is_critical:
