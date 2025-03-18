@@ -195,7 +195,7 @@ class Menu:
                 f"Level: {player.level}",
                 f"Exp: {player.exp}/{player.exp_to_next_level}",
                 f"HP: {player.hp}/{player.max_hp}",
-                f"MP: {player.mp}/{self.player.max_mp}",
+                f"MP: {player.mp}/{player.max_mp}",
                 f"ATK: {player.atk}",
                 f"DEF: {player.dfn}",
                 f"SPD: {player.spd}",

@@ -2,6 +2,7 @@ from game_manager import GameManager
 import pygame
 from new_opening import guild_scene, castle_entrance_denial_scene, lost_forest_entrance_denial_scene, the_arrogant_stranger_scene, introduction_to_saving_princess
 from utilities import change_theme
+from character import Character
 
 
 # Initialize Pygame
@@ -37,7 +38,9 @@ while running:
     # Update map based on player's current position and check for transitions
     player_x = player_party.leader.x
     player_y = player_party.leader.y
+ 
     transition_data = current_map.check_transition()
+    
     if transition_data:
         target_map_id = transition_data["map_id"]
         current_map = game_manager.load_map(target_map_id, screen, player_party)
@@ -49,6 +52,30 @@ while running:
             player_party.leader.x = 2157
             player_party.leader.y = 1937
             events_progress["guild_scene"] = True
+
+            is_Finn = False
+            for member in player_party.members:
+                if member.name == "Finn":
+                    is_Finn = True
+            if not is_Finn:
+                Finn = Character(
+                    name="Finn",
+                    x=630,
+                    y=200,
+                    level=5,
+                    hp=170,
+                    mp=110,
+                    atk=40,
+                    dfn=20,
+                    spd=30,
+                    skills=["Strike", "Flame Slash"],
+                    inventory={},
+                    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara2_1", R"tf_svbattle\singleframes\set2\1"],
+                    scale_factor=3
+                    )
+                player_party.add_member(Finn)
+            
+
         elif target_map_id == "castle" and player_party.guild_rank == "C":
             castle_entrance_denial_scene(screen, player_party)
             current_map = game_manager.load_map("castle_town", screen, player_party)

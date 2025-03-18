@@ -344,9 +344,29 @@ def guild_scene(screen, player_party):
     scale_factor=3
     )
 
+    Finn = Character(
+    name="Finn",
+    x=630,
+    y=200,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara2_1"],
+    scale_factor=3
+    )
+
     scene5_actions = [
+        {"type": "animation", "character": Finn, "pose": "up_stand"},
         {"type": "move", "character": player, "direction": "right", "distance": 380},
-        {"type": "move", "character": player, "direction": "up", "distance": 400},
+        {"type": "move", "character": player, "direction": "up", "distance": 300},
+        {"type": "move", "character": Finn, "direction": "right", "distance": 180},
+        {"type": "move", "character": Finn, "direction": "down", "distance": 100},
+        {"type": "animation", "character": Finn, "pose": "left_stand"},
+        {"type": "move", "character": player, "direction": "up", "distance": 100},
         {"type": "talk", "character": player, "message": 'Excuse me, do you know anything about a place called Canada?'},
         {"type": "talk", "character": Mira, "message": "Hmm, never heard of it. But if anyone would know, it's the king! Of course, you can't just waltz into the castle. You'll need to be an A-rank adventurer to get an audience."},
         {"type": "talk", "character": player, "message": "How do I become an A-rank adventurer?"},
@@ -356,13 +376,29 @@ def guild_scene(screen, player_party):
         {"type": "wait", "duration": 100},
         {"type": "move", "character": Mira, "direction": "left", "distance": 100},
         {"type": "animation", "character": Mira, "pose": "down_stand"},
-        {"type": "talk", "character": Mira, "message": "There! You're now an official adventurer. Start taking quests and work your way up! But don't get ahead of yourself—aim to become a B-rank party first. It's a big step, but it'll open up more opportunities for you"},
+        {"type": "talk", "character": Mira, "message": "There! You're now an official adventurer. But listen, you can't go it alone since adventuring is dangerous, and teamwork is key. In fact..."},
+        {"type": "move", "character": Mira, "direction": "right", "distance": 160},
+        {"type": "animation", "character": Mira, "pose": "down_stand"},
+        {"type": "animation", "character": Finn, "pose": "up_stand"},
+        {"type": "move", "character": Mira, "direction": "left", "distance": 160},
+        {"type": "animation", "character": Mira, "pose": "down_stand"},
+        {"type": "wait", "duration": 200},
+        {"type": "move", "character": Finn, "direction": "up", "distance": 100},
+        {"type": "move", "character": Finn, "direction": "left", "distance": 100},
+        {"type": "talk", "character": Mira, "message":f"This is Finn. He just signed up too and doesn't have a party yet. Finn, meet {name}. You two should team up!"},
+        {"type": "animation", "character": player, "pose": "right_stand"},
+        {"type": "talk", "character": Finn, "message": f"Hey, {name}, I'm new to this too, but I'm ready to learn. What do you say we watch each other's backs?"},
+        {"type": "talk", "character": player, "message": f"Alright, Finn. Let's give it a shot. Better to have someone to rely on than go solo."},
+        {"type": "talk", "character": None, "message": "Finn joined in your party!"},
+        {"type": "animation", "character": player, "pose": "up_stand"},
+        {"type": "animation", "character": Finn, "pose": "up_stand"},
+        {"type": "talk", "character": Mira, "message": "Great! Now you're both set. Start taking quests and work your way up! And remember, teamwork makes the dream work! But don't get ahead of yourself—aim to become a B-rank party first. It's a big step, but it'll open up more opportunities for you."},
         {"type": "talk", "character": player, "message": "A B-rank party? What does that mean?"},
         {"type": "talk", "character": Mira, "message": "Well, adventurers are ranked individually, but parties are ranked too! To become a B-rank party, you'll need to complete enough quests and prove your teamwork. It's not just about strength—it's about trust and coordination. Once you're B-rank, you'll have access to better quests and resources. And who knows? Maybe one day you'll even reach A-rank!"},
         {"type": "talk", "character": player, "message": f"({name} sighs but accepts his new role.)"},
         {"type": "talk", "character": Mira, "message": f"Good luck, Kael! Oh, and don't forget to check the quest board over there. Start small, and you'll be B-rank in no time!"},
     ]
-    scene5 = Scene(screen, [player, Mira], scene5_actions, scale_factor=3, background_image=R"Backgrounds/guild.png", top_left_x=1500, top_left_y=1700)
+    scene5 = Scene(screen, [player, Mira, Finn], scene5_actions, scale_factor=3, background_image=R"Backgrounds/guild.png", top_left_x=1500, top_left_y=1700)
 
     scene4.run()
     scene5.run()
@@ -600,7 +636,7 @@ if __name__ == "__main__":
         scale_factor=1
         )
     player_party = Party(player)
-    introduction_to_saving_princess(screen, player_party)
+    guild_scene(screen, player_party)
 
 
 
