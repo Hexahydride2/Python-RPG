@@ -614,6 +614,99 @@ def introduction_to_saving_princess(screen, player_party):
     scene1 = Scene(screen,[player, Seraphina], scene1_actions, scale_factor=4, top_left_x=650, top_left_y=0, background_image=R"Backgrounds/forest.png")
     scene1.run()
 
+def the_princess_in_peril_scene(screen, player_party):
+    name = player_party.leader.name
+    folder_paths = player_party.leader.folder_paths
+    player = Character(
+    name=name,
+    x=30,
+    y=300,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=folder_paths,
+    scale_factor=1
+    )
+
+    Seraphina = Character(
+    name="Seraphina",
+    x=580,
+    y=330,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara8_4"],
+    scale_factor=3
+    )
+
+    cultist1 = Enemy(
+        name="Cultist A",
+        x = 700,
+        y = 350,
+        folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara5_8", R"tf_svbattle\singleframes\set5\8"],
+        level=1,
+        hp=70,
+        mp=30,
+        atk=10,
+        dfn=5,
+        spd=5
+    )
+
+    cultist2 = Enemy(
+        name="Cultist B",
+        x = 650,
+        y = 250,
+        folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara5_8", R"tf_svbattle\singleframes\set5\8"],
+        level=1,
+        hp=70,
+        mp=30,
+        atk=10,
+        dfn=5,
+        spd=5
+    )
+
+    scene1_actions = [
+        {"type": "animation", "character": player, "pose": "right_stand"},
+        {"type": "animation", "character": Seraphina, "pose": "right_stand"},
+        {"type": "animation", "character": cultist1, "pose": "idle2"},
+        {"type": "animation", "character": cultist2, "pose": "idle2"},
+        {"type": "talk", "character": cultist1, "message": "Don't resist, Our master, Malakar, demands your presence. You'll come with us, one way or another!"},
+        {"type": "talk", "character": Seraphina, "message": "I'll never go with you! Whatever your demon master wants, he won't get it!"},
+        {"type": "move", "character": player, "direction": "right", "distance": 500},
+        {"type": "talk", "character": player, "message": "Leave her alone! Who are you, and what do you want with her?"},
+        {"type": "move", "character": Seraphina, "direction": "left", "distance": 150},
+        {"type": "animation", "character": Seraphina, "pose": "right_stand"},
+        {"type": "talk", "character": cultist2, "message": "This doesn't concern you, fool. But if you interfere, you'll regret it!"},
+        {"type": "battle", "player_party": player_party, "enemies":[cultist1, cultist2], "background_image": "craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png"},
+        {"type": "animation", "character": cultist2, "pose": "dead"},
+        {"type": "talk", "character": cultist1, "message": R"You've only delayed the inevitable... Malakar will rise, and the princess's blood will be the key..."},
+        {"type": "animation", "character": cultist1, "pose": "dead"},
+        {"type": "wait", "duration": 500},
+    ]
+
+    scene2_actions = [
+        {"type": "move", "character": Seraphina, "direction": "right", "distance": 200},
+        {"type": "move", "character": Seraphina, "direction": "up", "distance": 50},
+        {"type": "animation", "character": Seraphina, "pose": "left_stand"},
+        {"type": "talk", "character": Seraphina, "message": R"Thank you for your help. I'm Seraphina, the princess of this kingdom. What's your name?"},
+        {"type": "talk", "character": player, "message": fR"I'm {name}. I'm...new here."},
+        {"type": "talk", "character": None, "message": f"({name} explains his situation and his desire to meet the king.)"},
+        {"type": "talk", "character": Seraphina, "message": f"You saved my life. The least I can do is take you to meet my father. He'll want to thank you personally, and perhaps he can help you with your search for answers."},
+    ]
+
+    scene1 = Scene(screen, [player, Seraphina, cultist1, cultist2], scene1_actions, scale_factor=4, top_left_x=0, top_left_y=1300, background_image=R"Backgrounds/lost_forest.png")
+    scene2 = Scene(screen, [player, Seraphina], scene2_actions, scale_factor=4, top_left_x=0, top_left_y=1300, background_image=R"Backgrounds/lost_forest.png")
+    scene1.run()
+    scene2.run()
+
 ##########################################3
 
 if __name__ == "__main__":
@@ -626,17 +719,17 @@ if __name__ == "__main__":
         x=720,
         y=300,
         level=10,
-        hp=100,
-        mp=50,
-        atk=40,
-        dfn=20,
+        hp=1000,
+        mp=500,
+        atk=400,
+        dfn=200,
         spd=30,
         inventory={},
-        folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara1_1"],
+        folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara1_1", R"tf_svbattle\singleframes\set1\1"],
         scale_factor=1
         )
     player_party = Party(player)
-    guild_scene(screen, player_party)
+    the_princess_in_peril_scene(screen, player_party)
 
 
 

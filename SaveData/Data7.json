@@ -3,10 +3,10 @@
     "party_data": [
         {
             "name": "Gabe",
-            "x": 997,
-            "y": 2997,
+            "x": 1860,
+            "y": 3559,
             "level": 7,
-            "hp": 157,
+            "hp": 153,
             "max_hp": 162,
             "mp": 55,
             "max_mp": 75,
@@ -17,9 +17,9 @@
                 "Potion": 3,
                 "Mana Crystal": 3,
                 "Slime Gel": 16,
-                "Herb": 25
+                "Herb": 31
             },
-            "gold": 5050,
+            "gold": 6250,
             "skills": [
                 "Strike",
                 "Power Cleave",
@@ -31,16 +31,42 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
                 "tf_svbattle\\singleframes\\set1\\1"
             ],
-            "exp": 220,
+            "exp": 700,
             "scale_factor": 1
+        },
+        {
+            "name": "Finn",
+            "x": 630,
+            "y": 200,
+            "level": 5,
+            "hp": 169,
+            "max_hp": 170,
+            "mp": 110,
+            "max_mp": 110,
+            "atk": 40,
+            "dfn": 20,
+            "spd": 30,
+            "inventory": {},
+            "gold": 100,
+            "skills": [
+                "Strike",
+                "Flame Slash"
+            ],
+            "folder_paths": [
+                "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_1",
+                "tf_svbattle\\singleframes\\set2\\1"
+            ],
+            "exp": 480,
+            "scale_factor": 3
         }
     ],
-    "party_rank": "C",
+    "party_rank": "B",
     "guild_point": 50,
     "current_quests": [],
     "events_progress": {
-        "guild_scene": false,
-        "the_arrogant_stranger_scene": false,
-        "introduction_to_saving_princess": false
+        "guild_scene": true,
+        "the_arrogant_stranger_scene": true,
+        "introduction_to_saving_princess": false,
+        "the_princess_in_peril_scene": false
     }
 }

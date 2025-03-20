@@ -1277,8 +1277,11 @@ class Battle:
         # Rescale to original size
         for player in self.player_party:
             player.sprite.rescale(self.initial_player_party_info[player]["scale_factor"])
+            player.sprite.set_animation(self.initial_player_party_info[player]["state"])
         for enemy in self.enemies:
             enemy.sprite.rescale(self.initial_enemies_info[enemy]["scale_factor"])
+            enemy.sprite.set_animation(self.initial_enemies_info[enemy]["state"])
+            enemy.sprite.is_flipped = False
 
             for member in self.player_party:
                 print(member.name, member.gold)

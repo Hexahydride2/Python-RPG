@@ -441,6 +441,10 @@ def monster_drop_list():
         "Ancient Bark": 45,      # 45% chance to drop Ancient Bark (used in alchemy)
         "Dryad Leaf": 25,        # 25% chance to drop Dryad Leaf (used for healing potions)
         "Spirit Core": 15,       # 15% chance to drop Spirit Core (used for enchantments)
+    },
+    "Cultist A": {
+    },
+    "Cultist B": {
     }
     }
 
@@ -458,7 +462,9 @@ def monster_exp_list():
     "Snake(Pink)": 100,
     "Phoenix": 200,
     "Minotaur": 200,
-    "Treant": 100
+    "Treant": 100,
+    "Cultist A": 200,
+    "Cultist B": 200
     }
     return monster_exp_values
 

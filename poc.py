@@ -1,6 +1,6 @@
 from game_manager import GameManager
 import pygame
-from new_opening import guild_scene, castle_entrance_denial_scene, lost_forest_entrance_denial_scene, the_arrogant_stranger_scene, introduction_to_saving_princess
+from new_opening import guild_scene, castle_entrance_denial_scene, lost_forest_entrance_denial_scene, the_arrogant_stranger_scene, introduction_to_saving_princess, the_princess_in_peril_scene
 from utilities import change_theme
 from character import Character
 
@@ -96,6 +96,12 @@ while running:
         elif target_map_id == "forest" and events_progress["the_arrogant_stranger_scene"] and events_progress["introduction_to_saving_princess"] == False:
             introduction_to_saving_princess(screen, player_party)
             events_progress["introduction_to_saving_princess"] = True
+        elif target_map_id == "lost_forest" and events_progress["introduction_to_saving_princess"]:
+            the_princess_in_peril_scene(screen, player_party)
+            player_party.leader.current_direction = "right"
+            player_party.leader.x = 550
+            player_party.leader.y = 1650
+            events_progress["the_princess_in_peril_scene"] = True
 
 
         # Switch BGM
