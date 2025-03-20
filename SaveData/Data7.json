@@ -1,10 +1,10 @@
 {
-    "current_map": "castle_town",
+    "current_map": "forest",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 1860,
-            "y": 3559,
+            "x": 1340,
+            "y": 260,
             "level": 7,
             "hp": 153,
             "max_hp": 162,
@@ -16,10 +16,10 @@
             "inventory": {
                 "Potion": 3,
                 "Mana Crystal": 3,
-                "Slime Gel": 16,
-                "Herb": 31
+                "Slime Gel": 17,
+                "Herb": 32
             },
-            "gold": 6250,
+            "gold": 6550,
             "skills": [
                 "Strike",
                 "Power Cleave",
@@ -31,7 +31,7 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
                 "tf_svbattle\\singleframes\\set1\\1"
             ],
-            "exp": 700,
+            "exp": 735,
             "scale_factor": 1
         },
         {
@@ -56,7 +56,7 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_1",
                 "tf_svbattle\\singleframes\\set2\\1"
             ],
-            "exp": 480,
+            "exp": 515,
             "scale_factor": 3
         }
     ],
@@ -66,7 +66,7 @@
     "events_progress": {
         "guild_scene": true,
         "the_arrogant_stranger_scene": true,
-        "introduction_to_saving_princess": false,
+        "introduction_to_saving_princess": true,
         "the_princess_in_peril_scene": false
     }
 }

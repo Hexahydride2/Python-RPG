@@ -12,7 +12,7 @@ from Maps import map_configs
 from adventure_guild import AdventurerGuild
 
 class Map:
-    def __init__(self, screen, map_image_path, player_party, npcs=[], enemies=[], map_scale_factor=None, bgm=None, layer_json_path=False, allow_encounters=False, encounter_rate=0, transitions=None):
+    def __init__(self, screen, map_image_path, player_party, npcs=[], enemies=[], map_scale_factor=None, bgm=None, layer_json_path=False, allow_encounters=False, random_encounter_enemies=["Slime"], encounter_rate=0, transitions=None):
         # Screen dimensions
         self.screen = screen
         self.screen_width, self.screen_height = screen.get_size()
@@ -71,6 +71,8 @@ class Map:
         else:
             self.positions = np.zeros((self.map_width, self.map_height))
         
+        self.random_encounter_enemies = random_encounter_enemies
+        
 
     def handle_random_encounter(self, player):
         """Triggers a random enemy encounter based on player's movement."""
@@ -78,9 +80,8 @@ class Map:
             # Create a random enemy
             enemy_num = random.randint(1, 2)
             # enemy_list = ["Bat", "Bee", "Scorpion", "Slime", "Mouse", "Spider", "Snake(Green)", "Snake(Pink)"]
-            enemy_list = ["Slime"]
             for i in range(enemy_num):
-                enemy_name = random.choice(enemy_list)
+                enemy_name = random.choice(self.random_encounter_enemies)
                 enemy = Enemy(
                     name=enemy_name,
                     x = player.x,

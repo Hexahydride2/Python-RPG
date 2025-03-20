@@ -161,6 +161,7 @@ class GameManager:
                 bgm=config.get("bgm"),
                 layer_json_path=config.get("layer_json_path"),
                 allow_encounters=config.get("allow_encounters", False),
+                random_encounter_enemies=config.get("random_encounter_enemies"),
                 encounter_rate=config.get("encounter_rate", 0),
                 transitions=config.get("transitions", [])
             )
