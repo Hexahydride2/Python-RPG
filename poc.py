@@ -31,6 +31,9 @@ while running:
     for event in events:
         if event.type == pygame.QUIT:
             running = False
+    
+    # Draw the background map
+    current_map.draw(screen, events)
 
     # Player walk function
     player_party.leader.walk(keys, current_map)
@@ -107,10 +110,7 @@ while running:
         # Switch BGM
         change_theme(current_map.bgm)
     ###########################################################
-
-    # Draw the background map
-    current_map.draw(screen, events)
-    print(player_party.leader.x, player_party.leader.y)
+    # print(player_party.leader.x, player_party.leader.y)
 
 
     # save data in each frame

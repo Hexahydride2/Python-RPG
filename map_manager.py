@@ -194,11 +194,6 @@ class Map:
         """
         Update the camera position to keep the player centered.
         """
-        # Check if the player should transition to another map
-        transition_data = self.check_transition()
-        if transition_data:
-            return transition_data  # Return new map details to switch
-
         # Calculate the desired camera position to center the player
         desired_camera_x = self.player.x - self.screen_width // 2
         desired_camera_y = self.player.y - self.screen_height // 2
@@ -230,9 +225,22 @@ class Map:
         """
         Check if the player is in a transition zone.
         """
+        # If the player party was defeated
+        if self.player_party.leader.hp <= 0:
+            data = {
+                "map_id": "inn_1F",
+                "player_x": 680,
+                "player_y": 490
+                }
+            for player in self.player_party.members:
+                player.hp = player.max_hp
+                player.mp = player.max_mp
+            return data
+        
         for (x1, y1, x2, y2), data in self.transitions.items():
             if x1 <= self.player.x <= x2 and y1 <= self.player.y <= y2:
-                return data  # Return transition details
+                return data  # Return transition detail
+        
         return None
     
     def handle_npc_interaction(self, events):
@@ -349,7 +357,6 @@ class Map:
                             for enemy in self.current_enemies:
                                 if target == enemy.name:
                                     quest["objective"]["count"] -= 1
-
                 elif result == "Defeat":
                     pass
 

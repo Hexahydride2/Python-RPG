@@ -143,7 +143,12 @@ class Battle:
         count = 1
         for i, player in enumerate(self.player_party):
             self.initial_player_party_info[player] ={"state": player.sprite.current_animation, "hp": player.hp, "mp": player.mp, "atk": player.atk, "dfn": player.dfn, "spd": player.spd, "x": None, "y": None, "scale_factor": player.sprite.scale_factor} 
-            player.sprite.set_animation("idle1")
+
+            if player.hp == 0:
+                player.sprite.set_animation("dead")
+                self.player_party_alive.remove(player)
+            else:
+                player.sprite.set_animation("idle1")
             player.sprite.rescale(4)
             self.PLAYER_HEIGHT = player.sprite.sprite_shape[player.sprite.current_animation]["height"] 
             if count % 2 == 0:
@@ -199,7 +204,8 @@ class Battle:
             self.screen.fill((255, 255, 255))  # Clear screen with black
 
         self.draw_characters()
-        self.draw_chara_window()
+        if self.player_party_alive:
+            self.draw_chara_window()
 
         # Draw effects
         self.draw_attack_effects()
@@ -217,7 +223,7 @@ class Battle:
         self.screen.blit(turn_num_text, (self.screen.get_width()*0.05, self.screen.get_height()*0.05))
 
         # Display only the selection phase
-        if not self.executing_actions and not self.text_manager.messages:
+        if not self.executing_actions and not self.text_manager.messages and self.player_party_alive:
             if self.selecting_attack:
                 self.draw_attack_menu()
             elif self.selecting_item:
@@ -1144,15 +1150,21 @@ class Battle:
         for chara in self.action_changed_charas:
             if chara.hp <= 0:
                 chara.sprite.set_animation("dead")
+                if chara in self.player_party_alive:
+                    self.player_party_alive.remove(chara)
+                elif chara in self.enemies_alive:
+                    self.enemies_alive.remove(chara)
             else:
                 chara.sprite.set_animation("idle1")
             
             if chara in self.player_party:
                 self.current_position[chara]["x"] = self.initial_player_party_info[chara]["x"]
                 self.current_position[chara]["y"] = self.initial_player_party_info[chara]["y"]
+                
             else:
                 self.current_position[chara]["x"] = self.initial_enemies_info[chara]["x"]
                 self.current_position[chara]["y"] = self.initial_enemies_info[chara]["y"]
+                
         self.action_changed_charas = []
 
     def check_battle_over(self):
@@ -1282,9 +1294,6 @@ class Battle:
             enemy.sprite.rescale(self.initial_enemies_info[enemy]["scale_factor"])
             enemy.sprite.set_animation(self.initial_enemies_info[enemy]["state"])
             enemy.sprite.is_flipped = False
-
-            for member in self.player_party:
-                print(member.name, member.gold)
         return self.result
 
 

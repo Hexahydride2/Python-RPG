@@ -248,7 +248,7 @@ map_configs = {
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "random_encounter_enemies": ["Slime", "Bat"],
-        "encounter_rate": 0.005,
+        "encounter_rate": 0.01,
         "layer_json_path": R"Backgrounds/forest/forest.json",
         "transitions": [
             {"zone": (1175, 2749, 1425, 2820), "target": "Town_mapv1", "player_x": 3550, "player_y": 1150},

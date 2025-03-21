@@ -1,26 +1,26 @@
 {
-    "current_map": "forest",
+    "current_map": "inn_1F",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 1767,
-            "y": 2367,
+            "x": 680,
+            "y": 750,
             "level": 8,
             "hp": 171,
             "max_hp": 171,
             "mp": 81,
             "max_mp": 81,
             "atk": 45,
-            "dfn": 28,
+            "dfn": 42.0,
             "spd": 15,
             "inventory": {
                 "Potion": 3,
                 "Mana Crystal": 3,
-                "Slime Gel": 16,
-                "Herb": 32,
-                "Phoenix Feather": 1
+                "Slime Gel": 17,
+                "Herb": 35,
+                "Phoenix Feather": 4
             },
-            "gold": 7250,
+            "gold": 8250,
             "skills": [
                 "Strike",
                 "Power Cleave",
@@ -33,7 +33,7 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
                 "tf_svbattle\\singleframes\\set1\\1"
             ],
-            "exp": 350,
+            "exp": 525,
             "scale_factor": 1
         },
         {
@@ -41,8 +41,8 @@
             "x": 630,
             "y": 200,
             "level": 6,
-            "hp": 181,
-            "max_hp": 181,
+            "hp": 171,
+            "max_hp": 171,
             "mp": 115,
             "max_mp": 115,
             "atk": 43,
@@ -59,7 +59,7 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_1",
                 "tf_svbattle\\singleframes\\set2\\1"
             ],
-            "exp": 250,
+            "exp": 305,
             "scale_factor": 3
         }
     ],

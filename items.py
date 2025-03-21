@@ -165,8 +165,8 @@ def items_list():
     },
     "Phoenix Feather": {
         "description": "A feather from a phoenix. Used in revival items.",
-        "type": "dropped",
-        "effect": None,
+        "type": "re",
+        "effect": "full",
         "price": 100
     },
     "Flame Essence": {
