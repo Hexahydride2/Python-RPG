@@ -164,7 +164,7 @@ class Map:
                 
                 # Calculate the distance between player and a Enemy for battle screen transition
                 distance = ((self.player.draw_x - enemy.draw_x) ** 2 + (self.player.draw_y - enemy.draw_y) ** 2) ** 0.5  # Distance formula
-                if distance < 70:  # Interaction range
+                if distance < 200:  # Interaction range
                     self.battle_screen = True
                     self.current_enemies = [enemy]
 

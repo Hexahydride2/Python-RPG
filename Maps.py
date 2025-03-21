@@ -100,8 +100,25 @@ enemy2.sprite.set_animation("down_walk")
 
 enemies = [enemy1, enemy2]
 
+################## Stone Cave ##################
+StoneCaveEnemy = Enemy(
+    name="Phoenix",
+    x=3310,
+    y=610,
+    level=15,
+    hp=300,
+    mp=100,
+    atk=30,
+    dfn=29,
+    spd=30,
+    inventory={},
+    skills=["Strike", "Flame Slash", "Earth Smash"],
+    folder_paths=[R"Monsters\Phoenix"]
+)
+StoneCaveEnemy.sprite.set_animation("down_walk")
 
-
+StoneCaveEnemylist = [StoneCaveEnemy]
+##################################################
 
 
 ###### Initial Village #######
@@ -254,10 +271,11 @@ map_configs = {
     "stone_cave": {
         "map_image_path": R"Backgrounds/stone_cave.png",
         "npcs": [],
+        'enemies': StoneCaveEnemylist,
         "map_scale_factor": 4,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
-        "encounter_rate": 0.02,
+        "encounter_rate": 0.00,
         "layer_json_path": R"Backgrounds/stone_cave/stone_cave.json",
         "transitions": [
             {"zone": (1440, 2740, 1540, 2830), "target": "lost_forest", "player_x": 2160, "player_y": 2290},

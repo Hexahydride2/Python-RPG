@@ -244,15 +244,15 @@
         },
         {
             "id": 27,
-            "name": "Phoenix Feather Gathering",
-            "description": "The mage needs 10 phoenix feathers for a spell. Collect these rare items from the fiery birds.",
+            "name": "Kill the powerful Phoenix",
+            "description": "There is a powerful Phoenix in the stone cave that has been terroizing the townspeople. Kill it.",
             "objective": {
-                "type": "collect",
-                "target": "Phoenix_Feather",
-                "count": 10
+                "type": "kill",
+                "target": "Phoenix",
+                "count": 1
             },
             "reward": {
-                "gold": 80,
+                "gold": 250,
                 "items": ["Phoenix Feather"],
                 "guild_point": 60
             }
