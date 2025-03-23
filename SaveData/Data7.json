@@ -1,14 +1,14 @@
 {
-    "current_map": "inn_1F",
+    "current_map": "stone_cave",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 680,
-            "y": 750,
+            "x": 1020,
+            "y": 1170,
             "level": 8,
-            "hp": 171,
+            "hp": 151,
             "max_hp": 171,
-            "mp": 81,
+            "mp": 41,
             "max_mp": 81,
             "atk": 45,
             "dfn": 42.0,
@@ -17,10 +17,11 @@
                 "Potion": 3,
                 "Mana Crystal": 3,
                 "Slime Gel": 17,
-                "Herb": 35,
-                "Phoenix Feather": 4
+                "Herb": 36,
+                "Phoenix Feather": 4,
+                "Flame Essence": 1
             },
-            "gold": 8250,
+            "gold": 8650,
             "skills": [
                 "Strike",
                 "Power Cleave",
@@ -33,7 +34,7 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
                 "tf_svbattle\\singleframes\\set1\\1"
             ],
-            "exp": 525,
+            "exp": 665,
             "scale_factor": 1
         },
         {
@@ -41,9 +42,9 @@
             "x": 630,
             "y": 200,
             "level": 6,
-            "hp": 171,
+            "hp": 92,
             "max_hp": 171,
-            "mp": 115,
+            "mp": 80,
             "max_mp": 115,
             "atk": 43,
             "dfn": 21,
@@ -59,7 +60,7 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_1",
                 "tf_svbattle\\singleframes\\set2\\1"
             ],
-            "exp": 305,
+            "exp": 445,
             "scale_factor": 3
         }
     ],
@@ -70,6 +71,9 @@
         "guild_scene": true,
         "the_arrogant_stranger_scene": true,
         "introduction_to_saving_princess": true,
-        "the_princess_in_peril_scene": true
+        "the_princess_in_peril_scene": true,
+        "the_dilemma_of_king_scene": true,
+        "the_stone_cave_crisis_scene": false,
+        "the_dilemma_of_king_scence": true
     }
 }

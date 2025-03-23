@@ -1,6 +1,6 @@
 from game_manager import GameManager
 import pygame
-from new_opening import guild_scene, castle_entrance_denial_scene, lost_forest_entrance_denial_scene, the_arrogant_stranger_scene, introduction_to_saving_princess, the_princess_in_peril_scene
+from events import guild_scene, castle_entrance_denial_scene, lost_forest_entrance_denial_scene, the_arrogant_stranger_scene, introduction_to_saving_princess, the_princess_in_peril_scene, the_dilemma_of_king_scene, the_castle_3F_entrance_denial_scene
 from utilities import change_theme
 from character import Character
 
@@ -46,9 +46,11 @@ while running:
     
     if transition_data:
         target_map_id = transition_data["map_id"]
-        current_map = game_manager.load_map(target_map_id, screen, player_party)
-        player_party.leader.x = transition_data["player_x"]
-        player_party.leader.y = transition_data["player_y"]
+        # Change the map only when the target map is different from the current map
+        if target_map_id != game_manager.current_map_id:
+            current_map = game_manager.load_map(target_map_id, screen, player_party)
+            player_party.leader.x = transition_data["player_x"]
+            player_party.leader.y = transition_data["player_y"]
 
         if target_map_id == "guild" and events_progress["guild_scene"] == False:
             guild_scene(screen, player_party)
@@ -79,7 +81,7 @@ while running:
                 player_party.add_member(Finn)
             
 
-        elif target_map_id == "castle" and player_party.guild_rank == "C":
+        elif target_map_id == "castle" and events_progress["the_princess_in_peril_scene"] == False:
             castle_entrance_denial_scene(screen, player_party)
             current_map = game_manager.load_map("castle_town", screen, player_party)
             player_party.leader.x = 1870
@@ -105,12 +107,25 @@ while running:
             player_party.leader.x = 550
             player_party.leader.y = 1650
             events_progress["the_princess_in_peril_scene"] = True
+        elif target_map_id == "castle_3F" and events_progress["the_dilemma_of_king_scene"] == False:
+            the_dilemma_of_king_scene(screen, player_party)
+            current_map = game_manager.load_map("castle_1F", screen, player_party)
+            player_party.leader.x = 1480
+            player_party.leader.y = 1709
+            player_party.leader.current_direction = "down"
+            events_progress["the_dilemma_of_king_scene"] = True
+        elif target_map_id == "castle_3F" and events_progress["the_stone_cave_crisis_scene"] == False:
+            the_castle_3F_entrance_denial_scene(screen, player_party)
+            current_map = game_manager.load_map("castle_1F", screen, player_party)
+            player_party.leader.x = 1480
+            player_party.leader.y = 1709
+            player_party.leader.current_direction = "down"
 
 
         # Switch BGM
-        change_theme(current_map.bgm)
+        #change_theme(current_map.bgm)
     ###########################################################
-    # print(player_party.leader.x, player_party.leader.y)
+    print(player_party.leader.x, player_party.leader.y)
 
 
     # save data in each frame

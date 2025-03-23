@@ -707,6 +707,130 @@ def the_princess_in_peril_scene(screen, player_party):
     scene1.run()
     scene2.run()
 
+
+def the_dilemma_of_king_scene(screen, player_party):
+    name = player_party.leader.name
+    folder_paths = player_party.leader.folder_paths
+    player = Character(
+    name=name,
+    x=575,
+    y=350,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=folder_paths,
+    scale_factor=1
+    )
+
+    Seraphina = Character(
+    name="Seraphina",
+    x=665,
+    y=330,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara8_4"],
+    scale_factor=3
+    )
+
+    Roderick = Character(
+    name="Captain Roderick",
+    x=535,
+    y=250,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\military\military1_5"],
+    scale_factor=3
+    )
+
+    
+
+    scene1_actions = [
+        {"type": "animation", "character": player, "pose": "up_stand"},
+        {"type": "animation", "character": Seraphina, "pose": "up_stand"},
+        {"type": "move", "character": Roderick, "direction": "right", "distance": 85},
+        {"type": "animation", "character": Roderick, "pose": "down_stand"},
+        {"type": "talk", "character": Seraphina, "message": fR"Captain Roderick, I need to speak with my father immediately. This is {name}, the adventurer who saved me from the cultists. He needs the king's help."},
+        {"type": "talk", "character": Roderick, "message": fR"Princess, I'm afraid the king is occupied. There's been an incident in the Lost Forest. A group of miners went missing in the Stone Cave, and the king is coordinating a rescue effort. He can't be disturbed right now."},
+        {"type": "talk", "character": player, "message": fR"What happened in the Stone Cave?"},
+        {"type": "talk", "character": Roderick, "message": fR"The cave is a vital source of ore for the kingdom, but recently, strange tremors have been reported. The miners who went in haven't returned, and scouts say the cave is now overrun with monsters. The king is trying to organize a team to investigate, but all our best adventurers are already occupied with other crises."},
+        {"type": "talk", "character": Seraphina, "message": fR"{name}, this could be your chance to prove yourself. If you can solve this problem, my father will surely grant you an audience."},
+        {"type": "talk", "character": player, "message": fR"I'll do it. I need to find answers about my world, and if helping your kingdom gets me closer to that, I'm in."},
+        {"type": "talk", "character": Roderick, "message": fR"Very well. I'll inform the king of your intentions. Be careful, though. The Stone Cave is no place for the unprepared."},
+        {"type": "animation", "character": player, "pose": "right_stand"},
+        {"type": "animation", "character": Seraphina, "pose": "left_stand"},
+        {"type": "talk", "character": Seraphina, "message":f"Good luck, {name}. I'll be waiting for your return."},
+        {"type": "animation", "character": player, "pose": "up_stand"},
+        {"type": "animation", "character": Seraphina, "pose": "up_stand"},
+    ]
+
+    scene1 = Scene(screen, [player, Seraphina, Roderick], scene1_actions, scale_factor=3, top_left_x=825, top_left_y=1350, background_image="Backgrounds/castle1F.png")
+
+    scene1.run()
+
+def the_castle_3F_entrance_denial_scene(screen, player_party):
+    name = player_party.leader.name
+    folder_paths = player_party.leader.folder_paths
+    player = Character(
+    name=name,
+    x=625,
+    y=250,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=folder_paths,
+    scale_factor=1
+    )
+
+    Roderick = Character(
+    name="Captain Roderick",
+    x=535,
+    y=250,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\military\military1_5"],
+    scale_factor=3
+    )
+ 
+
+    scene1_actions = [
+        {"type": "animation", "character": player, "pose": "up_stand"},
+        {"type": "move", "character": Roderick, "direction": "right", "distance": 30},
+        {"type": "animation", "character": player, "pose": "left_stand"},
+        {"type": "talk", "character": Roderick, "message": fR"Be careful, the Stone Cave is in the Lost Forest."},
+        {"type": "move", "character": Roderick, "direction": "left", "distance": 30},
+        {"type": "animation", "character": Roderick, "pose": "down_stand"},
+        {"type": "move", "character": player, "direction": "down", "distance": 50},
+    ]
+
+    scene1 = Scene(screen, [player, Roderick], scene1_actions, scale_factor=3, top_left_x=825, top_left_y=1350, background_image="Backgrounds/castle1F.png")
+
+    scene1.run()
+
+def the_stone_cave_crisis_scene(screen, player_party):
+    pass
 ##########################################3
 
 if __name__ == "__main__":
@@ -729,7 +853,7 @@ if __name__ == "__main__":
         scale_factor=1
         )
     player_party = Party(player)
-    the_princess_in_peril_scene(screen, player_party)
+    the_castle_3F_entrance_denial_scene(screen, player_party)
 
 
 

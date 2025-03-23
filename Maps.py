@@ -103,8 +103,8 @@ enemies = [enemy1, enemy2]
 ################## Stone Cave ##################
 StoneCaveEnemy = Enemy(
     name="Phoenix",
-    x=3310,
-    y=610,
+    x=2490,
+    y=520,
     level=15,
     hp=300,
     mp=100,
@@ -185,6 +185,16 @@ castle_town_npc2.sprite.set_animation("right_stand")
 castle_town_npc3.sprite.set_animation("down_stand")
 castle_town_ncps = [castle_town_npc1, castle_town_npc2, castle_town_gate_guard1, castle_town_gate_guard2, castle_town_npc3]
 ###### Castle 1F ######
+Roderick = NPC(
+    "Captain Roderick",
+    ["Stay vigilant, adventurer. The kingdom's safety depends on those who are willing to stand against the darkness. If you need guidance, don't hesitate to ask."],
+    1390,
+    1659,
+    [R"timefantasy_characters\timefantasy_characters\frames\military\military1_5"]
+)
+castle_1F_npcs = [Roderick]
+
+#########################
 
 ###### Castle 3F ######
 
@@ -273,13 +283,14 @@ map_configs = {
         "map_image_path": R"Backgrounds/stone_cave.png",
         "npcs": [],
         'enemies': StoneCaveEnemylist,
-        "map_scale_factor": 4,
+        "map_scale_factor": 3,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0.00,
         "layer_json_path": R"Backgrounds/stone_cave/stone_cave.json",
         "transitions": [
             {"zone": (1440, 2740, 1540, 2830), "target": "lost_forest", "player_x": 2160, "player_y": 2290},
+            {"zone": (940, 1080, 1020, 1170), "target": "stone_cave", "player_x": 530, "player_y": 820},
         ]
     },
     "castle_town": {
@@ -308,33 +319,33 @@ map_configs = {
         "layer_json_path": R"Backgrounds/castle/castle.json",
         "transitions": [
             {"zone": (1860, 4000, 2250, 4080), "target": "castle_town", "player_x": 1870, "player_y": 229},
-            {"zone": (2040, 1820, 2100, 1870), "target": "castle_1F", "player_x": 1970, "player_y": 3599},
+            {"zone": (2040, 1820, 2100, 1870), "target": "castle_1F", "player_x": 1480, "player_y": 2599},
         ]
     },
     "castle_1F": {
         "map_image_path": R"Backgrounds/castle1F.png",
-        "npcs": [],
-        "map_scale_factor": 4,
+        "npcs": castle_1F_npcs,
+        "map_scale_factor": 3,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0,
         "layer_json_path": R"Backgrounds/castle1F/castle1F.json",
         "transitions": [
-            {"zone": (1840, 3679, 2080, 3800), "target": "castle", "player_x": 2070, "player_y": 1929},
-            {"zone": (1850, 1939, 2090, 2039), "target": "castle_3F", "player_x": 1970, "player_y": 2069},
+            {"zone": (1370, 2699, 1580, 2829), "target": "castle", "player_x": 2070, "player_y": 1929},
+            {"zone": (1370, 1399, 1580, 1549), "target": "castle_3F", "player_x": 1480, "player_y": 1549},
             
         ]
     },
     "castle_3F": {
         "map_image_path": R"Backgrounds/castle3F.png",
         "npcs": [],
-        "map_scale_factor": 4,
+        "map_scale_factor": 3,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0,
         "layer_json_path": "Backgrounds/castle3F/castle3F.json",
         "transitions": [
-            {"zone": (1860, 2149, 2080, 2249), "target": "castle_1F", "player_x": 1970, "player_y": 2069},
+            {"zone": (1370, 1609, 1580, 1679), "target": "castle_1F", "player_x": 1480, "player_y": 1619},
         ]
     },
     "guild": {

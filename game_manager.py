@@ -5,7 +5,7 @@ from pathlib import Path
 from character import Character, Party
 from Maps import map_configs
 from map_manager import Map
-from new_opening import opening_scene
+from events import opening_scene
 
 
 
@@ -14,8 +14,7 @@ class GameManager:
         self.screen = screen
         self.player = None  # Player instance
         self.save_file = "save_data.json"
-
-        self.save_file
+        self.current_map_id = None
 
         # Main menu display
         self.options = ["New Game", "Continue", "Delete Data"]
@@ -63,7 +62,7 @@ class GameManager:
         num_save_data = len(self.save_data_list)
         file_path = f"SaveData/Data{num_save_data + 1}.json"
         self.player_party = Party(self.player)
-        events_progress = {"guild_scene": False, "the_arrogant_stranger_scene": False, "introduction_to_saving_princess": False, "the_princess_in_peril_scene": False}   ###############
+        events_progress = {"guild_scene": False, "the_arrogant_stranger_scene": False, "introduction_to_saving_princess": False, "the_princess_in_peril_scene": False, "the_dilemma_of_king_scene": False, "the_stone_cave_crisis_scene": False}   ###############
         # initial save
         self.save_game(file_path=file_path, current_map_id="Town_mapv1", events_progress=events_progress)
         self.running = False
@@ -149,6 +148,7 @@ class GameManager:
         return self.player_party, saved_map_id, events_progress
        
     def load_map(self, map_id, screen, player_party):
+        self.current_map_id = map_id
         config = map_configs.get(map_id)
         if config:
             map_instance = Map(
