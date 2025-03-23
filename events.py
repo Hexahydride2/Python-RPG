@@ -3,6 +3,7 @@ from character import Character, Enemy, Party
 from scene import Scene
 
 def opening_scene(screen, player_party):
+    scene_done = False
     name = player_party.leader.name
     folder_paths = player_party.leader.folder_paths
 
@@ -204,7 +205,7 @@ def opening_scene(screen, player_party):
             if member.hp > 0:
                 no_alive = False
         if no_alive:
-            return
+            return scene_done
 
 
     Liora = Character(
@@ -253,6 +254,9 @@ def opening_scene(screen, player_party):
     ]
     opening_scene5 = Scene(screen, [player, Liora, Garic], opening_scene5_actions, top_left_x=500, top_left_y=100, scale_factor=3, background_image="Backgrounds\TownMapV1.png")
     opening_scene5.run()
+
+    scene_done = True
+    return scene_done
 
 def guild_scene(screen, player_party):
     name = player_party.leader.name
@@ -624,6 +628,7 @@ def introduction_to_saving_princess(screen, player_party):
     scene1.run()
 
 def the_princess_in_peril_scene(screen, player_party):
+    scene_done = False
     name = player_party.leader.name
     folder_paths = player_party.leader.folder_paths
     player = Character(
@@ -712,7 +717,7 @@ def the_princess_in_peril_scene(screen, player_party):
             if member.hp > 0:
                 no_alive = False
         if no_alive:
-            return
+            return scene_done
         
 
     scene2_actions = [
@@ -727,6 +732,9 @@ def the_princess_in_peril_scene(screen, player_party):
 
     scene2 = Scene(screen, [player, Seraphina], scene2_actions, scale_factor=4, top_left_x=0, top_left_y=1300, background_image=R"Backgrounds/lost_forest.png")
     scene2.run()
+
+    scene_done = True
+    return scene_done
 
 
 def the_dilemma_of_king_scene(screen, player_party):

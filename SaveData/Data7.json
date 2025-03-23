@@ -1,10 +1,10 @@
 {
-    "current_map": "inn_1F",
+    "current_map": "forest",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 840,
-            "y": 1010,
+            "x": 2830,
+            "y": 1410,
             "level": 8,
             "hp": 171,
             "max_hp": 171,
@@ -71,7 +71,7 @@
         "guild_scene": true,
         "the_arrogant_stranger_scene": true,
         "introduction_to_saving_princess": true,
-        "the_princess_in_peril_scene": true,
+        "the_princess_in_peril_scene": false,
         "the_dilemma_of_king_scene": false,
         "the_stone_cave_crisis_scene": false
     }

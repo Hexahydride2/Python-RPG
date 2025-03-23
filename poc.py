@@ -101,12 +101,12 @@ while running:
             introduction_to_saving_princess(screen, player_party)
             events_progress["introduction_to_saving_princess"] = True
         elif target_map_id == "lost_forest" and events_progress["the_princess_in_peril_scene"] == False:
-            print("faldjfalkjf")
-            the_princess_in_peril_scene(screen, player_party)
-            player_party.leader.current_direction = "right"
-            player_party.leader.x = 550
-            player_party.leader.y = 1650
-            events_progress["the_princess_in_peril_scene"] = True
+            scene_done = the_princess_in_peril_scene(screen, player_party)
+            if scene_done:
+                player_party.leader.current_direction = "right"
+                player_party.leader.x = 550
+                player_party.leader.y = 1650
+                events_progress["the_princess_in_peril_scene"] = True
         elif target_map_id == "castle_3F" and events_progress["the_dilemma_of_king_scene"] == False:
             the_dilemma_of_king_scene(screen, player_party)
             current_map = game_manager.load_map("castle_1F", screen, player_party)

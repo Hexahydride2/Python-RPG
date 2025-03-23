@@ -310,7 +310,8 @@ class Battle:
             self.screen.blit(name_text, (start_x + bar_width - 70, bar_y - 40))
 
             # Draw buff icons
-            self.draw_buff_icons(player, start_x+10, start_y-30)
+            self.draw_buff_icons(player, start_x+10, bar_y-30)
+
 
             # Draw HP bar
             hp_ratio = player.hp / player.max_hp
@@ -1276,8 +1277,6 @@ class Battle:
             self.screen.fill((0, 0, 0))
 
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
                 self.handle_input(event)
 
             self.update()
