@@ -78,8 +78,7 @@ while running:
                     folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara2_1", R"tf_svbattle\singleframes\set2\1"],
                     scale_factor=3
                     )
-                player_party.add_member(Finn)
-            
+                player_party.add_member(Finn)    
 
         elif target_map_id == "castle" and events_progress["the_princess_in_peril_scene"] == False:
             castle_entrance_denial_scene(screen, player_party)
@@ -101,7 +100,8 @@ while running:
         elif target_map_id == "forest" and events_progress["the_arrogant_stranger_scene"] and events_progress["introduction_to_saving_princess"] == False:
             introduction_to_saving_princess(screen, player_party)
             events_progress["introduction_to_saving_princess"] = True
-        elif target_map_id == "lost_forest" and events_progress["introduction_to_saving_princess"] == False:
+        elif target_map_id == "lost_forest" and events_progress["the_princess_in_peril_scene"] == False:
+            print("faldjfalkjf")
             the_princess_in_peril_scene(screen, player_party)
             player_party.leader.current_direction = "right"
             player_party.leader.x = 550
@@ -125,7 +125,7 @@ while running:
         # Switch BGM
         #change_theme(current_map.bgm)
     ###########################################################
-    print(player_party.leader.x, player_party.leader.y)
+    #print(player_party.leader.x, player_party.leader.y)
 
 
     # save data in each frame

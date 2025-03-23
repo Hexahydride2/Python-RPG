@@ -39,6 +39,9 @@ class Scene:
 
         self.clock = pygame.time.Clock()
 
+        self.player_party = None
+        self.running = True
+
     def start(self):
         """Start the scene."""
         self.is_scene_active = True
@@ -138,14 +141,22 @@ class Scene:
     def handle_battle(self, action):
         """handle a battle action."""
         enemies = action["enemies"]
-        player_party = action["player_party"]
+        self.player_party = action["player_party"]
         background_image = action.get("background_image", None)  # Optional background image
         
         # Start the battle
-        battle = Battle(self.screen, player_party.members, enemies, background_image, escape_chance=0)
+        battle = Battle(self.screen, self.player_party.members, enemies, background_image, escape_chance=0)
         self.battle_result = battle.run()
-        player_party.leader.sprite.is_flipped = False
-        self.current_action_index += 1
+        self.battle_screen = False  # Exit battle 
+
+        if self.battle_result == "Victory":
+            pass     
+                    
+        elif self.battle_result == "Defeat":
+            self.running = False
+        
+        self.player_party.leader.sprite.is_flipped = False
+        self.current_action_index += 1  
 
         revert_theme()
 
@@ -174,8 +185,7 @@ class Scene:
 
         # Handling UnboundLocalError event is not asscociated with a value
         event = None
-        running = True
-        while running:
+        while self.running:
             self.screen.fill((255,255,255))
               
             self.update(None)
@@ -188,7 +198,7 @@ class Scene:
             
             # Check if the scene is finished
             if self.current_action_index >= len(self.actions):
-                running = False
+                self.running = False
 
             self.text_manager.update()
             self.text_manager.draw()

@@ -12,13 +12,14 @@ from Maps import map_configs
 from adventure_guild import AdventurerGuild
 
 class Map:
-    def __init__(self, screen, map_image_path, player_party, npcs=[], enemies=[], map_scale_factor=None, bgm=None, layer_json_path=False, allow_encounters=False, random_encounter_enemies=["Slime"], encounter_rate=0, transitions=None):
+    def __init__(self, screen, map_image_path, player_party, npcs=[], enemies=[], map_scale_factor=None, bgm=None, layer_json_path=False, allow_encounters=False, random_encounter_enemies=["Slime"], encounter_rate=0, transitions=None, battle_background_image=".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png"):
         # Screen dimensions
         self.screen = screen
         self.screen_width, self.screen_height = screen.get_size()
 
         # Load the map image
         self.map_image = pygame.image.load(map_image_path)
+        self.battle_background_image = battle_background_image
 
         # Player and NPCs and Enemies data
         self.player_party = player_party
@@ -226,7 +227,11 @@ class Map:
         Check if the player is in a transition zone.
         """
         # If the player party was defeated
-        if self.player_party.leader.hp <= 0:
+        no_alive = True
+        for player in self.player_party.members:
+            if player.hp > 0:
+                no_alive = False
+        if no_alive:
             data = {
                 "map_id": "inn_1F",
                 "player_x": 680,
@@ -335,7 +340,7 @@ class Map:
 
     def move_to_battle(self):
         if self.battle_screen and self.current_enemies:
-            battle = Battle(self.screen, self.party_members, self.current_enemies, background_image=".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png")
+            battle = Battle(self.screen, self.party_members, self.current_enemies, self.battle_background_image)
             #change_theme("Music\BattleTheme.mp3")
           
             result = battle.run()

@@ -258,7 +258,7 @@ map_configs = {
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "random_encounter_enemies": ["Slime", "Bat"],
-        "encounter_rate": 0.01,
+        "encounter_rate": 0.00,
         "layer_json_path": R"Backgrounds/forest/forest.json",
         "transitions": [
             {"zone": (1175, 2749, 1425, 2820), "target": "Town_mapv1", "player_x": 3550, "player_y": 1150},
@@ -276,7 +276,7 @@ map_configs = {
         "layer_json_path": R"Backgrounds/lost_forest/lost_forest.json",
         "transitions": [
             {"zone": (0, 1510, 40, 1780), "target": "forest", "player_x": 2800, "player_y": 1450},
-            {"zone": (2140, 2180, 2200, 2260), "target": "stone_cave", "player_x": 1480, "player_y": 2680}
+            {"zone": (2140, 2180, 2200, 2260), "target": "stone_cave", "player_x": 1120, "player_y": 1970}
         ]
     },
     "stone_cave": {
@@ -289,7 +289,7 @@ map_configs = {
         "encounter_rate": 0.00,
         "layer_json_path": R"Backgrounds/stone_cave/stone_cave.json",
         "transitions": [
-            {"zone": (1440, 2740, 1540, 2830), "target": "lost_forest", "player_x": 2160, "player_y": 2290},
+            {"zone": (1080, 2040, 1150, 2110), "target": "lost_forest", "player_x": 2160, "player_y": 2290},
             {"zone": (940, 1080, 1020, 1170), "target": "stone_cave", "player_x": 530, "player_y": 820},
         ]
     },

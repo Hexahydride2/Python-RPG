@@ -45,6 +45,7 @@ def opening_scene(screen, player_party):
     ]
 
     opening_scene = Scene(screen, [Elysia], opening_scene1_actions)
+    opening_scene.run()
 
     player = Character(
     name=name,
@@ -85,6 +86,7 @@ def opening_scene(screen, player_party):
     ]
 
     opening_scene2 = Scene(screen, [player, Liora], opening_scene2_actions, scale_factor=3, background_image=R"Backgrounds\Playerhouse.png")
+    opening_scene2.run()
 
     player = Character(
     name=name,
@@ -153,6 +155,7 @@ def opening_scene(screen, player_party):
         {"type": "wait", "duration": 100},
     ]
     opening_scene3 = Scene(screen, [player, Liora, Garic], opening_scene3_actions, speed=5, scale_factor=3, background_image=R"Backgrounds\Playerhouse.png")
+    opening_scene3.run()
 
     player = Character(
     name=name,
@@ -191,6 +194,17 @@ def opening_scene(screen, player_party):
     ]
     
     opening_scene4 = Scene(screen, [player, Slime], opening_scene4_actions, top_left_x=500, top_left_y=100, scale_factor=3, background_image="Backgrounds\TownMapV1.png")
+    opening_scene4.run()
+
+    # Check if the player party is alive (This must be after battle scene)
+    if opening_scene4.player_party:
+        no_alive = True
+        for member in opening_scene4.player_party.members:
+            print(member.name, member.hp)
+            if member.hp > 0:
+                no_alive = False
+        if no_alive:
+            return
 
 
     Liora = Character(
@@ -238,11 +252,6 @@ def opening_scene(screen, player_party):
         {"type": "talk", "character": Liora, "message": "Thank you, Kael. I'll be in your care."}
     ]
     opening_scene5 = Scene(screen, [player, Liora, Garic], opening_scene5_actions, top_left_x=500, top_left_y=100, scale_factor=3, background_image="Backgrounds\TownMapV1.png")
-
-    opening_scene.run()
-    opening_scene2.run()
-    opening_scene3.run()
-    opening_scene4.run()
     opening_scene5.run()
 
 def guild_scene(screen, player_party):
@@ -691,6 +700,20 @@ def the_princess_in_peril_scene(screen, player_party):
         {"type": "animation", "character": cultist1, "pose": "dead"},
         {"type": "wait", "duration": 500},
     ]
+    scene1 = Scene(screen, [player, Seraphina, cultist1, cultist2], scene1_actions, scale_factor=4, top_left_x=0, top_left_y=1300, background_image=R"Backgrounds/lost_forest.png")
+    scene1.run()
+
+
+    # Check if the player party is alive (This must be after battle scene)
+    if scene1.player_party:
+        no_alive = True
+        for member in scene1.player_party.members:
+            print(member.name, member.hp)
+            if member.hp > 0:
+                no_alive = False
+        if no_alive:
+            return
+        
 
     scene2_actions = [
         {"type": "move", "character": Seraphina, "direction": "right", "distance": 200},
@@ -702,9 +725,7 @@ def the_princess_in_peril_scene(screen, player_party):
         {"type": "talk", "character": Seraphina, "message": f"You saved my life. The least I can do is take you to meet my father. He'll want to thank you personally, and perhaps he can help you with your search for answers."},
     ]
 
-    scene1 = Scene(screen, [player, Seraphina, cultist1, cultist2], scene1_actions, scale_factor=4, top_left_x=0, top_left_y=1300, background_image=R"Backgrounds/lost_forest.png")
     scene2 = Scene(screen, [player, Seraphina], scene2_actions, scale_factor=4, top_left_x=0, top_left_y=1300, background_image=R"Backgrounds/lost_forest.png")
-    scene1.run()
     scene2.run()
 
 

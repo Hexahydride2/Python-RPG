@@ -1,14 +1,14 @@
 {
-    "current_map": "stone_cave",
+    "current_map": "inn_1F",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 1020,
-            "y": 1170,
+            "x": 840,
+            "y": 1010,
             "level": 8,
-            "hp": 151,
+            "hp": 171,
             "max_hp": 171,
-            "mp": 41,
+            "mp": 81,
             "max_mp": 81,
             "atk": 45,
             "dfn": 42.0,
@@ -42,9 +42,9 @@
             "x": 630,
             "y": 200,
             "level": 6,
-            "hp": 92,
+            "hp": 171,
             "max_hp": 171,
-            "mp": 80,
+            "mp": 115,
             "max_mp": 115,
             "atk": 43,
             "dfn": 21,
@@ -72,8 +72,7 @@
         "the_arrogant_stranger_scene": true,
         "introduction_to_saving_princess": true,
         "the_princess_in_peril_scene": true,
-        "the_dilemma_of_king_scene": true,
-        "the_stone_cave_crisis_scene": false,
-        "the_dilemma_of_king_scence": true
+        "the_dilemma_of_king_scene": false,
+        "the_stone_cave_crisis_scene": false
     }
 }
