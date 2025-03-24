@@ -1,6 +1,6 @@
 from game_manager import GameManager
 import pygame
-from events import guild_scene, castle_entrance_denial_scene, lost_forest_entrance_denial_scene, the_arrogant_stranger_scene, introduction_to_saving_princess, the_princess_in_peril_scene, the_dilemma_of_king_scene, the_castle_3F_entrance_denial_scene
+from events import guild_scene, castle_entrance_denial_scene, lost_forest_entrance_denial_scene, the_arrogant_stranger_scene, introduction_to_saving_princess, the_princess_in_peril_scene, the_dilemma_of_king_scene, the_castle_3F_entrance_denial_scene, the_stone_cave_crisis_scene
 from utilities import change_theme
 from character import Character
 
@@ -45,12 +45,16 @@ while running:
     transition_data = current_map.check_transition()
     
     if transition_data:
+        print(transition_data)
         target_map_id = transition_data["map_id"]
         # Change the map only when the target map is different from the current map
+        no_map_change = True
         if target_map_id != game_manager.current_map_id:
             current_map = game_manager.load_map(target_map_id, screen, player_party)
             player_party.leader.x = transition_data["player_x"]
             player_party.leader.y = transition_data["player_y"]
+            no_map_change = False
+   
 
         if target_map_id == "guild" and events_progress["guild_scene"] == False:
             guild_scene(screen, player_party)
@@ -120,12 +124,20 @@ while running:
             player_party.leader.x = 1480
             player_party.leader.y = 1709
             player_party.leader.current_direction = "down"
+        elif no_map_change and target_map_id == "stone_cave" and events_progress["the_stone_cave_crisis_scene"] == False:
+            scene_done = the_stone_cave_crisis_scene(screen, player_party)
+            if scene_done:
+                player_party.leader.current_direction = "left"
+                player_party.leader.x = 550
+                player_party.leader.y = 760
+                events_progress["the_stone_cave_crisis_scene"] = True
+
 
 
         # Switch BGM
         #change_theme(current_map.bgm)
     ###########################################################
-    #print(player_party.leader.x, player_party.leader.y)
+    print(player_party.leader.x, player_party.leader.y)
 
 
     # save data in each frame

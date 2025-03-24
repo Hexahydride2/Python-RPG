@@ -859,7 +859,184 @@ def the_castle_3F_entrance_denial_scene(screen, player_party):
     scene1.run()
 
 def the_stone_cave_crisis_scene(screen, player_party):
-    pass
+    scene_done = False
+
+    name = player_party.leader.name
+    folder_paths = player_party.leader.folder_paths
+    player = Character(
+    name=name,
+    x=600,
+    y=350,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=folder_paths,
+    scale_factor=1
+    )
+
+    MinerA = Character(
+    name="Miner A",
+    x=1000,
+    y=1000,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\npc\npc3_2"],
+    scale_factor=3
+    )
+
+    scene1_actions = [
+        {"type": "animation", "character": player, "pose": "left_stand"},
+        {"type": "talk", "character": MinerA, "message": "Help! Someone, please! It's coming back!"},
+        {"type": "move", "character": player, "direction": "left", "distance": 330},
+        {"type": "move", "character": player, "direction": "up", "distance": 150},
+        {"type": "move", "character": player, "direction": "left", "distance": 150},
+        {"type": "move", "character": player, "direction": "up", "distance": 200},
+    ]
+    scene1 = Scene(screen, [player, MinerA], scene1_actions, scale_factor=3, top_left_x=400, top_left_y=750, background_image="Backgrounds/stone_cave.png")
+    scene1.run()
+
+    player = Character(
+    name=name,
+    x=520,
+    y=330,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=folder_paths,
+    scale_factor=1
+    )
+
+    MinerA = Character(
+    name="Miner A",
+    x=400,
+    y=320,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\npc\npc3_2"],
+    scale_factor=3
+    )
+
+    MinerB = Character(
+    name="Miner B",
+    x=450,
+    y=250,
+    level=10,
+    hp=100,
+    mp=50,
+    atk=40,
+    dfn=20,
+    spd=30,
+    inventory={},
+    folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\npc\npc3_4"],
+    scale_factor=3
+    )
+
+    Minotaur = Enemy(
+        name="Minotaur",
+        x = 700,
+        y = 120,
+        folder_paths=[R"Monsters\Minotaur"],
+        level=1,
+        hp=70,
+        mp=30,
+        atk=10,
+        dfn=5,
+        spd=5
+    )
+
+    Minotaur_after = Enemy(
+        name="Minotaur",
+        x = 700,
+        y = 120,
+        folder_paths=[R"Monsters\Minotaur"],
+        level=1,
+        hp=40,
+        mp=30,
+        atk=10,
+        dfn=5,
+        spd=5
+    )
+
+
+    scene2_actions = [
+        {"type": "animation", "character": player, "pose": "up_stand"},
+        {"type": "animation", "character": Minotaur, "pose": "left_stand"},
+        {"type": "animation", "character": MinerA, "pose": "right_stand"},
+        {"type": "animation", "character": MinerB, "pose": "right_stand"},
+        {"type": "talk", "character": player, "message": "Hold on! I'll get you out of here. What happened?"},
+        {"type": "animation", "character": player, "pose": "left_stand"},
+        {"type": "talk", "character": MinerB, "message": "It's the Minotaur! It's not like any beast I've ever seen—it's evil, pure evil! It attacked us without warning, smashed the supports, and brought down the ceiling. It's toying with us, like it enjoys our fear!"},
+        {"type": "animation", "character": player, "pose": "up_stand"},
+        {"type": "move", "character": Minotaur, "direction": "left", "distance": 200},
+        {"type": "animation", "character": Minotaur, "pose": "down_stand"},
+        {"type": "move", "character": MinerA, "direction": "left", "distance": 100},
+        {"type": "move", "character": MinerB, "direction": "left", "distance": 100},
+        {"type": "animation", "character": MinerA, "pose": "right_stand"},
+        {"type": "animation", "character": MinerB, "pose": "right_stand"},
+        {"type": "talk", "character": Minotaur, "message": "Another fool dares to enter my domain? How delightful. I was growing bored with these weaklings."},
+        {"type": "talk", "character": player, "message": "Who are you? Why are you attacking these miners?"},
+        {"type": "talk", "character": Minotaur, "message": "Why? Because I can. Because their screams amuse me. This cave is mine, and all who enter shall suffer my wrath!"},
+        {"type": "talk", "character": MinerA, "message": "It's not just a beast... it's a monster. It thrives on pain and destruction. You have to stop it, or none of us will make it out alive!"},
+        {"type": "talk", "character": player, "message": "I won't let you harm anyone else. If this cave is yours, then I'll take it from you."},
+        {"type": "talk", "character": Minotaur, "message": "Bold words for a mere mortal. Very well, let's see if you can back them up. Come, little human—entertain me!"},
+        {"type": "move", "character": Minotaur, "direction": "down", "distance": 30},
+        {"type": "battle", "player_party": player_party, "enemies":[Minotaur], "background_image": "craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png"},
+        {"type": "talk", "character": Minotaur, "message": "Is that all you've got? Pathetic! I've crushed stronger foes than you!"},
+        {"type": "move", "character": Minotaur, "direction": "down", "distance": 20},
+        {"type": "battle", "player_party": player_party, "enemies":[Minotaur_after], "background_image": "craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png"},
+        {"type": "talk", "character": Minotaur_after, "message": "You...you think this changes anything? Even if you defeat me, the darkness in this world will never be extinguished. You're just delaying the inevitable."},
+        {"type": "talk", "character": player, "message":"Maybe, but as long as there are people willing to fight, monsters like you will never win."},
+        {"type": "animation", "character": Minotaur, "pose": "dead"},
+        {"type": "move", "character": player, "direction": "up", "distance": 50},
+        {"type": "animation", "character": player, "pose": "left_stand"},
+        {"type": "talk", "character": MinerA, "message":"It's...it's over, You actually defeated it, I can't believe it."},
+        {"type": "talk", "character": player, "message":"We need to get out of here. The cave might still be unstable."},
+        {"type": "talk", "character": MinerB, "message":"Thank you, adventurer. You saved my life. But...do you think there are more creatures like that out there?"},
+        {"type": "talk", "character": player, "message":"If there are, I'll be ready. Let's get you back to the village."},
+        {"type": "move", "character": MinerB, "direction": "right", "distance": 110},
+        {"type": "move", "character": MinerB, "direction": "down", "distance": 80},
+        {"type": "move", "character": MinerB, "direction": "right", "distance": 70},
+        {"type": "move", "character": MinerB, "direction": "down", "distance": 200},
+        {"type": "move", "character": MinerB, "direction": "right", "distance": 130},
+        {"type": "move", "character": MinerB, "direction": "down", "distance": 220},
+        {"type": "move", "character": MinerA, "direction": "right", "distance": 220},
+        {"type": "move", "character": MinerA, "direction": "down", "distance": 200},
+        {"type": "move", "character": MinerA, "direction": "right", "distance": 150},
+        {"type": "move", "character": MinerA, "direction": "down", "distance": 220},
+    ]
+    scene2 = Scene(screen, [player, MinerA, MinerB, Minotaur], scene2_actions, scale_factor=3, top_left_x=0, top_left_y=430, background_image="Backgrounds/stone_cave.png")
+    scene2.run()
+
+    # Check if the player party is alive (This must be after battle scene)
+    if scene1.player_party:
+        no_alive = True
+        for member in scene1.player_party.members:
+            print(member.name, member.hp)
+            if member.hp > 0:
+                no_alive = False
+        if no_alive:
+            return scene_done
+    
+    scene_done = True
+    return scene_done
 ##########################################3
 
 if __name__ == "__main__":
@@ -882,7 +1059,7 @@ if __name__ == "__main__":
         scale_factor=1
         )
     player_party = Party(player)
-    the_castle_3F_entrance_denial_scene(screen, player_party)
+    the_stone_cave_crisis_scene(screen, player_party)
 
 
 

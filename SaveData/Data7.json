@@ -3,10 +3,10 @@
     "party_data": [
         {
             "name": "Gabe",
-            "x": 2830,
-            "y": 1410,
+            "x": 2750,
+            "y": 1450,
             "level": 8,
-            "hp": 171,
+            "hp": 170,
             "max_hp": 171,
             "mp": 81,
             "max_mp": 81,
@@ -19,9 +19,10 @@
                 "Slime Gel": 17,
                 "Herb": 36,
                 "Phoenix Feather": 4,
-                "Flame Essence": 1
+                "Flame Essence": 1,
+                "Minotaur Horn": 2
             },
-            "gold": 8650,
+            "gold": 9450,
             "skills": [
                 "Strike",
                 "Power Cleave",
@@ -34,33 +35,34 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
                 "tf_svbattle\\singleframes\\set1\\1"
             ],
-            "exp": 665,
+            "exp": 1465,
             "scale_factor": 1
         },
         {
             "name": "Finn",
             "x": 630,
             "y": 200,
-            "level": 6,
-            "hp": 171,
-            "max_hp": 171,
-            "mp": 115,
-            "max_mp": 115,
-            "atk": 43,
-            "dfn": 21,
-            "spd": 31,
+            "level": 7,
+            "hp": 181,
+            "max_hp": 181,
+            "mp": 118,
+            "max_mp": 118,
+            "atk": 47,
+            "dfn": 23,
+            "spd": 33,
             "inventory": {},
             "gold": 100,
             "skills": [
                 "Strike",
                 "Flame Slash",
-                "Dark Pulse"
+                "Dark Pulse",
+                "Glass Storm"
             ],
             "folder_paths": [
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_1",
                 "tf_svbattle\\singleframes\\set2\\1"
             ],
-            "exp": 445,
+            "exp": 165,
             "scale_factor": 3
         }
     ],

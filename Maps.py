@@ -290,7 +290,7 @@ map_configs = {
         "layer_json_path": R"Backgrounds/stone_cave/stone_cave.json",
         "transitions": [
             {"zone": (1080, 2040, 1150, 2110), "target": "lost_forest", "player_x": 2160, "player_y": 2290},
-            {"zone": (940, 1080, 1020, 1170), "target": "stone_cave", "player_x": 530, "player_y": 820},
+            {"zone": (880, 1040, 1020, 1170), "target": "stone_cave", "player_x": 530, "player_y": 820},
         ]
     },
     "castle_town": {
