@@ -193,7 +193,7 @@ def items_list():
         "effect": None,
         "price": 60
     },
-    "Warrior’s Medallion": {
+    "Warrior's Medallion": {
         "description": "A rare medallion worn by warriors. Grants strength when equipped.",
         "type": "dropped",
         "effect": "strength",

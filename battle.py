@@ -62,6 +62,11 @@ class Battle:
         self.selected_item_target_index = 0
         self.selecting_item_target = False
 
+        self.battle_items = {}
+        for item, count in self.player_party[0].inventory.items():
+            if items_list()[item]["type"] != "dropped":
+                self.battle_items[item] = count
+
         # Status window
         self.showing_status = False
 
@@ -431,8 +436,8 @@ class Battle:
 
         item_font = pygame.font.Font(".\Fonts\RotisSerif.ttf", 24)
 
-        items = list(self.player_party[0].inventory)
-        inventory = self.player_party[0].inventory
+        items = list(self.battle_items)
+        inventory = self.battle_items
 
         for i in range(self.items_scroll_offset, min(self.items_scroll_offset + self.visible_items, len(items))):
             item = items[i]
@@ -789,7 +794,7 @@ class Battle:
     def store_selected_item(self):
         """Store the selected item for the current player."""
         current_player = self.player_party_alive[self.current_player_index]
-        selected_item = list(self.player_party[0].inventory)[self.selected_item_index]
+        selected_item = list(self.battle_items)[self.selected_item_index]
         target = self.player_party[self.selected_item_target_index]
         self.player_actions[current_player] = {"action": "Items", "item": selected_item, "target": target}
         
@@ -1009,8 +1014,10 @@ class Battle:
 
         if self.player_party[0].inventory[item] > 1:
             self.player_party[0].inventory[item] -= 1
+            self.battle_items[item] -= 1
         else:
             self.player_party[0].inventory.pop(item)
+            self.battle_items.pop(item)
 
 
     def player_attack(self, player, action):

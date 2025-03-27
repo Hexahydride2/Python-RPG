@@ -1,10 +1,10 @@
 {
-    "current_map": "item_shop",
+    "current_map": "forest",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 980,
-            "y": 680,
+            "x": 1200,
+            "y": 570,
             "level": 11,
             "hp": 33,
             "max_hp": 205,
