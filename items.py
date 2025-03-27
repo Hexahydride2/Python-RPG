@@ -164,7 +164,7 @@ def items_list():
         "price": 50
     },
     "Phoenix Feather": {
-        "description": "A feather from a phoenix. Used in revival items.",
+        "description": "A feather from a phoenix. Used to revive a fallen ally.",
         "type": "re",
         "effect": "full",
         "price": 100
@@ -460,9 +460,12 @@ def monster_drop_list():
     "Cultist A": {
     },
     "Cultist B": {
+    },
+    "Turtle": {
+    },
+    "Octopus": {
     }
     }
-
     return monster_drop_tables
 
 def monster_exp_list():

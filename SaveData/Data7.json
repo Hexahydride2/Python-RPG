@@ -1,14 +1,14 @@
 {
-    "current_map": "lost_forest",
+    "current_map": "stone_cave",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 310,
-            "y": 1720,
+            "x": 550,
+            "y": 760,
             "level": 11,
-            "hp": 205,
+            "hp": 33,
             "max_hp": 205,
-            "mp": 94,
+            "mp": 44,
             "max_mp": 94,
             "atk": 54,
             "dfn": 49.0,
@@ -16,16 +16,18 @@
             "inventory": {
                 "Potion": 3,
                 "Mana Crystal": 3,
-                "Slime Gel": 17,
+                "Slime Gel": 18,
                 "Herb": 41,
-                "Phoenix Feather": 4,
+                "Phoenix Feather": 3,
                 "Flame Essence": 1,
-                "Minotaur Horn": 2,
-                "Bat Wing": 2,
-                "Snake Skin": 1,
-                "Venom Sack": 1
+                "Minotaur Horn": 4,
+                "Bat Wing": 3,
+                "Snake Skin": 3,
+                "Venom Sack": 1,
+                "Spider Silk": 1,
+                "Beast Hide": 3
             },
-            "gold": 12450,
+            "gold": 14150,
             "skills": [
                 "Strike",
                 "Power Cleave",
@@ -41,21 +43,21 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
                 "tf_svbattle\\singleframes\\set1\\1"
             ],
-            "exp": 0,
+            "exp": 831,
             "scale_factor": 1
         },
         {
             "name": "Finn",
             "x": 630,
             "y": 200,
-            "level": 9,
-            "hp": 198,
-            "max_hp": 198,
-            "mp": 129,
-            "max_mp": 129,
-            "atk": 54,
-            "dfn": 27,
-            "spd": 35,
+            "level": 10,
+            "hp": 209,
+            "max_hp": 209,
+            "mp": 132,
+            "max_mp": 132,
+            "atk": 58,
+            "dfn": 29,
+            "spd": 37,
             "inventory": {},
             "gold": 100,
             "skills": [
@@ -64,13 +66,14 @@
                 "Dark Pulse",
                 "Glass Storm",
                 "Earth Smash",
-                "Explosive Arrow"
+                "Explosive Arrow",
+                "Ice Shard"
             ],
             "folder_paths": [
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_1",
                 "tf_svbattle\\singleframes\\set2\\1"
             ],
-            "exp": 20,
+            "exp": 41,
             "scale_factor": 3
         }
     ],
@@ -82,7 +85,7 @@
         "the_arrogant_stranger_scene": true,
         "introduction_to_saving_princess": true,
         "the_princess_in_peril_scene": true,
-        "the_dilemma_of_king_scene": false,
-        "the_stone_cave_crisis_scene": false
+        "the_dilemma_of_king_scene": true,
+        "the_stone_cave_crisis_scene": true
     }
 }

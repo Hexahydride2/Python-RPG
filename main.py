@@ -3,7 +3,7 @@ from character import Party
 import Blackjack  
 from game_manager import GameManager
 
-from new_opening import opening_scene
+# from new_opening import opening_scene
 
 pygame.init()
 screen_width = 1280

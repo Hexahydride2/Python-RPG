@@ -954,10 +954,10 @@ def the_stone_cave_crisis_scene(screen, player_party):
         x = 700,
         y = 120,
         folder_paths=[R"Monsters\Minotaur"],
-        level=1,
-        hp=70,
+        level=15,
+        hp=1050,
         mp=30,
-        atk=10,
+        atk=45,
         dfn=5,
         spd=5
     )
@@ -967,10 +967,10 @@ def the_stone_cave_crisis_scene(screen, player_party):
         x = 700,
         y = 120,
         folder_paths=[R"Monsters\Minotaur"],
-        level=1,
-        hp=40,
+        level=15,
+        hp=500,
         mp=30,
-        atk=10,
+        atk=60,
         dfn=5,
         spd=5
     )
