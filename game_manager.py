@@ -163,7 +163,8 @@ class GameManager:
                 allow_encounters=config.get("allow_encounters", False),
                 random_encounter_enemies=config.get("random_encounter_enemies"),
                 encounter_rate=config.get("encounter_rate", 0),
-                transitions=config.get("transitions", [])
+                transitions=config.get("transitions", []),
+                battle_background_image=config.get("battle_background_image", None)
             )
             map_instance.config_key = map_id
             return map_instance

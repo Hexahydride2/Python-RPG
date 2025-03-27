@@ -666,12 +666,12 @@ def the_princess_in_peril_scene(screen, player_party):
         x = 700,
         y = 350,
         folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara5_8", R"tf_svbattle\singleframes\set5\8"],
-        level=1,
-        hp=70,
-        mp=30,
-        atk=10,
-        dfn=5,
-        spd=5
+        level=10,
+        hp=400,
+        mp=200,
+        atk=30,
+        dfn=15,
+        spd=10
     )
 
     cultist2 = Enemy(
@@ -680,10 +680,10 @@ def the_princess_in_peril_scene(screen, player_party):
         y = 250,
         folder_paths=[R"timefantasy_characters\timefantasy_characters\frames\chara\chara5_8", R"tf_svbattle\singleframes\set5\8"],
         level=1,
-        hp=70,
-        mp=30,
-        atk=10,
-        dfn=5,
+        hp=400,
+        mp=200,
+        atk=30,
+        dfn=15,
         spd=5
     )
 
@@ -956,9 +956,9 @@ def the_stone_cave_crisis_scene(screen, player_party):
         folder_paths=[R"Monsters\Minotaur"],
         level=15,
         hp=1050,
-        mp=30,
+        mp=1000,
         atk=45,
-        dfn=5,
+        dfn=20,
         spd=5
     )
 
@@ -969,9 +969,9 @@ def the_stone_cave_crisis_scene(screen, player_party):
         folder_paths=[R"Monsters\Minotaur"],
         level=15,
         hp=500,
-        mp=30,
+        mp=1000,
         atk=60,
-        dfn=5,
+        dfn=20,
         spd=5
     )
 
@@ -998,10 +998,10 @@ def the_stone_cave_crisis_scene(screen, player_party):
         {"type": "talk", "character": player, "message": "I won't let you harm anyone else. If this cave is yours, then I'll take it from you."},
         {"type": "talk", "character": Minotaur, "message": "Bold words for a mere mortal. Very well, let's see if you can back them up. Come, little human—entertain me!"},
         {"type": "move", "character": Minotaur, "direction": "down", "distance": 30},
-        {"type": "battle", "player_party": player_party, "enemies":[Minotaur], "background_image": "craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png"},
+        {"type": "battle", "player_party": player_party, "enemies":[Minotaur], "background_image": "Backgrounds/cave_battle.png"},
         {"type": "talk", "character": Minotaur, "message": "Is that all you've got? Pathetic! I've crushed stronger foes than you!"},
         {"type": "move", "character": Minotaur, "direction": "down", "distance": 20},
-        {"type": "battle", "player_party": player_party, "enemies":[Minotaur_after], "background_image": "craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png"},
+        {"type": "battle", "player_party": player_party, "enemies":[Minotaur_after], "background_image": "Backgrounds/cave_battle.png"},
         {"type": "talk", "character": Minotaur_after, "message": "You...you think this changes anything? Even if you defeat me, the darkness in this world will never be extinguished. You're just delaying the inevitable."},
         {"type": "talk", "character": player, "message":"Maybe, but as long as there are people willing to fight, monsters like you will never win."},
         {"type": "animation", "character": Minotaur, "pose": "dead"},

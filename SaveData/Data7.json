@@ -1,20 +1,20 @@
 {
-    "current_map": "forest",
+    "current_map": "stone_cave",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 1200,
-            "y": 570,
-            "level": 11,
-            "hp": 33,
-            "max_hp": 205,
-            "mp": 44,
-            "max_mp": 94,
-            "atk": 54,
-            "dfn": 49.0,
-            "spd": 20,
+            "x": 1150,
+            "y": 1760,
+            "level": 12,
+            "hp": 217,
+            "max_hp": 217,
+            "mp": 99,
+            "max_mp": 99,
+            "atk": 58,
+            "dfn": 51.0,
+            "spd": 21,
             "inventory": {
-                "Potion": 3,
+                "Potion": 2,
                 "Mana Crystal": 3,
                 "Slime Gel": 18,
                 "Herb": 41,
@@ -22,12 +22,12 @@
                 "Flame Essence": 1,
                 "Minotaur Horn": 4,
                 "Bat Wing": 3,
-                "Snake Skin": 3,
+                "Snake Skin": 4,
                 "Venom Sack": 1,
                 "Spider Silk": 1,
                 "Beast Hide": 3
             },
-            "gold": 14150,
+            "gold": 15150,
             "skills": [
                 "Strike",
                 "Power Cleave",
@@ -37,13 +37,14 @@
                 "Dark Pulse",
                 "Piercing Shot",
                 "Flame Slash",
-                "Earthen Spike"
+                "Earthen Spike",
+                "Ice Shard"
             ],
             "folder_paths": [
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
                 "tf_svbattle\\singleframes\\set1\\1"
             ],
-            "exp": 831,
+            "exp": 15,
             "scale_factor": 1
         },
         {
@@ -51,7 +52,7 @@
             "x": 630,
             "y": 200,
             "level": 10,
-            "hp": 209,
+            "hp": 207,
             "max_hp": 209,
             "mp": 132,
             "max_mp": 132,
@@ -73,7 +74,7 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_1",
                 "tf_svbattle\\singleframes\\set2\\1"
             ],
-            "exp": 41,
+            "exp": 435,
             "scale_factor": 3
         }
     ],

@@ -272,7 +272,8 @@ map_configs = {
             {"zone": (1175, 2749, 1425, 2820), "target": "Town_mapv1", "player_x": 3550, "player_y": 1150},
             {"zone": (1170, 35, 1420, 40), "target": "castle_town", "player_x": 1860, "player_y": 3619},
             {"zone": (2840, 1340, 2870, 1600), "target": "lost_forest", "player_x": 80, "player_y": 1650}
-        ]
+        ],
+        "battle_background_image": ".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png"
     },
     "lost_forest": {
         "map_image_path": R"Backgrounds/lost_forest.png",
@@ -286,7 +287,8 @@ map_configs = {
         "transitions": [
             {"zone": (0, 1510, 40, 1780), "target": "forest", "player_x": 2800, "player_y": 1450},
             {"zone": (2140, 2180, 2200, 2260), "target": "stone_cave", "player_x": 1120, "player_y": 1970}
-        ]
+        ],
+        "battle_background_image": ".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png"
     },
     "stone_cave": {
         "map_image_path": R"Backgrounds/stone_cave.png",
@@ -301,7 +303,8 @@ map_configs = {
         "transitions": [
             {"zone": (1080, 2040, 1150, 2110), "target": "lost_forest", "player_x": 2160, "player_y": 2290},
             {"zone": (880, 1040, 1020, 1170), "target": "stone_cave", "player_x": 530, "player_y": 820},
-        ]
+        ],
+        "battle_background_image": "Backgrounds/cave_battle.png"
     },
     "castle_town": {
         "map_image_path": R"Backgrounds/castle_town.png",
