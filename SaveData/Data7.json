@@ -1,10 +1,10 @@
 {
-    "current_map": "stone_cave",
+    "current_map": "item_shop",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 550,
-            "y": 760,
+            "x": 980,
+            "y": 680,
             "level": 11,
             "hp": 33,
             "max_hp": 205,

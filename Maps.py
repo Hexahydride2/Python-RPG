@@ -1,62 +1,62 @@
-from items import items_list
+from items import shop_keeper_items_list
 from character import NPC, Enemy
 
-npc1 = NPC(
-    "Old Man",
-    ["Hello, traveler! How's going. I hope you're fine.", "The village is to the north.", "Be careful on your journey."],
-    1000,
-    1000,
-    [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_1"]
-)
-npc2 = NPC(
-    "Shopkeeper",
-    ["Welcome to my shop!  I sell potions and weapons."],
-    1200,
-    1200,
-    [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"],
-    items_list()
-)
+# npc1 = NPC(
+#     "Old Man",
+#     ["Hello, traveler! How's going. I hope you're fine.", "The village is to the north.", "Be careful on your journey."],
+#     1000,
+#     1000,
+#     [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_1"]
+# )
+# npc2 = NPC(
+#     "Shopkeeper",
+#     ["Welcome to my shop!  I sell potions and weapons."],
+#     1200,
+#     1200,
+#     [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"],
+#     items_list()
+# )
 
 
-guild_npc = NPC(
-    "Reception girl",
-    ["Welcome to the Adventurer's Guild! How can I assist you today?"],
-    1300,
-    1300,
-    [R"timefantasy_characters\timefantasy_characters\frames\npc\npc2_1"],
-    guild=True
-)
+# guild_npc = NPC(
+#     "Reception girl",
+#     ["Welcome to the Adventurer's Guild! How can I assist you today?"],
+#     1300,
+#     1300,
+#     [R"timefantasy_characters\timefantasy_characters\frames\npc\npc2_1"],
+#     guild=True
+# )
 
 
-npcs = [npc1, npc2]
+# npcs = [npc1, npc2]
 
-npc3 = NPC(
-    "Bold Man",
-    ["Hello, traveler!", "The village is to the north.", "Be careful on your journey."],
-    1000,
-    1000,
-    [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc3_1"]
-)
-npc4 = NPC(
-    "LOOOOOL",
-    ["Welcome to my shop!  I sell potions and weapons."],
-    1335,
-    1585,
-    [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc3_2"],
-    items_list()
-)
-npcs1 = [npc3, npc4]
+# npc3 = NPC(
+#     "Bold Man",
+#     ["Hello, traveler!", "The village is to the north.", "Be careful on your journey."],
+#     1000,
+#     1000,
+#     [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc3_1"]
+# )
+# npc4 = NPC(
+#     "LOOOOOL",
+#     ["Welcome to my shop!  I sell potions and weapons."],
+#     1335,
+#     1585,
+#     [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc3_2"],
+#     items_list()
+# )
+# npcs1 = [npc3, npc4]
 
-npcs2 = [
-    NPC(
-        "Shopkeeper",
-        ["Welcome to my shop!  I sell potions and weapons."],
-        260,
-        190,
-        [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"],
-        items_list()
-    )
-]
+# npcs2 = [
+#     NPC(
+#         "Shopkeeper",
+#         ["Welcome to my shop!  I sell potions and weapons."],
+#         260,
+#         190,
+#         [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"],
+#         items_list()
+#     )
+# ]
 friend = [
     NPC(
         "Belle",
@@ -227,7 +227,7 @@ shop_keeper = NPC(
     970,
     600,
     [R".\timefantasy_characters\timefantasy_characters\frames\npc\npc1_2"],
-    items_list()
+    shop_keeper_items_list(),
 )
 
 itemshop_npcs = [shop_keeper]
@@ -250,7 +250,7 @@ inn_1f_npcs = [inn_owner]
 map_configs = {
     "Map002": {
         "map_image_path": R"Backgrounds/Map002.png",
-        "npcs": npcs,
+        "npcs": [],
         "map_scale_factor": 3,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
@@ -397,7 +397,7 @@ map_configs = {
 
     "town_map": {
         "map_image_path": R"Backgrounds/TownMap.png",
-        "npcs": npcs,
+        "npcs": [],
         "enemies": enemies,
         "map_scale_factor": 2,
         "bgm": R"music\NewTownTheme.mp3",
@@ -413,7 +413,7 @@ map_configs = {
 
     "dungeon_map": {
         "map_image_path": R".\Backgrounds\Map-L.png",
-        "npcs": npcs1,
+        "npcs": [],
         "enemies": enemies,
         "map_scale_factor": 0.3,
         "bgm": R"music\CaveTheme.mp3",
@@ -422,17 +422,7 @@ map_configs = {
         "layer_json_path": None,
         "transitions": []  
     },
-    "shop_map": {
-        "map_image_path": R".\Backgrounds\shopmap.png",
-        "npcs": npcs2,
-        "enemies": [],
-        "map_scale_factor": 2,
-        "bgm": R"music\TownTheme.mp3",
-        "allow_encounters": False,
-        "encounter_rate": 0,
-        "layer_json_path": None,
-        "transitions": [{"zone": (230, 425, 340, 475), "target": "town_map", "player_x": 1370, "player_y": 950} ]  
-    },
+  
     "Town_mapv1": {
         "map_image_path": R".\Backgrounds\TownMapv1.png",
         "npcs": [],

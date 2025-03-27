@@ -221,6 +221,66 @@ def items_list():
 
     return All_Item_List
 
+def shop_keeper_items_list():
+    All_items = {
+        "Potion": {
+        "description": "Restores 15 HP. A basic healing drink.",
+        "type": "hp",
+        "effect": 15,
+        "price": 15
+    },
+    "Super Potion": {
+        "description": "Restores 60 HP. A stronger variant of the potion.",
+        "type": "hp",
+        "effect": 60,
+        "price": 55
+    },
+    "Mega Potion": {
+        "description": "Restores 150 HP. A rare and powerful potion.",
+        "type": "hp",
+        "effect": 150,
+        "price": 200
+    },
+    "Mana Crystal": {
+        "description": "Restores 15 MP. A small glowing crystal filled with energy.",
+        "type": "mp",
+        "effect": 15,
+        "price": 18
+    },
+    "Ether": {
+        "description": "Restores 60 MP. A refined magical liquid that energizes the mind.",
+        "type": "mp",
+        "effect": 60,
+        "price": 50
+    },
+    "Phoenix down": {
+        "description": "Revives a fallen ally with full HP.",
+        "type": "re",
+        "effect": "full",
+        "price": 500
+    },
+    "Berserker Brew": {
+        "description": "Increases attack by 10% for 5 turns.",
+        "type": "atk_buff",
+        "effect": 0.1,
+        "duration": 5,
+        "price": 120
+    },
+     "Defense Shield": {
+        "description": "Temporarily boosts defense by 20 for 4 turns.",
+        "type": "dfn_buff",
+        "effect": 20,
+        "duration": 4,
+        "price": 75
+    },
+       "Revive": {
+        "description": "Revives a fallen ally with 50% of their HP.",
+        "type": "re",
+        "effect": 0.5,
+        "price": 250
+    },
+    }
+    return All_items
 
 def attack_list():
     Attack_List = {
