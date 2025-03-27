@@ -341,9 +341,9 @@ class Map:
     def move_to_battle(self):
         if self.battle_screen and self.current_enemies:
             battle = Battle(self.screen, self.party_members, self.current_enemies, self.battle_background_image)
-            #change_theme("Music\BattleTheme.mp3")
-          
+           
             result = battle.run()
+            #revert_theme()
             # When the battle was the random encounter
             if self.random_encounter_battle:
                 self.random_encounter_battle = False
@@ -396,28 +396,7 @@ class Map:
                         self.player.y += 90  # Move player away to prevent instant re-entry
                     elif self.player.current_direction == "down":
                         self.player.y -= 90  # Move player away to prevent instant re-entry
-            revert_theme()
+            
             self.battle_screen = False  # Exit battle screen
             self.current_enemies = []
-
-# def load_map(map_id, screen, player_party):
-#     config = map_configs.get(map_id)
-#     if config:
-#         map_instance = Map(
-#             screen=screen,
-#             map_image_path=config["map_image_path"],
-#             player_party=player_party,
-#             npcs=config.get("npcs", []),
-#             enemies=config.get("enemies", []),
-#             map_scale_factor=config.get("map_scale_factor"),
-#             bgm=config.get("bgm"),
-#             layer_json_path=config.get("layer_json_path"),
-#             allow_encounters=config.get("allow_encounters", False),
-#             encounter_rate=config.get("encounter_rate", 0),
-#             transitions=config.get("transitions", [])
-#         )
-#         map_instance.config_key = map_id
-#         return map_instance
-#     else:
-#         raise ValueError(f"Map {map_id} is not defined.")
 

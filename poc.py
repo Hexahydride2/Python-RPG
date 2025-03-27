@@ -124,7 +124,7 @@ while running:
             player_party.leader.x = 1480
             player_party.leader.y = 1709
             player_party.leader.current_direction = "down"
-        elif no_map_change and target_map_id == "stone_cave" and events_progress["the_stone_cave_crisis_scene"] == False:
+        elif no_map_change and target_map_id == "stone_cave" and events_progress["the_dilemma_of_king_scene"] and events_progress["the_stone_cave_crisis_scene"] == False:
             scene_done = the_stone_cave_crisis_scene(screen, player_party)
             if scene_done:
                 player_party.leader.current_direction = "left"

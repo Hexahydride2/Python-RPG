@@ -7,12 +7,12 @@
             "objective": {
                 "type": "kill",
                 "target": "Slime",
-                "count": 1
+                "count": 3
             },
             "reward": {
                 "gold": 50,
                 "items": [],
-                "guild_point": 150
+                "guild_point": 30
             }
         },
         {
@@ -51,7 +51,7 @@
             "description": "Green snakes have been spotted near the village. Eliminate 2 of these venomous creatures to protect the villagers.",
             "objective": {
                 "type": "kill",
-                "target": "Snake_Green",
+                "target": "Snake(Green)",
                 "count": 2
             },
             "reward": {
@@ -126,27 +126,12 @@
             "description": "Pink snakes are causing trouble in the jungle. Hunt down 2 of these elusive creatures to restore peace.",
             "objective": {
                 "type": "kill",
-                "target": "Snake_Pink",
+                "target": "Snake(Pink)",
                 "count": 2
             },
             "reward": {
                 "gold": 40,
                 "items": [],
-                "guild_point": 30
-            }
-        },
-        {
-            "id": 25,
-            "name": "Herb Gathering",
-            "description": "The healer needs 8 herbs to prepare remedies for the sick. Gather these from the forest.",
-            "objective": {
-                "type": "collect",
-                "target": "Herb",
-                "count": 8
-            },
-            "reward": {
-                "gold": 25,
-                "items": ["Health Potion"],
                 "guild_point": 30
             }
         }
@@ -173,7 +158,7 @@
             "description": "Pink snakes are causing chaos in the jungle. Hunt down 5 of these elusive creatures to restore order.",
             "objective": {
                 "type": "kill",
-                "target": "Snake_Pink",
+                "target": "Snake(Pink)",
                 "count": 5
             },
             "reward": {
@@ -213,21 +198,6 @@
             }
         },
         {
-            "id": 10,
-            "name": "Minotaur Challenge",
-            "description": "A minotaur has been spotted in the labyrinth. Defeat 3 of these powerful beasts to prove your strength.",
-            "objective": {
-                "type": "kill",
-                "target": "Minotaur",
-                "count": 3
-            },
-            "reward": {
-                "gold": 100,
-                "items": ["Minotaur Horn"],
-                "guild_point": 60
-            }
-        },
-        {
             "id": 26,
             "name": "Bat Swarm",
             "description": "A swarm of bats is terrorizing the village at night. Hunt down 8 of these winged nuisances to bring peace.",
@@ -254,36 +224,6 @@
             "reward": {
                 "gold": 250,
                 "items": ["Phoenix Feather"],
-                "guild_point": 60
-            }
-        },
-        {
-            "id": 28,
-            "name": "Treant Patrol",
-            "description": "Treants have been spotted near the forest path. Defeat 4 of these ancient tree creatures to ensure safe passage.",
-            "objective": {
-                "type": "kill",
-                "target": "Treant",
-                "count": 4
-            },
-            "reward": {
-                "gold": 95,
-                "items": ["Treant Bark"],
-                "guild_point": 60
-            }
-        },
-        {
-            "id": 29,
-            "name": "Raptor Challenge",
-            "description": "Raptors are preying on travelers in the mountains. Hunt down 5 of these dangerous predators.",
-            "objective": {
-                "type": "kill",
-                "target": "Raptor1",
-                "count": 5
-            },
-            "reward": {
-                "gold": 110,
-                "items": ["Raptor Claw"],
                 "guild_point": 60
             }
         },

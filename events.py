@@ -250,7 +250,7 @@ def opening_scene(screen, player_party):
         {"type": "move", "character": Liora, "direction": "left", "distance": 50},
         {"type": "animation", "character": Liora, "pose": "down_stand"},
         {"type": "animation", "character": player, "pose": "up_stand"},
-        {"type": "talk", "character": Liora, "message": "Thank you, Kael. I'll be in your care."}
+        {"type": "talk", "character": Liora, "message": f"Thank you, {name}. I'll be in your care."}
     ]
     opening_scene5 = Scene(screen, [player, Liora, Garic], opening_scene5_actions, top_left_x=500, top_left_y=100, scale_factor=3, background_image="Backgrounds\TownMapV1.png")
     opening_scene5.run()
@@ -409,7 +409,7 @@ def guild_scene(screen, player_party):
         {"type": "talk", "character": player, "message": "A B-rank party? What does that mean?"},
         {"type": "talk", "character": Mira, "message": "Well, adventurers are ranked individually, but parties are ranked too! To become a B-rank party, you'll need to complete enough quests and prove your teamwork. It's not just about strength—it's about trust and coordination. Once you're B-rank, you'll have access to better quests and resources. And who knows? Maybe one day you'll even reach A-rank!"},
         {"type": "talk", "character": player, "message": f"({name} sighs but accepts his new role.)"},
-        {"type": "talk", "character": Mira, "message": f"Good luck, Kael! Oh, and don't forget to check the quest board over there. Start small, and you'll be B-rank in no time!"},
+        {"type": "talk", "character": Mira, "message": f"Good luck, {name}! Oh, and don't forget to check the quest board over there. Start small, and you'll be B-rank in no time!"},
     ]
     scene5 = Scene(screen, [player, Mira, Finn], scene5_actions, scale_factor=3, background_image=R"Backgrounds/guild.png", top_left_x=1500, top_left_y=1700)
 

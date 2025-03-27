@@ -124,10 +124,6 @@ StoneCaveEnemylist = [StoneCaveEnemy]
 ###### Initial Village #######
 
 ###### Forest ######
-
-####################
-
-###### Lost Forest #######
 forest_npc1 = NPC(
     "Forest Ranger",
     ["Only registered guild adventurers are allowed beyond this point—come back once you've joined the guild."],
@@ -138,6 +134,18 @@ forest_npc1 = NPC(
 forest_npc1.sprite.set_animation("up_stand")
 
 forest_npcs = [forest_npc1]
+####################
+
+###### Lost Forest #######
+lost_forest_npc1 = NPC(
+    "Reiya",
+    ["This bridge leads to a realm of whispers and shadows. Without the Guardian's blessing, you will never find your way back."],
+    1970,
+    2560,
+    [R"timefantasy_characters\timefantasy_characters\frames\military\military1_2"],  
+)
+lost_forest_npc1.sprite.set_animation("up_stand")
+lost_forest_npcs = [lost_forest_npc1]
 ##########################
 
 ###### Castle Town ######
@@ -257,8 +265,8 @@ map_configs = {
         "map_scale_factor": 4,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
-        "random_encounter_enemies": ["Slime", "Bat"],
-        "encounter_rate": 0.00,
+        "random_encounter_enemies": ["Slime", "Bat", "Snake(Green)"],
+        "encounter_rate": 0.005,
         "layer_json_path": R"Backgrounds/forest/forest.json",
         "transitions": [
             {"zone": (1175, 2749, 1425, 2820), "target": "Town_mapv1", "player_x": 3550, "player_y": 1150},
@@ -268,11 +276,12 @@ map_configs = {
     },
     "lost_forest": {
         "map_image_path": R"Backgrounds/lost_forest.png",
-        "npcs": [],
+        "npcs": lost_forest_npcs,
         "map_scale_factor": 4,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
-        "encounter_rate": 0.000,
+        "random_encounter_enemies": ["Bee", "Mouse", "Spider", "Scorpion", "Snake(Pink)"],
+        "encounter_rate": 0.005,
         "layer_json_path": R"Backgrounds/lost_forest/lost_forest.json",
         "transitions": [
             {"zone": (0, 1510, 40, 1780), "target": "forest", "player_x": 2800, "player_y": 1450},
@@ -286,7 +295,8 @@ map_configs = {
         "map_scale_factor": 3,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
-        "encounter_rate": 0.00,
+        "random_encounter_enemies": ["Alligator", "Armagiro", "Crub", "Turtle"],
+        "encounter_rate": 0.005,
         "layer_json_path": R"Backgrounds/stone_cave/stone_cave.json",
         "transitions": [
             {"zone": (1080, 2040, 1150, 2110), "target": "lost_forest", "player_x": 2160, "player_y": 2290},

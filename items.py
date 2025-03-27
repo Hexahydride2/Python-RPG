@@ -442,6 +442,21 @@ def monster_drop_list():
         "Dryad Leaf": 25,        # 25% chance to drop Dryad Leaf (used for healing potions)
         "Spirit Core": 15,       # 15% chance to drop Spirit Core (used for enchantments)
     },
+    "Alligator": {
+
+    },
+    "Armagiro": {
+
+    },
+    "Crub": {
+
+    },
+    "Frog(blue)": {
+
+    },
+    "Frog(green)": {
+        
+    },
     "Cultist A": {
     },
     "Cultist B": {
@@ -460,11 +475,18 @@ def monster_exp_list():
     "Scorpion":28,
     "Snake(Green)": 80,
     "Snake(Pink)": 100,
+    "Alligator": 110,
+    "Armagiro": 110,
+    "Crub": 110,
+    "Frog(blue)": 80,
+    "Frog(green)": 80,
+    "Octpus": 100,
+    "Turtle": 90,
     "Phoenix": 200,
     "Minotaur": 200,
     "Treant": 100,
     "Cultist A": 200,
-    "Cultist B": 200
+    "Cultist B": 200,
     }
     return monster_exp_values
 

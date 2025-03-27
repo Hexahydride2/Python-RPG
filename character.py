@@ -50,7 +50,7 @@ class Character:
     
     def calculate_exp_to_next_level(self):
         """Calculate the EXP required to reach the next level using a DQ-style formula."""
-        base_exp = 30  # Base value for EXP scaling
+        base_exp = 10  # Base value for EXP scaling
         return base_exp * (self.level ** 2)
     
     def gain_exp(self, amount):
