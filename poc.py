@@ -104,7 +104,7 @@ while running:
         elif target_map_id == "forest" and events_progress["the_arrogant_stranger_scene"] and events_progress["introduction_to_saving_princess"] == False:
             introduction_to_saving_princess(screen, player_party)
             events_progress["introduction_to_saving_princess"] = True
-        elif target_map_id == "lost_forest" and events_progress["the_princess_in_peril_scene"] == False:
+        elif target_map_id == "lost_forest" and events_progress["introduction_to_saving_princess"] and events_progress["the_princess_in_peril_scene"] == False:
             scene_done = the_princess_in_peril_scene(screen, player_party)
             if scene_done:
                 player_party.leader.current_direction = "right"
