@@ -62,7 +62,7 @@ class GameManager:
         num_save_data = len(self.save_data_list)
         file_path = f"SaveData/Data{num_save_data + 1}.json"
         self.player_party = Party(self.player)
-        events_progress = {"guild_scene": False, "the_arrogant_stranger_scene": False, "introduction_to_saving_princess": False, "the_princess_in_peril_scene": False, "the_dilemma_of_king_scene": False, "the_stone_cave_crisis_scene": False}   ###############
+        events_progress = {"guild_scene": False, "the_arrogant_stranger_scene": False, "introduction_to_saving_princess": False, "the_princess_in_peril_scene": False, "the_dilemma_of_king_scene": False, "the_stone_cave_crisis_scene": False, "meeting_the_king_scene": False}   ###############
         # initial save
         self.save_game(file_path=file_path, current_map_id="Town_mapv1", events_progress=events_progress)
         self.running = False

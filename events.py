@@ -1,5 +1,5 @@
 import pygame
-from character import Character, Enemy, Party
+from character import Character, Enemy, Party, NPC
 from scene import Scene
 
 def opening_scene(screen, player_party):
@@ -1037,6 +1037,146 @@ def the_stone_cave_crisis_scene(screen, player_party):
     
     scene_done = True
     return scene_done
+
+def meeting_the_king_scene(screen, player_party):
+    name = player_party.leader.name
+    folder_paths = player_party.leader.folder_paths
+
+    player = NPC(
+            name,
+            [],
+            610,
+            720,
+            folder_paths,
+            scale_factor=1
+            )
+    
+    King = NPC(
+            "King Aldric",
+            [],
+            600,
+            70,
+            [R"timefantasy_characters\timefantasy_characters\frames\chara\chara8_3"],
+            scale_factor=3
+            )
+    
+    Seraphina = NPC(
+            "Seraphina",
+            [],
+            600,
+            250,
+            [R"timefantasy_characters\timefantasy_characters\frames\chara\chara8_4"],
+            scale_factor=3
+            )
+    Seraphina.sprite.set_animation("up_stand")
+    
+    guard1 = NPC(
+            "Guard",
+            [],
+            480,
+            150,
+            [R"timefantasy_characters\timefantasy_characters\frames\military\military1_8"],
+            scale_factor=3
+            )
+    
+    guard2 = NPC(
+            "Guard",
+            [],
+            740,
+            150,
+            [R"timefantasy_characters\timefantasy_characters\frames\military\military1_8"],
+            scale_factor=3
+            )
+    
+    guard3 = NPC(
+            "Guard",
+            [],
+            350,
+            110,
+            [R"timefantasy_characters\timefantasy_characters\frames\military\military1_8"],
+            scale_factor=3
+            )
+    
+    guard4 = NPC(
+            "Guard",
+            [],
+            870,
+            110,
+            [R"timefantasy_characters\timefantasy_characters\frames\military\military1_8"],
+            scale_factor=3
+            )
+    
+    guard5 = NPC(
+            "Guard",
+            [],
+            470,
+            400,
+            [R"timefantasy_characters\timefantasy_characters\frames\military\military1_7"],
+            scale_factor=3
+            )
+    guard5.sprite.set_animation("right_stand")
+    
+    guard6 = NPC(
+            "Guard",
+            [],
+            760,
+            400,
+            [R"timefantasy_characters\timefantasy_characters\frames\military\military1_7"],
+            scale_factor=3
+            )
+    guard6.sprite.set_animation("left_stand")
+    
+    guard7 = NPC(
+            "Guard",
+            [],
+            470,
+            550,
+            [R"timefantasy_characters\timefantasy_characters\frames\military\military1_7"],
+            scale_factor=3
+            )
+    guard7.sprite.set_animation("right_stand")
+    
+    guard8 = NPC(
+            "Guard",
+            [],
+            760,
+            550,
+            [R"timefantasy_characters\timefantasy_characters\frames\military\military1_7"],
+            scale_factor=3
+            )
+    guard8.sprite.set_animation("left_stand")
+    
+    scene1_actions = [
+        {"type": "move", "character": player, "direction": "up", "distance": 330},
+        {"type": "animation", "character": Seraphina, "pose": "down_stand"},
+        {"type": "wait", "duration": 500},
+        {"type": "move", "character": Seraphina, "direction": "right", "distance": 80},
+        {"type": "animation", "character": Seraphina, "pose": "up_stand"},
+        {"type": "move", "character": player, "direction": "up", "distance": 70},
+        {"type": "move", "character": King, "direction": "down", "distance": 70},
+        {"type": "talk", "character": King, "message": f"Seraphina, this must be the adventurer you spoke of. {name}, was it?"},
+        {"type": "talk", "character": Seraphina, "message": f"Yes, Father. {name} not only saved me from the cultists but also rescued the miners from the Stone Cave. He's proven himself a true hero."},
+        {"type": "talk", "character": King, "message": f"You have my gratitude, {name}. The Stone Cave is vital to our kingdom, and you've saved many lives today. Now, Seraphina mentioned you were looking for information about a place called 'Canada.'"},
+        {"type": "talk", "character": player, "message": f"Yes, Your Majesty. I'm not from this world, and I need to find a way back—or at least understand how I got here."},
+        {"type": "talk", "character": King, "message": f"Canada... I'm afraid I've never heard of it. However, many years ago, another adventurer asked about the same place. He was a skilled warrior, but I can't recall his name. If you're looking for answers, becoming an adventurer might be your best path. Our kingdom is in dire need of strong adventurers like you."},
+        {"type": "talk", "character": player, "message": f"I'll do whatever it takes to find the truth. If helping your kingdom gets me closer to that, I'm in."},
+        {"type": "talk", "character": King, "message": f"Then I wish you luck, {name}. You've already proven yourself a friend to this kingdom. If you ever need aid, don't hesitate to ask."},
+        {"type": "wait", "duration": 500},
+        {"type": "move", "character": player, "direction": "down", "distance": 200},
+        {"type": "animation", "character": Seraphina, "pose": "down_stand"},
+        {"type": "talk", "character": Seraphina, "message": f"{name}!"},
+        {"type": "move", "character": Seraphina, "direction": "left", "distance": 80},
+        {"type": "move", "character": Seraphina, "direction": "down", "distance": 150},
+        {"type": "animation", "character": player, "pose": "up_stand"},
+        {"type": "talk", "character": Seraphina, "message": f"Thank you for helping us, {name}. You've already made a difference in this kingdom."},
+        {"type": "talk", "character": player, "message": f"I still have a long way to go. If I'm going to find out about Canada and that other adventurer, I'll need to get stronger."},
+        {"type": "talk", "character": Seraphina, "message": f"Then let me help you. As a princess, I have access to resources and information. If you ever need anything, don't hesitate to ask."},
+        {"type": "talk", "character": player, "message": f"Thank you, Seraphina. I think I've found my path. I'll live as an adventurer and uncover the truth about my world—and this one."}
+    ]
+
+    scene1 = Scene(screen, [player, King, Seraphina, guard1, guard2, guard3, guard4, guard5, guard6, guard7, guard8], scene1_actions, scale_factor=3, top_left_x=840, top_left_y=400, background_image="Backgrounds/castle3F.png")
+    scene1.run()
+    
 ##########################################3
 
 if __name__ == "__main__":
@@ -1059,7 +1199,7 @@ if __name__ == "__main__":
         scale_factor=1
         )
     player_party = Party(player)
-    the_stone_cave_crisis_scene(screen, player_party)
+    meeting_the_king_scene(screen, player_party)
 
 
 

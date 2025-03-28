@@ -1,6 +1,6 @@
 from game_manager import GameManager
 import pygame
-from events import guild_scene, castle_entrance_denial_scene, lost_forest_entrance_denial_scene, the_arrogant_stranger_scene, introduction_to_saving_princess, the_princess_in_peril_scene, the_dilemma_of_king_scene, the_castle_3F_entrance_denial_scene, the_stone_cave_crisis_scene
+from events import guild_scene, castle_entrance_denial_scene, lost_forest_entrance_denial_scene, the_arrogant_stranger_scene, introduction_to_saving_princess, the_princess_in_peril_scene, the_dilemma_of_king_scene, the_castle_3F_entrance_denial_scene, the_stone_cave_crisis_scene, meeting_the_king_scene
 from utilities import change_theme
 from character import Character
 
@@ -131,8 +131,12 @@ while running:
                 player_party.leader.x = 550
                 player_party.leader.y = 760
                 events_progress["the_stone_cave_crisis_scene"] = True
-
-
+        elif no_map_change and target_map_id == "castle_3F" and events_progress["the_stone_cave_crisis_scene"] and events_progress["meeting_the_king_scene"] == False:
+            meeting_the_king_scene(screen, player_party)
+            events_progress["meeting_the_king_scene"] = True
+            player_party.leader.current_direction = "down"
+            player_party.leader.x = 1480
+            player_party.leader.y = 959
 
         # Switch BGM
         #change_theme(current_map.bgm)

@@ -205,6 +205,128 @@ castle_1F_npcs = [Roderick]
 #########################
 
 ###### Castle 3F ######
+king_npc = NPC(
+    "King Aldric",
+    [
+        "Welcome, brave adventurer. What brings you to my court?",
+        "The kingdom is in peril. We need heroes like you to restore peace.",
+        "Do not let fear cloud your judgment. The fate of Eryndor rests in your hands."
+    ],
+    1480,
+    509,
+    [R"timefantasy_characters\timefantasy_characters\frames\chara\chara8_3"]
+)
+
+princess_npc = NPC(
+    "Seraphina",
+    ["If you ever need anything, don't hesitate to ask."],
+    1550,
+    699,
+    [R"timefantasy_characters\timefantasy_characters\frames\chara\chara8_4"]
+)
+
+Guard_npc1 = NPC(
+    "Guard",
+    [
+        "Halt! State your business in the castle.",
+        "The king is busy, but I might let you through if you have a good reason.",
+        "Stay vigilant. The kingdom's safety depends on all of us."
+    ],
+    1350,
+    599,
+    [R"timefantasy_characters\timefantasy_characters\frames\military\military1_8"]
+)
+
+Guard_npc2 = NPC(
+    "Guard",
+    [
+        "Only those with royal permission may enter the throne room.",
+        "The castle is secure, but we must remain on high alert.",
+        "If you're here to see the king, you'd better have a good reason."
+    ],
+    1601,
+    599,
+    [R"timefantasy_characters\timefantasy_characters\frames\military\military1_8"]
+)
+
+Guard_npc3 = NPC(
+    "Guard",
+    [
+        "The corridors are off-limits to unauthorized personnel.",
+        "Keep moving, citizen. This area is restricted.",
+        "The king's safety is our top priority. Do not cause trouble."
+    ],
+    1330,
+    850,
+    [R"timefantasy_characters\timefantasy_characters\frames\military\military1_7"]
+)
+Guard_npc3.sprite.set_animation("right_stand")
+
+Guard_npc4 = NPC(
+    "Guard",
+    [
+        "Stay out of trouble, and we'll have no issues.",
+        "The castle is no place for idle wanderers.",
+        "If you have questions, speak to Captain Roderick."
+    ],
+    1620,
+    850,
+    [R"timefantasy_characters\timefantasy_characters\frames\military\military1_7"]
+)
+Guard_npc4.sprite.set_animation("left_stand")
+
+Guard_npc5 = NPC(
+    "Guard",
+    [
+        "The royal treasury is off-limits. Move along.",
+        "Do not test my patience, traveler.",
+        "The king values loyalty and bravery above all else."
+    ],
+    1330,
+    1000,
+    [R"timefantasy_characters\timefantasy_characters\frames\military\military1_7"]
+)
+Guard_npc5.sprite.set_animation("right_stand")
+
+Guard_npc6 = NPC(
+    "Guard",
+    [
+        "The castle gates are heavily guarded. No one gets in without clearance.",
+        "If you're lost, I suggest heading back to the town.",
+        "The kingdom's safety is our duty. Do not interfere."
+    ],
+    1620,
+    1000,
+    [R"timefantasy_characters\timefantasy_characters\frames\military\military1_7"]
+)
+Guard_npc6.sprite.set_animation("left_stand")
+
+Guard_npc7 = NPC(
+    "Guard",
+    [
+        "The king is wise and just. Show him the respect he deserves.",
+        "We stand ready to defend the kingdom at all costs.",
+        "Do not loiter here. The castle is a place of business."
+    ],
+    1210,
+    559,
+    [R"timefantasy_characters\timefantasy_characters\frames\military\military1_8"]
+)
+
+Guard_npc8 = NPC(
+    "Guard",
+    [
+        "The throne room is ahead. Behave yourself.",
+        "The king has many matters to attend to. Do not waste his time.",
+        "If you seek an audience with the king, speak with the captain first."
+    ],
+    1740,
+    559,
+    [R"timefantasy_characters\timefantasy_characters\frames\military\military1_8"]
+)
+
+castle_3f_npcs = [king_npc, princess_npc, Guard_npc1, Guard_npc2, Guard_npc3, Guard_npc4, Guard_npc5, Guard_npc6, Guard_npc7, Guard_npc8]
+#######################
 
 ###### Guild ######
 reception_npc = NPC(
@@ -351,7 +473,7 @@ map_configs = {
     },
     "castle_3F": {
         "map_image_path": R"Backgrounds/castle3F.png",
-        "npcs": [],
+        "npcs": castle_3f_npcs,
         "map_scale_factor": 3,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
@@ -359,6 +481,7 @@ map_configs = {
         "layer_json_path": "Backgrounds/castle3F/castle3F.json",
         "transitions": [
             {"zone": (1370, 1609, 1580, 1679), "target": "castle_1F", "player_x": 1480, "player_y": 1619},
+            {"zone": (1370, 1129, 1580, 1269), "target": "castle_3F", "player_x": 1480, "player_y": 1619},
         ]
     },
     "guild": {

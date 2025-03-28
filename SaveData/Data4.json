@@ -1,17 +1,17 @@
 {
-    "current_map": "forest",
+    "current_map": "Town_mapv1",
     "party_data": [
         {
-            "name": "Sol",
-            "x": 1275,
-            "y": 2589,
+            "name": "Reiya",
+            "x": 830,
+            "y": 1280,
             "level": 1,
             "hp": 100,
             "max_hp": 100,
             "mp": 50,
             "max_mp": 50,
-            "atk": 26,
-            "dfn": 13,
+            "atk": 20,
+            "dfn": 20,
             "spd": 5,
             "inventory": {
                 "Potion": 3,
@@ -37,6 +37,8 @@
         "guild_scene": false,
         "the_arrogant_stranger_scene": false,
         "introduction_to_saving_princess": false,
-        "the_princess_in_peril_scene": false
+        "the_princess_in_peril_scene": false,
+        "the_dilemma_of_king_scene": false,
+        "the_stone_cave_crisis_scene": false
     }
 }
