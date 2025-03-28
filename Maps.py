@@ -441,7 +441,10 @@ map_configs = {
             {"zone": (1770, 0, 2000, 95), "target": "castle", "player_x": 2060, "player_y": 3960},
             {"zone": (980, 2789, 1030, 2829), "target": "guild", "player_x": 1467, "player_y": 2637},
             {"zone": (2510, 1900, 2570, 1970), "target": "item_shop", "player_x": 750, "player_y": 1080},
-            {"zone": (867, 1687, 957, 1787), "target": "inn_1F", "player_x": 1040, "player_y": 1360}
+            {"zone": (867, 1687, 957, 1787), "target": "inn_1F", "player_x": 1040, "player_y": 1360},
+            {"zone": (2217, 2937, 2297, 3037), "target": "House1", "player_x": 620, "player_y": 575},
+            {"zone": (2597, 2937, 2687, 3037), "target": "House2", "player_x": 620, "player_y": 575},
+            {"zone": (2787, 627, 2877, 717), "target": "House3", "player_x": 620, "player_y": 575}
         ]
     },
     "castle": {
@@ -521,22 +524,6 @@ map_configs = {
         ]
     },
 
-    "town_map": {
-        "map_image_path": R"Backgrounds/TownMap.png",
-        "npcs": [],
-        "enemies": enemies,
-        "map_scale_factor": 2,
-        "bgm": R"music\NewTownTheme.mp3",
-        "allow_encounters": True,
-        "encounter_rate": 0,
-        "layer_json_path": None,
-        "transitions": [
-            {"zone": (265, 505, 505, 645), "target": "dungeon_map", "player_x": 965, "player_y": 1585},
-            {"zone": (1360, 785, 1414, 830), "target": "shop_map", "player_x": 280, "player_y": 405},
-            {"zone": (425, 1070, 490, 1145), "target": "casino_map", "player_x": 100, "player_y": 100}
-        ]
-    },
-
     "dungeon_map": {
         "map_image_path": R".\Backgrounds\Map-L.png",
         "npcs": [],
@@ -563,26 +550,6 @@ map_configs = {
             {"zone": (1730, 340, 1775, 380), "target": "friendshouse", "player_x": 620, "player_y": 575},
             {"zone": (3600, 1090, 3640, 1200), "target": "forest", "player_x": 1275, "player_y": 2649},
         ]
-    },
-    "townTest_map": {
-        "map_image_path": R".\Backgrounds\TownMapTest.png",
-        "npcs": [],
-        "enemies": [],
-        "map_scale_factor": 3,
-        "bgm": None,
-        "allow_encounters": False,
-        "encounter_rate": 0,
-        "layer_json_path": None,
-    },
-    "initial_village_map": {
-        "map_image_path": R".\Backgrounds\map.png",
-        "npcs": [],
-        "enemies": [],
-        "map_scale_factor": 3,
-        "bgm": None,
-        "allow_encounters": False,
-        "encounter_rate": 0,
-        "layer_json_path": None,
     },
     "playerhouse": {
         "map_image_path": R".\Backgrounds\playerhouse.png",
@@ -620,5 +587,47 @@ map_configs = {
         "transitions": [
             {"zone": (590, 600, 685, 653), "target": "Town_mapv1", "player_x": 1750, "player_y": 440}
         ]
-    }
+    },
+
+    "House1": {
+        "map_image_path": R".\Backgrounds\playerhouse.png",
+        "npcs": [],
+        "enemies": [],
+        "map_scale_factor": 3,
+        "bgm": None,
+        "allow_encounters": False,
+        "encounter_rate": 0,
+        "layer_json_path": R"Backgrounds\PlayerHouse\PlayerHouse.json",
+        "transitions": [
+            {"zone": (590, 600, 685, 653), "target": "castle_town", "player_x": 2257, "player_y": 3067}
+        ]
+    },
+
+    "House2": {
+        "map_image_path": R".\Backgrounds\FriendsHouse.png",
+        "npcs": [],
+        "enemies": [],
+        "map_scale_factor": 3,
+        "bgm": None,
+        "allow_encounters": False,
+        "encounter_rate": 0,
+        "layer_json_path": R"Backgrounds\FriendsHouse\FriendsHouse.json",
+        "transitions": [
+            {"zone": (590, 600, 685, 653), "target": "castle_town", "player_x": 2637, "player_y": 3057}
+        ]
+    },
+
+    "House3": {
+        "map_image_path": R".\Backgrounds\FriendsHouse.png",
+        "npcs": [],
+        "enemies": [],
+        "map_scale_factor": 3,
+        "bgm": None,
+        "allow_encounters": False,
+        "encounter_rate": 0,
+        "layer_json_path": R"Backgrounds\FriendsHouse\FriendsHouse.json",
+        "transitions": [
+            {"zone": (590, 600, 685, 653), "target": "castle_town", "player_x": 2837, "player_y": 767}
+        ]
+    },
 }
