@@ -1,10 +1,10 @@
 {
-    "current_map": "forest",
+    "current_map": "Forest",
     "party_data": [
         {
             "name": "Sol",
-            "x": 1275,
-            "y": 2589,
+            "x": 1225,
+            "y": 2399,
             "level": 1,
             "hp": 100,
             "max_hp": 100,

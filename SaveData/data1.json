@@ -1,10 +1,10 @@
 {
-    "current_map": "castle_town",
+    "current_map": "Eryndor Castle",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 2547,
-            "y": 2197,
+            "x": 2060,
+            "y": 3230,
             "level": 12,
             "hp": 217,
             "max_hp": 217,
@@ -17,19 +17,19 @@
                 "Potion": 2,
                 "Mana Crystal": 3,
                 "Slime Gel": 19,
-                "Herb": 45,
+                "Herb": 47,
                 "Phoenix Feather": 3,
                 "Flame Essence": 1,
                 "Minotaur Horn": 4,
-                "Bat Wing": 3,
-                "Snake Skin": 5,
+                "Bat Wing": 6,
+                "Snake Skin": 8,
                 "Venom Sack": 1,
                 "Spider Silk": 1,
                 "Beast Hide": 3,
                 "Cheese": 1,
-                "Honey": 1
+                "Honey": 2
             },
-            "gold": 15950,
+            "gold": 17150,
             "skills": [
                 "Strike",
                 "Power Cleave",
@@ -46,7 +46,7 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
                 "tf_svbattle\\singleframes\\set1\\1"
             ],
-            "exp": 160,
+            "exp": 405,
             "scale_factor": 1
         },
         {
@@ -76,7 +76,7 @@
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_1",
                 "tf_svbattle\\singleframes\\set2\\1"
             ],
-            "exp": 580,
+            "exp": 825,
             "scale_factor": 3
         }
     ],

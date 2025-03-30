@@ -149,7 +149,7 @@ lost_forest_npcs = [lost_forest_npc1]
 ##########################
 
 ###### Castle Town ######
-castle_town_npc1 = NPC(
+Eryndor_npc1 = NPC(
     "Old man",
     ["Welcome to Castle Town Eryndor, travelers! The heart of the kingdom and home to adventurers, merchants, and dreamers alike!"],
     2030,
@@ -157,14 +157,14 @@ castle_town_npc1 = NPC(
     [R"timefantasy_characters\timefantasy_characters\frames\npc\npc1_5"],
 )
 
-castle_town_npc2 = NPC(
+Eryndor_npc2 = NPC(
     "Jason",
     ["You there! You look like you've got adventure in your eyes. If you're looking to make a name for yourself, head to the Adventurer's Guild. They'll set you on the right path."],
     1700,
     3017,
     [R"timefantasy_characters\timefantasy_characters\frames\npc\npc1_6"],
 )
-castle_town_npc3 = NPC(
+Eryndor_npc3 = NPC(
     "Kaylan",
     ["Hey there, you can head to the Inn to rest and heal up from your travels. The Innkeeper is a good friend of mine."],
     1787,
@@ -172,7 +172,7 @@ castle_town_npc3 = NPC(
     [R"timefantasy_characters\timefantasy_characters\frames\npc\npc1_6"],
 )
 
-castle_town_gate_guard1 = NPC(
+Eryndor_gate_guard1 = NPC(
     "Gate Guard",
     ["The castle is restricted to authorized personnel only. Move along unless you have official business."],
     1710,
@@ -180,7 +180,7 @@ castle_town_gate_guard1 = NPC(
     [R"timefantasy_characters\timefantasy_characters\frames\military\military1_6"]
 )
 
-castle_town_gate_guard2 = NPC(
+Eryndor_gate_guard2 = NPC(
     "Gate Guard",
     ["State your business. The castle is off-limits to unauthorized personnel."],
     2039,
@@ -188,10 +188,10 @@ castle_town_gate_guard2 = NPC(
     [R"timefantasy_characters\timefantasy_characters\frames\military\military1_6"]
 )
 
-castle_town_npc1.sprite.set_animation("left_stand")
-castle_town_npc2.sprite.set_animation("right_stand")
-castle_town_npc3.sprite.set_animation("down_stand")
-castle_town_ncps = [castle_town_npc1, castle_town_npc2, castle_town_gate_guard1, castle_town_gate_guard2, castle_town_npc3]
+Eryndor_npc1.sprite.set_animation("left_stand")
+Eryndor_npc2.sprite.set_animation("right_stand")
+Eryndor_npc3.sprite.set_animation("down_stand")
+Eryndor_ncps = [Eryndor_npc1, Eryndor_npc2, Eryndor_gate_guard1, Eryndor_gate_guard2, Eryndor_npc3]
 ###### Castle 1F ######
 Roderick = NPC(
     "Captain Roderick",
@@ -381,7 +381,7 @@ map_configs = {
         "transitions": [
         ]
     },
-    "forest" : {
+    "Forest" : {
         "map_image_path": R"Backgrounds/forest.png",
         "npcs": forest_npcs,
         "map_scale_factor": 4,
@@ -391,13 +391,13 @@ map_configs = {
         "encounter_rate": 0.005,
         "layer_json_path": R"Backgrounds/forest/forest.json",
         "transitions": [
-            {"zone": (1175, 2749, 1425, 2820), "target": "Town_mapv1", "player_x": 3550, "player_y": 1150},
-            {"zone": (1170, 35, 1420, 40), "target": "castle_town", "player_x": 1860, "player_y": 3619},
-            {"zone": (2840, 1340, 2870, 1600), "target": "lost_forest", "player_x": 80, "player_y": 1650}
+            {"zone": (1175, 2749, 1425, 2820), "target": "Hearthaven Village", "player_x": 3550, "player_y": 1150},
+            {"zone": (1170, 35, 1420, 40), "target": "Eryndor", "player_x": 1860, "player_y": 3619},
+            {"zone": (2840, 1340, 2870, 1600), "target": "Lost Forest", "player_x": 80, "player_y": 1650}
         ],
         "battle_background_image": ".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png"
     },
-    "lost_forest": {
+    "Lost Forest": {
         "map_image_path": R"Backgrounds/lost_forest.png",
         "npcs": lost_forest_npcs,
         "map_scale_factor": 4,
@@ -407,7 +407,7 @@ map_configs = {
         "encounter_rate": 0.005,
         "layer_json_path": R"Backgrounds/lost_forest/lost_forest.json",
         "transitions": [
-            {"zone": (0, 1510, 40, 1780), "target": "forest", "player_x": 2800, "player_y": 1450},
+            {"zone": (0, 1510, 40, 1780), "target": "Forest", "player_x": 2800, "player_y": 1450},
             {"zone": (2140, 2180, 2200, 2260), "target": "stone_cave", "player_x": 1120, "player_y": 1970}
         ],
         "battle_background_image": ".\craftpix-net-270096-free-forest-battle-backgrounds\PNG\game_background_4\game_background_4.png"
@@ -423,31 +423,31 @@ map_configs = {
         "encounter_rate": 0.005,
         "layer_json_path": R"Backgrounds/stone_cave/stone_cave.json",
         "transitions": [
-            {"zone": (1080, 2040, 1150, 2110), "target": "lost_forest", "player_x": 2160, "player_y": 2290},
+            {"zone": (1080, 2040, 1150, 2110), "target": "Lost Forest", "player_x": 2160, "player_y": 2290},
             {"zone": (880, 1040, 1020, 1170), "target": "stone_cave", "player_x": 530, "player_y": 820},
         ],
         "battle_background_image": "Backgrounds/cave_battle.png"
     },
-    "castle_town": {
-        "map_image_path": R"Backgrounds/castle_town.png",
-        "npcs": castle_town_ncps,
+    "Eryndor": {
+        "map_image_path": R"Backgrounds/Eryndor.png",
+        "npcs": Eryndor_ncps,
         "map_scale_factor": 4,
         "bgm": R"music\NewTownTheme.mp3",
         "allow_encounters": True,
         "encounter_rate": 0,
-        "layer_json_path": R"Backgrounds/castle_town/castle_town.json",
+        "layer_json_path": R"Backgrounds/Eryndor/Eryndor.json",
         "transitions": [
-            {"zone": (1750, 3749, 1990, 3800), "target": "forest", "player_x": 1280, "player_y": 200},
-            {"zone": (1770, 0, 2000, 95), "target": "castle", "player_x": 2060, "player_y": 3960},
-            {"zone": (980, 2789, 1030, 2829), "target": "guild", "player_x": 1467, "player_y": 2637},
-            {"zone": (2510, 1900, 2570, 1970), "target": "item_shop", "player_x": 750, "player_y": 1080},
-            {"zone": (867, 1687, 957, 1787), "target": "inn_1F", "player_x": 1040, "player_y": 1360},
+            {"zone": (1750, 3749, 1990, 3800), "target": "Forest", "player_x": 1280, "player_y": 200},
+            {"zone": (1770, 0, 2000, 95), "target": "Eryndor Castle", "player_x": 2060, "player_y": 3960},
+            {"zone": (980, 2789, 1030, 2829), "target": "Guild", "player_x": 1467, "player_y": 2637},
+            {"zone": (2510, 1900, 2570, 1970), "target": "Eryndor Shop", "player_x": 750, "player_y": 1080},
+            {"zone": (867, 1687, 957, 1787), "target": "Inn 1F", "player_x": 1040, "player_y": 1360},
             {"zone": (2217, 2937, 2297, 3037), "target": "House1", "player_x": 620, "player_y": 575},
             {"zone": (2597, 2937, 2687, 3037), "target": "House2", "player_x": 620, "player_y": 575},
             {"zone": (2787, 627, 2877, 717), "target": "House3", "player_x": 620, "player_y": 575}
         ]
     },
-    "castle": {
+    "Eryndor Castle": {
         "map_image_path": R"Backgrounds/castle.png",
         "npcs": [],
         "map_scale_factor": 4,
@@ -456,11 +456,11 @@ map_configs = {
         "encounter_rate": 0,
         "layer_json_path": R"Backgrounds/castle/castle.json",
         "transitions": [
-            {"zone": (1860, 4000, 2250, 4080), "target": "castle_town", "player_x": 1870, "player_y": 229},
-            {"zone": (2040, 1820, 2100, 1870), "target": "castle_1F", "player_x": 1480, "player_y": 2599},
+            {"zone": (1860, 4000, 2250, 4080), "target": "Eryndor", "player_x": 1870, "player_y": 229},
+            {"zone": (2040, 1820, 2100, 1870), "target": "Eryndor Castle 1F", "player_x": 1480, "player_y": 2599},
         ]
     },
-    "castle_1F": {
+    "Eryndor Castle 1F": {
         "map_image_path": R"Backgrounds/castle1F.png",
         "npcs": castle_1F_npcs,
         "map_scale_factor": 3,
@@ -469,12 +469,12 @@ map_configs = {
         "encounter_rate": 0,
         "layer_json_path": R"Backgrounds/castle1F/castle1F.json",
         "transitions": [
-            {"zone": (1370, 2699, 1580, 2829), "target": "castle", "player_x": 2070, "player_y": 1929},
-            {"zone": (1370, 1399, 1580, 1549), "target": "castle_3F", "player_x": 1480, "player_y": 1549},
+            {"zone": (1370, 2699, 1580, 2829), "target": "Eryndor Castle", "player_x": 2070, "player_y": 1929},
+            {"zone": (1370, 1399, 1580, 1549), "target": "Eryndor Castle 3F", "player_x": 1480, "player_y": 1549},
             
         ]
     },
-    "castle_3F": {
+    "Eryndor Castle 3F": {
         "map_image_path": R"Backgrounds/castle3F.png",
         "npcs": castle_3f_npcs,
         "map_scale_factor": 3,
@@ -483,11 +483,11 @@ map_configs = {
         "encounter_rate": 0,
         "layer_json_path": "Backgrounds/castle3F/castle3F.json",
         "transitions": [
-            {"zone": (1370, 1609, 1580, 1679), "target": "castle_1F", "player_x": 1480, "player_y": 1619},
-            {"zone": (1370, 1129, 1580, 1269), "target": "castle_3F", "player_x": 1480, "player_y": 1619},
+            {"zone": (1370, 1609, 1580, 1679), "target": "Eryndor Castle 1F", "player_x": 1480, "player_y": 1619},
+            {"zone": (1370, 1129, 1580, 1269), "target": "Eryndor Castle 3F", "player_x": 1480, "player_y": 1619},
         ]
     },
-    "guild": {
+    "Guild": {
         "map_image_path": R"Backgrounds/guild.png",
         "npcs": guild_npc,
         "map_scale_factor": 3,
@@ -496,10 +496,10 @@ map_configs = {
         "encounter_rate": 0,
         "layer_json_path": R"Backgrounds/guild/guild.json",
         "transitions": [
-            {"zone": (1327, 2727, 1627, 2827), "target": "castle_town", "player_x": 997, "player_y": 2857},
+            {"zone": (1327, 2727, 1627, 2827), "target": "Eryndor", "player_x": 997, "player_y": 2857},
         ]
     },
-    "item_shop": {
+    "Eryndor Shop": {
         "map_image_path": R"Backgrounds/itemshop.png",
         "npcs": itemshop_npcs,
         "map_scale_factor": 3,
@@ -508,10 +508,10 @@ map_configs = {
         "encounter_rate": 0,
         "layer_json_path": R"Backgrounds/itemshop/itemshop.json",
         "transitions": [
-            {"zone": (720, 1120, 790, 1170), "target": "castle_town", "player_x": 2547, "player_y": 1997},
+            {"zone": (720, 1120, 790, 1170), "target": "Eryndor", "player_x": 2547, "player_y": 1997},
         ]
     },
-    "inn_1F": {
+    "Inn 1F": {
         "map_image_path": R"Backgrounds/inn_1F.png",
         "npcs": inn_1f_npcs,
         "map_scale_factor": 3,
@@ -520,7 +520,7 @@ map_configs = {
         "encounter_rate": 0,
         "layer_json_path": R"Backgrounds/inn1F/inn1F.json",
         "transitions": [
-            {"zone": (1010, 1420, 1070, 1460), "target": "castle_town", "player_x": 917, "player_y": 1817},
+            {"zone": (1010, 1420, 1070, 1460), "target": "Eryndor", "player_x": 917, "player_y": 1817},
         ]
     },
 
@@ -536,7 +536,7 @@ map_configs = {
         "transitions": []  
     },
   
-    "Town_mapv1": {
+    "Hearthaven Village": {
         "map_image_path": R".\Backgrounds\TownMapv1.png",
         "npcs": [],
         "enemies": [],
@@ -548,7 +548,10 @@ map_configs = {
         "transitions": [
             {"zone": (2020, 340, 2060, 400), "target": "playerhouse", "player_x": 620, "player_y": 575},
             {"zone": (1730, 340, 1775, 380), "target": "friendshouse", "player_x": 620, "player_y": 575},
-            {"zone": (3600, 1090, 3640, 1200), "target": "forest", "player_x": 1275, "player_y": 2649},
+            {"zone": (480, 1210, 520, 1240), "target": "House A", "player_x": 620, "player_y": 575},
+            {"zone": (2160, 1250, 2200, 1290), "target": "House B", "player_x": 620, "player_y": 575},
+            {"zone": (3600, 1090, 3640, 1200), "target": "Forest", "player_x": 1275, "player_y": 2649},
+            {"zone": (580, 490, 620, 520), "target": "Hearthaven Shop", "player_x": 750, "player_y": 1080},
         ]
     },
     "playerhouse": {
@@ -561,7 +564,7 @@ map_configs = {
         "encounter_rate": 0,
         "layer_json_path": R"Backgrounds\PlayerHouse\PlayerHouse.json",
         "transitions": [
-            {"zone": (590, 600, 685, 653), "target": "Town_mapv1", "player_x": 2030, "player_y": 450}
+            {"zone": (590, 600, 685, 653), "target": "Hearthaven Village", "player_x": 2030, "player_y": 450}
         ]
     },
     "casino_map": {
@@ -585,7 +588,48 @@ map_configs = {
         "encounter_rate": 0,
         "layer_json_path": R"Backgrounds\FriendsHouse\FriendsHouse.json",
         "transitions": [
-            {"zone": (590, 600, 685, 653), "target": "Town_mapv1", "player_x": 1750, "player_y": 440}
+            {"zone": (590, 600, 685, 653), "target": "Hearthaven Village", "player_x": 1750, "player_y": 440}
+        ]
+    },
+
+    "House A" : {
+        "map_image_path": R".\Backgrounds\playerhouse.png",
+        "npcs": [],
+        "enemies": [],
+        "map_scale_factor": 3,
+        "bgm": None,
+        "allow_encounters": False,
+        "encounter_rate": 0,
+        "layer_json_path": R"Backgrounds\PlayerHouse\PlayerHouse.json",
+        "transitions": [
+            {"zone": (590, 600, 685, 653), "target": "Hearthaven Village", "player_x": 500, "player_y": 1270}
+        ]
+    },
+
+    "House B": {
+        "map_image_path": R".\Backgrounds\FriendsHouse.png",
+        "npcs": [],
+        "enemies": [],
+        "map_scale_factor": 3,
+        "bgm": None,
+        "allow_encounters": False,
+        "encounter_rate": 0,
+        "layer_json_path": R"Backgrounds\FriendsHouse\FriendsHouse.json",
+        "transitions": [
+            {"zone": (590, 600, 685, 653), "target": "Hearthaven Village", "player_x": 2190, "player_y": 1320}
+        ]
+    },
+
+    "Hearthaven Shop": {
+        "map_image_path": R"Backgrounds/itemshop.png",
+        "npcs": itemshop_npcs,
+        "map_scale_factor": 3,
+        "bgm": R"music\NewTownTheme.mp3",
+        "allow_encounters": True,
+        "encounter_rate": 0,
+        "layer_json_path": R"Backgrounds/itemshop/itemshop.json",
+        "transitions": [
+            {"zone": (720, 1120, 790, 1170), "target": "Hearthaven Village", "player_x": 600, "player_y": 540},
         ]
     },
 
@@ -599,7 +643,7 @@ map_configs = {
         "encounter_rate": 0,
         "layer_json_path": R"Backgrounds\PlayerHouse\PlayerHouse.json",
         "transitions": [
-            {"zone": (590, 600, 685, 653), "target": "castle_town", "player_x": 2257, "player_y": 3067}
+            {"zone": (590, 600, 685, 653), "target": "Eryndor", "player_x": 2257, "player_y": 3067}
         ]
     },
 
@@ -613,7 +657,7 @@ map_configs = {
         "encounter_rate": 0,
         "layer_json_path": R"Backgrounds\FriendsHouse\FriendsHouse.json",
         "transitions": [
-            {"zone": (590, 600, 685, 653), "target": "castle_town", "player_x": 2637, "player_y": 3057}
+            {"zone": (590, 600, 685, 653), "target": "Eryndor", "player_x": 2637, "player_y": 3057}
         ]
     },
 
@@ -627,7 +671,7 @@ map_configs = {
         "encounter_rate": 0,
         "layer_json_path": R"Backgrounds\FriendsHouse\FriendsHouse.json",
         "transitions": [
-            {"zone": (590, 600, 685, 653), "target": "castle_town", "player_x": 2837, "player_y": 767}
+            {"zone": (590, 600, 685, 653), "target": "Eryndor", "player_x": 2837, "player_y": 767}
         ]
     },
 }
