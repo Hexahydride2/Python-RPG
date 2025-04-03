@@ -1,0 +1,96 @@
+{
+    "current_map": "Guild",
+    "party_data": [
+        {
+            "name": "Gabe",
+            "x": 2147,
+            "y": 2217,
+            "level": 12,
+            "hp": 209,
+            "max_hp": 217,
+            "mp": 39,
+            "max_mp": 99,
+            "atk": 58,
+            "dfn": 51.0,
+            "spd": 21,
+            "inventory": {
+                "Potion": 2,
+                "Mana Crystal": 3,
+                "Slime Gel": 19,
+                "Herb": 49,
+                "Phoenix Feather": 3,
+                "Flame Essence": 2,
+                "Minotaur Horn": 4,
+                "Bat Wing": 6,
+                "Snake Skin": 11,
+                "Venom Sack": 2,
+                "Spider Silk": 1,
+                "Beast Hide": 3,
+                "Cheese": 1,
+                "Honey": 2
+            },
+            "gold": 19500,
+            "skills": [
+                "Strike",
+                "Power Cleave",
+                "Explosive Arrow",
+                "Sonic Shot",
+                "Crystal Strike",
+                "Dark Pulse",
+                "Piercing Shot",
+                "Flame Slash",
+                "Earthen Spike",
+                "Ice Shard"
+            ],
+            "folder_paths": [
+                "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
+                "tf_svbattle\\singleframes\\set1\\1"
+            ],
+            "exp": 1114,
+            "scale_factor": 1
+        },
+        {
+            "name": "Finn",
+            "x": 630,
+            "y": 200,
+            "level": 11,
+            "hp": 218,
+            "max_hp": 218,
+            "mp": 71,
+            "max_mp": 136,
+            "atk": 60,
+            "dfn": 32,
+            "spd": 38,
+            "inventory": {},
+            "gold": 100,
+            "skills": [
+                "Strike",
+                "Flame Slash",
+                "Dark Pulse",
+                "Glass Storm",
+                "Earth Smash",
+                "Explosive Arrow",
+                "Ice Shard",
+                "Earthen Spike"
+            ],
+            "folder_paths": [
+                "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_1",
+                "tf_svbattle\\singleframes\\set2\\1"
+            ],
+            "exp": 534,
+            "scale_factor": 3
+        }
+    ],
+    "party_rank": "B",
+    "guild_point": 110,
+    "current_quests": [],
+    "events_progress": {
+        "guild_scene": true,
+        "the_arrogant_stranger_scene": true,
+        "introduction_to_saving_princess": true,
+        "the_princess_in_peril_scene": true,
+        "the_dilemma_of_king_scene": true,
+        "the_stone_cave_crisis_scene": true,
+        "meeting_the_king_scene": true
+    }
+}

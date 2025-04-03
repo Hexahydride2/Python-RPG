@@ -1,0 +1,552 @@
+{
+    "C": [
+        {
+            "id": 1,
+            "name": "Slime Infestation",
+            "description": "The nearby forest is overrun with slimes. Clear out 1 of these gelatinous pests to restore safety to the area.",
+            "objective": {
+                "type": "kill",
+                "target": "Slime",
+                "count": 3
+            },
+            "reward": {
+                "gold": 50,
+                "items": [],
+                "guild_point": 30
+            }
+        },
+        {
+            "id": 2,
+            "name": "Bat Menace",
+            "description": "Bats have been terrorizing the villagers at night. Hunt down 3 of these winged nuisances to bring peace to the town.",
+            "objective": {
+                "type": "kill",
+                "target": "Bat",
+                "count": 3
+            },
+            "reward": {
+                "gold": 40,
+                "items": [],
+                "guild_point": 30
+            }
+        },
+        {
+            "id": 3,
+            "name": "Herbal Remedy",
+            "description": "The local healer needs 10 herbs to create potions for the sick. Gather these herbs from the forest.",
+            "objective": {
+                "type": "collect",
+                "target": "Herb",
+                "count": 10
+            },
+            "reward": {
+                "gold": 30,
+                "items": ["Health Potion"],
+                "guild_point": 30
+            }
+        },
+        {
+            "id": 4,
+            "name": "Snake Hunt",
+            "description": "Green snakes have been spotted near the village. Eliminate 2 of these venomous creatures to protect the villagers.",
+            "objective": {
+                "type": "kill",
+                "target": "Snake(Green)",
+                "count": 2
+            },
+            "reward": {
+                "gold": 45,
+                "items": [],
+                "guild_point": 30
+            }
+        },
+        {
+            "id": 5,
+            "name": "Bee Swarm",
+            "description": "A swarm of aggressive bees is blocking the path to the forest. Defeat 4 of these insects to clear the way.",
+            "objective": {
+                "type": "kill",
+                "target": "Bee",
+                "count": 4
+            },
+            "reward": {
+                "gold": 55,
+                "items": [],
+                "guild_point": 30
+            }
+        },
+        {
+            "id": 21,
+            "name": "Mouse Problem",
+            "description": "Mice are stealing food from the village granary. Eliminate 6 of these pests to protect the food supply.",
+            "objective": {
+                "type": "kill",
+                "target": "Mouse",
+                "count": 6
+            },
+            "reward": {
+                "gold": 60,
+                "items": [],
+                "guild_point": 30
+            }
+        },
+        {
+            "id": 22,
+            "name": "Spider Silk Gathering",
+            "description": "The tailor needs 5 strands of spider silk for a special project. Collect these from the spiders in the forest.",
+            "objective": {
+                "type": "collect",
+                "target": "Spider_Silk",
+                "count": 5
+            },
+            "reward": {
+                "gold": 35,
+                "items": ["Spider Silk Cloak"],
+                "guild_point": 30
+            }
+        },
+        {
+            "id": 23,
+            "name": "Scorpion Patrol",
+            "description": "Scorpions have been spotted near the village outskirts. Defeat 3 of these dangerous creatures to ensure safety.",
+            "objective": {
+                "type": "kill",
+                "target": "Scorpion",
+                "count": 3
+            },
+            "reward": {
+                "gold": 50,
+                "items": [],
+                "guild_point": 30
+            }
+        },
+        {
+            "id": 24,
+            "name": "Pink Snake Hunt",
+            "description": "Pink snakes are causing trouble in the jungle. Hunt down 2 of these elusive creatures to restore peace.",
+            "objective": {
+                "type": "kill",
+                "target": "Snake(Pink)",
+                "count": 2
+            },
+            "reward": {
+                "gold": 40,
+                "items": [],
+                "guild_point": 30
+            }
+        }
+    ],
+    "B": [
+        {
+            "id": 6,
+            "name": "Scorpion Threat",
+            "description": "Scorpions have been spotted near the desert outpost. Eliminate 7 of these dangerous creatures to protect travelers.",
+            "objective": {
+                "type": "kill",
+                "target": "Scorpion",
+                "count": 7
+            },
+            "reward": {
+                "gold": 80,
+                "items": [],
+                "guild_point": 60
+            }
+        },
+        {
+            "id": 7,
+            "name": "Pink Snake Problem",
+            "description": "Pink snakes are causing chaos in the jungle. Hunt down 5 of these elusive creatures to restore order.",
+            "objective": {
+                "type": "kill",
+                "target": "Snake(Pink)",
+                "count": 5
+            },
+            "reward": {
+                "gold": 90,
+                "items": [],
+                "guild_point": 60
+            }
+        },
+        {
+            "id": 8,
+            "name": "Spider Silk Harvest",
+            "description": "The tailor needs 15 strands of spider silk to craft a special cloak. Collect these from the spiders in the forest.",
+            "objective": {
+                "type": "collect",
+                "target": "Spider_Silk",
+                "count": 15
+            },
+            "reward": {
+                "gold": 70,
+                "items": ["Spider Silk Cloak"],
+                "guild_point": 60
+            }
+        },
+        {
+            "id": 9,
+            "name": "Spider Infestation",
+            "description": "Spiders have taken over the old ruins. Clear out 6 of these eight-legged foes to reclaim the area.",
+            "objective": {
+                "type": "kill",
+                "target": "Spider",
+                "count": 6
+            },
+            "reward": {
+                "gold": 85,
+                "items": [],
+                "guild_point": 60
+            }
+        },
+        {
+            "id": 26,
+            "name": "Bat Swarm",
+            "description": "A swarm of bats is terrorizing the village at night. Hunt down 8 of these winged nuisances to bring peace.",
+            "objective": {
+                "type": "kill",
+                "target": "Bat",
+                "count": 8
+            },
+            "reward": {
+                "gold": 75,
+                "items": [],
+                "guild_point": 60
+            }
+        },
+        {
+            "id": 27,
+            "name": "Kill the powerful Phoenix",
+            "description": "There is a powerful Phoenix in the stone cave that has been terroizing the townspeople. Kill it.",
+            "objective": {
+                "type": "kill",
+                "target": "Phoenix",
+                "count": 1
+            },
+            "reward": {
+                "gold": 250,
+                "items": ["Phoenix Feather"],
+                "guild_point": 60
+            }
+        },
+        {
+            "id": 30,
+            "name": "Herb Harvest",
+            "description": "The healer needs 12 herbs to prepare remedies for the sick. Gather these from the forest.",
+            "objective": {
+                "type": "collect",
+                "target": "Herb",
+                "count": 12
+            },
+            "reward": {
+                "gold": 60,
+                "items": ["Health Potion"],
+                "guild_point": 60
+            }
+        }
+    ],
+    "A": [
+        {
+            "id": 11,
+            "name": "Mouse Plague",
+            "description": "A plague of mice is destroying crops in the village. Eliminate 10 of these pests to save the harvest.",
+            "objective": {
+                "type": "kill",
+                "target": "Mouse",
+                "count": 10
+            },
+            "reward": {
+                "gold": 120,
+                "items": [],
+                "guild_point": 100
+            }
+        },
+        {
+            "id": 12,
+            "name": "Raptor Hunt",
+            "description": "Raptors are preying on travelers in the mountains. Hunt down 8 of these dangerous predators.",
+            "objective": {
+                "type": "kill",
+                "target": "Raptor1",
+                "count": 8
+            },
+            "reward": {
+                "gold": 150,
+                "items": ["Raptor Claw"],
+                "guild_point": 100
+            }
+        },
+        {
+            "id": 13,
+            "name": "Phoenix Feathers",
+            "description": "The mage needs 20 phoenix feathers for a powerful spell. Collect these rare items from the fiery birds.",
+            "objective": {
+                "type": "collect",
+                "target": "Phoenix_Feather",
+                "count": 20
+            },
+            "reward": {
+                "gold": 130,
+                "items": ["Phoenix Feather"],
+                "guild_point": 100
+            }
+        },
+        {
+            "id": 14,
+            "name": "Treant Threat",
+            "description": "Treants have awakened and are attacking travelers. Defeat 5 of these ancient tree creatures.",
+            "objective": {
+                "type": "kill",
+                "target": "Treant",
+                "count": 5
+            },
+            "reward": {
+                "gold": 140,
+                "items": ["Treant Bark"],
+                "guild_point": 100
+            }
+        },
+        {
+            "id": 15,
+            "name": "Phoenix Hunt",
+            "description": "Phoenixes are causing wildfires in the valley. Hunt down 7 of these fiery birds to protect the land.",
+            "objective": {
+                "type": "kill",
+                "target": "Phoenix",
+                "count": 7
+            },
+            "reward": {
+                "gold": 160,
+                "items": ["Phoenix Feather"],
+                "guild_point": 100
+            }
+        },
+        {
+            "id": 31,
+            "name": "Scorpion Extermination",
+            "description": "A scorpion infestation threatens the desert outpost. Eliminate 12 of these deadly creatures.",
+            "objective": {
+                "type": "kill",
+                "target": "Scorpion",
+                "count": 12
+            },
+            "reward": {
+                "gold": 170,
+                "items": ["Scorpion Stinger"],
+                "guild_point": 100
+            }
+        },
+        {
+            "id": 32,
+            "name": "Spider Silk Harvest",
+            "description": "The tailor needs 25 strands of spider silk for a special project. Collect these from the spiders in the forest.",
+            "objective": {
+                "type": "collect",
+                "target": "Spider_Silk",
+                "count": 25
+            },
+            "reward": {
+                "gold": 140,
+                "items": ["Spider Silk Cloak"],
+                "guild_point": 100
+            }
+        },
+        {
+            "id": 33,
+            "name": "Minotaur Slayer",
+            "description": "A pack of minotaurs is terrorizing the labyrinth. Defeat 9 of these powerful beasts to restore peace.",
+            "objective": {
+                "type": "kill",
+                "target": "Minotaur",
+                "count": 9
+            },
+            "reward": {
+                "gold": 180,
+                "items": ["Minotaur Horn"],
+                "guild_point": 100
+            }
+        },
+        {
+            "id": 34,
+            "name": "Phoenix Hunt",
+            "description": "Phoenixes are causing wildfires in the valley. Hunt down 6 of these fiery birds to protect the land.",
+            "objective": {
+                "type": "kill",
+                "target": "Phoenix",
+                "count": 6
+            },
+            "reward": {
+                "gold": 150,
+                "items": ["Phoenix Feather"],
+                "guild_point": 100
+            }
+        },
+        {
+            "id": 35,
+            "name": "Treant Extermination",
+            "description": "Treants have overrun the ancient forest. Defeat 10 of these ancient tree creatures to reclaim the land.",
+            "objective": {
+                "type": "kill",
+                "target": "Treant",
+                "count": 10
+            },
+            "reward": {
+                "gold": 200,
+                "items": ["Treant Bark"],
+                "guild_point": 100
+            }
+        }
+    ],
+    "S": [
+        {
+            "id": 16,
+            "name": "Scorpion Extermination",
+            "description": "A massive scorpion infestation threatens the desert. Eliminate 15 of these deadly creatures.",
+            "objective": {
+                "type": "kill",
+                "target": "Scorpion",
+                "count": 15
+            },
+            "reward": {
+                "gold": 200,
+                "items": ["Scorpion Stinger"],
+                "guild_point": 200
+            }
+        },
+        {
+            "id": 17,
+            "name": "Minotaur Slayer",
+            "description": "A pack of minotaurs is terrorizing the labyrinth. Defeat 10 of these powerful beasts to restore peace.",
+            "objective": {
+                "type": "kill",
+                "target": "Minotaur",
+                "count": 10
+            },
+            "reward": {
+                "gold": 250,
+                "items": ["Minotaur Horn"],
+                "guild_point": 200
+            }
+        },
+        {
+            "id": 18,
+            "name": "Phoenix Feather Harvest",
+            "description": "The mage needs 30 phoenix feathers for a legendary spell. Collect these rare items from the fiery birds.",
+            "objective": {
+                "type": "collect",
+                "target": "Phoenix_Feather",
+                "count": 30
+            },
+            "reward": {
+                "gold": 220,
+                "items": ["Phoenix Feather"],
+                "guild_point": 200
+            }
+        },
+        {
+            "id": 19,
+            "name": "Treant Extermination",
+            "description": "Treants have overrun the ancient forest. Defeat 12 of these ancient tree creatures to reclaim the land.",
+            "objective": {
+                "type": "kill",
+                "target": "Treant",
+                "count": 12
+            },
+            "reward": {
+                "gold": 240,
+                "items": ["Treant Bark"],
+                "guild_point": 200
+            }
+        },
+        {
+            "id": 20,
+            "name": "Raptor Extermination",
+            "description": "A pack of raptors is terrorizing the mountains. Hunt down 15 of these dangerous predators.",
+            "objective": {
+                "type": "kill",
+                "target": "Raptor1",
+                "count": 15
+            },
+            "reward": {
+                "gold": 300,
+                "items": ["Raptor Claw"],
+                "guild_point": 200
+            }
+        },
+        {
+            "id": 36,
+            "name": "Bat Extermination",
+            "description": "A massive swarm of bats is terrorizing the village. Eliminate 20 of these winged nuisances to restore peace.",
+            "objective": {
+                "type": "kill",
+                "target": "Bat",
+                "count": 20
+            },
+            "reward": {
+                "gold": 210,
+                "items": [],
+                "guild_point": 200
+            }
+        },
+        {
+            "id": 37,
+            "name": "Spider Silk Harvest",
+            "description": "The tailor needs 40 strands of spider silk for a legendary project. Collect these from the spiders in the forest.",
+            "objective": {
+                "type": "collect",
+                "target": "Spider_Silk",
+                "count": 40
+            },
+            "reward": {
+                "gold": 230,
+                "items": ["Spider Silk Cloak"],
+                "guild_point": 200
+            }
+        },
+        {
+            "id": 38,
+            "name": "Pink Snake Extermination",
+            "description": "Pink snakes have overrun the jungle. Hunt down 18 of these elusive creatures to restore order.",
+            "objective": {
+                "type": "kill",
+                "target": "Snake_Pink",
+                "count": 18
+            },
+            "reward": {
+                "gold": 260,
+                "items": [],
+                "guild_point": 200
+            }
+        },
+        {
+            "id": 39,
+            "name": "Treant Extermination",
+            "description": "Treants have overrun the ancient forest. Defeat 14 of these ancient tree creatures to reclaim the land.",
+            "objective": {
+                "type": "kill",
+                "target": "Treant",
+                "count": 14
+            },
+            "reward": {
+                "gold": 280,
+                "items": ["Treant Bark"],
+                "guild_point": 200
+            }
+        },
+        {
+            "id": 40,
+            "name": "Raptor Extermination",
+            "description": "A pack of raptors is terrorizing the mountains. Hunt down 15 of these dangerous predators.",
+            "objective": {
+                "type": "kill",
+                "target": "Raptor1",
+                "count": 15
+            },
+            "reward": {
+                "gold": 300,
+                "items": ["Raptor Claw"],
+                "guild_point": 200
+            }
+        }
+        
+    ]
+}
+

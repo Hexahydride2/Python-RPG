@@ -1,0 +1,42 @@
+{
+    "current_map": "Forest",
+    "party_data": [
+        {
+            "name": "Sol",
+            "x": 1225,
+            "y": 2399,
+            "level": 1,
+            "hp": 100,
+            "max_hp": 100,
+            "mp": 50,
+            "max_mp": 50,
+            "atk": 26,
+            "dfn": 13,
+            "spd": 5,
+            "inventory": {
+                "Potion": 3,
+                "Mana Crystal": 3
+            },
+            "gold": 100,
+            "skills": [
+                "Strike",
+                "Power Cleave"
+            ],
+            "folder_paths": [
+                "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
+                "tf_svbattle\\singleframes\\set1\\1"
+            ],
+            "exp": 0,
+            "scale_factor": 1
+        }
+    ],
+    "party_rank": "C",
+    "guild_point": 0,
+    "current_quests": [],
+    "events_progress": {
+        "guild_scene": false,
+        "the_arrogant_stranger_scene": false,
+        "introduction_to_saving_princess": false,
+        "the_princess_in_peril_scene": false
+    }
+}

@@ -1,0 +1,85 @@
+{
+    "current_map": "Guild",
+    "party_data": [
+        {
+            "name": "Jongi",
+            "x": 2147,
+            "y": 1937,
+            "level": 1,
+            "hp": 100,
+            "max_hp": 100,
+            "mp": 50,
+            "max_mp": 50,
+            "atk": 20,
+            "dfn": 20,
+            "spd": 5,
+            "inventory": {
+                "Potion": 3,
+                "Mana Crystal": 3
+            },
+            "gold": 100,
+            "skills": [
+                "Strike",
+                "Power Cleave"
+            ],
+            "folder_paths": [
+                "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
+                "tf_svbattle\\singleframes\\set1\\1"
+            ],
+            "exp": 0,
+            "scale_factor": 1
+        },
+        {
+            "name": "Finn",
+            "x": 630,
+            "y": 200,
+            "level": 5,
+            "hp": 170,
+            "max_hp": 170,
+            "mp": 110,
+            "max_mp": 110,
+            "atk": 40,
+            "dfn": 20,
+            "spd": 30,
+            "inventory": {},
+            "gold": 100,
+            "skills": [
+                "Strike",
+                "Flame Slash"
+            ],
+            "folder_paths": [
+                "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_1",
+                "tf_svbattle\\singleframes\\set2\\1"
+            ],
+            "exp": 0,
+            "scale_factor": 3
+        }
+    ],
+    "party_rank": "C",
+    "guild_point": 0,
+    "current_quests": [
+        {
+            "id": 1,
+            "name": "Slime Infestation",
+            "description": "The nearby forest is overrun with slimes. Clear out 1 of these gelatinous pests to restore safety to the area.",
+            "objective": {
+                "type": "kill",
+                "target": "Slime",
+                "count": 1
+            },
+            "reward": {
+                "gold": 50,
+                "items": [],
+                "guild_point": 150
+            }
+        }
+    ],
+    "events_progress": {
+        "guild_scene": true,
+        "the_arrogant_stranger_scene": false,
+        "introduction_to_saving_princess": false,
+        "the_princess_in_peril_scene": false,
+        "the_dilemma_of_king_scene": false,
+        "the_stone_cave_crisis_scene": false
+    }
+}
