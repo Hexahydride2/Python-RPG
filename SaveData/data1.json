@@ -1,10 +1,10 @@
 {
-    "current_map": "Eryndor Castle",
+    "current_map": "Eryndor",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 2060,
-            "y": 3230,
+            "x": 1897,
+            "y": 837,
             "level": 12,
             "hp": 217,
             "max_hp": 217,

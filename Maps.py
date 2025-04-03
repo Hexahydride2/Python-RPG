@@ -369,6 +369,69 @@ inn_owner = NPC(
 inn_1f_npcs = [inn_owner]
 
 ###############################################
+
+###### House NPCs ######
+house1_npc = NPC(
+    "Miller Aldwin",
+    ["The flour mill's been busy with the harvest. Good grain this season!", 
+     "Watch yourself around the castle guards. They've been on edge since rumors of dark magic spread.",
+     "My cousin works the fields north of town. Says the soil's not what it used to be."],
+    400,
+    300,
+    [R"timefantasy_characters\timefantasy_characters\frames\npc\npc1_7"]
+)
+
+house2_npc = NPC(
+    "Seamstress Elspeth",
+    ["I'm working on a new tapestry for the castle. The royal colors are quite particular.",
+     "Imported silk costs a fortune these days! The merchant caravans barely make it through the mountain pass.",
+     "Need a garment mended? I charge fair prices, not like that swindler in the marketplace."],
+    460,
+    780,
+    [R"timefantasy_characters\timefantasy_characters\frames\npc\npc2_3"]
+)
+
+house3_npc = NPC(
+    "Herbalist Thaddeus",
+    ["These herbs ward off the plague, or so the old wisdom says.",
+     "The forest mushrooms have strange properties this season. I wouldn't forage without knowledge.",
+     "The apothecary guild keeps their best remedies secret. Shameful, when people suffer!"],
+    400,
+    320,
+    [R"timefantasy_characters\timefantasy_characters\frames\npc\npc3_4"]
+)
+
+house4_npc = NPC(
+    "Blacksmith Sarah",
+    ["Forged a dozen horseshoes yesterday. My arms still ache!",
+     "The knights demand the finest steel. Common folk make do with iron.",
+     "My grandfather taught me to read the metal's glow. Too hot and it weakens, too cool and it won't take shape."],
+    1340,
+    580,
+    [R"timefantasy_characters\timefantasy_characters\frames\npc\npc4_5"]
+)
+
+house5_npc = NPC(
+    "Widow Matilda",
+    ["I've seen sixty winters come and go. The last one took my husband.",
+     "In my youth, I served in the castle kitchens. The lord was fond of venison pie.",
+     "Children these days know nothing of respect. In my day, we stood when elders entered the room!"],
+    460,
+    780,
+    [R"timefantasy_characters\timefantasy_characters\frames\npc\npc2_8"]
+)
+
+house6_npc = NPC(
+    "Bard Cedric",
+    ["I compose ballads of heroes and monsters. Care to hear my latest?",
+     "The minstrel competition is next full moon. I aim to win the silver lyre this year.",
+     "Tales travel faster than horsemen in these lands. Have you heard of the dragon in the northern peaks?"],
+    830,
+    670,
+    [R"timefantasy_characters\timefantasy_characters\frames\npc\npc1_3"]
+)
+###############################################
+
 map_configs = {
     "Map002": {
         "map_image_path": R"Backgrounds/Map002.png",
@@ -444,7 +507,10 @@ map_configs = {
             {"zone": (867, 1687, 957, 1787), "target": "Inn 1F", "player_x": 1040, "player_y": 1360},
             {"zone": (2217, 2937, 2297, 3037), "target": "House1", "player_x": 620, "player_y": 575},
             {"zone": (2597, 2937, 2687, 3037), "target": "House2", "player_x": 620, "player_y": 575},
-            {"zone": (2787, 627, 2877, 717), "target": "House3", "player_x": 620, "player_y": 575}
+            {"zone": (2787, 627, 2877, 717), "target": "House3", "player_x": 620, "player_y": 575},
+            {"zone": (2980, 2739, 3070, 2829), "target": "House4", "player_x": 900, "player_y": 1160},
+            {"zone": (3457, 1427, 3547, 1487), "target": "House5", "player_x": 900, "player_y": 1160},
+            {"zone": (977, 657, 1047, 727), "target": "House6", "player_x": 830, "player_y": 1070}
         ]
     },
     "Eryndor Castle": {
@@ -635,7 +701,7 @@ map_configs = {
 
     "House1": {
         "map_image_path": R".\Backgrounds\playerhouse.png",
-        "npcs": [],
+        "npcs": [house1_npc],
         "enemies": [],
         "map_scale_factor": 3,
         "bgm": None,
@@ -649,7 +715,7 @@ map_configs = {
 
     "House2": {
         "map_image_path": R".\Backgrounds\FriendsHouse.png",
-        "npcs": [],
+        "npcs": [house2_npc],
         "enemies": [],
         "map_scale_factor": 3,
         "bgm": None,
@@ -663,7 +729,7 @@ map_configs = {
 
     "House3": {
         "map_image_path": R".\Backgrounds\FriendsHouse.png",
-        "npcs": [],
+        "npcs": [house3_npc],
         "enemies": [],
         "map_scale_factor": 3,
         "bgm": None,
@@ -674,4 +740,44 @@ map_configs = {
             {"zone": (590, 600, 685, 653), "target": "Eryndor", "player_x": 2837, "player_y": 767}
         ]
     },
+    "House4": {
+        "map_image_path": R".\Backgrounds\house2.png",
+        "npcs": [house4_npc],
+        "enemies": [],
+        "map_scale_factor": 3,
+        "bgm": None,
+        "allow_encounters": False,
+        "encounter_rate": 0,
+        "layer_json_path": R"Backgrounds\house2\house2.json",
+        "transitions": [
+            {"zone": (870, 1265, 930, 1315), "target": "Eryndor", "player_x": 3020, "player_y": 2869}
+        ]
+    },
+    "House5": {
+        "map_image_path": R".\Backgrounds\house2.png",
+        "npcs": [house5_npc],
+        "enemies": [],
+        "map_scale_factor": 3,
+        "bgm": None,
+        "allow_encounters": False,
+        "encounter_rate": 0,
+        "layer_json_path": R"Backgrounds\house2\house2.json",
+        "transitions": [
+            {"zone": (870, 1265, 930, 1315), "target": "Eryndor", "player_x": 3507, "player_y": 1537}
+        ]
+    },
+    "House6": {
+        "map_image_path": R".\Backgrounds\house1.png",
+        "npcs": [house6_npc],
+        "enemies": [],
+        "map_scale_factor": 3,
+        "bgm": None,
+        "allow_encounters": False,
+        "encounter_rate": 0,
+        "layer_json_path": R"Backgrounds\house1\house1.json",
+        "transitions": [
+            {"zone": (800, 1120, 860, 1170), "target": "Eryndor", "player_x": 1007, "player_y": 757}
+        ]
+ 
+   },
 }
