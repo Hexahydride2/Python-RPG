@@ -56,7 +56,7 @@ while running:
             no_map_change = False
    
 
-        if target_map_id == "guild" and events_progress["guild_scene"] == False:
+        if target_map_id == "Guild" and events_progress["guild_scene"] == False:
             guild_scene(screen, player_party)
             player_party.leader.x = 2157
             player_party.leader.y = 1937
@@ -84,43 +84,43 @@ while running:
                     )
                 player_party.add_member(Finn)    
 
-        elif target_map_id == "castle" and events_progress["the_princess_in_peril_scene"] == False:
+        elif target_map_id == "Eryndor Castle" and events_progress["the_princess_in_peril_scene"] == False:
             castle_entrance_denial_scene(screen, player_party)
-            current_map = game_manager.load_map("castle_town", screen, player_party)
+            current_map = game_manager.load_map("Eryndor", screen, player_party)
             player_party.leader.x = 1870
             player_party.leader.y = 340
             player_party.leader.current_direction = "down"
-        elif target_map_id == "lost_forest" and events_progress["guild_scene"] == False:
+        elif target_map_id == "Lost Forest" and events_progress["guild_scene"] == False:
             lost_forest_entrance_denial_scene(screen, player_party)
-            current_map = game_manager.load_map("forest", screen, player_party)
+            current_map = game_manager.load_map("Forest", screen, player_party)
             player_party.leader.x = 2690
             player_party.leader.y = 1450
             player_party.leader.current_direction = "left"
-        elif target_map_id == "castle_town" and player_party.guild_rank == "B" and events_progress["the_arrogant_stranger_scene"] == False:
+        elif target_map_id == "Eryndor" and player_party.guild_rank == "B" and events_progress["the_arrogant_stranger_scene"] == False:
             the_arrogant_stranger_scene(screen, player_party)
             player_party.leader.x = 997
             player_party.leader.y = 2917
             events_progress["the_arrogant_stranger_scene"] = True
-        elif target_map_id == "forest" and events_progress["the_arrogant_stranger_scene"] and events_progress["introduction_to_saving_princess"] == False:
+        elif target_map_id == "Forest" and events_progress["the_arrogant_stranger_scene"] and events_progress["introduction_to_saving_princess"] == False:
             introduction_to_saving_princess(screen, player_party)
             events_progress["introduction_to_saving_princess"] = True
-        elif target_map_id == "lost_forest" and events_progress["introduction_to_saving_princess"] and events_progress["the_princess_in_peril_scene"] == False:
+        elif target_map_id == "Lost Forest" and events_progress["introduction_to_saving_princess"] and events_progress["the_princess_in_peril_scene"] == False:
             scene_done = the_princess_in_peril_scene(screen, player_party)
             if scene_done:
                 player_party.leader.current_direction = "right"
                 player_party.leader.x = 550
                 player_party.leader.y = 1650
                 events_progress["the_princess_in_peril_scene"] = True
-        elif target_map_id == "castle_3F" and events_progress["the_dilemma_of_king_scene"] == False:
+        elif target_map_id == "Eryndor Castle 3F" and events_progress["the_dilemma_of_king_scene"] == False:
             the_dilemma_of_king_scene(screen, player_party)
-            current_map = game_manager.load_map("castle_1F", screen, player_party)
+            current_map = game_manager.load_map("Eryndor Castle 1F", screen, player_party)
             player_party.leader.x = 1480
             player_party.leader.y = 1709
             player_party.leader.current_direction = "down"
             events_progress["the_dilemma_of_king_scene"] = True
-        elif target_map_id == "castle_3F" and events_progress["the_stone_cave_crisis_scene"] == False:
+        elif target_map_id == "Eryndor Castle 3F" and events_progress["the_stone_cave_crisis_scene"] == False:
             the_castle_3F_entrance_denial_scene(screen, player_party)
-            current_map = game_manager.load_map("castle_1F", screen, player_party)
+            current_map = game_manager.load_map("Eryndor Castle 1F", screen, player_party)
             player_party.leader.x = 1480
             player_party.leader.y = 1709
             player_party.leader.current_direction = "down"
@@ -131,7 +131,7 @@ while running:
                 player_party.leader.x = 550
                 player_party.leader.y = 760
                 events_progress["the_stone_cave_crisis_scene"] = True
-        elif no_map_change and target_map_id == "castle_3F" and events_progress["the_stone_cave_crisis_scene"] and events_progress["meeting_the_king_scene"] == False:
+        elif no_map_change and target_map_id == "Eryndor Castle 3F" and events_progress["the_stone_cave_crisis_scene"] and events_progress["meeting_the_king_scene"] == False:
             meeting_the_king_scene(screen, player_party)
             events_progress["meeting_the_king_scene"] = True
             player_party.leader.current_direction = "down"
