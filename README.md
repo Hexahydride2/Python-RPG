@@ -94,6 +94,10 @@ The battle system features turn-based combat with the following elements:
 - **Victory Rewards:** Experience points, gold, and item drops
 - **Dynamic Difficulty:** Enemy strength scales with player progression
 
+## Gameplay Demonstrations
+![Battle Demonstration](demonstration(battle).mp4)
+
+
 ## Credits
 
 - **Development Team:** Gabriel Paquette and Reyia Ihara
