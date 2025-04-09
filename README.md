@@ -95,8 +95,14 @@ The battle system features turn-based combat with the following elements:
 - **Dynamic Difficulty:** Enemy strength scales with player progression
 
 ## Gameplay Demonstrations
-![Battle Demonstration](demonstration(battle).mp4)
+**Battle Demonstration**
+![](VideoDemos\demonstration(battle).mp4)
 
+**NPC hitbox reg + drawing**
+![](VideoDemos\demonstration(npc-hit-box-and-drawing-order-system).mp4)
+
+**Transition Zones, Barriers, Talking to NPCs**
+![](VideoDemos\demonstration(transition-zone,-wall-hit-box,-and-communication-with-a-npc).mp4)
 
 ## Credits
 
