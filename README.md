@@ -98,15 +98,15 @@ The battle system features turn-based combat with the following elements:
 
 **Battle Demonstration**
 
-![](.\VideoDemos\demonstration(battle).mp4)
+![](demonstration(battle).mp4)
 
 **NPC hitbox reg + drawing**
 
-![](.\VideoDemos\demonstration(npc-hit-box-and-drawing-order-system).mp4)
+![](demonstration(npc-hit-box-and-drawing-order-system).mp4)
 
 **Transition Zones, Barriers, Talking to NPCs**
 
-![](.\VideoDemos\demonstration(transition-zone,-wall-hit-box,-and-communication-with-a-npc).mp4)
+![](demonstration(transition-zone,-wall-hit-box,-and-communication-with-a-npc).mp4)
 
 ## Credits
 
