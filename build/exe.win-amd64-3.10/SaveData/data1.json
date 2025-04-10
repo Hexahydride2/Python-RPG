@@ -1,35 +1,35 @@
 {
-    "current_map": "stone_cave",
+    "current_map": "Eryndor",
     "party_data": [
         {
             "name": "Gabe",
-            "x": 2480,
-            "y": 650,
-            "level": 13,
-            "hp": 227,
-            "max_hp": 227,
-            "mp": 102,
-            "max_mp": 102,
-            "atk": 62,
-            "dfn": 52.0,
-            "spd": 22,
+            "x": 1897,
+            "y": 837,
+            "level": 12,
+            "hp": 217,
+            "max_hp": 217,
+            "mp": 99,
+            "max_mp": 99,
+            "atk": 58,
+            "dfn": 51.0,
+            "spd": 21,
             "inventory": {
                 "Potion": 2,
-                "Mana Crystal": 2,
+                "Mana Crystal": 3,
                 "Slime Gel": 19,
-                "Herb": 49,
-                "Phoenix Feather": 4,
-                "Flame Essence": 2,
+                "Herb": 47,
+                "Phoenix Feather": 3,
+                "Flame Essence": 1,
                 "Minotaur Horn": 4,
                 "Bat Wing": 6,
-                "Snake Skin": 13,
-                "Venom Sack": 2,
+                "Snake Skin": 8,
+                "Venom Sack": 1,
                 "Spider Silk": 1,
                 "Beast Hide": 3,
                 "Cheese": 1,
                 "Honey": 2
             },
-            "gold": 20400,
+            "gold": 17150,
             "skills": [
                 "Strike",
                 "Power Cleave",
@@ -40,28 +40,27 @@
                 "Piercing Shot",
                 "Flame Slash",
                 "Earthen Spike",
-                "Ice Shard",
-                "Inferno Burst"
+                "Ice Shard"
             ],
             "folder_paths": [
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
                 "tf_svbattle\\singleframes\\set1\\1"
             ],
-            "exp": 57,
+            "exp": 405,
             "scale_factor": 1
         },
         {
             "name": "Finn",
             "x": 630,
             "y": 200,
-            "level": 11,
-            "hp": 196,
-            "max_hp": 218,
-            "mp": 41,
-            "max_mp": 136,
-            "atk": 60,
-            "dfn": 32,
-            "spd": 38,
+            "level": 10,
+            "hp": 207,
+            "max_hp": 209,
+            "mp": 132,
+            "max_mp": 132,
+            "atk": 58,
+            "dfn": 29,
+            "spd": 37,
             "inventory": {},
             "gold": 100,
             "skills": [
@@ -71,19 +70,18 @@
                 "Glass Storm",
                 "Earth Smash",
                 "Explosive Arrow",
-                "Ice Shard",
-                "Earthen Spike"
+                "Ice Shard"
             ],
             "folder_paths": [
                 "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara2_1",
                 "tf_svbattle\\singleframes\\set2\\1"
             ],
-            "exp": 917,
+            "exp": 825,
             "scale_factor": 3
         }
     ],
     "party_rank": "B",
-    "guild_point": 110,
+    "guild_point": 50,
     "current_quests": [],
     "events_progress": {
         "guild_scene": true,

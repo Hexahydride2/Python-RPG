@@ -1,0 +1,45 @@
+{
+    "current_map": "Hearthaven Village",
+    "party_data": [
+        {
+            "name": "Reiya",
+            "x": 1200,
+            "y": 570,
+            "level": 1,
+            "hp": 100,
+            "max_hp": 100,
+            "mp": 50,
+            "max_mp": 50,
+            "atk": 20,
+            "dfn": 20,
+            "spd": 5,
+            "inventory": {
+                "Potion": 3,
+                "Mana Crystal": 3
+            },
+            "gold": 100,
+            "skills": [
+                "Strike",
+                "Power Cleave"
+            ],
+            "folder_paths": [
+                "timefantasy_characters\\timefantasy_characters\\frames\\chara\\chara1_1",
+                "tf_svbattle\\singleframes\\set1\\1"
+            ],
+            "exp": 0,
+            "scale_factor": 1
+        }
+    ],
+    "party_rank": "C",
+    "guild_point": 0,
+    "current_quests": [],
+    "events_progress": {
+        "guild_scene": false,
+        "the_arrogant_stranger_scene": false,
+        "introduction_to_saving_princess": false,
+        "the_princess_in_peril_scene": false,
+        "the_dilemma_of_king_scene": false,
+        "the_stone_cave_crisis_scene": false,
+        "meeting_the_king_scene": false
+    }
+}

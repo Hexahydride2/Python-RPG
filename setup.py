@@ -38,7 +38,7 @@ build_exe_options = {
 
 setup(
     name="DragonQuest",
-    version="1.0",
+    version="1.1",
     description="Dragon Quest Game",
     options={"build_exe": build_exe_options},
     executables=[Executable("main.py", base="Win32GUI", icon="icons/dialog.png")]
