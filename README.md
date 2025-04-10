@@ -30,11 +30,8 @@ Group1 Dragon Quest is a turn-based RPG game that captures the nostalgic essence
 ## Prerequisites
 
 - **Python 3.6+**
-- **Pygame**  
-  Install via:
-  ```bash
-  pip install pygame
-  ```
+- **Pygame**
+- **Numpy**
 
 ## Installation
 
@@ -50,7 +47,7 @@ cd group1-dragonquest
 
 Install dependencies:
 ```bash
-pip install pygame
+pip install pygame, numpy
 ```
 
 ## Usage
@@ -58,11 +55,6 @@ pip install pygame
 Run the main game file:
 ```bash
 python main.py
-```
-
-For testing specific components, use the proof-of-concept file:
-```bash
-python poc.py
 ```
 
 ## Controls
